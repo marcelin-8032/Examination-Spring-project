@@ -5,6 +5,7 @@ import com.cegefos.tp2.enums.Classe;
 import com.cegefos.tp2.enums.Module;
 import com.cegefos.tp2.repository.*;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -171,6 +172,7 @@ class CreateTestDemo {
 	}
 
 	@Test
+	@Disabled
 	void createTwoSallesThatInsertImediatelyIntoDB() {
 
 		Salle salleX1 = new Salle(1354);
