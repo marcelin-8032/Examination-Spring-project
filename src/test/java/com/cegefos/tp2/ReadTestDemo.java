@@ -19,7 +19,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -83,10 +82,10 @@ class ReadTestDemo {
 
     @Test
     void findMatieresThatCoefficientIsBiggerThanSpecificCoefficient() {
-//        matiereRepository.findByCoefficientGreaterThan(160).forEach(System.out::println);
+       matiereRepository.findByCoefficientGreaterThan(160).forEach(System.out::println);
 //        matiereRepository.findByCoefficientGreaterThan(170).forEach(System.out::println);
 //        matiereRepository.findByCoefficientGreaterThan(180).forEach(System.out::println);
-        matiereRepository.findByCoefficientGreaterThan(199).forEach(System.out::println);
+     //   matiereRepository.findByCoefficientGreaterThan(199).forEach(System.out::println);
     }
 
 
@@ -113,9 +112,47 @@ class ReadTestDemo {
         Salle salle1255 = salleRepository.findById(11).get();
         Salle salle1256 = salleRepository.findById(12).get();
 
-        //  examenRepository.findTopBySalleOrderByDateExamDesc(salle1254).forEach(System.out::println);
-        examenRepository.findTopBySalleOrderByDateExamDesc(salle1256).forEach(System.out::println);
+        examenRepository.findTopBySalleOrderByDateExamDesc(salle1254).forEach(System.out::println);
+      //  examenRepository.findTopBySalleOrderByDateExamDesc(salle1256).forEach(System.out::println);
 
+
+    }
+
+
+    /************************************** Query method**********************************************/
+    @Test
+    void findExamsAtSpecificDateQueryWay() {
+        examenRepository.findExamensAsDateExamQuery(examDate1).forEach(System.out::println);
+    }
+
+    @Test
+    void findStudentByEachClassQueryWay() {
+        etudiantRepository.findStudentsAsClasse(Classe.classeA).forEach(System.out::println);
+    }
+
+
+    @Test
+    void findMatieresTheCoefficientQueryWay() {
+         //  matiereRepository.findByCoefficient(160).forEach(System.out::println);
+       //matiereRepository.findByCoefficient(170).forEach(System.out::println);
+       //matiereRepository.findByCoefficient(180).forEach(System.out::println);
+     matiereRepository.findByCoefficient(199).forEach(System.out::println);
+    }
+
+
+    @Test
+    void findExamensAtSallAndDateQueryWay() {
+        examenRepository.findSalleAndDateExamQuery(10, examDate1).forEach(System.out::println);
+        examenRepository.findSalleAndDateExamQuery(11, examDate1).forEach(System.out::println);
+        examenRepository.findSalleAndDateExamQuery(12, examDate1).forEach(System.out::println);
+    }
+
+
+
+    @Test
+    void findExamensAtTopDataAtSalle() {
+        examenRepository.findExamensAtRecentDateQuery(10).forEach(System.out::println);
+       examenRepository.findExamensAtRecentDateQuery(11).forEach(System.out::println);
 
     }
 

@@ -1,7 +1,9 @@
 package com.cegefos.tp2.repository;
 
 import com.cegefos.tp2.entity.Salle;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.cegefos.tp2.entity.Examen;
@@ -21,5 +23,16 @@ public interface ExamenRepository extends CrudRepository<Examen, Integer> {
 
     Collection<Examen> findTopBySalleOrderByDateExamDesc(Salle salle);
 
+    /********************************  -------------------------Query methods------------------***************/
+    @Query(value = "SELECT * FROM examens e WHERE e.date_exam=:date_exam", nativeQuery = true)
+    Collection<Examen> findExamensAsDateExamQuery(@Param("date_exam") Date date_exam);
+
+    @Query(value = "SELECT * FROM examens e INNER JOIN salle s ON  e.salle_id=s.salle_id " +
+            " WHERE e.salle_id=:salle_id AND e.date_exam > :date_exam", nativeQuery = true)
+    Collection<Examen> findSalleAndDateExamQuery(@Param("salle_id") Integer salle_id, @Param("date_exam") Date dateExam);
+
+    @Query(value = "SELECT * FROM examens e INNER JOIN salle s ON e.salle_id=s.salle_id " +
+            "WHERE e.salle_id=:salle_id ORDER BY date_exam DESC LIMIT 1", nativeQuery = true)
+    Collection<Examen> findExamensAtRecentDateQuery(@Param("salle_id") Integer salle_id);
 
 }
