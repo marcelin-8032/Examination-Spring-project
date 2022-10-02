@@ -12,6 +12,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.text.DateFormat;
@@ -82,10 +87,10 @@ class ReadTestDemo {
 
     @Test
     void findMatieresThatCoefficientIsBiggerThanSpecificCoefficient() {
-       matiereRepository.findByCoefficientGreaterThan(160).forEach(System.out::println);
+        matiereRepository.findByCoefficientGreaterThan(160).forEach(System.out::println);
 //        matiereRepository.findByCoefficientGreaterThan(170).forEach(System.out::println);
 //        matiereRepository.findByCoefficientGreaterThan(180).forEach(System.out::println);
-     //   matiereRepository.findByCoefficientGreaterThan(199).forEach(System.out::println);
+        //   matiereRepository.findByCoefficientGreaterThan(199).forEach(System.out::println);
     }
 
 
@@ -113,7 +118,7 @@ class ReadTestDemo {
         Salle salle1256 = salleRepository.findById(12).get();
 
         examenRepository.findTopBySalleOrderByDateExamDesc(salle1254).forEach(System.out::println);
-      //  examenRepository.findTopBySalleOrderByDateExamDesc(salle1256).forEach(System.out::println);
+        //  examenRepository.findTopBySalleOrderByDateExamDesc(salle1256).forEach(System.out::println);
 
 
     }
@@ -133,10 +138,10 @@ class ReadTestDemo {
 
     @Test
     void findMatieresTheCoefficientQueryWay() {
-         //  matiereRepository.findByCoefficient(160).forEach(System.out::println);
-       //matiereRepository.findByCoefficient(170).forEach(System.out::println);
-       //matiereRepository.findByCoefficient(180).forEach(System.out::println);
-     matiereRepository.findByCoefficient(199).forEach(System.out::println);
+        //  matiereRepository.findByCoefficient(160).forEach(System.out::println);
+        //matiereRepository.findByCoefficient(170).forEach(System.out::println);
+        //matiereRepository.findByCoefficient(180).forEach(System.out::println);
+        matiereRepository.findByCoefficient(199).forEach(System.out::println);
     }
 
 
@@ -148,11 +153,29 @@ class ReadTestDemo {
     }
 
 
-
     @Test
     void findExamensAtTopDataAtSalle() {
         examenRepository.findExamensAtRecentDateQuery(10).forEach(System.out::println);
-       examenRepository.findExamensAtRecentDateQuery(11).forEach(System.out::println);
+        examenRepository.findExamensAtRecentDateQuery(11).forEach(System.out::println);
+    }
+
+    /********************************  -------------------------Pagination and sorting methods------------------***************/
+    @Test
+    void findAllExamsInPageAndSorted() {
+        Pageable page = PageRequest.of(0, 2, Sort.Direction.ASC, "examen_id");
+        Page<Examen> examens = examenRepository.findAllExamens(page);
+        examens.forEach(System.out::println);
+    }
+
+
+    @Test
+    void findExamensBySurveillant() {
+        Pageable page = PageRequest.of(0, 3, Sort.Direction.DESC, "date_exam");
+        Page<Examen> examens = examenRepository.findBysurveillant(8, page);
+        examens.forEach(System.out::println);
+
+        /**************************Le nombre total des pages.*****************************/
+        System.out.println(examens.getTotalPages());
 
     }
 

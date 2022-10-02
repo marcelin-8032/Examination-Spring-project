@@ -26,7 +26,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name="sureillant")
+@Table(name="surveillant")
 public class Surveillant implements Serializable{
 
 	/**
@@ -41,7 +41,7 @@ public class Surveillant implements Serializable{
 	@Column
     private String nom;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "sureillant")
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "surveillant")
 	private Set<Examen> examens=new HashSet<>();
 	
 	public Surveillant(String nom) {

@@ -45,15 +45,15 @@ public class Examen implements Serializable {
     private Salle salle;
 
     @ManyToOne
-    @JoinColumn(name = "sureillant_id")
-    private Surveillant sureillant;
+    @JoinColumn(name = "surveillant_id")
+    private Surveillant surveillant;
     
-    public Examen(Date dateExam, Matiere matiere, Salle salle, Surveillant sureillant) {
+    public Examen(Date dateExam, Matiere matiere, Salle salle, Surveillant surveillant) {
         super();
         this.dateExam = dateExam;
         this.matiere = matiere;
         this.salle = salle;
-        this.sureillant = sureillant;
+        this.surveillant = surveillant;
     }
 
 
@@ -64,7 +64,7 @@ public class Examen implements Serializable {
                 ", dateExam=" + dateExam +
                 ", matiere=" + matiere +
                 ", salle=" + salle +
-                ", sureillant=" + sureillant +
+                ", sureillant=" + surveillant +
                 '}';
     }
 }

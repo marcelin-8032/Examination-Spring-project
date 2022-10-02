@@ -1,6 +1,8 @@
 package com.cegefos.tp2.repository;
 
 import com.cegefos.tp2.entity.Salle;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -34,5 +36,16 @@ public interface ExamenRepository extends CrudRepository<Examen, Integer> {
     @Query(value = "SELECT * FROM examens e INNER JOIN salle s ON e.salle_id=s.salle_id " +
             "WHERE e.salle_id=:salle_id ORDER BY date_exam DESC LIMIT 1", nativeQuery = true)
     Collection<Examen> findExamensAtRecentDateQuery(@Param("salle_id") Integer salle_id);
+
+
+    /********************************  -------------------------Pagination and sorting methods------------------***************/
+    @Query(value = "SELECT * FROM examens", countQuery = "SELECT COUNT(*) FROM examens", nativeQuery = true)
+    Page<Examen> findAllExamens(Pageable pageable);
+
+
+   @Query(value = "SELECT * FROM examens e WHERE e.surveillant_id=:surveillant_id",
+           countQuery = "SELECT COUNT(*) FROM examens e WHERE e.surveillant_id=:surveillant_id", nativeQuery = true)
+   Page<Examen> findBysurveillant(@Param("surveillant_id")Integer surveillant_id, Pageable pageable);
+
 
 }
