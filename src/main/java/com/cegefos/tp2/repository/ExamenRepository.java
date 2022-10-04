@@ -39,7 +39,7 @@ public interface ExamenRepository extends CrudRepository<Examen, Integer> {
 
 
     /********************************  -------------------------Pagination and sorting methods------------------***************/
-    @Query(value = "SELECT * FROM examens", countQuery = "SELECT COUNT(*) FROM examens", nativeQuery = true)
+    @Query(value = "SELECT * FROM examens", nativeQuery = true)
     Page<Examen> findAllExamens(Pageable pageable);
 
 

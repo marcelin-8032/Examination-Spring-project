@@ -1,6 +1,7 @@
 package com.cegefos.tp2;
 
 import com.cegefos.tp2.entity.Examen;
+import com.cegefos.tp2.entity.Matiere;
 import com.cegefos.tp2.entity.Salle;
 import com.cegefos.tp2.enums.Classe;
 import com.cegefos.tp2.repository.EtudiantRepository;
@@ -12,10 +13,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.data.domain.*;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -24,6 +23,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.exact;
+import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.contains;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -99,13 +104,7 @@ class ReadTestDemo {
         Salle salle1254 = salleRepository.findById(10).get();
         Salle salle1255 = salleRepository.findById(11).get();
         Salle salle1256 = salleRepository.findById(12).get();
-//        List<Salle> salleList = (List<Salle>) salleRepository.findAll();
-//
-//        salleList.stream().filter(i->i.getSalleId()).collect(Collection)
-//        for (Salle salle : salleList) {
-//
-//
-//        }
+
         examenRepository.findBySalleAndDateExamGreaterThan(salle1254, examDate1).forEach(System.out::println);
         //  examenRepository.findBySalleAndDateExamGreaterThan(salle1255, examDate1).forEach(System.out::println);
         //  examenRepository.findBySalleAndDateExamGreaterThan(salle1256, examDate1).forEach(System.out::println);
@@ -120,7 +119,6 @@ class ReadTestDemo {
         examenRepository.findTopBySalleOrderByDateExamDesc(salle1254).forEach(System.out::println);
         //  examenRepository.findTopBySalleOrderByDateExamDesc(salle1256).forEach(System.out::println);
 
-
     }
 
 
@@ -134,7 +132,6 @@ class ReadTestDemo {
     void findStudentByEachClassQueryWay() {
         etudiantRepository.findStudentsAsClasse(Classe.classeA).forEach(System.out::println);
     }
-
 
     @Test
     void findMatieresTheCoefficientQueryWay() {
@@ -177,6 +174,43 @@ class ReadTestDemo {
         /**************************Le nombre total des pages.*****************************/
         System.out.println(examens.getTotalPages());
 
+    }
+
+    /********************************  -------------------------Query By Example------------------***************/
+
+    @Test
+    void findMatiereByExample() {
+        var matiere = new Matiere("Physique", 164, null);
+
+        matiereRepository.findOne(Example.of(matiere));
+    }
+
+    /********************************  -------------------------Optional- QBE-----------------***************/
+    @Test
+    void findMatiereOptionalQBEMethod_E3_2a() {
+        var matiere = new Matiere();
+        matiere.setCoefficient(175);
+
+        var matcher = ExampleMatcher.matching().withMatcher("coefficient", exact());
+        var matiereExampleCoeff = Example.of(matiere, matcher);
+
+        Optional<Matiere> matiereOptional1 = matiereRepository.findOne(matiereExampleCoeff);
+        matiereOptional1.ifPresent(System.out::println);
+    }
+
+    @Test
+    void findMatiereOptionalQBEMethod_E3_2b() {
+        var matiere = new Matiere();
+        matiere.setCoefficient(200);
+        matiere.setIntitule("DATA");
+
+        var matcher = ExampleMatcher.matchingAll().withIgnoreCase();
+
+        var matiereExampleIntitule = Example.of(matiere, matcher);
+
+        Optional<Matiere> matiereOptional2 = matiereRepository.findOne(matiereExampleIntitule);
+
+        matiereOptional2.ifPresent(System.out::println);
     }
 
 
