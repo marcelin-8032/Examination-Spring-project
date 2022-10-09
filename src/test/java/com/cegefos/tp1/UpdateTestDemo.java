@@ -1,9 +1,9 @@
-package com.cegefos.tp2;
+package com.cegefos.tp1;
 
-import com.cegefos.tp2.entity.Matiere;
-import com.cegefos.tp2.entity.Salle;
-import com.cegefos.tp2.repository.MatiereRepository;
-import com.cegefos.tp2.repository.SalleRepository;
+import com.cegefos.tp1.entity.Matiere;
+import com.cegefos.tp1.entity.Salle;
+import com.cegefos.tp1.repository.MatiereRepository;
+import com.cegefos.tp1.repository.SalleRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;

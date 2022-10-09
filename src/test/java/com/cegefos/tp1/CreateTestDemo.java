@@ -1,9 +1,9 @@
-package com.cegefos.tp2;
+package com.cegefos.tp1;
 
-import com.cegefos.tp2.entity.*;
-import com.cegefos.tp2.enums.Classe;
-import com.cegefos.tp2.enums.Module;
-import com.cegefos.tp2.repository.*;
+import com.cegefos.tp1.entity.*;
+import com.cegefos.tp1.enums.Classe;
+import com.cegefos.tp1.enums.Module;
+import com.cegefos.tp1.repository.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

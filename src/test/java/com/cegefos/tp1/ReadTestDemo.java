@@ -1,21 +1,19 @@
-package com.cegefos.tp2;
+package com.cegefos.tp1;
 
-import com.cegefos.tp2.entity.Examen;
-import com.cegefos.tp2.entity.Matiere;
-import com.cegefos.tp2.entity.Salle;
-import com.cegefos.tp2.enums.Classe;
-import com.cegefos.tp2.repository.EtudiantRepository;
-import com.cegefos.tp2.repository.ExamenRepository;
-import com.cegefos.tp2.repository.MatiereRepository;
-import com.cegefos.tp2.repository.SalleRepository;
+import com.cegefos.tp1.entity.Examen;
+import com.cegefos.tp1.entity.Matiere;
+import com.cegefos.tp1.entity.Salle;
+import com.cegefos.tp1.enums.Classe;
+import com.cegefos.tp1.repository.EtudiantRepository;
+import com.cegefos.tp1.repository.ExamenRepository;
+import com.cegefos.tp1.repository.MatiereRepository;
+import com.cegefos.tp1.repository.SalleRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.*;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.text.DateFormat;
@@ -23,12 +21,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.exact;
-import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.contains;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

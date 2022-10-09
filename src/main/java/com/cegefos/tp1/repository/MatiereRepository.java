@@ -1,15 +1,13 @@
-package com.cegefos.tp2.repository;
+package com.cegefos.tp1.repository;
 
-import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.cegefos.tp2.entity.Matiere;
+import com.cegefos.tp1.entity.Matiere;
 
 import java.util.Collection;
-import java.util.Optional;
 
 @Repository
 public interface MatiereRepository extends JpaRepository<Matiere, Integer> {

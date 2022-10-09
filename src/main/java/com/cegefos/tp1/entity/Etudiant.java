@@ -1,14 +1,12 @@
-package com.cegefos.tp2.entity;
+package com.cegefos.tp1.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
 
-import com.cegefos.tp2.enums.Classe;
+import com.cegefos.tp1.enums.Classe;
 
 import lombok.*;
 

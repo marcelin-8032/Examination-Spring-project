@@ -1,4 +1,4 @@
-package com.cegefos.tp2.enums;
+package com.cegefos.tp1.enums;
 
 import lombok.ToString;
 

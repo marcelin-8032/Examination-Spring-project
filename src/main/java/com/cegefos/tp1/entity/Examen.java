@@ -1,14 +1,10 @@
-package com.cegefos.tp2.entity;
+package com.cegefos.tp1.entity;
 
 import java.io.Serializable;
 import java.util.*;
 
 import javax.persistence.*;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

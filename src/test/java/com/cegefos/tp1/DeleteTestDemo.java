@@ -1,8 +1,8 @@
-package com.cegefos.tp2;
+package com.cegefos.tp1;
 
-import com.cegefos.tp2.entity.Examen;
-import com.cegefos.tp2.repository.ExamenRepository;
-import com.cegefos.tp2.repository.SalleRepository;
+import com.cegefos.tp1.entity.Examen;
+import com.cegefos.tp1.repository.ExamenRepository;
+import com.cegefos.tp1.repository.SalleRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
