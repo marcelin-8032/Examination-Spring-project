@@ -14,7 +14,7 @@ public class SurveillantServiceImpl implements SurveillantService {
 	private SurveillantRepository surveillantRepository;
 
 	@Override
-	public void createEtudiant(Surveillant surveillant) {
+	public void createSurveillant(Surveillant surveillant) {
 		surveillantRepository.save(surveillant);
 
 	}

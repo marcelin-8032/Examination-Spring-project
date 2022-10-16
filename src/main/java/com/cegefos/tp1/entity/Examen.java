@@ -5,6 +5,7 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,19 +32,20 @@ public class Examen implements Serializable {
     @ManyToMany(mappedBy = "examens")
     private Set<Etudiant> etudiants = new HashSet<>();
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "matiere_id")
     private Matiere matiere;
 
-
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "salle_id")
     private Salle salle;
-
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "surveillant_id")
     private Surveillant surveillant;
-    
+
     public Examen(Date dateExam, Matiere matiere, Salle salle, Surveillant surveillant) {
         super();
         this.dateExam = dateExam;

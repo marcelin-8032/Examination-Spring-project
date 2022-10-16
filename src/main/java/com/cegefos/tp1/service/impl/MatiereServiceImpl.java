@@ -63,7 +63,7 @@ public class MatiereServiceImpl implements MatiereService {
 	}
 
 	@Override
-	public Optional<Matiere> getMatiereByTitleWithIgonoreCase(Example example) {
+	public Optional<Matiere> getMatiereByTitleWithIgnoreCase(Example example) {
 
 		 var matiere = new Matiere();
 	        matiere.setCoefficient(200);

@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 import com.cegefos.tp1.enums.Classe;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 @Getter
@@ -33,7 +34,7 @@ public class Etudiant implements Serializable {
     @Column
     private Classe classe;
 
-
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "etudiants_examens", joinColumns = {@JoinColumn(name = "examen_id")}, inverseJoinColumns = {
             @JoinColumn(name = "etudiant_id")})

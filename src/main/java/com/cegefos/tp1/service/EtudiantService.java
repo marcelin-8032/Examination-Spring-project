@@ -8,6 +8,9 @@ import com.cegefos.tp1.enums.Classe;
 public interface EtudiantService {
 
 	void createEtudiant(Etudiant etudiant);
-	
+
+	Collection<Etudiant> findEtudiants();
+
 	Collection<Etudiant> findEtudiantByClasse(Classe classe);
+
 }

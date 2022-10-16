@@ -15,10 +15,10 @@ public interface MatiereService {
 	
 	Collection<Matiere> getMatieresGreaterThanACoefficient(int coefficient);
 	
-	Optional<Matiere> getMatiereByExample(Example example);
+	Optional<Matiere> getMatiereByExample(Example<?> example);
 	
-	Optional<Matiere> getMatiereByCoefficent(Example example);
+	Optional<Matiere> getMatiereByCoefficent(Example<?> example);
 	
-	Optional<Matiere> getMatiereByTitleWithIgonoreCase(Example example);
+	Optional<Matiere> getMatiereByTitleWithIgnoreCase(Example<?> example);
 	
 }

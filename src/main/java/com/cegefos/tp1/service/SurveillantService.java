@@ -4,5 +4,5 @@ import com.cegefos.tp1.entity.Surveillant;
 
 public interface SurveillantService {
 
-	void createEtudiant(Surveillant surveillant);
+	void createSurveillant(Surveillant surveillant);
 }
