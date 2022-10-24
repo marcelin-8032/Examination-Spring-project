@@ -1,6 +1,8 @@
 package com.cegefos.tp1.service.impl;
 
 import com.cegefos.tp1.entity.Matiere;
+import com.cegefos.tp1.entity.QMatiere;
+import com.cegefos.tp1.enums.Module;
 import com.cegefos.tp1.repository.MatiereRepository;
 
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.exact;
@@ -14,6 +16,7 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import com.cegefos.tp1.service.MatiereService;
+import com.querydsl.core.types.dsl.BooleanExpression;
 
 @Service
 public class MatiereServiceImpl implements MatiereService {
@@ -42,6 +45,8 @@ public class MatiereServiceImpl implements MatiereService {
 	public Collection<Matiere> getMatieresGreaterThanACoefficient(int coefficient) {
 		return matiereRepository.findByCoefficientGreaterThan(coefficient);
 	}
+
+	
 
 	@Override
 	public Optional<Matiere> getMatiereByExample(Example example) {
@@ -75,9 +80,41 @@ public class MatiereServiceImpl implements MatiereService {
 		
 		return matiereRepository.findOne(example);
 	}
-	
-	
-	
+
+	@Override
+	public Collection<Matiere> getMatiereCoeffBiggerIntituleEqDataModuleEq2(int coeff, Module module) {
+		QMatiere qMatiere=new QMatiere("matiere");
+		BooleanExpression filterByCoeff=qMatiere.coefficient.gt(coeff);
+		BooleanExpression filterByIntitule=qMatiere.intitule.contains("data");
+		BooleanExpression filterByModule=qMatiere.module.eq(module);
+		
+		return (Collection<Matiere>) matiereRepository.findAll(filterByCoeff.and(filterByIntitule).and(filterByModule));
+	}
+
+	@Override
+	public Collection<Matiere> getAllMatieres() {
+		return matiereRepository.findAll();
+	}
+
+	@Override
+	public Collection<Matiere> getMatiereCoeffBiggerThanModuleEq2(int coeff, Module module) {
+		
+		QMatiere qMatiere=new QMatiere("matiere");
+		BooleanExpression filterByCoeff=qMatiere.coefficient.gt(coeff);
+		BooleanExpression filterByModule=qMatiere.module.eq(module);
+		
+		return (Collection<Matiere>) matiereRepository.findAll(filterByCoeff.and(filterByModule));
+	}
+
+	@Override
+	public Collection<Matiere> getMatiereIntituleEqDataModuleEq2(Module module) {
+		QMatiere qMatiere=new QMatiere("matiere");
+		BooleanExpression filterByIntitule=qMatiere.intitule.contains("data");
+		BooleanExpression filterByModule=qMatiere.module.eq(module);
+		
+		return (Collection<Matiere>) matiereRepository.findAll(filterByIntitule.and(filterByModule));
+	}
+
 	
 
 }

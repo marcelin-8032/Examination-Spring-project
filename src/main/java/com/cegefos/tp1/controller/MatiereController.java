@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cegefos.tp1.entity.Matiere;
 import com.cegefos.tp1.service.MatiereService;
+import com.cegefos.tp1.enums.Module;
 
 @RestController
 @RequestMapping("/matiere")
@@ -59,4 +60,33 @@ public class MatiereController {
 		return matiereService.getMatiereByTitleWithIgnoreCase(example);
 	}
 
+	
+	@GetMapping(value = "/matieres")
+	public Collection<Matiere> getMatieres() {
+		return matiereService.getAllMatieres();
+	}
+	
+	
+
+	@GetMapping(value = "/matieresquerydsl3a/coeff/{coeff}/module/{module}")
+	public Collection<Matiere> getMatiereByCoeffBiggerThanAndIntituleDataAndModule(@PathVariable("coeff") int coeff, @PathVariable("module") Module module) {
+		return matiereService.getMatiereCoeffBiggerIntituleEqDataModuleEq2(coeff, module);
+	}
+	
+	
+	@GetMapping(value = "/matieresquerydsl3b/coeff/{coeff}/module/{module}")
+	public Collection<Matiere> getMatiereByCoeffBiggerThanAndModule(@PathVariable("coeff") int coeff, @PathVariable("module") Module module) {
+		return matiereService.getMatiereCoeffBiggerThanModuleEq2(coeff, module);
+	}
+	
+	
+	@GetMapping(value = "/matieresquerydsl3c/module/{module}")
+	public Collection<Matiere> getMatiereIntituleDataAndModuleEq2(@PathVariable("module") Module module) {
+		return matiereService.getMatiereIntituleEqDataModuleEq2(module);
+	}
+	
+	
+	
+	
+	
 }
