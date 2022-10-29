@@ -1,6 +1,5 @@
 package com.cegefos.tp1.entity;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,6 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
+import com.cegefos.tp1.audit.AuditableBaseEntity;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,12 +25,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "salle")
-public class Salle implements Serializable {
-
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = -1006027224911791265L;
+public class Salle extends AuditableBaseEntity   {
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,6 +38,25 @@ public class Salle implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "salle")
 	private Set<Examen> examens = new HashSet<>();
 
+	// Audit by annotation
+	/*
+	 * @CreatedBy
+	 * 
+	 * @Column private User createdBy;
+	 * 
+	 * @CreatedDate
+	 * 
+	 * @Column private ZonedDateTime createdAt;
+	 * 
+	 * @LastModifiedBy
+	 * 
+	 * @Column private User updatedBy;
+	 * 
+	 * @LastModifiedDate
+	 * 
+	 * @Column private ZonedDateTime updatedAt;
+	 */
+
 	public Salle(int numero) {
 		super();
 		this.numero = numero;
@@ -47,6 +64,9 @@ public class Salle implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Salle{" + "salleId=" + salleId + ", numero=" + numero + '}';
+		return "Salle [numero=" + numero + "]";
 	}
+
+	
+
 }
