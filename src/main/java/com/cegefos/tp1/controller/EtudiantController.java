@@ -1,45 +1,23 @@
 package com.cegefos.tp1.controller;
 
-import java.util.Collection;
-
 import com.cegefos.tp1.dto.EtudiantDto;
-import com.cegefos.tp1.mapper.EtudiantMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.cegefos.tp1.entity.Etudiant;
+import com.cegefos.tp1.enums.Classe;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import com.cegefos.tp1.entity.Etudiant;
-import com.cegefos.tp1.enums.Classe;
-import com.cegefos.tp1.service.EtudiantService;
+import java.util.Collection;
 
-@RestController
 @RequestMapping("/etudiant")
-public class EtudiantController {
-
-    @Autowired
-    private EtudiantService etudiantService;
-
-    @Autowired
-    private EtudiantMapper etudiantMapper;
+public interface EtudiantController {
 
     @PostMapping(value = "/create", headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void createEtudiant(@RequestBody EtudiantDto etudiantDto) {
-        Etudiant etudiant = etudiantMapper.toEtudiant(etudiantDto);
-        etudiantService.createEtudiant(etudiant);
-    }
+    void createEtudiant(@RequestBody EtudiantDto etudiantDto);
 
     @GetMapping(value = "/findbyclasse/{classe}")
-    public Collection<Etudiant> getEtudiantByClass(@PathVariable("classe") Classe classe) {
-
-        return etudiantService.findEtudiantByClasse(classe);
-    }
-
+    Collection<Etudiant> getEtudiantByClass(@PathVariable("classe") Classe classe);
 
     @GetMapping(value = "/etudiants")
-    public Collection<Etudiant> getAllEtudiants() {
-        return etudiantService.findEtudiants();
-
-    }
-
+    Collection<Etudiant> getAllEtudiants();
 
 }

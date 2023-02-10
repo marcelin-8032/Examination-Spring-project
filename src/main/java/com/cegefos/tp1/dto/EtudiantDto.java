@@ -8,10 +8,7 @@ import java.util.Set;
 
 public record EtudiantDto(Integer etudiantId, String nom, Classe classe, Set<Examen> examens) implements Serializable {
 
-    public EtudiantDto(Integer etudiantId, String nom, Classe classe, Set<Examen> examens) {
-        this.etudiantId = etudiantId;
-        this.nom = nom;
-        this.classe = classe;
-        this.examens = examens;
+    public EtudiantDto(String nom, Classe classe) {
+        this(null, nom, classe, null);
     }
 }

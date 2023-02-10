@@ -1,0 +1,15 @@
+package com.cegefos.tp1.dto;
+
+import com.cegefos.tp1.entity.Examen;
+
+import java.io.Serializable;
+import java.util.Set;
+
+public record SalleDto(Integer salleId,
+                       int numero,
+                       Set<Examen> examens) implements Serializable {
+
+    public SalleDto(int numero) {
+        this(null, numero, null);
+    }
+}

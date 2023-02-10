@@ -8,7 +8,6 @@ import java.util.Collection;
 
 @Mapper(componentModel = "spring")
 public interface EtudiantMapper {
-
     EtudiantDto toEtudiantDto(Etudiant etudiant);
     Etudiant toEtudiant(EtudiantDto etudiantDto);
     Collection<EtudiantDto> toEtudiantDtos(Collection<Etudiant> etudiants);
