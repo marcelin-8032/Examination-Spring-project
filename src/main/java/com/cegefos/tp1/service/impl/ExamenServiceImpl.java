@@ -11,58 +11,58 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.cegefos.tp1.entity.Examen;
-import com.cegefos.tp1.entity.Salle;
-import com.cegefos.tp1.repository.ExamenRepository;
-import com.cegefos.tp1.repository.SalleRepository;
+import com.cegefos.tp1.persistance.entities.ExamEntity;
+import com.cegefos.tp1.persistance.entities.RoomEntity;
+import com.cegefos.tp1.persistance.repository.ExamRepository;
+import com.cegefos.tp1.persistance.repository.RoomRepository;
 import com.cegefos.tp1.service.ExamenService;
 
 @Service
 public class ExamenServiceImpl implements ExamenService {
 
 	@Autowired
-	private ExamenRepository examenRepository;
+	private ExamRepository examRepository;
 
 	@Autowired
-	private SalleRepository salleRepository;
+	private RoomRepository roomRepository;
 
 	@Override
-	public void createExamens(List<Examen> examens) {
-		examenRepository.saveAll(examens);
+	public void createExamens(List<ExamEntity> examenEntities) {
+		examRepository.saveAll(examenEntities);
 	}
 
 	@Override
-	public Collection<Examen> getAllExamens() {
-		return examenRepository.findAll();
+	public Collection<ExamEntity> getAllExamens() {
+		return examRepository.findAll();
 	}
 
 	@Override
-	public Collection<Examen> getExamensByDate(Date date) {
-		return examenRepository.findExamenByDateExam(date);
+	public Collection<ExamEntity> getExamensByDate(Date date) {
+		return examRepository.findExamenByDateExam(date);
 	}
 
 	@Override
-	public Collection<Examen> getExamAtSalleAndAfterADate(Salle salle, Date date) {
+	public Collection<ExamEntity> getExamAtSalleAndAfterADate(RoomEntity roomEntity, Date date) {
 		Integer id = 0;
-		salle = salleRepository.findById(id).get();
-		return examenRepository.findBySalleAndDateExamGreaterThan(salle, date);
+		roomEntity = roomRepository.findById(id).get();
+		return examRepository.findBySalleAndDateExamGreaterThan(roomEntity, date);
 	}
 
 	@Override
-	public Collection<Examen> getExamensAtRecentDataAtSpecificSalle(Salle salle) {
-		return examenRepository.findTopBySalleOrderByDateExamDesc(salle);
+	public Collection<ExamEntity> getExamensAtRecentDataAtSpecificSalle(RoomEntity roomEntity) {
+		return examRepository.findTopBySalleOrderByDateExamDesc(roomEntity);
 	}
 
 	@Override
-	public Page<Examen> getAllExamensInPages(Pageable pageable) {
+	public Page<ExamEntity> getAllExamensInPages(Pageable pageable) {
 		pageable = PageRequest.of(0, 2, Sort.Direction.ASC, "examen_id");
-		return examenRepository.findAllExamens(pageable);
+		return examRepository.findAllExamens(pageable);
 	}
 
 	@Override
-	public Page<Examen> getAllExamensBySalle(Integer id, Pageable pageable) {
+	public Page<ExamEntity> getAllExamensBySalle(Integer id, Pageable pageable) {
 		pageable = PageRequest.of(0, 3, Sort.Direction.DESC, "date_exam");
-		return examenRepository.findBysurveillant(id, pageable);
+		return examRepository.findBysurveillant(id, pageable);
 	}
 	
 	

@@ -1,8 +1,8 @@
 package com.cegefos.tp1;
 
-import com.cegefos.tp1.entity.Examen;
-import com.cegefos.tp1.repository.ExamenRepository;
-import com.cegefos.tp1.repository.SalleRepository;
+import com.cegefos.tp1.persistance.entities.ExamEntity;
+import com.cegefos.tp1.persistance.repository.ExamRepository;
+import com.cegefos.tp1.persistance.repository.RoomRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,22 +16,22 @@ import java.util.List;
 class DeleteTestDemo {
 
     @Autowired
-    private SalleRepository salleRepository;
+    private RoomRepository roomRepository;
 
     @Autowired
-    private ExamenRepository examenRepository;
+    private ExamRepository examRepository;
 
 
     @Test
     void deleteAllSalles() {
-        List<Examen> examenList = examenRepository.findAll();
+        List<ExamEntity> examEntityList = examRepository.findAll();
 
-        for (Examen examen : examenList) {
-            examen.setSalle(null);
-            examenRepository.save(examen);
+        for (ExamEntity examEntity : examEntityList) {
+            examEntity.setRoomEntity(null);
+            examRepository.save(examEntity);
         }
 
-        salleRepository.deleteAll();
+        roomRepository.deleteAll();
     }
 
 }

@@ -1,9 +1,9 @@
 package com.cegefos.tp1.service;
 
-import com.cegefos.tp1.entity.Surveillant;
+import com.cegefos.tp1.persistance.entities.InvigilatorEntity;
 
 public interface SurveillantService {
 
-	void createSurveillant(Surveillant surveillant);
+	void createSurveillant(InvigilatorEntity invigilatorEntity);
 
 }

@@ -1,9 +1,9 @@
 package com.cegefos.tp1;
 
-import com.cegefos.tp1.entity.*;
 import com.cegefos.tp1.enums.Classe;
 import com.cegefos.tp1.enums.Module;
-import com.cegefos.tp1.repository.*;
+import com.cegefos.tp1.persistance.entities.*;
+import com.cegefos.tp1.persistance.repository.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -21,39 +21,39 @@ import java.util.*;
 class CreateTestDemo {
 
     @Autowired
-    private EtudiantRepository etudiantRepository;
+    private StudentRepository studentRepository;
 
     @Autowired
-    private ExamenRepository examenRepository;
+    private ExamRepository examRepository;
 
     @Autowired
-    private MatiereRepository matiereRepository;
+    private SubjectRepository subjectRepository;
 
     @Autowired
-    private SalleRepository salleRepository;
+    private RoomRepository roomRepository;
 
     @Autowired
-    private SurveillantRepository surveillantRepository;
+    private InvigilatorRepository invigilatorRepository;
 
-    private Salle salle1254;
-    private Salle salle1255;
-    private Salle salle1256;
+    private RoomEntity roomEntity1254;
+    private RoomEntity roomEntity1255;
+    private RoomEntity roomEntity1256;
 
-    private Surveillant surveillantAdrian;
-    private Surveillant surveillantArthur;
-    private Surveillant surveillantMaria;
+    private InvigilatorEntity invigilatorEntityAdrian;
+    private InvigilatorEntity invigilatorEntityArthur;
+    private InvigilatorEntity invigilatorEntityMaria;
 
-    private Matiere physique;
-    private Matiere chimie;
-    private Matiere informatique;
-    private Matiere literature;
-    private Matiere philosophie;
-    private Matiere musique;
-    private Matiere DATA;
+    private SubjectEntity physique;
+    private SubjectEntity chimie;
+    private SubjectEntity informatique;
+    private SubjectEntity literature;
+    private SubjectEntity philosophie;
+    private SubjectEntity musique;
+    private SubjectEntity DATA;
 
-    private Set<Examen> listExamens1;
-    private Set<Examen> listExamens2;
-    private Set<Examen> listExamens3;
+    private Set<ExamEntity> listExamens1;
+    private Set<ExamEntity> listExamens2;
+    private Set<ExamEntity> listExamens3;
 
     private static final String pattern = "yyyy-MM-dd HH:mm:ss";
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
@@ -63,21 +63,21 @@ class CreateTestDemo {
     private Date date3;
     private Date date4;
 
-    private Etudiant etudiant1;
-    private Etudiant etudiant2;
-    private Etudiant etudiant3;
-    private Etudiant etudiant4;
-    private Etudiant etudiant5;
-    private Etudiant etudiant6;
-    private Etudiant etudiant7;
-    private Etudiant etudiant8;
+    private StudentEntity studentEntity1;
+    private StudentEntity studentEntity2;
+    private StudentEntity studentEntity3;
+    private StudentEntity studentEntity4;
+    private StudentEntity studentEntity5;
+    private StudentEntity studentEntity6;
+    private StudentEntity studentEntity7;
+    private StudentEntity studentEntity8;
 
-    private Examen examen1;
-    private Examen examen2;
-    private Examen examen3;
-    private Examen examen4;
-    private Examen examen5;
-    private Examen examen6;
+    private ExamEntity examEntity1;
+    private ExamEntity examEntity2;
+    private ExamEntity examEntity3;
+    private ExamEntity examEntity4;
+    private ExamEntity examEntity5;
+    private ExamEntity examEntity6;
 
     @BeforeEach
     void setUp() throws ParseException {
@@ -86,107 +86,107 @@ class CreateTestDemo {
         date3 = simpleDateFormat.parse("2022-02-18 09:00:00");
         date4 = simpleDateFormat.parse("2022-02-25 09:00:00");
 
-        physique = new Matiere("Physique", 164, Module.module2);
-        chimie = new Matiere("Chimie", 164, Module.module2);
-        informatique = new Matiere("Informatique", 200, Module.module1);
-        literature = new Matiere("Literature", 175, Module.module3);
-        philosophie = new Matiere("Philosophie", 190, Module.module3);
-        musique = new Matiere("Musique", 155, Module.module3);
-        DATA = new Matiere("data", 200, Module.module1);
+        physique = new SubjectEntity("Physique", 164, Module.module2);
+        chimie = new SubjectEntity("Chimie", 164, Module.module2);
+        informatique = new SubjectEntity("Informatique", 200, Module.module1);
+        literature = new SubjectEntity("Literature", 175, Module.module3);
+        philosophie = new SubjectEntity("Philosophie", 190, Module.module3);
+        musique = new SubjectEntity("Musique", 155, Module.module3);
+        DATA = new SubjectEntity("data", 200, Module.module1);
 
-        surveillantAdrian = new Surveillant("Adrian");
-        surveillantArthur = new Surveillant("Arthur");
-        surveillantMaria = new Surveillant("Maria");
+        invigilatorEntityAdrian = new InvigilatorEntity("Adrian");
+        invigilatorEntityArthur = new InvigilatorEntity("Arthur");
+        invigilatorEntityMaria = new InvigilatorEntity("Maria");
 
-        salle1254 = new Salle(1254);
-        salle1255 = new Salle(1255);
-        salle1256 = new Salle(1256);
+        roomEntity1254 = new RoomEntity(1254);
+        roomEntity1255 = new RoomEntity(1255);
+        roomEntity1256 = new RoomEntity(1256);
 
-        examen1 = new Examen(date1, physique, salle1254, surveillantArthur);
-        examen2 = new Examen(date2, literature, salle1254, surveillantMaria);
-        examen3 = new Examen(date3, philosophie, salle1254, surveillantArthur);
-        examen4 = new Examen(date1, chimie, salle1255, surveillantAdrian);
-        examen5 = new Examen(date3, informatique, salle1255, surveillantMaria);
-        examen6 = new Examen(date4, musique, salle1256, surveillantAdrian);
+        examEntity1 = new ExamEntity(date1, physique, roomEntity1254, invigilatorEntityArthur);
+        examEntity2 = new ExamEntity(date2, literature, roomEntity1254, invigilatorEntityMaria);
+        examEntity3 = new ExamEntity(date3, philosophie, roomEntity1254, invigilatorEntityArthur);
+        examEntity4 = new ExamEntity(date1, chimie, roomEntity1255, invigilatorEntityAdrian);
+        examEntity5 = new ExamEntity(date3, informatique, roomEntity1255, invigilatorEntityMaria);
+        examEntity6 = new ExamEntity(date4, musique, roomEntity1256, invigilatorEntityAdrian);
 
         listExamens1 = new HashSet<>();
-        listExamens1.add(examen1);
-        listExamens1.add(examen2);
-        listExamens1.add(examen3);
+        listExamens1.add(examEntity1);
+        listExamens1.add(examEntity2);
+        listExamens1.add(examEntity3);
 
         listExamens2 = new HashSet<>();
-        listExamens2.add(examen4);
-        listExamens2.add(examen5);
+        listExamens2.add(examEntity4);
+        listExamens2.add(examEntity5);
 
         listExamens3 = new HashSet<>();
-        listExamens3.add(examen6);
+        listExamens3.add(examEntity6);
 
-        etudiant1 = new Etudiant("Alex", Classe.classeA, listExamens1);
-        etudiant2 = new Etudiant("Albert", Classe.classeB, listExamens1);
-        etudiant3 = new Etudiant("Robert", Classe.classeC, listExamens1);
-        etudiant4 = new Etudiant("Mickael", Classe.classeB, listExamens2);
-        etudiant5 = new Etudiant("Mohsen", Classe.classeA, listExamens2);
-        etudiant6 = new Etudiant("Betty", Classe.classeC, listExamens2);
-        etudiant7 = new Etudiant("Maria", Classe.classeA, listExamens3);
-        etudiant8 = new Etudiant("Nathalia", Classe.classeC, listExamens3);
+        studentEntity1 = new StudentEntity("Alex", Classe.classeA, listExamens1);
+        studentEntity2 = new StudentEntity("Albert", Classe.classeB, listExamens1);
+        studentEntity3 = new StudentEntity("Robert", Classe.classeC, listExamens1);
+        studentEntity4 = new StudentEntity("Mickael", Classe.classeB, listExamens2);
+        studentEntity5 = new StudentEntity("Mohsen", Classe.classeA, listExamens2);
+        studentEntity6 = new StudentEntity("Betty", Classe.classeC, listExamens2);
+        studentEntity7 = new StudentEntity("Maria", Classe.classeA, listExamens3);
+        studentEntity8 = new StudentEntity("Nathalia", Classe.classeC, listExamens3);
     }
 
     @Test
     void saveObjectsByRepository() {
 
         System.out.println("\n*******************Matiere*********************************");
-        matiereRepository.save(physique);
-        matiereRepository.save(chimie);
-        matiereRepository.save(informatique);
-        matiereRepository.save(literature);
-        matiereRepository.save(philosophie);
-        matiereRepository.save(musique);
-        matiereRepository.save(DATA);
-        matiereRepository.findAll().forEach(System.out::println);
+        subjectRepository.save(physique);
+        subjectRepository.save(chimie);
+        subjectRepository.save(informatique);
+        subjectRepository.save(literature);
+        subjectRepository.save(philosophie);
+        subjectRepository.save(musique);
+        subjectRepository.save(DATA);
+        subjectRepository.findAll().forEach(System.out::println);
 
         System.out.println("\n*******************Surveillant*********************************");
-        surveillantRepository.save(surveillantAdrian);
-        surveillantRepository.save(surveillantArthur);
-        surveillantRepository.save(surveillantMaria);
-        surveillantRepository.findAll().forEach(System.out::println);
+        invigilatorRepository.save(invigilatorEntityAdrian);
+        invigilatorRepository.save(invigilatorEntityArthur);
+        invigilatorRepository.save(invigilatorEntityMaria);
+        invigilatorRepository.findAll().forEach(System.out::println);
 
         System.out.println("\n*******************Salle*********************************");
-        salleRepository.save(salle1254);
-        salleRepository.save(salle1255);
-        salleRepository.save(salle1256);
-        salleRepository.findAll().forEach(System.out::println);
+        roomRepository.save(roomEntity1254);
+        roomRepository.save(roomEntity1255);
+        roomRepository.save(roomEntity1256);
+        roomRepository.findAll().forEach(System.out::println);
 
         System.out.println("\n*******************Examen*********************************");
-        examenRepository.saveAll(listExamens1);
-        examenRepository.saveAll(listExamens2);
-        examenRepository.saveAll(listExamens3);
-        examenRepository.findAll().forEach(System.out::println);
+        examRepository.saveAll(listExamens1);
+        examRepository.saveAll(listExamens2);
+        examRepository.saveAll(listExamens3);
+        examRepository.findAll().forEach(System.out::println);
 
         System.out.println("\n*******************Etudiant*********************************");
-        etudiantRepository.save(etudiant1);
-        etudiantRepository.save(etudiant2);
-        etudiantRepository.save(etudiant3);
-        etudiantRepository.save(etudiant4);
-        etudiantRepository.save(etudiant5);
-        etudiantRepository.save(etudiant6);
-        etudiantRepository.save(etudiant7);
-        etudiantRepository.save(etudiant8);
-        etudiantRepository.findAll().forEach(System.out::println);
+        studentRepository.save(studentEntity1);
+        studentRepository.save(studentEntity2);
+        studentRepository.save(studentEntity3);
+        studentRepository.save(studentEntity4);
+        studentRepository.save(studentEntity5);
+        studentRepository.save(studentEntity6);
+        studentRepository.save(studentEntity7);
+        studentRepository.save(studentEntity8);
+        studentRepository.findAll().forEach(System.out::println);
     }
 
     @Test
     @Disabled
     void createTwoSallesThatInsertImediatelyIntoDB() {
 
-        Salle salleX1 = new Salle(1354);
-        Salle salleX2 = new Salle(1355);
+        RoomEntity roomEntityX1 = new RoomEntity(1354);
+        RoomEntity roomEntityX2 = new RoomEntity(1355);
 
-        List<Salle> salles = new ArrayList<>();
-        salles.add(salleX1);
-        salles.add(salleX2);
+        List<RoomEntity> salleEntities = new ArrayList<>();
+        salleEntities.add(roomEntityX1);
+        salleEntities.add(roomEntityX2);
 
-        salleRepository.saveAll(salles);
-        salleRepository.findAll().forEach(System.out::println);
+        roomRepository.saveAll(salleEntities);
+        roomRepository.findAll().forEach(System.out::println);
 
     }
 

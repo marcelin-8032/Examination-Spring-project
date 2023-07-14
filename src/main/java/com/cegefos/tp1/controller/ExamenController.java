@@ -1,7 +1,7 @@
 package com.cegefos.tp1.controller;
 
-import com.cegefos.tp1.entity.Examen;
-import com.cegefos.tp1.entity.Salle;
+import com.cegefos.tp1.persistance.entities.ExamEntity;
+import com.cegefos.tp1.persistance.entities.RoomEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
@@ -16,25 +16,25 @@ import java.util.List;
 public interface ExamenController {
 
     @PostMapping(value = "/create", headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
-    void createExamens(@RequestBody List<Examen> examens);
+    void createExamens(@RequestBody List<ExamEntity> examenEntities);
 
     @GetMapping(value = "/examens")
-    Collection<Examen> getAllExamens();
+    Collection<ExamEntity> getAllExamens();
 
     @GetMapping(value = "/examensByDate")
-    Collection<Examen> getExamensByDate(@RequestBody Date date);
+    Collection<ExamEntity> getExamensByDate(@RequestBody Date date);
 
     @GetMapping(value = "/examensBySalleDate")
-    Collection<Examen> getExamAtSalleAndAfterADate(@RequestBody Salle salle, Date date);
+    Collection<ExamEntity> getExamAtSalleAndAfterADate(@RequestBody RoomEntity roomEntity, Date date);
 
     @GetMapping(value = "/examensBySalle")
-    Collection<Examen> getExamensAtRecentDataAtSpecificSalle(@RequestBody Salle salle);
+    Collection<ExamEntity> getExamensAtRecentDataAtSpecificSalle(@RequestBody RoomEntity roomEntity);
 
     @GetMapping
-    Page<Examen> getAllExamensInPages(@NotNull final Pageable pageable);
+    Page<ExamEntity> getAllExamensInPages(@NotNull final Pageable pageable);
 
     @GetMapping(value = "examens/{salleId}")
-    Page<Examen> getAllExamensBySalle(@PathVariable("salleId") Integer salleId, @NotNull final Pageable pageable);
+    Page<ExamEntity> getAllExamensBySalle(@PathVariable("salleId") Integer salleId, @NotNull final Pageable pageable);
 
 
 }

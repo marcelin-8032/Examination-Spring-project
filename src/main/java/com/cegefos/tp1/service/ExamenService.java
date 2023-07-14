@@ -3,31 +3,30 @@ package com.cegefos.tp1.service;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.cegefos.tp1.entity.Examen;
-import com.cegefos.tp1.entity.Salle;
+import com.cegefos.tp1.persistance.entities.ExamEntity;
+import com.cegefos.tp1.persistance.entities.RoomEntity;
 
 public interface ExamenService {
 
-	void createExamens(List<Examen> examens);
+	void createExamens(List<ExamEntity> examenEntities);
 	
-	Collection<Examen> getAllExamens();
+	Collection<ExamEntity> getAllExamens();
 	
-	Collection<Examen> getExamensByDate(Date date);
+	Collection<ExamEntity> getExamensByDate(Date date);
 	
 //	Collection<Examen> getExamAtSalleAndGivenDate(Optional<Salle> salle, Date date);
 
-	Collection<Examen> getExamAtSalleAndAfterADate(Salle salle, Date date);
+	Collection<ExamEntity> getExamAtSalleAndAfterADate(RoomEntity roomEntity, Date date);
 	
-	Collection<Examen> getExamensAtRecentDataAtSpecificSalle(Salle salle);
+	Collection<ExamEntity> getExamensAtRecentDataAtSpecificSalle(RoomEntity roomEntity);
 	
-	Page<Examen> getAllExamensInPages(Pageable pageable);
+	Page<ExamEntity> getAllExamensInPages(Pageable pageable);
 	
-	Page<Examen> getAllExamensBySalle(Integer id, Pageable pageable);
+	Page<ExamEntity> getAllExamensBySalle(Integer id, Pageable pageable);
 	
 	
 	

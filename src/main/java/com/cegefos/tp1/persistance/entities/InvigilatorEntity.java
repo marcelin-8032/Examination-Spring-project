@@ -1,4 +1,4 @@
-package com.cegefos.tp1.entity;
+package com.cegefos.tp1.persistance.entities;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -15,21 +15,18 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @Entity
+@AllArgsConstructor
+@RequiredArgsConstructor
+@Builder(toBuilder = true)
 @Table(name="surveillant")
-public class Surveillant implements Serializable{
+public class InvigilatorEntity implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -5461477499521864156L;
 
 	@Id
@@ -37,22 +34,10 @@ public class Surveillant implements Serializable{
 	private Integer surveillantId;
 	
 	@Column
+	@NonNull
     private String nom;
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "surveillant")
-	private Set<Examen> examens=new HashSet<>();
-	
-	public Surveillant(String nom) {
-		super();
-		this.nom = nom;
-		
-	}
+	private Set<ExamEntity> examenEntities =new HashSet<>();
 
-	@Override
-	public String toString() {
-		return "Surveillant{" +
-				"surveillantId=" + surveillantId +
-				", nom='" + nom + '\'' +
-				'}';
-	}
 }

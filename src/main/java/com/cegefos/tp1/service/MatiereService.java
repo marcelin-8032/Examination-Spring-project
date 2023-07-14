@@ -5,28 +5,28 @@ import java.util.Optional;
 
 import org.springframework.data.domain.Example;
 
-import com.cegefos.tp1.entity.Matiere;
+import com.cegefos.tp1.persistance.entities.SubjectEntity;
 import com.cegefos.tp1.enums.Module;
 
 public interface MatiereService {
 
-	void createMatiere(Matiere matiere);
+	void createMatiere(SubjectEntity subjectEntity);
 	
 	void updateMatiere(Integer id, int coefficient) throws Exception;
 	
-	Collection<Matiere> getMatieresGreaterThanACoefficient(int coefficient);
+	Collection<SubjectEntity> getMatieresGreaterThanACoefficient(int coefficient);
 	
-	Optional<Matiere> getMatiereByExample(Example<?> example);
+	Optional<SubjectEntity> getMatiereByExample(Example<?> example);
 	
-	Optional<Matiere> getMatiereByCoefficent(Example<?> example);
+	Optional<SubjectEntity> getMatiereByCoefficent(Example<?> example);
 	
-	Optional<Matiere> getMatiereByTitleWithIgnoreCase(Example<?> example);
+	Optional<SubjectEntity> getMatiereByTitleWithIgnoreCase(Example<?> example);
 	
-	Collection<Matiere> getAllMatieres();
+	Collection<SubjectEntity> getAllMatieres();
 	
-	Collection<Matiere> getMatiereCoeffBiggerIntituleEqDataModuleEq2(int coeff, Module module);
+	Collection<SubjectEntity> getMatiereCoeffBiggerIntituleEqDataModuleEq2(int coeff, Module module);
 	
-	Collection<Matiere> getMatiereCoeffBiggerThanModuleEq2(int coeff, Module module);
+	Collection<SubjectEntity> getMatiereCoeffBiggerThanModuleEq2(int coeff, Module module);
 	
-	Collection<Matiere> getMatiereIntituleEqDataModuleEq2(Module module);
+	Collection<SubjectEntity> getMatiereIntituleEqDataModuleEq2(Module module);
 }

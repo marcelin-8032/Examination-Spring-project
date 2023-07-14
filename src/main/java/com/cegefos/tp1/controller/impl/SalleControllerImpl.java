@@ -1,7 +1,7 @@
 package com.cegefos.tp1.controller.impl;
 
 import com.cegefos.tp1.controller.SalleController;
-import com.cegefos.tp1.entity.Salle;
+import com.cegefos.tp1.persistance.entities.RoomEntity;
 import com.cegefos.tp1.service.SalleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,8 +17,8 @@ public class SalleControllerImpl implements SalleController {
     private SalleService salleService;
 
 
-    public void createASalle(@RequestBody Salle salle) {
-        salleService.createSalle(salle);
+    public void createASalle(@RequestBody RoomEntity roomEntity) {
+        salleService.createSalle(roomEntity);
     }
 
 
@@ -31,8 +31,8 @@ public class SalleControllerImpl implements SalleController {
 
     }
 
-    public void createListSalle(List<Salle> salles) {
-        salleService.createTwoSalles(salles);
+    public void createListSalle(List<RoomEntity> salleEntities) {
+        salleService.createTwoSalles(salleEntities);
     }
 
     public void deleteAllSalles() {

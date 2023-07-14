@@ -1,8 +1,8 @@
 package com.cegefos.tp1.controller.impl;
 
 import com.cegefos.tp1.controller.EtudiantController;
-import com.cegefos.tp1.dto.EtudiantDto;
-import com.cegefos.tp1.entity.Etudiant;
+import com.cegefos.tp1.domains.Student;
+import com.cegefos.tp1.persistance.entities.StudentEntity;
 import com.cegefos.tp1.enums.Classe;
 import com.cegefos.tp1.mapper.EtudiantMapper;
 import com.cegefos.tp1.service.EtudiantService;
@@ -24,19 +24,19 @@ public class EtudiantControllerImpl implements EtudiantController {
 
 
     @Override
-    public void createEtudiant(@RequestBody EtudiantDto etudiantDto) {
-        Etudiant etudiant = etudiantMapper.toEtudiant(etudiantDto);
-        etudiantService.createEtudiant(etudiant);
+    public void createEtudiant(@RequestBody Student student) {
+        StudentEntity studentEntity = etudiantMapper.toEtudiant(student);
+        etudiantService.createEtudiant(studentEntity);
     }
 
     @Override
-    public Collection<Etudiant> getEtudiantByClass(@PathVariable("classe") Classe classe) {
+    public Collection<StudentEntity> getEtudiantByClass(@PathVariable("classe") Classe classe) {
         return etudiantService.findEtudiantByClasse(classe);
     }
 
 
     @Override
-    public Collection<Etudiant> getAllEtudiants() {
+    public Collection<StudentEntity> getAllEtudiants() {
         return etudiantService.findEtudiants();
 
     }

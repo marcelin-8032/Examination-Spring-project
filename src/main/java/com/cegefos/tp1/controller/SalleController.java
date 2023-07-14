@@ -1,6 +1,6 @@
 package com.cegefos.tp1.controller;
 
-import com.cegefos.tp1.entity.Salle;
+import com.cegefos.tp1.persistance.entities.RoomEntity;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,12 +10,12 @@ import java.util.List;
 public interface SalleController {
 
     @PostMapping(value = "/create", headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
-    void createASalle(@RequestBody Salle salle);
+    void createASalle(@RequestBody RoomEntity roomEntity);
 
     @PutMapping(value = "/update/{salleId}", headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
     void updateSalleWithNumber(@PathVariable("salleId") Integer salleId, int numero);
     @PostMapping
-    void createListSalle(List<Salle> salles);
+    void createListSalle(List<RoomEntity> salleEntities);
 
     @DeleteMapping
      void deleteAllSalles();

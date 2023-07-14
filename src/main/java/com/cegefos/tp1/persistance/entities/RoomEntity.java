@@ -1,4 +1,4 @@
-package com.cegefos.tp1.entity;
+package com.cegefos.tp1.persistance.entities;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,27 +16,27 @@ import javax.persistence.Table;
 
 import com.cegefos.tp1.audit.AuditableBaseEntity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @Entity
+@AllArgsConstructor
+@RequiredArgsConstructor
+@Builder(toBuilder = true)
 @Table(name = "salle")
-public class Salle extends AuditableBaseEntity   {
-	
+public class RoomEntity extends AuditableBaseEntity   {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer salleId;
 
 	@Column
+	@NonNull
 	private int numero;
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "salle")
-	private Set<Examen> examens = new HashSet<>();
+	private Set<ExamEntity> examenEntities = new HashSet<>();
 
 	// Audit by annotation
 	/*
@@ -56,17 +56,5 @@ public class Salle extends AuditableBaseEntity   {
 	 * 
 	 * @Column private ZonedDateTime updatedAt;
 	 */
-
-	public Salle(int numero) {
-		super();
-		this.numero = numero;
-	}
-
-	@Override
-	public String toString() {
-		return "Salle [numero=" + numero + "]";
-	}
-
-	
 
 }

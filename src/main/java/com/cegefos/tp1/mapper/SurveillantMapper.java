@@ -1,7 +1,7 @@
 package com.cegefos.tp1.mapper;
 
-import com.cegefos.tp1.dto.SurveillantDto;
-import com.cegefos.tp1.entity.Surveillant;
+import com.cegefos.tp1.domains.Invigilator;
+import com.cegefos.tp1.persistance.entities.InvigilatorEntity;
 import org.mapstruct.Mapper;
 
 import java.util.Collection;
@@ -9,13 +9,13 @@ import java.util.Collection;
 @Mapper(componentModel = "spring")
 public interface SurveillantMapper {
 
-    SurveillantDto toSurveillantDto(Surveillant surveillant);
+    Invigilator toSurveillantDto(InvigilatorEntity invigilatorEntity);
 
-    Surveillant toSurveillant(SurveillantDto surveillantDto);
+    InvigilatorEntity toSurveillant(Invigilator invigilator);
 
-    Collection<SurveillantDto> toSurveillantDtos(Collection<Surveillant> surveillants);
+    Collection<Invigilator> toSurveillantDtos(Collection<InvigilatorEntity> surveillantEntities);
 
-    Collection<Surveillant> toSurveillants(Collection<SurveillantDto> surveillantDtos);
+    Collection<InvigilatorEntity> toSurveillants(Collection<Invigilator> invigilators);
 
 
 }

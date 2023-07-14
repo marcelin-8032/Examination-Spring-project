@@ -1,4 +1,4 @@
-package com.cegefos.tp1.repository;
+package com.cegefos.tp1.persistance.repository;
 
 import java.io.Serializable;
 import java.util.Optional;

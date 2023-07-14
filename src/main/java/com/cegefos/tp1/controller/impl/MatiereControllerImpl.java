@@ -1,7 +1,7 @@
 package com.cegefos.tp1.controller.impl;
 
 import com.cegefos.tp1.controller.MatiereController;
-import com.cegefos.tp1.entity.Matiere;
+import com.cegefos.tp1.persistance.entities.SubjectEntity;
 import com.cegefos.tp1.enums.Module;
 import com.cegefos.tp1.service.MatiereService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +23,8 @@ public class MatiereControllerImpl implements MatiereController {
     private MatiereMapper matiereMapper;*/
 
 
-    public void createMatiere(@RequestBody Matiere matiere) {
-        matiereService.createMatiere(matiere);
+    public void createMatiere(@RequestBody SubjectEntity subjectEntity) {
+        matiereService.createMatiere(subjectEntity);
     }
 
 
@@ -38,27 +38,27 @@ public class MatiereControllerImpl implements MatiereController {
     }
 
 
-    public Collection<Matiere> getMatiereByCoeffBiggerThan(int coeff) {
+    public Collection<SubjectEntity> getMatiereByCoeffBiggerThan(int coeff) {
         return matiereService.getMatieresGreaterThanACoefficient(coeff);
     }
 
 
-    public Optional<Matiere> getMatiereByExample(Example<?> example) {
+    public Optional<SubjectEntity> getMatiereByExample(Example<?> example) {
         return matiereService.getMatiereByExample(example);
     }
 
 
-    public Optional<Matiere> getMatiereByCoefficent(Example<?> example) {
+    public Optional<SubjectEntity> getMatiereByCoefficent(Example<?> example) {
         return matiereService.getMatiereByCoefficent(example);
     }
 
 
-    public Optional<Matiere> getMatiereByTitleWithIgnoreCase(Example<?> example) {
+    public Optional<SubjectEntity> getMatiereByTitleWithIgnoreCase(Example<?> example) {
         return matiereService.getMatiereByTitleWithIgnoreCase(example);
     }
 
 
-    public Collection<Matiere> getMatieres() {
+    public Collection<SubjectEntity> getMatieres() {
       /*  Collection<Matiere> matieres=this.matiereService.getAllMatieres();
         return    matiereMapper.toMatiereDtos(matieres);
         */
@@ -66,16 +66,16 @@ public class MatiereControllerImpl implements MatiereController {
     }
 
 
-    public Collection<Matiere> getMatiereByCoeffBiggerThanAndIntituleDataAndModule(@PathVariable("coeff") int coeff, @PathVariable("module") Module module) {
+    public Collection<SubjectEntity> getMatiereByCoeffBiggerThanAndIntituleDataAndModule(@PathVariable("coeff") int coeff, @PathVariable("module") Module module) {
         return matiereService.getMatiereCoeffBiggerIntituleEqDataModuleEq2(coeff, module);
     }
 
 
-    public Collection<Matiere> getMatiereByCoeffBiggerThanAndModule(@PathVariable("coeff") int coeff, @PathVariable("module") Module module) {
+    public Collection<SubjectEntity> getMatiereByCoeffBiggerThanAndModule(@PathVariable("coeff") int coeff, @PathVariable("module") Module module) {
         return matiereService.getMatiereCoeffBiggerThanModuleEq2(coeff, module);
     }
 
-    public Collection<Matiere> getMatiereIntituleDataAndModuleEq2(@PathVariable("module") Module module) {
+    public Collection<SubjectEntity> getMatiereIntituleDataAndModuleEq2(@PathVariable("module") Module module) {
         return matiereService.getMatiereIntituleEqDataModuleEq2(module);
     }
 

@@ -2,15 +2,15 @@ package com.cegefos.tp1.service;
 
 import java.util.Collection;
 
-import com.cegefos.tp1.entity.Etudiant;
+import com.cegefos.tp1.persistance.entities.StudentEntity;
 import com.cegefos.tp1.enums.Classe;
 
 public interface EtudiantService {
 
-	void createEtudiant(Etudiant etudiant);
+	void createEtudiant(StudentEntity studentEntity);
 
-	Collection<Etudiant> findEtudiants();
+	Collection<StudentEntity> findEtudiants();
 
-	Collection<Etudiant> findEtudiantByClasse(Classe classe);
+	Collection<StudentEntity> findEtudiantByClasse(Classe classe);
 
 }

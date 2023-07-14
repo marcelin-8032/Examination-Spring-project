@@ -1,9 +1,9 @@
 package com.cegefos.tp1.service.impl;
 
-import com.cegefos.tp1.entity.Examen;
-import com.cegefos.tp1.entity.Salle;
-import com.cegefos.tp1.repository.ExamenRepository;
-import com.cegefos.tp1.repository.SalleRepository;
+import com.cegefos.tp1.persistance.entities.ExamEntity;
+import com.cegefos.tp1.persistance.entities.RoomEntity;
+import com.cegefos.tp1.persistance.repository.ExamRepository;
+import com.cegefos.tp1.persistance.repository.RoomRepository;
 
 import java.util.List;
 
@@ -16,41 +16,41 @@ import com.cegefos.tp1.service.SalleService;
 public class SalleServiceImpl implements SalleService {
 
 	@Autowired
-	private SalleRepository salleRepository;
+	private RoomRepository roomRepository;
 
 	@Autowired
-	private ExamenRepository examenRepository;
+	private ExamRepository examRepository;
 
 	@Override
-	public void createSalle(Salle salle) {
-		salleRepository.save(salle);
+	public void createSalle(RoomEntity roomEntity) {
+		roomRepository.save(roomEntity);
 	}
 
 	@Override
 	public void deleteAllSalles() {
 
-		List<Examen> examenList = examenRepository.findAll();
+		List<ExamEntity> examEntityList = examRepository.findAll();
 
-		for (Examen examen : examenList) {
-			examen.setSalle(null);
-			examenRepository.save(examen);
+		for (ExamEntity examEntity : examEntityList) {
+			examEntity.setRoomEntity(null);
+			examRepository.save(examEntity);
 		}
 
-		salleRepository.deleteAll();
+		roomRepository.deleteAll();
 
 	}
 
 	@Override
 	public void updateSalle(Integer id, int numero) throws Exception {
-		Salle oldSalle=salleRepository.findById(id).orElseThrow(() -> new Exception("there is a problem in updating salle number"));
-		oldSalle.setNumero(numero);
-		salleRepository.save(oldSalle);
+		RoomEntity oldRoomEntity = roomRepository.findById(id).orElseThrow(() -> new Exception("there is a problem in updating salle number"));
+		oldRoomEntity.setNumero(numero);
+		roomRepository.save(oldRoomEntity);
 		
 	}
 
 	@Override
-	public void createTwoSalles(List<Salle> salles) {
-		salleRepository.saveAll(salles);
+	public void createTwoSalles(List<RoomEntity> salleEntities) {
+		roomRepository.saveAll(salleEntities);
 		
 	}
 

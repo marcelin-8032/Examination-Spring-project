@@ -1,9 +1,9 @@
 package com.cegefos.tp1;
 
-import com.cegefos.tp1.entity.Matiere;
-import com.cegefos.tp1.entity.Salle;
-import com.cegefos.tp1.repository.MatiereRepository;
-import com.cegefos.tp1.repository.SalleRepository;
+import com.cegefos.tp1.persistance.entities.SubjectEntity;
+import com.cegefos.tp1.persistance.entities.RoomEntity;
+import com.cegefos.tp1.persistance.repository.SubjectRepository;
+import com.cegefos.tp1.persistance.repository.RoomRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -16,10 +16,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 class UpdateTestDemo {
 
 	@Autowired
-	private MatiereRepository matiereRepository;
+	private SubjectRepository subjectRepository;
 
 	@Autowired
-	private SalleRepository salleRepository;
+	private RoomRepository roomRepository;
 
 	Integer matiereId;
 	int coeff;
@@ -39,16 +39,16 @@ class UpdateTestDemo {
 
 	@Test
 	void updateCoeffiecientMatiere() throws Exception {
-			Matiere OldMatiere = matiereRepository.findById(matiereId).orElseThrow(() -> new Exception("there is a problem in updating coefficient number"));;
-			OldMatiere.setCoefficient(coeff);
-			matiereRepository.save(OldMatiere);
+			SubjectEntity oldSubjectEntity = subjectRepository.findById(matiereId).orElseThrow(() -> new Exception("there is a problem in updating coefficient number"));;
+			oldSubjectEntity.setCoefficient(coeff);
+			subjectRepository.save(oldSubjectEntity);
 	}
 
 	@Test
 	void updateSalleNumber() throws Exception {
-		Salle oldSalle=salleRepository.findById(salleId).orElseThrow(() -> new Exception("there is a problem in updating salle number"));
-		oldSalle.setNumero(salleNumero);
-		salleRepository.save(oldSalle);
+		RoomEntity oldRoomEntity = roomRepository.findById(salleId).orElseThrow(() -> new Exception("there is a problem in updating salle number"));
+		oldRoomEntity.setNumero(salleNumero);
+		roomRepository.save(oldRoomEntity);
 	}
 
 }

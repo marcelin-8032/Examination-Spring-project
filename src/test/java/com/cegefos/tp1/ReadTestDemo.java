@@ -1,13 +1,13 @@
 package com.cegefos.tp1;
 
-import com.cegefos.tp1.entity.Examen;
-import com.cegefos.tp1.entity.Matiere;
-import com.cegefos.tp1.entity.Salle;
+import com.cegefos.tp1.persistance.entities.ExamEntity;
+import com.cegefos.tp1.persistance.entities.SubjectEntity;
+import com.cegefos.tp1.persistance.entities.RoomEntity;
 import com.cegefos.tp1.enums.Classe;
-import com.cegefos.tp1.repository.EtudiantRepository;
-import com.cegefos.tp1.repository.ExamenRepository;
-import com.cegefos.tp1.repository.MatiereRepository;
-import com.cegefos.tp1.repository.SalleRepository;
+import com.cegefos.tp1.persistance.repository.StudentRepository;
+import com.cegefos.tp1.persistance.repository.ExamRepository;
+import com.cegefos.tp1.persistance.repository.SubjectRepository;
+import com.cegefos.tp1.persistance.repository.RoomRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -45,14 +45,14 @@ class ReadTestDemo {
 
 
     @Autowired
-    private ExamenRepository examenRepository;
+    private ExamRepository examRepository;
     @Autowired
-    private EtudiantRepository etudiantRepository;
+    private StudentRepository studentRepository;
     @Autowired
-    private MatiereRepository matiereRepository;
+    private SubjectRepository subjectRepository;
 
     @Autowired
-    private SalleRepository salleRepository;
+    private RoomRepository roomRepository;
 
    /* Salle salle1254;
     Salle salle1255;
@@ -71,24 +71,24 @@ class ReadTestDemo {
 
     @Test
     void ListAllExams() {
-        Collection<Examen> examenList = (Collection<Examen>) examenRepository.findAll();
-        examenList.stream().forEach(System.out::println);
+        Collection<ExamEntity> examEntityList = (Collection<ExamEntity>) examRepository.findAll();
+        examEntityList.stream().forEach(System.out::println);
     }
 
 
     @Test
     void findExamsAtSpecificDate() {
-        examenRepository.findExamenByDateExam(examDate1).forEach(System.out::println);
+        examRepository.findExamenByDateExam(examDate1).forEach(System.out::println);
     }
 
     @Test
     void findEtudiantAtSpecificClasse() {
-        etudiantRepository.findEtudiantByClasse(Classe.classeA).forEach(System.out::println);
+        studentRepository.findEtudiantByClasse(Classe.classeA).forEach(System.out::println);
     }
 
     @Test
     void findMatieresThatCoefficientIsBiggerThanSpecificCoefficient() {
-        matiereRepository.findByCoefficientGreaterThan(160).forEach(System.out::println);
+        subjectRepository.findByCoefficientGreaterThan(160).forEach(System.out::println);
 //        matiereRepository.findByCoefficientGreaterThan(170).forEach(System.out::println);
 //        matiereRepository.findByCoefficientGreaterThan(180).forEach(System.out::println);
         //   matiereRepository.findByCoefficientGreaterThan(199).forEach(System.out::println);
@@ -97,22 +97,22 @@ class ReadTestDemo {
 
     @Test
     void findExamensAtGivenSalleAndGreaterThanSpecificDate() {
-        Salle salle1254 = salleRepository.findById(10).get();
-        Salle salle1255 = salleRepository.findById(11).get();
-        Salle salle1256 = salleRepository.findById(12).get();
+        RoomEntity roomEntity1254 = roomRepository.findById(10).get();
+        RoomEntity roomEntity1255 = roomRepository.findById(11).get();
+        RoomEntity roomEntity1256 = roomRepository.findById(12).get();
 
-        examenRepository.findBySalleAndDateExamGreaterThan(salle1254, examDate1).forEach(System.out::println);
+        examRepository.findBySalleAndDateExamGreaterThan(roomEntity1254, examDate1).forEach(System.out::println);
         //  examenRepository.findBySalleAndDateExamGreaterThan(salle1255, examDate1).forEach(System.out::println);
         //  examenRepository.findBySalleAndDateExamGreaterThan(salle1256, examDate1).forEach(System.out::println);
     }
 
     @Test
     void findExamensAtRecentDataAtSpecificSalle() {
-        Salle salle1254 = salleRepository.findById(10).get();
-        Salle salle1255 = salleRepository.findById(11).get();
-        Salle salle1256 = salleRepository.findById(12).get();
+        RoomEntity roomEntity1254 = roomRepository.findById(10).get();
+        RoomEntity roomEntity1255 = roomRepository.findById(11).get();
+        RoomEntity roomEntity1256 = roomRepository.findById(12).get();
 
-        examenRepository.findTopBySalleOrderByDateExamDesc(salle1254).forEach(System.out::println);
+        examRepository.findTopBySalleOrderByDateExamDesc(roomEntity1254).forEach(System.out::println);
         //  examenRepository.findTopBySalleOrderByDateExamDesc(salle1256).forEach(System.out::println);
 
     }
@@ -121,12 +121,12 @@ class ReadTestDemo {
     /************************************** Query method**********************************************/
     @Test
     void findExamsAtSpecificDateQueryWay() {
-        examenRepository.findExamensAsDateExamQuery(examDate1).forEach(System.out::println);
+        examRepository.findExamensAsDateExamQuery(examDate1).forEach(System.out::println);
     }
 
     @Test
     void findStudentByEachClassQueryWay() {
-        etudiantRepository.findStudentsAsClasse(Classe.classeA).forEach(System.out::println);
+        studentRepository.findStudentsAsClasse(Classe.classeA).forEach(System.out::println);
     }
 
     @Test
@@ -134,29 +134,29 @@ class ReadTestDemo {
         //  matiereRepository.findByCoefficient(160).forEach(System.out::println);
         //matiereRepository.findByCoefficient(170).forEach(System.out::println);
         //matiereRepository.findByCoefficient(180).forEach(System.out::println);
-        matiereRepository.findByCoefficient(199).forEach(System.out::println);
+        subjectRepository.findByCoefficient(199).forEach(System.out::println);
     }
 
 
     @Test
     void findExamensAtSallAndDateQueryWay() {
-        examenRepository.findSalleAndDateExamQuery(10, examDate1).forEach(System.out::println);
-        examenRepository.findSalleAndDateExamQuery(11, examDate1).forEach(System.out::println);
-        examenRepository.findSalleAndDateExamQuery(12, examDate1).forEach(System.out::println);
+        examRepository.findSalleAndDateExamQuery(10, examDate1).forEach(System.out::println);
+        examRepository.findSalleAndDateExamQuery(11, examDate1).forEach(System.out::println);
+        examRepository.findSalleAndDateExamQuery(12, examDate1).forEach(System.out::println);
     }
 
 
     @Test
     void findExamensAtTopDataAtSalle() {
-        examenRepository.findExamensAtRecentDateQuery(10).forEach(System.out::println);
-        examenRepository.findExamensAtRecentDateQuery(11).forEach(System.out::println);
+        examRepository.findExamensAtRecentDateQuery(10).forEach(System.out::println);
+        examRepository.findExamensAtRecentDateQuery(11).forEach(System.out::println);
     }
 
     /********************************  -------------------------Pagination and sorting methods------------------***************/
     @Test
     void findAllExamsInPageAndSorted() {
         Pageable page = PageRequest.of(0, 2, Sort.Direction.ASC, "examen_id");
-        Page<Examen> examens = examenRepository.findAllExamens(page);
+        Page<ExamEntity> examens = examRepository.findAllExamens(page);
         examens.forEach(System.out::println);
     }
 
@@ -164,7 +164,7 @@ class ReadTestDemo {
     @Test
     void findExamensBySurveillant() {
         Pageable page = PageRequest.of(0, 3, Sort.Direction.DESC, "date_exam");
-        Page<Examen> examens = examenRepository.findBysurveillant(8, page);
+        Page<ExamEntity> examens = examRepository.findBysurveillant(8, page);
         examens.forEach(System.out::println);
 
         /**************************Le nombre total des pages.*****************************/
@@ -176,27 +176,27 @@ class ReadTestDemo {
 
     @Test
     void findMatiereByExample() {
-        var matiere = new Matiere("Physique", 164, null);
+        var matiere = new SubjectEntity("Physique", 164, null);
 
-        matiereRepository.findOne(Example.of(matiere));
+        subjectRepository.findOne(Example.of(matiere));
     }
 
     /********************************  -------------------------Optional- QBE-----------------***************/
     @Test
     void findMatiereOptionalQBEMethod_E3_2a() {
-        var matiere = new Matiere();
+        var matiere = new SubjectEntity();
         matiere.setCoefficient(175);
 
         var matcher = ExampleMatcher.matching().withMatcher("coefficient", exact());
         var matiereExampleCoeff = Example.of(matiere, matcher);
 
-        Optional<Matiere> matiereOptional1 = matiereRepository.findOne(matiereExampleCoeff);
+        Optional<SubjectEntity> matiereOptional1 = subjectRepository.findOne(matiereExampleCoeff);
         matiereOptional1.ifPresent(System.out::println);
     }
 
     @Test
     void findMatiereOptionalQBEMethod_E3_2b() {
-        var matiere = new Matiere();
+        var matiere = new SubjectEntity();
         matiere.setCoefficient(200);
         matiere.setIntitule("DATA");
 
@@ -204,7 +204,7 @@ class ReadTestDemo {
 
         var matiereExampleIntitule = Example.of(matiere, matcher);
 
-        Optional<Matiere> matiereOptional2 = matiereRepository.findOne(matiereExampleIntitule);
+        Optional<SubjectEntity> matiereOptional2 = subjectRepository.findOne(matiereExampleIntitule);
 
         matiereOptional2.ifPresent(System.out::println);
     }

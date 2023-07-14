@@ -1,4 +1,4 @@
-package com.cegefos.tp1.entity;
+package com.cegefos.tp1.persistance.entities;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -11,16 +11,14 @@ import com.cegefos.tp1.enums.Classe;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @Entity
+@AllArgsConstructor
+@Builder(toBuilder = true)
 @Table(name = "etudiants")
-public class Etudiant implements Serializable {
+public class StudentEntity implements Serializable {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1478410950907668609L;
 
     @Id
@@ -38,27 +36,12 @@ public class Etudiant implements Serializable {
     @ManyToMany
     @JoinTable(name = "etudiants_examens", joinColumns = {@JoinColumn(name = "examen_id")}, inverseJoinColumns = {
             @JoinColumn(name = "etudiant_id")})
-    private Set<Examen> examens = new HashSet<>();
+    private Set<ExamEntity> examenEntities = new HashSet<>();
 
-    public Etudiant(String nom, Classe classe) {
-        super();
+
+    public StudentEntity(@NonNull String nom, @NonNull Classe classe, @NonNull Set<ExamEntity> examenEntities) {
         this.nom = nom;
         this.classe = classe;
-    }
-
-    public Etudiant(String nom, Classe classe, Set<Examen> examens) {
-        super();
-        this.nom = nom;
-        this.classe = classe;
-        this.examens = examens;
-    }
-
-    @Override
-    public String toString() {
-        return "Etudiant{" +
-                "etudiantId=" + etudiantId +
-                ", nom='" + nom + '\'' +
-                ", classe=" + classe +
-                '}';
+        this.examenEntities = examenEntities;
     }
 }
