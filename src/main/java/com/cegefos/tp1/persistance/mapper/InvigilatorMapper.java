@@ -1,6 +1,6 @@
-package com.cegefos.tp1.mapper;
+package com.cegefos.tp1.persistance.mapper;
 
-import com.cegefos.tp1.domains.Invigilator;
+import com.cegefos.tp1.domain.Invigilator;
 import com.cegefos.tp1.persistance.entities.InvigilatorEntity;
 import org.mapstruct.Mapper;
 

@@ -6,8 +6,8 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
-import com.cegefos.tp1.controller.ExamenController;
-import com.cegefos.tp1.mapper.ExamMapper;
+import com.cegefos.tp1.controller.ExamController;
+import com.cegefos.tp1.persistance.mapper.ExamMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +20,7 @@ import com.cegefos.tp1.persistance.entities.RoomEntity;
 import com.cegefos.tp1.service.ExamenService;
 
 @RestController
-public class ExamenControllerImpl  implements ExamenController {
+public class ExamControllerImpl implements ExamController {
 
     @Autowired
     private ExamenService examenService;

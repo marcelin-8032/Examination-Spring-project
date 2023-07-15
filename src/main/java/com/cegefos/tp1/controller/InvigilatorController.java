@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping("/surveillant")
-public interface SurveillantController {
+public interface InvigilatorController {
 
     @PostMapping(value = "/create", headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
     void createASurveillant(@RequestBody InvigilatorEntity invigilatorEntity);

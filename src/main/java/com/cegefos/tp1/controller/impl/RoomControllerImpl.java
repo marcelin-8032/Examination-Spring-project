@@ -1,6 +1,6 @@
 package com.cegefos.tp1.controller.impl;
 
-import com.cegefos.tp1.controller.SalleController;
+import com.cegefos.tp1.controller.RoomController;
 import com.cegefos.tp1.persistance.entities.RoomEntity;
 import com.cegefos.tp1.service.SalleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class SalleControllerImpl implements SalleController {
+public class RoomControllerImpl implements RoomController {
 
     @Autowired
     private SalleService salleService;

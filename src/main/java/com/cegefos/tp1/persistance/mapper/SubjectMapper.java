@@ -1,4 +1,4 @@
-package com.cegefos.tp1.mapper;
+package com.cegefos.tp1.persistance.mapper;
 
 import org.mapstruct.Mapper;
 

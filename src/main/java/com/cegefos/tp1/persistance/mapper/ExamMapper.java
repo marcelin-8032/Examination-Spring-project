@@ -1,6 +1,6 @@
-package com.cegefos.tp1.mapper;
+package com.cegefos.tp1.persistance.mapper;
 
-import com.cegefos.tp1.domains.Exam;
+import com.cegefos.tp1.domain.Exam;
 import com.cegefos.tp1.persistance.entities.ExamEntity;
 import org.mapstruct.Mapper;
 

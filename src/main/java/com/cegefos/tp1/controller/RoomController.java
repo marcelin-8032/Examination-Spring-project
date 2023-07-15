@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequestMapping("/salle")
-public interface SalleController {
+public interface RoomController {
 
     @PostMapping(value = "/create", headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
     void createASalle(@RequestBody RoomEntity roomEntity);

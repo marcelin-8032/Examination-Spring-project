@@ -1,4 +1,4 @@
-package com.cegefos.tp1.domains;
+package com.cegefos.tp1.domain;
 
 import com.cegefos.tp1.persistance.entities.ExamEntity;
 import lombok.Builder;
@@ -12,11 +12,5 @@ import java.util.Set;
 public record Invigilator(Integer surveillantId,
                           String nom,
                           Set<ExamEntity> examenEntities) implements Serializable {
-
-    public Invigilator(String nom) {
-        this(null, nom, null);
-    }
-
-
 
 }

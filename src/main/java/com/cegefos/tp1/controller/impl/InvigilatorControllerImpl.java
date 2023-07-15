@@ -1,6 +1,6 @@
 package com.cegefos.tp1.controller.impl;
 
-import com.cegefos.tp1.controller.SurveillantController;
+import com.cegefos.tp1.controller.InvigilatorController;
 import com.cegefos.tp1.persistance.entities.InvigilatorEntity;
 import com.cegefos.tp1.service.SurveillantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class SurveillantControllerImpl implements SurveillantController {
+public class InvigilatorControllerImpl implements InvigilatorController {
 
     @Autowired
     private SurveillantService surveillantService;

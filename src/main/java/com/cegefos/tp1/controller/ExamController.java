@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 @RequestMapping("/examen")
-public interface ExamenController {
+public interface ExamController {
 
     @PostMapping(value = "/create", headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
     void createExamens(@RequestBody List<ExamEntity> examenEntities);

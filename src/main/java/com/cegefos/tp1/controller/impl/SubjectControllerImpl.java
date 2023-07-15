@@ -1,6 +1,6 @@
 package com.cegefos.tp1.controller.impl;
 
-import com.cegefos.tp1.controller.MatiereController;
+import com.cegefos.tp1.controller.SubjectController;
 import com.cegefos.tp1.persistance.entities.SubjectEntity;
 import com.cegefos.tp1.enums.Module;
 import com.cegefos.tp1.service.MatiereService;
@@ -14,7 +14,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 @RestController
-public class MatiereControllerImpl implements MatiereController {
+public class SubjectControllerImpl implements SubjectController {
 
     @Autowired
     private MatiereService matiereService;

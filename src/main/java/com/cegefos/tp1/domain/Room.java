@@ -1,4 +1,4 @@
-package com.cegefos.tp1.domains;
+package com.cegefos.tp1.domain;
 
 import com.cegefos.tp1.persistance.entities.ExamEntity;
 import lombok.Builder;
@@ -13,7 +13,4 @@ public record Room(Integer salleId,
                    int numero,
                    Set<ExamEntity> examenEntities) implements Serializable {
 
-    public Room(int numero) {
-        this(null, numero, null);
-    }
 }

@@ -1,4 +1,4 @@
-package com.cegefos.tp1.domains;
+package com.cegefos.tp1.domain;
 
 import com.cegefos.tp1.persistance.entities.ExamEntity;
 import lombok.Builder;

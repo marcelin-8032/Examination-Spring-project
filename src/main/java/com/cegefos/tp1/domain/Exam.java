@@ -1,4 +1,4 @@
-package com.cegefos.tp1.domains;
+package com.cegefos.tp1.domain;
 
 import com.cegefos.tp1.persistance.entities.StudentEntity;
 import com.cegefos.tp1.persistance.entities.SubjectEntity;
@@ -21,7 +21,4 @@ public record Exam(Integer examenId,
                    RoomEntity roomEntity,
                    InvigilatorEntity invigilatorEntity) implements Serializable {
 
-    public Exam(Date dateExam, SubjectEntity subjectEntity, RoomEntity roomEntity, InvigilatorEntity invigilatorEntity) {
-        this(null, dateExam, null, subjectEntity, roomEntity, invigilatorEntity);
-    }
 }

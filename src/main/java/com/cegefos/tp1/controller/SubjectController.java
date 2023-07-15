@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 @RequestMapping("/matiere")
-public interface MatiereController {
+public interface SubjectController {
 
     @PostMapping(value = "/create", headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
     void createMatiere(@RequestBody SubjectEntity subjectEntity);
