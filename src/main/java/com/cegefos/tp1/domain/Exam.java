@@ -8,14 +8,14 @@ import lombok.Builder;
 import lombok.With;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 
 @Builder
 @With
 public record Exam(Integer examenId,
-                   Date dateExam,
+                   LocalDateTime dateExam,
                    Set<StudentEntity> etudiantEntities,
                    SubjectEntity subjectEntity,
                    RoomEntity roomEntity,

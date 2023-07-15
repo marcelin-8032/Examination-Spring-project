@@ -2,6 +2,7 @@ package com.cegefos.tp1.service;
 
 import java.util.Collection;
 
+
 import com.cegefos.tp1.domain.Student;
 import com.cegefos.tp1.exception.ExaminationException;
 import com.cegefos.tp1.persistance.entities.StudentEntity;
@@ -10,12 +11,9 @@ import io.vavr.control.Either;
 
 public interface StudentService {
 
-	void createEtudiant(StudentEntity studentEntity);
-
 	Either<ExaminationException,Student> createStudent(Student student);
 
-	Collection<StudentEntity> findEtudiants();
+	Either<ExaminationException, Collection<Student>> findStudents();
 
-	Collection<StudentEntity> findEtudiantByClasse(Classe classe);
-
+	Either<ExaminationException, Collection<Student>> findStudentByClasse(Classe classe);
 }

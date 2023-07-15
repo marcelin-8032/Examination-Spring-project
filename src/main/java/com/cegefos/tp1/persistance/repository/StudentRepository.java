@@ -15,7 +15,7 @@ import java.util.Collection;
 @Repository
 public interface StudentRepository extends JpaRepository<StudentEntity, Integer> {
 
-    Collection<StudentEntity> findEtudiantByClasse(Classe classe);
+    Collection<StudentEntity> findStudentsByClasse(Classe classe);
 
     /*****************************-------------------------Query methods------------------***************/
 

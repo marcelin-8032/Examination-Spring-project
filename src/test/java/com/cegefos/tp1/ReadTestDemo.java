@@ -83,7 +83,7 @@ class ReadTestDemo {
 
     @Test
     void findEtudiantAtSpecificClasse() {
-        studentRepository.findEtudiantByClasse(Classe.classeA).forEach(System.out::println);
+        studentRepository.findStudentsByClasse(Classe.classeA).forEach(System.out::println);
     }
 
     @Test

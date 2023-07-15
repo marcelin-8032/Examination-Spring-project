@@ -2,54 +2,41 @@ package com.cegefos.tp1.controller.impl;
 
 import com.cegefos.tp1.controller.StudentController;
 import com.cegefos.tp1.domain.Student;
-import com.cegefos.tp1.exception.ExaminationException;
-import com.cegefos.tp1.exception.ExaminationExceptionSanitize;
 import com.cegefos.tp1.persistance.entities.StudentEntity;
 import com.cegefos.tp1.enums.Classe;
 import com.cegefos.tp1.persistance.mapper.StudentMapper;
 import com.cegefos.tp1.service.StudentService;
-import io.vavr.control.Either;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
 
 @RestController
+@RequiredArgsConstructor
 public class StudentControllerImpl implements StudentController {
 
-    @Autowired
-    private StudentService studentService;
-
-    @Autowired
-    private StudentMapper studentMapper;
-
+    private final StudentService studentService;
 
     @Override
-    public void createEtudiant(@RequestBody Student student) {
-        StudentEntity studentEntity = studentMapper.toStudentEntity(student);
-        studentService.createEtudiant(studentEntity);
+    public ResponseEntity<Student> createStudent(Student student) {
+        studentService.createStudent(student);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @Override
-    public Either<ExaminationException, Student> createStudent(Student student) {
-        return studentService.createStudent(student)
-                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
+    public ResponseEntity<Collection<Student>> getAllStudents() {
+        studentService.findStudents();
+        return new ResponseEntity<>(HttpStatus.FOUND);
     }
-
 
     @Override
-    public Collection<StudentEntity> getEtudiantByClass(@PathVariable("classe") Classe classe) {
-        return studentService.findEtudiantByClasse(classe);
+    public ResponseEntity<Collection<Student>> getStudentByClass(Classe classe) {
+        studentService.findStudentByClasse(classe);
+        return new ResponseEntity<>(HttpStatus.FOUND);
     }
-
-
-    @Override
-    public Collection<StudentEntity> getAllEtudiants() {
-        return studentService.findEtudiants();
-
-    }
-
 
 }

@@ -10,10 +10,10 @@ import java.util.Set;
 @Builder
 @With
 public record Subject(
-        Integer matiereId,
-        String intitule,
+        Integer subjectId,
+        String title,
         int coefficient,
         Module module,
-        Set<ExamEntity> examenEntities
+        Set<ExamEntity> examEntitySet
 ) implements Serializable {
 }

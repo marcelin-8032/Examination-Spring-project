@@ -9,8 +9,9 @@ import java.util.Set;
 
 @Builder
 @With
-public record Invigilator(Integer surveillantId,
-                          String nom,
-                          Set<ExamEntity> examenEntities) implements Serializable {
+public record Invigilator(
+        Integer surveillantId,
+        String nom,
+        Set<ExamEntity> examenEntities) implements Serializable {
 
 }

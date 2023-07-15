@@ -15,8 +15,8 @@ public interface SubjectController {
     @PostMapping(value = "/create", headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
     void createMatiere(@RequestBody SubjectEntity subjectEntity);
 
-    @PutMapping(value = "/update/{matiereId}", headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
-    void updateMatiereWithNumero(@PathVariable("matiereId") Integer matiereId, int numero);
+    @PutMapping(value = "/update/{subjectId}", headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
+    void updateMatiereWithNumero(@PathVariable("subjectId") Integer matiereId, int numero);
 
     @GetMapping(value = "/matieresbycoeff")
     Collection<SubjectEntity> getMatiereByCoeffBiggerThan(int coeff);

@@ -28,7 +28,7 @@ public class SubjectControllerImpl implements SubjectController {
     }
 
 
-    public void updateMatiereWithNumero(@PathVariable("matiereId") Integer matiereId, int numero) {
+    public void updateMatiereWithNumero(@PathVariable("subjectId") Integer matiereId, int numero) {
         try {
             matiereService.updateMatiere(matiereId, numero);
         } catch (Exception e) {
