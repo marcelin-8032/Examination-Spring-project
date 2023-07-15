@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import java.util.Collection;
 
 @Mapper(componentModel = "spring")
-public interface SurveillantMapper {
+public interface InvigilatorMapper {
 
     Invigilator toSurveillantDto(InvigilatorEntity invigilatorEntity);
 

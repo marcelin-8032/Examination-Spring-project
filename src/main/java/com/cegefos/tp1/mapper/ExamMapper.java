@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import java.util.Collection;
 
 @Mapper(componentModel = "spring")
-public interface ExamenMapper {
+public interface ExamMapper {
     Exam toExamenDto(ExamEntity examEntity);
     ExamEntity toExamen(Exam exam);
     Collection<Exam> toExamenDtos(Collection<ExamEntity> examen);

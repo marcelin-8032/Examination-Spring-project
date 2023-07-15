@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import java.util.Collection;
 
 @Mapper(componentModel = "spring")
-public interface SalleMapper {
+public interface RoomMapper {
     Room toSalleDto(RoomEntity roomEntity);
 
     RoomEntity toSalle(Room room);

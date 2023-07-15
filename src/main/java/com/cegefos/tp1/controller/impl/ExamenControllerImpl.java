@@ -7,7 +7,7 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 
 import com.cegefos.tp1.controller.ExamenController;
-import com.cegefos.tp1.mapper.ExamenMapper;
+import com.cegefos.tp1.mapper.ExamMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +26,7 @@ public class ExamenControllerImpl  implements ExamenController {
     private ExamenService examenService;
 
     @Autowired
-    private ExamenMapper examenMapper;
+    private ExamMapper examMapper;
 
     @Override
     public void createExamens(@RequestBody List<ExamEntity> examenEntities) {
