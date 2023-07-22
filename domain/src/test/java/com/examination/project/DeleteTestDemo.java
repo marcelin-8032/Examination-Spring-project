@@ -1,8 +1,8 @@
 package com.examination.project;
 
-import com.examination.project.persistance.entities.ExamEntity;
-import com.examination.project.persistance.repository.ExamRepository;
-import com.examination.project.persistance.repository.RoomRepository;
+import com.examination.project.persistance.exam.entities.ExamEntity;
+import com.examination.project.persistance.exam.repository.ExamRepository;
+import com.examination.project.persistance.room.repository.RoomRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.examination.project.utils;
 
-import com.examination.project.domain.*;
+import com.examination.project.entities.*;
 import com.examination.project.enums.Classe;
 import com.examination.project.enums.Module;
 import io.vavr.collection.List;

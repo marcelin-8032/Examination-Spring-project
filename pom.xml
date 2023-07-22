@@ -3,8 +3,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<packaging>pom</packaging>
 	<modules>
-		<module>Domain</module>
-		<module>Infrastructure</module>
+		<module>domain</module>
+		<module>infrastructure</module>
 		<module>shared</module>
 		<module>app</module>
 	</modules>

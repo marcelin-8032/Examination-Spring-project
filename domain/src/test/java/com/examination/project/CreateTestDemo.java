@@ -2,8 +2,16 @@ package com.examination.project;
 
 import com.examination.project.enums.Classe;
 import com.examination.project.enums.Module;
-import com.examination.project.persistance.entities.*;
-import com.examination.project.persistance.repository.*;
+import com.examination.project.persistance.exam.entities.ExamEntity;
+import com.examination.project.persistance.exam.repository.ExamRepository;
+import com.examination.project.persistance.invigilator.entities.InvigilatorEntity;
+import com.examination.project.persistance.invigilator.repository.InvigilatorRepository;
+import com.examination.project.persistance.room.entities.RoomEntity;
+import com.examination.project.persistance.room.repository.RoomRepository;
+import com.examination.project.persistance.student.entities.StudentEntity;
+import com.examination.project.persistance.student.repository.StudentRepository;
+import com.examination.project.persistance.subject.entities.SubjectEntity;
+import com.examination.project.persistance.subject.repository.SubjectRepository;
 import io.vavr.collection.*;
 import org.junit.jupiter.api.*;
 import org.junit.runner.RunWith;
