@@ -3,9 +3,9 @@ package com.examination.project.usecases.student;
 import java.util.Collection;
 
 
+import com.examination.project.entities.Classe;
 import com.examination.project.entities.Student;
 import com.examination.project.exception.ExaminationException;
-import com.examination.project.enums.Classe;
 import io.vavr.control.Either;
 
 public interface StudentUseCase {

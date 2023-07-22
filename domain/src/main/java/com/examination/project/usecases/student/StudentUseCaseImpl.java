@@ -1,11 +1,11 @@
 package com.examination.project.usecases.student;
 
+import com.examination.project.entities.Classe;
 import com.examination.project.entities.Student;
-import com.examination.project.enums.Classe;
 import com.examination.project.exception.ExaminationException;
 import com.examination.project.exception.ExaminationExceptionSanitize;
 import com.examination.project.mapper.StudentMapper;
-import com.examination.project.persistance.student.repository.StudentRepository;
+import com.examination.project.handler.persistance.student.repository.StudentRepository;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
 import lombok.RequiredArgsConstructor;
@@ -44,10 +44,11 @@ public class StudentUseCaseImpl implements StudentUseCase {
 
     @Override
     public Either<ExaminationException, Collection<Student>> findStudentByClasse(Classe classe) {
-        return Try.of(() -> this.studentRepository.findStudentsByClasse(classe))
-                .map(this.studentMapper::toStudents)
-                .toEither()
-                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
+//        return Try.of(() -> this.studentRepository.findStudentsByClasse(classe))
+//                .map(this.studentMapper::toStudents)
+//                .toEither()
+//                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
+        return null;
     }
 
 }

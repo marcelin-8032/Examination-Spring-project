@@ -8,12 +8,10 @@ import com.examination.project.entities.Exam;
 import com.examination.project.entities.Room;
 import com.examination.project.mapper.ExamMapper;
 import com.examination.project.mapper.RoomMapper;
-import com.examination.project.persistance.exam.entities.ExamEntity;
-import com.examination.project.persistance.exam.repository.ExamRepository;
-import com.examination.project.persistance.room.repository.RoomRepository;
+import com.examination.project.handler.persistance.exam.repository.ExamRepository;
+import com.examination.project.handler.persistance.room.repository.RoomRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -65,13 +63,15 @@ public class ExamUseCaseImpl implements ExamUseCase {
     @Override
     public Page<Exam> getAllExamensInPages(Pageable pageable) {
         pageable = PageRequest.of(0, 2, Sort.Direction.ASC, "examen_id");
-        return examMapper.toExamPage(examRepository.findAllExamens(pageable));
+      //  return examMapper.toExamPage(examRepository.findAllExamens(pageable));
+        return  null;
     }
 
     @Override
     public Page<Exam> getAllExamensBySalle(Integer id, Pageable pageable) {
         pageable = PageRequest.of(0, 3, Sort.Direction.DESC, "date_exam");
-        return examMapper.toExamPage(examRepository.findBysurveillant(id, pageable));
+       // return examMapper.toExamPage(examRepository.findBysurveillant(id, pageable));
+        return null;
     }
 
 

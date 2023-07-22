@@ -4,9 +4,6 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>domain</module>
-		<module>infrastructure</module>
-		<module>shared</module>
-		<module>app</module>
 	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>

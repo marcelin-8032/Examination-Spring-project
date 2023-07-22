@@ -4,14 +4,13 @@ import com.examination.project.entities.Exam;
 import com.examination.project.entities.Room;
 import com.examination.project.mapper.ExamMapper;
 import com.examination.project.mapper.RoomMapper;
-import com.examination.project.persistance.exam.repository.ExamRepository;
-import com.examination.project.persistance.room.repository.RoomRepository;
+import com.examination.project.handler.persistance.exam.repository.ExamRepository;
+import com.examination.project.handler.persistance.room.repository.RoomRepository;
 
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service

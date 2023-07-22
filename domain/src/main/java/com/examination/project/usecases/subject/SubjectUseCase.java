@@ -6,8 +6,6 @@ import java.util.Optional;
 import com.examination.project.entities.Subject;
 import org.springframework.data.domain.Example;
 
-import com.examination.project.enums.Module;
-
 public interface SubjectUseCase {
 
 	void createSubject(Subject subject);

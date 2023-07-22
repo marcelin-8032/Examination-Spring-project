@@ -1,6 +1,5 @@
 package com.examination.project.entities;
 
-import com.examination.project.enums.Module;
 import io.vavr.collection.Set;
 import lombok.Builder;
 import lombok.With;

@@ -1,13 +1,14 @@
 package com.examination.project;
 
-import com.examination.project.persistance.exam.entities.ExamEntity;
-import com.examination.project.persistance.subject.entities.SubjectEntity;
-import com.examination.project.persistance.room.entities.RoomEntity;
-import com.examination.project.enums.Classe;
-import com.examination.project.persistance.student.repository.StudentRepository;
-import com.examination.project.persistance.exam.repository.ExamRepository;
-import com.examination.project.persistance.subject.repository.SubjectRepository;
-import com.examination.project.persistance.room.repository.RoomRepository;
+
+import com.examination.project.handler.persistance.enums.ClasseEntity;
+import com.examination.project.handler.persistance.exam.entities.ExamEntity;
+import com.examination.project.handler.persistance.subject.entities.SubjectEntity;
+import com.examination.project.handler.persistance.room.entities.RoomEntity;
+import com.examination.project.handler.persistance.student.repository.StudentRepository;
+import com.examination.project.handler.persistance.exam.repository.ExamRepository;
+import com.examination.project.handler.persistance.subject.repository.SubjectRepository;
+import com.examination.project.handler.persistance.room.repository.RoomRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -83,7 +84,7 @@ class ReadTestDemo {
 
     @Test
     void findEtudiantAtSpecificClasse() {
-        studentRepository.findStudentsByClasse(Classe.classeA).forEach(System.out::println);
+        studentRepository.findStudentsByClasse(ClasseEntity.classeA).forEach(System.out::println);
     }
 
     @Test
@@ -126,7 +127,7 @@ class ReadTestDemo {
 
     @Test
     void findStudentByEachClassQueryWay() {
-        studentRepository.findStudentsAsClasse(Classe.classeA).forEach(System.out::println);
+        studentRepository.findStudentsAsClasse(ClasseEntity.classeA).forEach(System.out::println);
     }
 
     @Test

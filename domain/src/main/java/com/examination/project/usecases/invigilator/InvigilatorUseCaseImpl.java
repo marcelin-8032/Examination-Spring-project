@@ -3,11 +3,9 @@ package com.examination.project.usecases.invigilator;
 
 import com.examination.project.entities.Invigilator;
 import com.examination.project.mapper.InvigilatorMapper;
-import com.examination.project.persistance.invigilator.entities.InvigilatorEntity;
-import com.examination.project.persistance.invigilator.repository.InvigilatorRepository;
+import com.examination.project.handler.persistance.invigilator.repository.InvigilatorRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service

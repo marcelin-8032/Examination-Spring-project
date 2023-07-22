@@ -10,24 +10,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>Domain</artifactId>
-    <dependencies>
-        <dependency>
-            <groupId>com.cegefos.tp1</groupId>
-            <artifactId>shared</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.cegefos.tp1</groupId>
-            <artifactId>Infrastructure</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
 
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-    </properties>
 
 </project>

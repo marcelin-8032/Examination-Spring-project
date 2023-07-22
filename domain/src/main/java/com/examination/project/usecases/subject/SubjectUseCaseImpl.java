@@ -1,11 +1,8 @@
 package com.examination.project.usecases.subject;
 
 import com.examination.project.entities.Subject;
-import com.examination.project.enums.Module;
 import com.examination.project.mapper.SubjectMapper;
-import com.examination.project.persistance.subject.repository.SubjectRepository;
-
-import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.exact;
+import com.examination.project.handler.persistance.subject.repository.SubjectRepository;
 
 import java.util.Collection;
 import java.util.List;
@@ -13,12 +10,8 @@ import java.util.Optional;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
-
-import com.querydsl.core.types.dsl.BooleanExpression;
 
 @Service
 @RequiredArgsConstructor
