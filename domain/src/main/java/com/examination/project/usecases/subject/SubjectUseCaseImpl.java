@@ -10,17 +10,18 @@ import java.util.Optional;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
 public class SubjectUseCaseImpl implements SubjectUseCase {
 
-    private final SubjectRepository subjectRepository;
+    private SubjectRepository subjectRepository;
 
-    private final SubjectMapper subjectMapper;
+    @Autowired
+    private SubjectMapper subjectMapper;
 
     @Override
     public void createSubject(Subject subject) {

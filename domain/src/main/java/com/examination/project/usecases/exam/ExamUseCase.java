@@ -12,7 +12,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface ExamUseCase {
 
-	void createExams(List<Exam> examenEntities);
+	void createExams(List<Exam> exams);
 	
 	Collection<Exam> getAllExams();
 	
@@ -20,9 +20,9 @@ public interface ExamUseCase {
 	
 //	Collection<Examen> getExamAtSalleAndGivenDate(Optional<Salle> salle, Date date);
 
-	Collection<Exam> getExamAtRoomAndAfterADate(Room roomEntity, Date date);
+	Collection<Exam> getExamAtRoomAndAfterADate(Room room, Date date);
 	
-	Collection<Exam> getExamensAtRecentDataAtSpecificSalle(Room roomEntity);
+	Collection<Exam> getExamensAtRecentDataAtSpecificSalle(Room room);
 	
 	Page<Exam> getAllExamensInPages(Pageable pageable);
 	

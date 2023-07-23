@@ -6,16 +6,17 @@ import com.examination.project.mapper.InvigilatorMapper;
 import com.examination.project.handler.persistance.invigilator.repository.InvigilatorRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
 public class InvigilatorUseCaseImpl implements InvigilatorUseCase {
 
-    private final InvigilatorRepository invigilatorRepository;
+    private InvigilatorRepository invigilatorRepository;
 
-    private final InvigilatorMapper invigilatorMapper;
+    @Autowired
+    private InvigilatorMapper invigilatorMapper;
 
     @Override
     public void createInvigilator(Invigilator invigilator) {

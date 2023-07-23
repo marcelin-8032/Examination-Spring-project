@@ -8,21 +8,23 @@ import com.examination.project.mapper.StudentMapper;
 import com.examination.project.handler.persistance.student.repository.StudentRepository;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
 public class StudentUseCaseImpl implements StudentUseCase {
 
-    private final StudentRepository studentRepository;
+    private StudentRepository studentRepository;
 
-    private final StudentMapper studentMapper;
+    @Autowired
+    private  StudentMapper studentMapper;
 
 
     @Override

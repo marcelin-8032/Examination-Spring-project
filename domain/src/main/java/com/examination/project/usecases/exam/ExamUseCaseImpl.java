@@ -1,35 +1,36 @@
 package com.examination.project.usecases.exam;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-
 import com.examination.project.entities.Exam;
 import com.examination.project.entities.Room;
-import com.examination.project.mapper.ExamMapper;
-import com.examination.project.mapper.RoomMapper;
 import com.examination.project.handler.persistance.exam.repository.ExamRepository;
 import com.examination.project.handler.persistance.room.repository.RoomRepository;
+import com.examination.project.mapper.ExamMapper;
+import com.examination.project.mapper.RoomMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+
 @Service
-@RequiredArgsConstructor
 @Slf4j
 public class ExamUseCaseImpl implements ExamUseCase {
 
-    private final ExamRepository examRepository;
+    private ExamRepository examRepository;
 
-    private final RoomRepository roomRepository;
+    private RoomRepository roomRepository;
 
-    private final ExamMapper  examMapper;
+    private ExamMapper  examMapper;
 
-    private final RoomMapper roomMapper;
+    @Autowired
+    private RoomMapper roomMapper;
 
     @Override
     public void createExams(List<Exam> exams) {

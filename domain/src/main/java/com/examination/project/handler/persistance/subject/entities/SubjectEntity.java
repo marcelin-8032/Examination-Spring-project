@@ -1,23 +1,15 @@
 package com.examination.project.handler.persistance.subject.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashSet;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import com.examination.project.entities.Module;
 
 import com.examination.project.handler.persistance.exam.entities.ExamEntity;
 
-import io.vavr.collection.HashSet;
 import io.vavr.collection.Set;
 import lombok.*;
 
@@ -50,7 +42,8 @@ public class SubjectEntity implements Serializable {
     @NonNull
     private Module module;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "subject")
-    private Set<ExamEntity> examEntities = HashSet.empty();
+    @OneToMany
+    @JoinColumn(name = "subject_id")
+    private Collection<ExamEntity> examEntities = new HashSet<>();
 
 }

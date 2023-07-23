@@ -11,20 +11,22 @@ import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
 public class RoomUseCaseImpl implements RoomUseCase {
 
-    private final RoomRepository roomRepository;
+    private  RoomRepository roomRepository;
 
-    private final ExamRepository examRepository;
+    private ExamRepository examRepository;
 
-    private final RoomMapper roomMapper;
+    @Autowired
+    private RoomMapper roomMapper;
 
-    private final ExamMapper examMapper;
+    @Autowired
+    private  ExamMapper examMapper;
 
     @Override
     public void createRoom(Room room) {

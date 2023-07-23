@@ -1,18 +1,11 @@
 package com.examination.project.handler.persistance.invigilator.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 import com.examination.project.handler.persistance.exam.entities.ExamEntity;
@@ -25,20 +18,21 @@ import lombok.*;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Builder(toBuilder = true)
-@Table(name="invigilator")
-public class InvigilatorEntity implements Serializable{
+@Table(name = "invigilator")
+public class InvigilatorEntity implements Serializable {
 
-	private static final long serialVersionUID = -5461477499521864156L;
+    private static final long serialVersionUID = -5461477499521864156L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer invigilatorId;
-	
-	@Column
-	@NonNull
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer invigilatorId;
+
+    @Column
+    @NonNull
     private String nom;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "invigilator")
-	private Set<ExamEntity> examenEntities= new HashSet<>();
+    @OneToMany
+    @JoinColumn(name = "invigilator_id")
+    private Collection<ExamEntity> examEntities = new HashSet<>();
 
 }
