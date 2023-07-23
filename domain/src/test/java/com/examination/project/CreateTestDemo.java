@@ -2,8 +2,8 @@ package com.examination.project;
 
 
 
-import com.examination.project.handler.persistance.enums.ClasseEntity;
-import com.examination.project.handler.persistance.enums.ModuleEntity;
+
+import com.examination.project.entities.Classe;
 import com.examination.project.handler.persistance.exam.entities.ExamEntity;
 import com.examination.project.handler.persistance.exam.repository.ExamRepository;
 import com.examination.project.handler.persistance.invigilator.entities.InvigilatorEntity;
@@ -20,7 +20,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
+import com.examination.project.entities.Module;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 
@@ -89,13 +89,13 @@ class CreateTestDemo {
         LocalDateTime date3 = LocalDateTime.parse("2022-02-18 09:00:00");
         LocalDateTime date4 = LocalDateTime.parse("2022-02-25 09:00:00");
 
-        physique = new SubjectEntity("Physique", 164, ModuleEntity.MODULE_2);
-        chimie = new SubjectEntity("Chimie", 164, ModuleEntity.MODULE_2);
-        informatique = new SubjectEntity("Informatique", 200, ModuleEntity.MODULE_2);
-        literature = new SubjectEntity("Literature", 175, ModuleEntity.MODULE_2);
-        philosophie = new SubjectEntity("Philosophie", 190, ModuleEntity.MODULE_3);
-        musique = new SubjectEntity("Musique", 155, ModuleEntity.MODULE_2);
-        DATA = new SubjectEntity("data", 200, ModuleEntity.MODULE_3);
+        physique = new SubjectEntity("Physique", 164, Module.MODULE_2);
+        chimie = new SubjectEntity("Chimie", 164, Module.MODULE_2);
+        informatique = new SubjectEntity("Informatique", 200, Module.MODULE_2);
+        literature = new SubjectEntity("Literature", 175, Module.MODULE_2);
+        philosophie = new SubjectEntity("Philosophie", 190, Module.MODULE_3);
+        musique = new SubjectEntity("Musique", 155, Module.MODULE_2);
+        DATA = new SubjectEntity("data", 200, Module.MODULE_3);
 
         invigilatorEntityAdrian = new InvigilatorEntity("Adrian");
         invigilatorEntityArthur = new InvigilatorEntity("Arthur");
@@ -124,14 +124,14 @@ class CreateTestDemo {
         listExamens3 = HashSet.empty();
         listExamens3.add(examEntity6);
 
-        studentEntity1 = new StudentEntity("Alex", ClasseEntity.classeA, listExamens1);
-        studentEntity2 = new StudentEntity("Albert", ClasseEntity.classeB, listExamens1);
-        studentEntity3 = new StudentEntity("Robert", ClasseEntity.classeC, listExamens1);
-        studentEntity4 = new StudentEntity("Mickael", ClasseEntity.classeB, listExamens2);
-        studentEntity5 = new StudentEntity("Mohsen", ClasseEntity.classeA, listExamens2);
-        studentEntity6 = new StudentEntity("Betty", ClasseEntity.classeC, listExamens2);
-        studentEntity7 = new StudentEntity("Maria", ClasseEntity.classeA, listExamens3);
-        studentEntity8 = new StudentEntity("Nathalia", ClasseEntity.classeC, listExamens3);
+        studentEntity1 = new StudentEntity("Alex", Classe.classeA, listExamens1);
+        studentEntity2 = new StudentEntity("Albert", Classe.classeB, listExamens1);
+        studentEntity3 = new StudentEntity("Robert", Classe.classeC, listExamens1);
+        studentEntity4 = new StudentEntity("Mickael", Classe.classeB, listExamens2);
+        studentEntity5 = new StudentEntity("Mohsen", Classe.classeA, listExamens2);
+        studentEntity6 = new StudentEntity("Betty", Classe.classeC, listExamens2);
+        studentEntity7 = new StudentEntity("Maria", Classe.classeA, listExamens3);
+        studentEntity8 = new StudentEntity("Nathalia", Classe.classeC, listExamens3);
 
     }
 

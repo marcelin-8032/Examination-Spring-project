@@ -1,7 +1,8 @@
 package com.examination.project;
 
 
-import com.examination.project.handler.persistance.enums.ClasseEntity;
+
+import com.examination.project.entities.Classe;
 import com.examination.project.handler.persistance.exam.entities.ExamEntity;
 import com.examination.project.handler.persistance.subject.entities.SubjectEntity;
 import com.examination.project.handler.persistance.room.entities.RoomEntity;
@@ -84,7 +85,7 @@ class ReadTestDemo {
 
     @Test
     void findEtudiantAtSpecificClasse() {
-        studentRepository.findStudentsByClasse(ClasseEntity.classeA).forEach(System.out::println);
+        studentRepository.findStudentsByClasse(Classe.classeA).forEach(System.out::println);
     }
 
     @Test
@@ -127,7 +128,7 @@ class ReadTestDemo {
 
     @Test
     void findStudentByEachClassQueryWay() {
-        studentRepository.findStudentsAsClasse(ClasseEntity.classeA).forEach(System.out::println);
+        studentRepository.findStudentsAsClasse(Classe.classeA).forEach(System.out::println);
     }
 
     @Test
@@ -199,7 +200,7 @@ class ReadTestDemo {
     void findMatiereOptionalQBEMethod_E3_2b() {
         var matiere = new SubjectEntity();
         matiere.setCoefficient(200);
-        matiere.setIntitule("DATA");
+        matiere.setTitle("DATA");
 
         var matcher = ExampleMatcher.matchingAll().withIgnoreCase();
 

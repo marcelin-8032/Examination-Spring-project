@@ -13,8 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import com.examination.project.entities.Module;
 
-import com.examination.project.handler.persistance.enums.ModuleEntity;
 import com.examination.project.handler.persistance.exam.entities.ExamEntity;
 
 import io.vavr.collection.HashSet;
@@ -28,18 +28,18 @@ import lombok.*;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Builder(toBuilder = true)
-@Table(name = "matiere")
+@Table(name = "subject")
 public class SubjectEntity implements Serializable {
 
     private static final long serialVersionUID = -6377054955014203603L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer matiereId;
+    private Integer subjectId;
 
     @Column
     @NonNull
-    private String intitule;
+    private String title;
 
     @Column
     @NonNull
@@ -48,9 +48,9 @@ public class SubjectEntity implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column
     @NonNull
-    private ModuleEntity moduleEntity;
+    private Module module;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "matiere")
-    private Set<ExamEntity> examenEntities = HashSet.empty();
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "subject")
+    private Set<ExamEntity> examEntities = HashSet.empty();
 
 }

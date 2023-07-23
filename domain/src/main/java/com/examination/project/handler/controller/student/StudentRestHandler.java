@@ -1,7 +1,7 @@
 package com.examination.project.handler.controller.student;
 
+import com.examination.project.entities.Classe;
 import com.examination.project.entities.Student;
-import com.examination.project.handler.persistance.enums.ClasseEntity;
 import com.examination.project.usecases.student.StudentUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -29,7 +29,7 @@ public class StudentRestHandler implements StudentHandler {
     }
 
     @Override
-    public ResponseEntity<Collection<Student>> getStudentByClass(ClasseEntity classeEntity) {
+    public ResponseEntity<Collection<Student>> getStudentByClass(Classe classe) {
 //        studentUseCase.findStudentByClasse(classeEntity);
 //        return new ResponseEntity<>(HttpStatus.FOUND);
         return null;

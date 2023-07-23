@@ -19,38 +19,38 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-@Table(name = "examens")
+@Table(name = "exams")
 public class ExamEntity implements Serializable {
 
     private static final long serialVersionUID = 6958515320559275010L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer examenId;
+    private Integer examId;
 
     @Column
     @NonNull
     private LocalDateTime dateExam;
 
-    @ManyToMany(mappedBy = "examens")
+    @ManyToMany(mappedBy = "exams")
     @NonNull
-    private Set<StudentEntity> etudiantEntities= HashSet.empty();
+    private Set<StudentEntity> studentEntities = HashSet.empty();
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "matiere_id")
+    @JoinColumn(name = "subject_id")
     @NonNull
     private SubjectEntity subjectEntity;
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "salle_id")
+    @JoinColumn(name = "room_id")
     @NonNull
     private RoomEntity roomEntity;
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "surveillant_id")
+    @JoinColumn(name = "invigilator_id")
     @NonNull
     private InvigilatorEntity invigilatorEntity;
 

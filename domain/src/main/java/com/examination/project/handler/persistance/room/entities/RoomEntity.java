@@ -14,8 +14,10 @@ import javax.persistence.Table;
 
 import com.examination.project.handler.persistance.common.audit.AuditableBaseEntity;
 import com.examination.project.handler.persistance.exam.entities.ExamEntity;
-import io.vavr.collection.HashSet;
 import lombok.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Data
@@ -24,19 +26,19 @@ import lombok.*;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Builder(toBuilder = true)
-@Table(name = "salle")
+@Table(name = "room")
 public class RoomEntity extends AuditableBaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer salleId;
+	private Integer roomId;
 
 	@Column
 	@NonNull
 	private int numero;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "salle")
-	private HashSet<ExamEntity> examenEntities=HashSet.empty();
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "room")
+	private Set<ExamEntity> examenEntities=new HashSet<>();
 
 	// Audit by annotation
 	/*

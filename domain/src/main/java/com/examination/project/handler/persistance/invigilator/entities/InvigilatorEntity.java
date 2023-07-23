@@ -1,6 +1,8 @@
 package com.examination.project.handler.persistance.invigilator.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,8 +16,6 @@ import javax.persistence.Table;
 
 
 import com.examination.project.handler.persistance.exam.entities.ExamEntity;
-import io.vavr.collection.HashSet;
-import io.vavr.collection.Set;
 import lombok.*;
 
 
@@ -25,20 +25,20 @@ import lombok.*;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Builder(toBuilder = true)
-@Table(name="surveillant")
+@Table(name="invigilator")
 public class InvigilatorEntity implements Serializable{
 
 	private static final long serialVersionUID = -5461477499521864156L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer surveillantId;
+	private Integer invigilatorId;
 	
 	@Column
 	@NonNull
     private String nom;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "surveillant")
-	private Set<ExamEntity> examenEntities= HashSet.empty();
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "invigilator")
+	private Set<ExamEntity> examenEntities= new HashSet<>();
 
 }

@@ -1,7 +1,7 @@
 package com.examination.project.handler.controller.student;
 
+import com.examination.project.entities.Classe;
 import com.examination.project.entities.Student;
-import com.examination.project.handler.persistance.enums.ClasseEntity;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -27,6 +27,6 @@ public interface StudentHandler {
     ResponseEntity<Collection<Student>> getAllStudents();
 
     @GetMapping(value = "/findbyclasse/{classe}")
-    ResponseEntity<Collection<Student>> getStudentByClass(@PathVariable("classe") ClasseEntity classeEntity);
+    ResponseEntity<Collection<Student>> getStudentByClass(@PathVariable("classe") Classe classe);
 
 }

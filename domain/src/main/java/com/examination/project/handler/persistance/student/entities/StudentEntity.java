@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-import com.examination.project.handler.persistance.enums.ClasseEntity;
+import com.examination.project.entities.Classe;
 import com.examination.project.handler.persistance.exam.entities.ExamEntity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -18,31 +18,31 @@ import lombok.*;
 @Entity
 @AllArgsConstructor
 @Builder(toBuilder = true)
-@Table(name = "etudiants")
+@Table(name = "students")
 public class StudentEntity implements Serializable {
 
     private static final long serialVersionUID = 1478410950907668609L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer etudiantId;
+    private Integer studentId;
 
     @Column
     private String nom;
 
     @Enumerated(EnumType.STRING)
     @Column
-    private ClasseEntity classeEntity;
+    private Classe classe;
 
     @JsonIgnore
     @ManyToMany
-    @JoinTable(name = "etudiants_examens", joinColumns = {@JoinColumn(name = "examen_id")}, inverseJoinColumns = {
-            @JoinColumn(name = "etudiant_id")})
-    private Set<ExamEntity> examEntities =HashSet.empty();
+    @JoinTable(name = "students_exams", joinColumns = {@JoinColumn(name = "exam_id")}, inverseJoinColumns = {
+            @JoinColumn(name = "student_id")})
+    private Set<ExamEntity> examEntities = HashSet.empty();
 
-    public StudentEntity(String nom, ClasseEntity classeEntity, Set<ExamEntity> examEntities) {
+    public StudentEntity(String nom, Classe classe, Set<ExamEntity> examEntities) {
         this.nom = nom;
-        this.classeEntity = classeEntity;
+        this.classe = classe;
         this.examEntities = examEntities;
     }
 }
