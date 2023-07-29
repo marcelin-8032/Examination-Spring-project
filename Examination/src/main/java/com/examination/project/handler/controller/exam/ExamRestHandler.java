@@ -7,11 +7,13 @@ import com.examination.project.usecases.exam.ExamUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -36,7 +38,7 @@ public class ExamRestHandler implements ExamHandler {
     }
 
     @Override
-    public Collection<Exam> getExamensByDate(@RequestBody Date date) {
+    public ResponseEntity<Collection<Exam>> getExamensByDate(@RequestBody LocalDateTime date) {
         return examUseCase.getExamsByDate(date);
     }
 
@@ -47,17 +49,17 @@ public class ExamRestHandler implements ExamHandler {
 
     @Override
     public Collection<Exam> getExamensAtRecentDataAtSpecificSalle(@RequestBody Room rooms) {
-        return examUseCase.getExamensAtRecentDataAtSpecificSalle(rooms);
+        return examUseCase.getExamsAtRecentDataAtSpecificRoom(rooms);
     }
 
     @Override
     public Page<Exam> getAllExamensInPages(@NotNull final Pageable pageable) {
-        return examUseCase.getAllExamensInPages(pageable);
+        return examUseCase.getAllExamsInPages(pageable);
     }
 
     @Override
     public Page<Exam> getAllExamensBySalle(@PathVariable("salleId") Integer salleId, @NotNull final Pageable pageable) {
-        return examUseCase.getAllExamensBySalle(salleId, pageable);
+        return examUseCase.getAllExamsByRoom(salleId, pageable);
     }
 
 }

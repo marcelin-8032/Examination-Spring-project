@@ -5,17 +5,25 @@ import com.examination.project.entities.Exam;
 import com.examination.project.handler.persistance.exam.entities.ExamEntity;
 import org.mapstruct.Mapper;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.jaxb.SpringDataJaxb;
+import org.springframework.data.domain.PageImpl;
 
 import java.util.Collection;
+import java.util.List;
 
 
 @Mapper(componentModel = "spring")
 public interface ExamMapper {
     Exam toExam(ExamEntity examEntity);
+
     ExamEntity toExamEntity(Exam exam);
+
     Collection<Exam> toExams(Collection<ExamEntity> examEntities);
+
     Collection<ExamEntity> toExamEntities(Collection<Exam> exams);
-   // Page<Exam> toExamPage(Page<ExamEntity> examEntityPage);
+
+    default Page<Exam> pageExamEntityToPageExamDto(Page<ExamEntity> page) {
+        List<Exam> examList = (List<Exam>) toExams(page.getContent());
+        return new PageImpl(examList, page.getPageable(), page.getTotalElements());
+    }
 
 }

@@ -103,9 +103,9 @@ class ReadTestDemo {
         RoomEntity roomEntity1255 = roomRepository.findById(11).get();
         RoomEntity roomEntity1256 = roomRepository.findById(12).get();
 
-        examRepository.findBySalleAndDateExamGreaterThan(roomEntity1254, examDate1).forEach(System.out::println);
-        //  examenRepository.findBySalleAndDateExamGreaterThan(salle1255, examDate1).forEach(System.out::println);
-        //  examenRepository.findBySalleAndDateExamGreaterThan(salle1256, examDate1).forEach(System.out::println);
+        examRepository.findByRoomAndDateExamGreaterThan(roomEntity1254, examDate1).forEach(System.out::println);
+        //  examenRepository.findByRoomAndDateExamGreaterThan(salle1255, examDate1).forEach(System.out::println);
+        //  examenRepository.findByRoomAndDateExamGreaterThan(salle1256, examDate1).forEach(System.out::println);
     }
 
     @Test
@@ -114,8 +114,8 @@ class ReadTestDemo {
         RoomEntity roomEntity1255 = roomRepository.findById(11).get();
         RoomEntity roomEntity1256 = roomRepository.findById(12).get();
 
-        examRepository.findTopBySalleOrderByDateExamDesc(roomEntity1254).forEach(System.out::println);
-        //  examenRepository.findTopBySalleOrderByDateExamDesc(salle1256).forEach(System.out::println);
+        examRepository.findTopByRoomOrderByDateExamDesc(roomEntity1254).forEach(System.out::println);
+        //  examenRepository.findTopByRoomOrderByDateExamDesc(salle1256).forEach(System.out::println);
 
     }
 
@@ -123,7 +123,7 @@ class ReadTestDemo {
     /************************************** Query method**********************************************/
     @Test
     void findExamsAtSpecificDateQueryWay() {
-        examRepository.findExamensAsDateExamQuery(examDate1).forEach(System.out::println);
+        examRepository.findRoomsAsDateExamQuery(examDate1).forEach(System.out::println);
     }
 
     @Test
@@ -142,23 +142,23 @@ class ReadTestDemo {
 
     @Test
     void findExamensAtSallAndDateQueryWay() {
-        examRepository.findSalleAndDateExamQuery(10, examDate1).forEach(System.out::println);
-        examRepository.findSalleAndDateExamQuery(11, examDate1).forEach(System.out::println);
-        examRepository.findSalleAndDateExamQuery(12, examDate1).forEach(System.out::println);
+        examRepository.findRoomAndDateExamQuery(10, examDate1).forEach(System.out::println);
+        examRepository.findRoomAndDateExamQuery(11, examDate1).forEach(System.out::println);
+        examRepository.findRoomAndDateExamQuery(12, examDate1).forEach(System.out::println);
     }
 
 
     @Test
     void findExamensAtTopDataAtSalle() {
-        examRepository.findExamensAtRecentDateQuery(10).forEach(System.out::println);
-        examRepository.findExamensAtRecentDateQuery(11).forEach(System.out::println);
+        examRepository.findExamsAtRecentDateQuery(10).forEach(System.out::println);
+        examRepository.findExamsAtRecentDateQuery(11).forEach(System.out::println);
     }
 
     /********************************  -------------------------Pagination and sorting methods------------------***************/
     @Test
     void findAllExamsInPageAndSorted() {
         Pageable page = PageRequest.of(0, 2, Sort.Direction.ASC, "examen_id");
-        Page<ExamEntity> examens = examRepository.findAllExamens(page);
+        Page<ExamEntity> examens = examRepository.findAllExams(page);
         examens.forEach(System.out::println);
     }
 
@@ -166,7 +166,7 @@ class ReadTestDemo {
     @Test
     void findExamensBySurveillant() {
         Pageable page = PageRequest.of(0, 3, Sort.Direction.DESC, "date_exam");
-        Page<ExamEntity> examens = examRepository.findBysurveillant(8, page);
+        Page<ExamEntity> examens = examRepository.findByInvigilator(8, page);
         examens.forEach(System.out::println);
 
         /**************************Le nombre total des pages.*****************************/

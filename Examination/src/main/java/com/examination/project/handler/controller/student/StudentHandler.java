@@ -16,7 +16,6 @@ import java.util.Collection;
 @RequestMapping("/student")
 public interface StudentHandler {
 
-
     @Tag(name = " student", description = "add student")
     @Operation(method = "Post", summary = "add student", description = "this method allows to add the student")
     @ApiResponse(content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Student.class))})
