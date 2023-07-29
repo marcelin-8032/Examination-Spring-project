@@ -12,6 +12,7 @@ import com.examination.project.mapper.RoomMapper;
 import io.vavr.control.Either;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,13 +31,10 @@ import static org.springframework.data.domain.PageRequest.of;
 @Service
 @Slf4j
 public class ExamUseCaseImpl implements ExamUseCase {
-    @Autowired
+
     private  ExamRepository examRepository;
-    @Autowired
     private  RoomRepository roomRepository;
-    @Autowired
     private ExamMapper examMapper;
-    @Autowired
     private RoomMapper roomMapper;
 
     @Override

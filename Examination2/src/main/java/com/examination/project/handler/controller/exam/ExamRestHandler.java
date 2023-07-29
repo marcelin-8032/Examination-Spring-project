@@ -5,10 +5,10 @@ import com.examination.project.entities.Exam;
 import com.examination.project.entities.Room;
 import com.examination.project.mapper.ExamMapper;
 import com.examination.project.usecases.exam.ExamUseCase;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
@@ -16,51 +16,49 @@ import java.util.Collection;
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
 @Slf4j
 public class ExamRestHandler implements ExamHandler {
 
-    private final ExamUseCase examUseCase;
+    private ExamUseCase examUseCase;
 
-    private final ExamMapper examMapper;
-
-    @Override
-    public void createExams(List<Exam> exams) {
-
-    }
+    private ExamMapper examMapper;
 
     @Override
-    public Collection<Exam> getAllExams() {
+    public ResponseEntity<Void> createExams(List<Exam> exams) {
         return null;
     }
 
     @Override
-    public Collection<Exam> getExamsByDate(LocalDateTime date) {
+    public ResponseEntity<Collection<Exam>> getAllExams() {
         return null;
     }
 
     @Override
-    public Collection<Exam> getExamsAtRoomAndAfterADate(Room room, LocalDateTime date) {
+    public ResponseEntity<Collection<Exam>> getExamsByDate(LocalDateTime date) {
         return null;
     }
 
     @Override
-    public Collection<Exam> getExamensAtRecentDataAtSpecificSalle(Room room) {
+    public ResponseEntity<Collection<Exam>> getExamsAtRoomAndAfterADate(Room room, LocalDateTime date) {
         return null;
     }
 
     @Override
-    public Page<Exam> getAllExamsInPages(Pageable pageable) {
+    public ResponseEntity<Collection<Exam>> getExamensAtRecentDataAtSpecificSalle(Room room) {
         return null;
     }
 
     @Override
-    public Page<Exam> getAllExamsByRoom(Integer salleId, Pageable pageable) {
+    public ResponseEntity<Page<Exam>> getAllExamsInPages(Pageable pageable) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<Page<Exam>> getAllExamsByRoom(Integer roomId, Pageable pageable) {
         return null;
     }
 
 
-//
 //    @Override
 //    public void createExams(@RequestBody List<Exam> exams) {
 //        examUseCase.createExams(exams);
@@ -77,7 +75,7 @@ public class ExamRestHandler implements ExamHandler {
 //    }
 //
 //    @Override
-//    public Collection<Exam> getExamsAtRoomAndAfterADate(@RequestBody Room room, Date date) {
+//    public Collection<Exam> getExamsAtRoomAndAfterADate(@RequestBody Room room, LocalDateTime date) {
 //        return examUseCase.getExamsAtRoomAndAfterADate(room, date);
 //    }
 //
