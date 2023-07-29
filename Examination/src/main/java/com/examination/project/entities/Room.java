@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 @Builder
 @With
-public record Room(Integer salleId,
+public record Room(Integer roomId,
                    int number,
                    Set<Exam> exams) implements Serializable {
 

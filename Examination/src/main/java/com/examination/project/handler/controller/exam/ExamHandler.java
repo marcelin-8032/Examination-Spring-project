@@ -8,33 +8,32 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
-@RequestMapping("/examen")
+@RequestMapping("/exams")
 public interface ExamHandler {
 
     @PostMapping(value = "/create", headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
-    void createExamens(@RequestBody List<Exam> examenEntities);
+    void createExams(@RequestBody List<Exam> exams);
 
-    @GetMapping(value = "/examens")
-    Collection<Exam> getAllExamens();
+    @GetMapping(value = "/exams")
+    Collection<Exam> getAllExams();
 
-    @GetMapping(value = "/examensByDate")
-    Collection<Exam> getExamensByDate(@RequestBody Date date);
+    @GetMapping(value = "/examsByDate")
+    Collection<Exam> getExamsByDate(@RequestBody LocalDateTime date);
 
-    @GetMapping(value = "/examensBySalleDate")
-    Collection<Exam> getExamAtSalleAndAfterADate(@RequestBody Room room, Date date);
+    @GetMapping(value = "/examsBySalleDate")
+    Collection<Exam> getExamsAtRoomAndAfterADate(@RequestBody Room room, LocalDateTime date);
 
-    @GetMapping(value = "/examensBySalle")
+    @GetMapping(value = "/examsByRoom")
     Collection<Exam> getExamensAtRecentDataAtSpecificSalle(@RequestBody Room room);
 
     @GetMapping
-    Page<Exam> getAllExamensInPages(@NotNull final Pageable pageable);
+    Page<Exam> getAllExamsInPages(@NotNull final Pageable pageable);
 
-    @GetMapping(value = "examens/{salleId}")
-    Page<Exam> getAllExamensBySalle(@PathVariable("salleId") Integer salleId, @NotNull final Pageable pageable);
-
+    @GetMapping(value = "exams/{roomId}")
+    Page<Exam> getAllExamsByRoom(@PathVariable("roomId") Integer roomId, @NotNull final Pageable pageable);
 
 }

@@ -21,7 +21,7 @@ public class RoomRestHandler implements RoomHandler {
     }
 
 
-    public void updateSalleWithNumber(@PathVariable("salleId") Integer salleId, int numero) {
+    public void updateSalleWithNumber(@PathVariable("roomId") Integer salleId, int numero) {
         try {
             roomUseCase.updateRoom(salleId, numero);
         } catch (Exception e) {

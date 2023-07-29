@@ -1,5 +1,6 @@
 package com.examination.project.handler.persistance.exam.repository;
 
+import com.examination.project.entities.Room;
 import com.examination.project.handler.persistance.exam.entities.ExamEntity;
 import com.examination.project.handler.persistance.room.entities.RoomEntity;
 import org.springframework.data.domain.Page;
@@ -47,4 +48,9 @@ public interface ExamRepository extends CrudRepository<ExamEntity, Integer>,
             countQuery = "SELECT COUNT(*) FROM examens e WHERE e.surveillant_id=:surveillant_id", nativeQuery = true)
     Page<ExamEntity> findByInvigilator(@Param("surveillant_id") Integer surveillant_id, Pageable pageable);
 
+    @Query(value = "SELECT * FROM exams e WHERE e.room_id=:room_id",
+            countQuery = "SELECT COUNT(*) FROM exams e WHERE e.room_id=:room_id", nativeQuery = true)
+    Page<ExamEntity> findByRoom(@Param("room_id") Integer room_id, Pageable pageable);
+
+    Collection<ExamEntity> findExamsByRoomAndDate(Room room, LocalDateTime localDateTime);
 }
