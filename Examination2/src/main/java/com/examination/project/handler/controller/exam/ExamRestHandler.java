@@ -19,18 +19,26 @@ import java.util.List;
 @Slf4j
 public class ExamRestHandler implements ExamHandler {
 
+    private static final String TASKS_LIST_NOT_FOUND = "Not found";
     private ExamUseCase examUseCase;
 
     private ExamMapper examMapper;
 
     @Override
     public ResponseEntity<Void> createExams(List<Exam> exams) {
-        return null;
+        return examUseCase.createExams(exams).fold(
+                a -> ResponseEntity.notFound(TASKS_LIST_NOT_FOUND).build(),
+                list -> ResponseEntity.ok(list)
+        );
     }
 
     @Override
     public ResponseEntity<Collection<Exam>> getAllExams() {
-        return null;
+        return (ResponseEntity<Collection<Exam>>) examUseCase.getAllExams().fold(
+                b->ResponseEntity.notFound(),
+                a->ResponseEntity.ok()
+
+        );
     }
 
     @Override
