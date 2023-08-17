@@ -16,9 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class SubjectUseCaseImpl implements SubjectUseCase {
-
     private SubjectRepository subjectRepository;
-
     @Autowired
     private SubjectMapper subjectMapper;
 

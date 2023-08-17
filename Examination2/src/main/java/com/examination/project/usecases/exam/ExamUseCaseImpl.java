@@ -6,6 +6,7 @@ import com.examination.project.exception.ExaminationException;
 import com.examination.project.exception.ExaminationExceptionSanitize;
 import com.examination.project.handler.persistance.exam.entities.ExamEntity;
 import com.examination.project.handler.persistance.exam.repository.ExamRepository;
+import com.examination.project.handler.persistance.room.entities.RoomEntity;
 import com.examination.project.handler.persistance.room.repository.RoomRepository;
 import com.examination.project.mapper.ExamMapper;
 import com.examination.project.mapper.RoomMapper;
@@ -25,6 +26,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.springframework.data.domain.PageRequest.of;
 
@@ -79,9 +82,24 @@ public class ExamUseCaseImpl implements ExamUseCase {
             }
         }
         Collection<ExamEntity> finalExamEntities = examEntities;
+
+//        Try.of(()->this.examRepository.findExamsByRoomAndDate(room.get(),localDateTime)
+//                        .stream().map(a->a.getExamId()).collect(Collectors.toList())
+//                )
+//                .map()
+//                .map(this.roomRepository::findById)
+//                .map()
+//                .map(RoomEntity::getRoomId)
+//                .flatMap(this.examRepository::findExamsByRoomAndDate)
+//                .ifPresent(roomEntity->{
+//                    this.examRepository.findExamsByRoomAndDate(room.get(),localDateTime);
+//                });
+
         return Try.of(() -> this.examMapper.toExams(finalExamEntities))
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
+
+
     }
 
     @Override

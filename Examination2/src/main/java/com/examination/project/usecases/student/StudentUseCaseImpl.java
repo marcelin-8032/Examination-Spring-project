@@ -20,10 +20,8 @@ import java.util.Collection;
 public class StudentUseCaseImpl implements StudentUseCase {
 
     private StudentRepository studentRepository;
-
     @Autowired
     private  StudentMapper studentMapper;
-
 
     @Override
     public Either<ExaminationException, Student> createStudent(Student student) {
@@ -44,11 +42,10 @@ public class StudentUseCaseImpl implements StudentUseCase {
 
     @Override
     public Either<ExaminationException, Collection<Student>> findStudentByClasse(Classe classe) {
-//        return Try.of(() -> this.studentRepository.findStudentsByClasse(classe))
-//                .map(this.studentMapper::toStudents)
-//                .toEither()
-//                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
-        return null;
+        return Try.of(() -> this.studentRepository.findStudentsByClasse(classe))
+                .map(this.studentMapper::toStudents)
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
 
 }

@@ -6,6 +6,7 @@ import com.examination.project.entities.Room;
 import com.examination.project.mapper.ExamMapper;
 import com.examination.project.usecases.exam.ExamUseCase;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -21,15 +22,21 @@ public class ExamRestHandler implements ExamHandler {
 
     private static final String TASKS_LIST_NOT_FOUND = "Not found";
     private ExamUseCase examUseCase;
-
     private ExamMapper examMapper;
+
+    @Autowired(required = true)
+    public ExamRestHandler(ExamUseCase examUseCase, ExamMapper examMapper) {
+        this.examUseCase = examUseCase;
+        this.examMapper = examMapper;
+    }
 
     @Override
     public ResponseEntity<Void> createExams(List<Exam> exams) {
-        return examUseCase.createExams(exams).fold(
-                a -> ResponseEntity.notFound(TASKS_LIST_NOT_FOUND).build(),
-                list -> ResponseEntity.ok(list)
-        );
+//        return examUseCase.createExams(exams).fold(
+//                a -> ResponseEntity.notFound(TASKS_LIST_NOT_FOUND).build(),
+//                list -> ResponseEntity.ok(list)
+//        );
+        return null;
     }
 
     @Override
