@@ -42,7 +42,8 @@ public class SubjectRestHandler implements SubjectHandler {
 
     @Override
     public Collection<Subject> getSubjectByCoeffBiggerThan(int coeff) {
-        return subjectUseCase.getSubjectsGreaterThanACoefficient(coeff);
+        //  return subjectUseCase.getSubjectsGreaterThanACoefficient(coeff);
+        return null;
     }
 
     @Override
@@ -81,17 +82,20 @@ public class SubjectRestHandler implements SubjectHandler {
     }
 
     public Optional<Subject> getMatiereByExample(Example<?> example) {
-        return subjectUseCase.getSubjectByExample(example);
+        // return subjectUseCase.getSubjectByExample(example);
+        return Optional.empty();
     }
 
 
     public Optional<Subject> getMatiereByCoefficent(Example<?> example) {
-        return subjectUseCase.getSubjectByCoefficient(example);
+        //  return subjectUseCase.getSubjectByCoefficient(example);
+        return Optional.empty();
     }
 
 
     public Optional<Subject> getMatiereByTitleWithIgnoreCase(Example<?> example) {
-        return subjectUseCase.getSubjectByTitleWithIgnoreCase(example);
+        // return subjectUseCase.getSubjectByTitleWithIgnoreCase(example);
+      return   Optional.empty();
     }
 
 
@@ -99,21 +103,25 @@ public class SubjectRestHandler implements SubjectHandler {
       /*  Collection<Matiere> matieres=this.matiereService.getAllSubjects();
         return    matiereMapper.toMatiereDtos(matieres);
         */
-        return this.subjectUseCase.getAllSubjects();
+        //  return this.subjectUseCase.getAllSubjects();
+        return null;
     }
 
 
     public Collection<Subject> getMatiereByCoeffBiggerThanAndIntituleDataAndModule(@PathVariable("coeff") int coeff, @PathVariable("module") Module module) {
-        return subjectUseCase.getSubjectCoeffBiggerIntituleEqDataModuleEq2(coeff, module);
+       // return subjectUseCase.getSubjectCoeffBiggerIntituleEqDataModuleEq2(coeff, module);
+        return null;
     }
 
 
     public Collection<Subject> getMatiereByCoeffBiggerThanAndModule(@PathVariable("coeff") int coeff, @PathVariable("module") Module module) {
-        return subjectUseCase.getSubjectCoeffBiggerThanModuleEq2(coeff, module);
+       // return subjectUseCase.getSubjectCoeffBiggerThanModuleEq2(coeff, module);
+        return null;
     }
 
     public Collection<Subject> getMatiereIntituleDataAndModuleEq2(@PathVariable("module") Module module) {
-        return subjectUseCase.getSubjectTitleEqDataModuleEq2(module);
+       // return subjectUseCase.getSubjectTitleEqDataModuleEq2(module);
+        return null;
     }
 
 

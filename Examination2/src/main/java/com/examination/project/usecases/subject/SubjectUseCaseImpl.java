@@ -1,119 +1,151 @@
 package com.examination.project.usecases.subject;
 
 import com.examination.project.entities.Subject;
-import com.examination.project.mapper.SubjectMapper;
+import com.examination.project.exception.ExaminationException;
+import com.examination.project.exception.ExaminationExceptionSanitize;
+import com.examination.project.handler.persistance.subject.entities.QSubjectEntity;
 import com.examination.project.handler.persistance.subject.repository.SubjectRepository;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-
+import com.examination.project.mapper.SubjectMapper;
+import com.querydsl.core.types.Predicate;
+import io.vavr.control.Either;
+import io.vavr.control.Option;
+import io.vavr.control.Try;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
+import com.examination.project.entities.Module;
+
+import java.util.Collection;
+import java.util.List;
+
+import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.exact;
 
 @Service
 @Slf4j
 public class SubjectUseCaseImpl implements SubjectUseCase {
+
     private SubjectRepository subjectRepository;
+
     @Autowired
     private SubjectMapper subjectMapper;
 
     @Override
-    public void createSubject(Subject subject) {
-        subjectRepository.save(subjectMapper.toSubjectEntity(subject));
+    public Either<ExaminationException, Void> createSubject(Subject subject) {
+        return Try.run(() -> {
+                    var subjectEntity = this.subjectMapper.toSubjectEntity(subject);
+                    this.subjectRepository.save(subjectEntity);
+                })
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
 
     @Override
-    public void updateSubject(Integer id, int coefficient) throws Exception {
-        if (subjectRepository.findById(id).isPresent()) {
-            var oldSubjectDto = subjectRepository.findById(id).get();
-            oldSubjectDto.setCoefficient(coefficient);
-            subjectRepository.save(oldSubjectDto);
-        } else {
-            throw new Exception("there is a problem in updating coefficient number");
-        }
-
+    public Either<ExaminationException, Void> updateSubject(Integer id, int coefficient) throws Exception {
+        return Try.run(() -> this.subjectRepository.findById(id).ifPresent(
+                        subjectEntity -> {
+                            subjectEntity.setCoefficient(coefficient);
+                            this.subjectRepository.save(subjectEntity);
+                        })).onFailure(cause -> log.error("there is a problem in updating coefficient number"))
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
 
-
     @Override
-    public Collection<Subject> getSubjectsGreaterThanACoefficient(int coefficient) {
-        return subjectMapper.toSubjects(subjectRepository.findByCoefficientGreaterThan(coefficient));
+    public Either<ExaminationException, Collection<Subject>> getSubjectsGreaterThanACoefficient(int coefficient) {
+        return Try.of(() -> this.subjectRepository.findByCoefficientGreaterThan(coefficient))
+                .map(this.subjectMapper::toSubjects)
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
 
-
     @Override
-    public Optional<Subject> getSubjectByExample(Example example) {
+    public Either<ExaminationException, Option<Subject>> getSubjectByExample(Example<?> example) {
         //Matiere matiere=matiereRepository.findAll(null);
-
-        return subjectRepository.findOne(example);
+        return Try.of(() -> subjectRepository.findOne((Predicate) example))
+                .map(this.subjectMapper::unwrapReferenceToOption)
+                //  .map(Option::ofOptional)
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
 
     @Override
-    public Optional<Subject> getSubjectByCoefficient(Example example) {
-//        var matiere = new Subject();
-//        matiere.setCoefficient(175);
-//
-//        var matcher = ExampleMatcher.matching().withMatcher("coefficient", exact());
-//        var matiereExampleCoeff = Example.of(matiere, matcher);
-//
-//
-//        return subjectRepository.findOne(example);
-        return Optional.empty();
+    public Either<ExaminationException, Option<Subject>> getSubjectByCoefficient(Example<?> example) {
+        var subject = Subject.builder()
+                .coefficient(175)
+                .build();
+        var matcher = ExampleMatcher.matching().withMatcher("coefficient", exact());
+
+        return Try.of(() -> Example.of(subject, matcher))
+                .map(subjectExample -> this.subjectRepository.findOne((Predicate) example))
+                .map(this.subjectMapper::unwrapReferenceToOption)
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
 
     @Override
-    public Optional<Subject> getSubjectByTitleWithIgnoreCase(Example example) {
+    public Either<ExaminationException, Option<Subject>> getSubjectByTitleWithIgnoreCase(Example<?> example) {
 
-//        var matiere = new Subject();
-//        matiere.setCoefficient(200);
-//        matiere.setIntitule("DATA");
-//
-//        var matcher = ExampleMatcher.matchingAll().withIgnoreCase();
-//
-//        var matiereExampleIntitule = Example.of(matiere, matcher);
-//
-//        return subjectRepository.findOne(example);
-        return Optional.empty();
+        var subject = Subject.builder().coefficient(200).title("DATA").build();
+        var matcher = ExampleMatcher.matchingAll().withIgnoreCase();
+
+        return Try.of(() -> Example.of(subject, matcher))
+                .map(subjectExample -> this.subjectRepository.findOne((Predicate) example))
+                .map(this.subjectMapper::unwrapReferenceToOption)
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
 
     @Override
-    public Collection<Subject> getSubjectCoeffBiggerIntituleEqDataModuleEq2(int coeff, Module module) {
-//		QSubjectEntity qMatiere=new QSubjectEntity("matiere");
-//		BooleanExpression filterByCoeff=qMatiere.coefficient.gt(coeff);
-//		BooleanExpression filterByIntitule=qMatiere.intitule.contains("data");
-//		BooleanExpression filterByModule=qMatiere.module.eq(module);
-//
-//		return (Collection<Subject>) subjectRepository.findAll(filterByCoeff.and(filterByIntitule).and(filterByModule));
-        return List.of();
+    public Either<ExaminationException, Collection<Subject>> getAllSubjects() {
+        return Try.of(() -> this.subjectRepository.findAll())
+                .map(this.subjectMapper::toSubjects)
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
 
     @Override
-    public Collection<Subject> getAllSubjects() {
-        return subjectMapper.toSubjects(subjectRepository.findAll());
+    public Either<ExaminationException, Collection<Subject>> getSubjectCoeffBiggerIntituleEqDataModuleEq2(int coeff, Module module) {
+        var qMatiere = new QSubjectEntity("matiere");
+        var filterByCoeff = qMatiere.coefficient.gt(coeff);
+        var filterByIntitule = qMatiere.title.contains("data");
+        var filterByModule = qMatiere.module.eq(module);
+
+        return Try.of(() -> this.subjectRepository.findAll(filterByCoeff.and(filterByIntitule).and(filterByModule)))
+                .map(subjectEntities -> subjectEntities.iterator().next())
+                .map(List::of)
+                .map(this.subjectMapper::toSubjects)
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
 
     @Override
-    public Collection<Subject> getSubjectCoeffBiggerThanModuleEq2(int coeff, Module module) {
+    public Either<ExaminationException, Collection<Subject>> getSubjectCoeffBiggerThanModuleEq2(int coeff, Module module) {
+        var qMatiere = new QSubjectEntity("matiere");
+        var filterByCoeff = qMatiere.coefficient.gt(coeff);
+        var filterByModule = qMatiere.module.eq(module);
 
-//        QSubjectEntity qMatiere=new QSubjectEntity("matiere");
-//		BooleanExpression filterByCoeff=qMatiere.coefficient.gt(coeff);
-//		BooleanExpression filterByModule=qMatiere.module.eq(module);
-//
-//		return subjectMapper.toSubjects(subjectRepository.findAll(filterByCoeff.and(filterByModule)));
-        return List.of();
+        return Try.of(() -> this.subjectRepository.findAll(filterByCoeff.and(filterByModule)))
+                .map(subjectEntities -> subjectEntities.iterator().next())
+                .map(List::of)
+                .map(this.subjectMapper::toSubjects)
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
 
     @Override
-    public Collection<Subject> getSubjectTitleEqDataModuleEq2(Module module) {
-//        QSubjectEntity qMatiere=new QSubjectEntity("matiere");
-//		BooleanExpression filterByIntitule=qMatiere.intitule.contains("data");
-//		BooleanExpression filterByModule=qMatiere.module.eq(module);
-//
-//		return (Collection<SubjectEntity>) subjectRepository.findAll(filterByIntitule.and(filterByModule));
-        return List.of();
+    public Either<ExaminationException, Collection<Subject>> getSubjectTitleEqDataModuleEq2(Module module) {
+        var qMatiere = new QSubjectEntity("matiere");
+        var filterByIntitule = qMatiere.title.contains("data");
+        var filterByModule = qMatiere.module.eq(module);
+
+        return Try.of(() -> this.subjectRepository.findAll(filterByIntitule.and(filterByModule)))
+                .map(subjectEntities -> subjectEntities.iterator().next())
+                .map(List::of)
+                .map(this.subjectMapper::toSubjects)
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
 
 }
