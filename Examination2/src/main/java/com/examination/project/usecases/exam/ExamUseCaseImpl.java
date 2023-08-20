@@ -4,19 +4,15 @@ import com.examination.project.entities.Exam;
 import com.examination.project.entities.Room;
 import com.examination.project.exception.ExaminationException;
 import com.examination.project.exception.ExaminationExceptionSanitize;
-import com.examination.project.handler.persistance.exam.entities.ExamEntity;
 import com.examination.project.handler.persistance.exam.repository.ExamRepository;
-import com.examination.project.handler.persistance.room.entities.RoomEntity;
 import com.examination.project.handler.persistance.room.repository.RoomRepository;
 import com.examination.project.mapper.ExamMapper;
 import com.examination.project.mapper.RoomMapper;
 import io.vavr.control.Either;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,8 +22,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static org.springframework.data.domain.PageRequest.of;
 
@@ -35,8 +29,8 @@ import static org.springframework.data.domain.PageRequest.of;
 @Slf4j
 public class ExamUseCaseImpl implements ExamUseCase {
 
-    private  ExamRepository examRepository;
-    private  RoomRepository roomRepository;
+    private ExamRepository examRepository;
+    private RoomRepository roomRepository;
     private ExamMapper examMapper;
     private RoomMapper roomMapper;
 
@@ -74,50 +68,28 @@ public class ExamUseCaseImpl implements ExamUseCase {
 
     @Override
     public Either<ExaminationException, Collection<Exam>> getExamsAtRoomAndGivenDate(Option<Room> room, LocalDateTime localDateTime) {
-        Collection<ExamEntity> examEntities = null;
-        if (room.isDefined()) {
-            var entity = this.roomRepository.findById(room.get().roomId());
-            if (entity.isPresent()) {
-                examEntities = this.examRepository.findExamsByRoomAndDate(room.get(), localDateTime);
-            }
-        }
-        Collection<ExamEntity> finalExamEntities = examEntities;
-
-//        Try.of(()->this.examRepository.findExamsByRoomAndDate(room.get(),localDateTime)
-//                        .stream().map(a->a.getExamId()).collect(Collectors.toList())
-//                )
-//                .map()
-//                .map(this.roomRepository::findById)
-//                .map()
-//                .map(RoomEntity::getRoomId)
-//                .flatMap(this.examRepository::findExamsByRoomAndDate)
-//                .ifPresent(roomEntity->{
-//                    this.examRepository.findExamsByRoomAndDate(room.get(),localDateTime);
-//                });
-
-        return Try.of(() -> this.examMapper.toExams(finalExamEntities))
+        return Try.of(() -> this.roomMapper.optionToOptional(room))
+                .map(room1 -> {
+                    this.roomRepository.findById(room1.get().roomId());
+                    return this.examRepository.findExamsByRoomAndDate(room1.get(), localDateTime);
+                }).onFailure(cause -> log.error("there is a problem in getting exams at Given Room and Date"))
+                .map(this.examMapper::toExams)
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
-
-
     }
 
     @Override
     public Either<ExaminationException, Collection<Exam>> getExamsAtRoomAndAfterADate(Room room, LocalDateTime localDateTime) {
-        var entity = this.roomRepository.findById(room.roomId());
-        Collection<ExamEntity> examEntities = null;
-
-        if (entity.isPresent()) {
-            val roomEntity = this.roomMapper.toRoomEntity(room);
-            examEntities = this.examRepository.findByRoomAndDateExamGreaterThan(roomEntity, localDateTime);
-        }
-
-        Collection<ExamEntity> finalExamEntities = examEntities;
-
-        return Try.of(() -> this.examMapper.toExams(finalExamEntities))
+        return Try.of(() -> this.roomRepository.findById(room.roomId()))
+                .map(roomEntity -> {
+                    this.roomMapper.unwrapReferenceRoom(roomEntity);
+                    return this.examRepository.findByRoomAndDateExamGreaterThan(roomEntity.get(), localDateTime);
+                }).onFailure(cause -> log.error("there is a problem in getting exams at Given Room and after a Date"))
+                .map(this.examMapper::toExams)
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
+
 
     @Override
     public Either<ExaminationException, Collection<Exam>> getExamsAtRecentDataAtSpecificRoom(Room room) {
@@ -145,7 +117,6 @@ public class ExamUseCaseImpl implements ExamUseCase {
                 .map(this.examMapper::pageExamEntityToPageExamDto)
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
-
     }
 
 }
