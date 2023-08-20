@@ -1,23 +1,25 @@
 package com.examination.project.usecases.room;
 
-import com.examination.project.entities.Exam;
 import com.examination.project.entities.Room;
-import com.examination.project.mapper.ExamMapper;
-import com.examination.project.mapper.RoomMapper;
+import com.examination.project.exception.ExaminationException;
+import com.examination.project.exception.ExaminationExceptionSanitize;
 import com.examination.project.handler.persistance.exam.repository.ExamRepository;
 import com.examination.project.handler.persistance.room.repository.RoomRepository;
-
-import java.util.List;
-
+import com.examination.project.mapper.ExamMapper;
+import com.examination.project.mapper.RoomMapper;
+import io.vavr.control.Either;
+import io.vavr.control.Try;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
 
 @Service
 @Slf4j
 public class RoomUseCaseImpl implements RoomUseCase {
 
-    private  RoomRepository roomRepository;
+    private RoomRepository roomRepository;
 
     private ExamRepository examRepository;
 
@@ -25,44 +27,56 @@ public class RoomUseCaseImpl implements RoomUseCase {
     private RoomMapper roomMapper;
 
     @Autowired
-    private  ExamMapper examMapper;
+    private ExamMapper examMapper;
 
     @Override
-    public void createRoom(Room room) {
-
-        roomRepository.save(roomMapper.toRoomEntity(room));
+    public Either<ExaminationException, Room> createRoom(Room room) {
+        return Try.of(() -> this.roomMapper.toRoomEntity(room))
+                .map(this.roomRepository::save)
+                .map(this.roomMapper::toRoom)
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
 
     @Override
-    public void deleteAllRooms() {
-        var examList = examMapper.toExams(examRepository.findAll());
+    public Either<ExaminationException, Void> deleteAllRooms() {
+        var examList =
+                Try.of(() -> this.examRepository.findAll())
+                        .map(this.examMapper::toExams);
 
-        for (Exam exam : examList) {
-            exam.withRoom(null);
-            examRepository.save(examMapper.toExamEntity(exam));
-        }
+        Try.run(() -> examList.map(xl -> xl.stream()
+                        .map(exam -> exam.withRoom(null)))
+                .map(examStream ->
+                        examStream.map(this.examMapper::toExamEntity)
+                                .map(this.examRepository::save)));
 
-        roomRepository.deleteAll();
+        return Try.run(() -> this.roomRepository.deleteAll())
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
+    }
 
+
+    @Override
+    public Either<ExaminationException, Void> updateRoom(Integer id, int numero) throws Exception {
+        return Try.run(() -> this.roomRepository.findById(id)
+                        .ifPresent(roomEntity -> {
+                            roomEntity.setRoomId(numero);
+                            roomRepository.save(roomEntity);
+                        })).onFailure(cause -> log.error("there is a problem in updating salle number"))
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
 
     @Override
-    public void updateRoom(Integer id, int numero) throws Exception {
+    public Either<ExaminationException, Void> createTwoRooms(Collection<Room> rooms) {
+        var listRoomEntities =
+                Try.of(() -> this.roomMapper.toRoomEntities(rooms));
 
-        if (roomRepository.findById(id).isPresent()) {
-            var oldRoomDto = roomMapper.toRoom(roomRepository.findById(id).get());
-            oldRoomDto.withNumber(numero);
-
-            roomRepository.save(roomMapper.toRoomEntity(oldRoomDto));
-        } else {
-            throw new Exception("there is a problem in updating salle number");
-        }
-
+        return Try.run(() -> listRoomEntities.toJavaStream()
+                        .map(roomEntities -> roomEntities.iterator().next())
+                        .map(this.roomRepository::save)
+                )
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
-
-    @Override
-    public void createTwoRooms(List<Room> rooms) {
-        roomRepository.saveAll(roomMapper.toRoomEntities(rooms));
-    }
-
 }

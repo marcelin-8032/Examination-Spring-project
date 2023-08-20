@@ -1,16 +1,16 @@
 package com.examination.project.usecases.room;
 
-import java.util.List;
 
 import com.examination.project.entities.Room;
+import com.examination.project.exception.ExaminationException;
+import io.vavr.control.Either;
+
+import java.util.Collection;
 
 public interface RoomUseCase {
 
-	void createRoom(Room room);
-	
-	void deleteAllRooms();
-	
-	void updateRoom(Integer id, int numero) throws Exception;
-	
-	void createTwoRooms(List<Room> rooms);
+	Either<ExaminationException, Room> createRoom(Room room);
+	Either<ExaminationException, Void> deleteAllRooms();
+	Either<ExaminationException, Void> updateRoom(Integer id, int numero) throws Exception;
+	Either<ExaminationException, Void> createTwoRooms(Collection<Room> rooms);
 }
