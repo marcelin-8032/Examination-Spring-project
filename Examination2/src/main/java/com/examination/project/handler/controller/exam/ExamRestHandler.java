@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,81 +33,59 @@ public class ExamRestHandler implements ExamHandler {
 
     @Override
     public ResponseEntity<Void> createExams(List<Exam> exams) {
-//        return examUseCase.createExams(exams).fold(
-//                a -> ResponseEntity.notFound(TASKS_LIST_NOT_FOUND).build(),
-//                list -> ResponseEntity.ok(list)
-//        );
-        return null;
+        log.info("This list of exams {} have been created: ", exams);
+        return examUseCase.createExams(exams).fold(
+                a -> ResponseEntity.notFound().build(),
+                list -> ResponseEntity.status(HttpStatus.CREATED).build()
+        );
     }
 
     @Override
     public ResponseEntity<Collection<Exam>> getAllExams() {
-        return (ResponseEntity<Collection<Exam>>) examUseCase.getAllExams().fold(
-                b->ResponseEntity.notFound(),
-                a->ResponseEntity.ok()
-
+        return examUseCase.getAllExams().fold(
+                b -> ResponseEntity.notFound().build(),
+                ResponseEntity::ok
         );
     }
 
     @Override
     public ResponseEntity<Collection<Exam>> getExamsByDate(LocalDateTime date) {
-        return null;
+        return examUseCase.getExamsByDate(date).fold(
+                a -> ResponseEntity.notFound().build(),
+                ResponseEntity::ok
+        );
     }
 
     @Override
     public ResponseEntity<Collection<Exam>> getExamsAtRoomAndAfterADate(Room room, LocalDateTime date) {
-        return null;
+        return examUseCase.getExamsAtRoomAndAfterADate(room, date).fold(
+                a -> ResponseEntity.notFound().build(),
+                ResponseEntity::ok
+        );
     }
 
     @Override
-    public ResponseEntity<Collection<Exam>> getExamensAtRecentDataAtSpecificSalle(Room room) {
-        return null;
+    public ResponseEntity<Collection<Exam>> getExamsAtRecentDataAtSpecificRoom(Room room) {
+        return examUseCase.getExamsAtRecentDataAtSpecificRoom(room).fold(
+                a -> ResponseEntity.notFound().build(),
+                ResponseEntity::ok
+        );
     }
 
     @Override
     public ResponseEntity<Page<Exam>> getAllExamsInPages(Pageable pageable) {
-        return null;
+        return examUseCase.getAllExamsInPages(pageable).fold(
+                a -> ResponseEntity.notFound().build(),
+                ResponseEntity::ok
+        );
     }
 
     @Override
     public ResponseEntity<Page<Exam>> getAllExamsByRoom(Integer roomId, Pageable pageable) {
-        return null;
+        return examUseCase.getAllExamsByRoom(roomId, pageable).fold(
+                a -> ResponseEntity.notFound().build(),
+                ResponseEntity::ok
+        );
     }
-
-
-//    @Override
-//    public void createExams(@RequestBody List<Exam> exams) {
-//        examUseCase.createExams(exams);
-//    }
-//
-//    @Override
-//    public Collection<Exam> getAllExams() {
-//        return examUseCase.getAllExams();
-//    }
-//
-//    @Override
-//    public ResponseEntity<Collection<Exam>> getExamensByDate(@RequestBody LocalDateTime date) {
-//        return examUseCase.getExamsByDate(date);
-//    }
-//
-//    @Override
-//    public Collection<Exam> getExamsAtRoomAndAfterADate(@RequestBody Room room, LocalDateTime date) {
-//        return examUseCase.getExamsAtRoomAndAfterADate(room, date);
-//    }
-//
-//    @Override
-//    public Collection<Exam> getExamensAtRecentDataAtSpecificSalle(@RequestBody Room rooms) {
-//        return examUseCase.getExamsAtRecentDataAtSpecificRoom(rooms);
-//    }
-//
-//    @Override
-//    public Page<Exam> getAllExamsInPages(@NotNull final Pageable pageable) {
-//        return examUseCase.getAllExamsInPages(pageable);
-//    }
-//
-//    @Override
-//    public Page<Exam> getAllExamsByRoom(@PathVariable("roomId") Integer salleId, @NotNull final Pageable pageable) {
-//        return examUseCase.getAllExamsByRoom(salleId, pageable);
-//    }
 
 }

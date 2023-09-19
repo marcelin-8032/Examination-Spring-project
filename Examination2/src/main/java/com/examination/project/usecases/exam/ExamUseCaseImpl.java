@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.springframework.data.domain.PageRequest.of;
 
@@ -36,16 +37,24 @@ public class ExamUseCaseImpl implements ExamUseCase {
 
     @Override
     public Either<ExaminationException, Collection<Exam>> createExams(List<Exam> exams) {
-        val examsEntities = this.examMapper.toExamEntities(exams);
-        for (var examEntity : examsEntities) {
-            if (examsEntities.iterator().hasNext()) {
-                examsEntities.add(examEntity);
-                this.examRepository.save(examEntity);
-            }
-        }
+//        val examsEntities = this.examMapper.toExamEntities(exams);
+//        for (var examEntity : examsEntities) {
+//            if (examsEntities.iterator().hasNext()) {
+//                examsEntities.add(examEntity);
+//                this.examRepository.save(examEntity);
+//            }
+//        }
+//
+//        return Try.of(() -> this.examMapper.toExams(examsEntities))
+//                .toEither().mapLeft(ExaminationExceptionSanitize::sanitizeError);
 
-        return Try.of(() -> this.examMapper.toExams(examsEntities))
-                .toEither().mapLeft(ExaminationExceptionSanitize::sanitizeError);
+       return Try.of(() -> this.examMapper.toExamEntities(exams))
+                .map(examEntities ->
+                        examEntities.stream().map(examEntity -> this.examRepository.save(examEntity))
+                        .collect(Collectors.toList()))
+                .map(this.examMapper::toExams)
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
 
     @Override
@@ -111,9 +120,17 @@ public class ExamUseCaseImpl implements ExamUseCase {
 
     @Override
     public Either<ExaminationException, Page<Exam>> getAllExamsByRoom(Integer roomId, Pageable pageable) {
-        pageable = PageRequest.of(0, 3, Sort.Direction.DESC, "room_id");
-        val finalPageable = pageable;
-        return Try.of(() -> this.examRepository.findByRoom(roomId, finalPageable))
+//
+//                pageable = PageRequest.of(0, 3, Sort.Direction.DESC, "room_id");
+//        val finalPageable = pageable;
+//
+//        return Try.of(() -> this.examRepository.findByRoom(roomId, finalPageable))
+//                .map(this.examMapper::pageExamEntityToPageExamDto)
+//                .toEither()
+//                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
+
+       return Try.of(()->PageRequest.of(0,3,Sort.Direction.DESC,"room_id"))
+                .map(pageable2 -> this.examRepository.findByRoom(roomId,pageable2))
                 .map(this.examMapper::pageExamEntityToPageExamDto)
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);

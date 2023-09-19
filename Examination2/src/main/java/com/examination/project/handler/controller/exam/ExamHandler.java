@@ -29,7 +29,7 @@ public interface ExamHandler {
     ResponseEntity<Collection<Exam>> getExamsAtRoomAndAfterADate(@RequestBody Room room, LocalDateTime date);
 
     @GetMapping(value = "/examsByRoom")
-    ResponseEntity<Collection<Exam>> getExamensAtRecentDataAtSpecificSalle(@RequestBody Room room);
+    ResponseEntity<Collection<Exam>> getExamsAtRecentDataAtSpecificRoom(@RequestBody Room room);
 
     @GetMapping
     ResponseEntity<Page<Exam>> getAllExamsInPages(@NotNull final Pageable pageable);
