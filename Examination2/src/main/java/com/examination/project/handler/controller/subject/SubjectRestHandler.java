@@ -5,12 +5,12 @@ import com.examination.project.mapper.SubjectMapper;
 import com.examination.project.usecases.subject.SubjectUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+import com.examination.project.entities.Module;
 
 import java.util.Collection;
-import java.util.Optional;
 
 @RestController
 public class SubjectRestHandler implements SubjectHandler {
@@ -21,108 +21,85 @@ public class SubjectRestHandler implements SubjectHandler {
     @Autowired
     private SubjectMapper subjectMapper;
 
-
     @Override
-    public void createSubject(@RequestBody Subject subject) {
-
-        subjectUseCase.createSubject(subject);
-    }
-
-
-    @Override
-    public void updateSubjectWithNumero(@PathVariable("subjectId") Integer matiereId, int numero) {
-        try {
-            subjectUseCase.updateSubject(matiereId, numero);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-
-    @Override
-    public Collection<Subject> getSubjectByCoeffBiggerThan(int coeff) {
-        //  return subjectUseCase.getSubjectsGreaterThanACoefficient(coeff);
-        return null;
+    public ResponseEntity<Void> createSubject(Subject subject) {
+        return subjectUseCase.createSubject(subject).fold(
+                a -> ResponseEntity.badRequest().build(),
+                subject1 -> ResponseEntity.status(HttpStatus.CREATED).build()
+        );
     }
 
     @Override
-    public Optional<Subject> getSubjectByExample(Example<?> example) {
-        return Optional.empty();
+    public ResponseEntity<Void> updateSubjectWithNumber(Integer subjectId, int number) throws Exception {
+        return subjectUseCase.updateSubject(subjectId, number).fold(
+                a -> ResponseEntity.notFound().build(),
+                subject -> ResponseEntity.status(HttpStatus.OK).build()
+        );
     }
 
     @Override
-    public Optional<Subject> getSubjectByCoefficent(Example<?> example) {
-        return Optional.empty();
+    public ResponseEntity<Collection<Subject>> getSubjectByCoeffBiggerThan(int coeff) {
+        return subjectUseCase.getSubjectsGreaterThanACoefficient(coeff).fold(
+                a -> ResponseEntity.notFound().build(),
+                subject -> ResponseEntity.status(HttpStatus.FOUND).build()
+        );
     }
 
     @Override
-    public Optional<Subject> getSubjectByTitleWithIgnoreCase(Example<?> example) {
-        return Optional.empty();
+    public ResponseEntity<Subject> getSubjectByExample(Example<?> example) {
+        return subjectUseCase.getSubjectByExample(example).fold(
+                a -> ResponseEntity.notFound().build(),
+                subjects -> ResponseEntity.status(HttpStatus.FOUND).build()
+        );
     }
 
     @Override
-    public Collection<Subject> getSubjects() {
-        return null;
+    public ResponseEntity<Subject> getSubjectByCoeff(Example<?> example) {
+        return subjectUseCase.getSubjectByCoefficient(example).fold(
+                a -> ResponseEntity.notFound().build(),
+                subjects -> ResponseEntity.status(HttpStatus.FOUND).build()
+        );
     }
 
     @Override
-    public Collection<Subject> getSubjectByCoeffBiggerThanAndIntituleDataAndModule(int coeff, Module module) {
-        return null;
+    public ResponseEntity<Subject> getSubjectByTitleWithIgnoreCase(Example<?> example) {
+        return subjectUseCase.getSubjectByTitleWithIgnoreCase(example).fold(
+                a -> ResponseEntity.notFound().build(),
+                subjects -> ResponseEntity.status(HttpStatus.FOUND).build()
+        );
     }
 
     @Override
-    public Collection<Subject> getSubjectByCoeffBiggerThanAndModule(int coeff, Module module) {
-        return null;
+    public ResponseEntity<Collection<Subject>> getSubjects() {
+        return subjectUseCase.getAllSubjects().fold(
+                a -> ResponseEntity.notFound().build(),
+                subjects -> new ResponseEntity<>(HttpStatus.FOUND)
+        );
     }
 
     @Override
-    public Collection<Subject> getSubjectIntituleDataAndModuleEq2(Module module) {
-        return null;
+    public ResponseEntity<Collection<Subject>> getSubjectByCoeffBiggerThanAndTitleDataAndModule(
+            int coeff, Module module) {
+        return subjectUseCase.getSubjectCoeffBiggerTitleEqDataModuleEq2(coeff, module).fold(
+                a -> ResponseEntity.notFound().build(),
+                subjects -> new ResponseEntity<>(HttpStatus.FOUND)
+        );
     }
 
-    public Optional<Subject> getMatiereByExample(Example<?> example) {
-        // return subjectUseCase.getSubjectByExample(example);
-        return Optional.empty();
+    @Override
+    public ResponseEntity<Collection<Subject>> getSubjectByCoeffBiggerThanAndModule(
+            int coeff, Module module) {
+        return subjectUseCase.getSubjectCoeffBiggerThanModuleEq2(coeff, module).fold(
+                a -> ResponseEntity.notFound().build(),
+                subjects -> new ResponseEntity<>(HttpStatus.FOUND)
+        );
     }
 
-
-    public Optional<Subject> getMatiereByCoefficent(Example<?> example) {
-        //  return subjectUseCase.getSubjectByCoefficient(example);
-        return Optional.empty();
+    @Override
+    public ResponseEntity<Collection<Subject>> getSubjectTitleDataAndModuleEq2(Module module) {
+        return subjectUseCase.getSubjectTitleEqDataModuleEq2(module).fold(
+                a -> ResponseEntity.notFound().build(),
+                subjects -> new ResponseEntity<>(HttpStatus.FOUND)
+        );
     }
-
-
-    public Optional<Subject> getMatiereByTitleWithIgnoreCase(Example<?> example) {
-        // return subjectUseCase.getSubjectByTitleWithIgnoreCase(example);
-      return   Optional.empty();
-    }
-
-
-    public Collection<Subject> getMatieres() {
-      /*  Collection<Matiere> matieres=this.matiereService.getAllSubjects();
-        return    matiereMapper.toMatiereDtos(matieres);
-        */
-        //  return this.subjectUseCase.getAllSubjects();
-        return null;
-    }
-
-
-    public Collection<Subject> getMatiereByCoeffBiggerThanAndIntituleDataAndModule(@PathVariable("coeff") int coeff, @PathVariable("module") Module module) {
-       // return subjectUseCase.getSubjectCoeffBiggerIntituleEqDataModuleEq2(coeff, module);
-        return null;
-    }
-
-
-    public Collection<Subject> getMatiereByCoeffBiggerThanAndModule(@PathVariable("coeff") int coeff, @PathVariable("module") Module module) {
-       // return subjectUseCase.getSubjectCoeffBiggerThanModuleEq2(coeff, module);
-        return null;
-    }
-
-    public Collection<Subject> getMatiereIntituleDataAndModuleEq2(@PathVariable("module") Module module) {
-       // return subjectUseCase.getSubjectTitleEqDataModuleEq2(module);
-        return null;
-    }
-
-
 }

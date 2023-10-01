@@ -35,7 +35,7 @@ public class ExamRestHandler implements ExamHandler {
     public ResponseEntity<Void> createExams(List<Exam> exams) {
         log.info("This list of exams {} have been created: ", exams);
         return examUseCase.createExams(exams).fold(
-                a -> ResponseEntity.notFound().build(),
+                a -> ResponseEntity.badRequest().build(),
                 list -> ResponseEntity.status(HttpStatus.CREATED).build()
         );
     }
@@ -44,7 +44,7 @@ public class ExamRestHandler implements ExamHandler {
     public ResponseEntity<Collection<Exam>> getAllExams() {
         return examUseCase.getAllExams().fold(
                 b -> ResponseEntity.notFound().build(),
-                ResponseEntity::ok
+                exams -> new ResponseEntity<>(HttpStatus.FOUND)
         );
     }
 
@@ -52,7 +52,7 @@ public class ExamRestHandler implements ExamHandler {
     public ResponseEntity<Collection<Exam>> getExamsByDate(LocalDateTime date) {
         return examUseCase.getExamsByDate(date).fold(
                 a -> ResponseEntity.notFound().build(),
-                ResponseEntity::ok
+                exams -> new ResponseEntity<>(HttpStatus.FOUND)
         );
     }
 
@@ -60,7 +60,7 @@ public class ExamRestHandler implements ExamHandler {
     public ResponseEntity<Collection<Exam>> getExamsAtRoomAndAfterADate(Room room, LocalDateTime date) {
         return examUseCase.getExamsAtRoomAndAfterADate(room, date).fold(
                 a -> ResponseEntity.notFound().build(),
-                ResponseEntity::ok
+                exams -> new ResponseEntity<>(HttpStatus.FOUND)
         );
     }
 
@@ -68,7 +68,7 @@ public class ExamRestHandler implements ExamHandler {
     public ResponseEntity<Collection<Exam>> getExamsAtRecentDataAtSpecificRoom(Room room) {
         return examUseCase.getExamsAtRecentDataAtSpecificRoom(room).fold(
                 a -> ResponseEntity.notFound().build(),
-                ResponseEntity::ok
+                exams -> new ResponseEntity<>(HttpStatus.FOUND)
         );
     }
 
@@ -76,7 +76,7 @@ public class ExamRestHandler implements ExamHandler {
     public ResponseEntity<Page<Exam>> getAllExamsInPages(Pageable pageable) {
         return examUseCase.getAllExamsInPages(pageable).fold(
                 a -> ResponseEntity.notFound().build(),
-                ResponseEntity::ok
+                exams -> new ResponseEntity<>(HttpStatus.FOUND)
         );
     }
 
@@ -84,7 +84,7 @@ public class ExamRestHandler implements ExamHandler {
     public ResponseEntity<Page<Exam>> getAllExamsByRoom(Integer roomId, Pageable pageable) {
         return examUseCase.getAllExamsByRoom(roomId, pageable).fold(
                 a -> ResponseEntity.notFound().build(),
-                ResponseEntity::ok
+                exams -> new ResponseEntity<>(HttpStatus.FOUND)
         );
     }
 

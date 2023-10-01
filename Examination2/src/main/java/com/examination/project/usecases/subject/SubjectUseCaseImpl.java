@@ -106,7 +106,7 @@ public class SubjectUseCaseImpl implements SubjectUseCase {
     }
 
     @Override
-    public Either<ExaminationException, Collection<Subject>> getSubjectCoeffBiggerIntituleEqDataModuleEq2(int coeff, Module module) {
+    public Either<ExaminationException, Collection<Subject>> getSubjectCoeffBiggerTitleEqDataModuleEq2(int coeff, Module module) {
         var qMatiere = new QSubjectEntity("matiere");
         var filterByCoeff = qMatiere.coefficient.gt(coeff);
         var filterByIntitule = qMatiere.title.contains("data");

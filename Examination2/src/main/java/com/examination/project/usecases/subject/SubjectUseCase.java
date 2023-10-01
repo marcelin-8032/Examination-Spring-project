@@ -24,7 +24,7 @@ public interface SubjectUseCase {
 
 	Either<ExaminationException, Collection<Subject>> getAllSubjects();
 
-	Either<ExaminationException, Collection<Subject>> getSubjectCoeffBiggerIntituleEqDataModuleEq2(int coeff, Module module);
+	Either<ExaminationException, Collection<Subject>> getSubjectCoeffBiggerTitleEqDataModuleEq2(int coeff, Module module);
 
 	Either<ExaminationException, Collection<Subject>> getSubjectCoeffBiggerThanModuleEq2(int coeff, Module module);
 

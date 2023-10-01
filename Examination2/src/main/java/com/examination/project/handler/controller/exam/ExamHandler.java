@@ -25,7 +25,7 @@ public interface ExamHandler {
     @GetMapping(value = "/examsByDate")
     ResponseEntity<Collection<Exam>> getExamsByDate(@RequestBody LocalDateTime date);
 
-    @GetMapping(value = "/examsBySalleDate")
+    @GetMapping(value = "/examsByRoomDate")
     ResponseEntity<Collection<Exam>> getExamsAtRoomAndAfterADate(@RequestBody Room room, LocalDateTime date);
 
     @GetMapping(value = "/examsByRoom")

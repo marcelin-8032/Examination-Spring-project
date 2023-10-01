@@ -3,6 +3,8 @@ package com.examination.project.handler.controller.room;
 import com.examination.project.entities.Room;
 import com.examination.project.usecases.room.RoomUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,28 +17,36 @@ public class RoomRestHandler implements RoomHandler {
     @Autowired
     private RoomUseCase roomUseCase;
 
-
-    public void createASalle(@RequestBody Room room) {
-       // salleService.createSalle(roomEntity);
+    @Override
+    public ResponseEntity<Void> createARoom(Room room) {
+        return roomUseCase.createRoom(room).fold(
+                a -> ResponseEntity.badRequest().build(),
+                room1 -> ResponseEntity.status(HttpStatus.CREATED).build()
+        );
     }
 
-
-    public void updateSalleWithNumber(@PathVariable("roomId") Integer salleId, int numero) {
-        try {
-            roomUseCase.updateRoom(salleId, numero);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+    @Override
+    public ResponseEntity<Void> updateRoomWithNumber(Integer roomId, int number) throws Exception {
+        return roomUseCase.updateRoom(roomId, number).fold(
+                a -> ResponseEntity.badRequest().build(),
+                room2 -> ResponseEntity.status(HttpStatus.OK).build()
+        );
     }
 
-    public void createListSalle(List<Room> rooms) {
-
-        //salleService.createTwoSalles(salleEntities);
+    @Override
+    public ResponseEntity<Void> createTwoRoom(List<Room> rooms) {
+        return roomUseCase.createTwoRooms(rooms).fold(
+                a -> ResponseEntity.badRequest().build(),
+                rooms1 -> ResponseEntity.status(HttpStatus.CREATED).build()
+        );
     }
 
-    public void deleteAllSalles() {
-        roomUseCase.deleteAllRooms();
+    @Override
+    public ResponseEntity<Void> deleteAllRooms() {
+        return roomUseCase.deleteAllRooms().fold(
+                e -> ResponseEntity.notFound().build(),
+                rooms -> new ResponseEntity<>(HttpStatus.OK)
+        );
     }
 
 }

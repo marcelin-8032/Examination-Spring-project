@@ -22,7 +22,7 @@ public interface StudentHandler {
     @PostMapping(value = "/create", headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Student> createStudent(@RequestBody Student student);
 
-    @GetMapping(value = "/etudiants")
+    @GetMapping(value = "/students")
     ResponseEntity<Collection<Student>> getAllStudents();
 
     @GetMapping(value = "/findbyclasse/{classe}")

@@ -2,23 +2,24 @@ package com.examination.project.handler.controller.room;
 
 import com.examination.project.entities.Room;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/salle")
+@RequestMapping("/room")
 public interface RoomHandler {
 
     @PostMapping(value = "/create", headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
-    void createASalle(@RequestBody Room room);
+    ResponseEntity<Void> createARoom(@RequestBody Room room);
 
     @PutMapping(value = "/update/{roomId}", headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
-    void updateSalleWithNumber(@PathVariable("roomId") Integer salleId, int numero);
+    ResponseEntity<Void> updateRoomWithNumber(@PathVariable("roomId") Integer salleId, int numero) throws Exception;
 
     @PostMapping
-    void createListSalle(List<Room> rooms);
+    ResponseEntity<Void> createTwoRoom(@RequestBody List<Room> rooms);
 
     @DeleteMapping
-    void deleteAllSalles();
+    ResponseEntity<Void> deleteAllRooms();
 
 }
