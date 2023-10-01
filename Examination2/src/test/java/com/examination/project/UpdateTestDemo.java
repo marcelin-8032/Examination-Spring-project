@@ -1,9 +1,9 @@
 package com.examination.project;
 
-import com.examination.project.handler.persistance.room.entities.RoomEntity;
-import com.examination.project.handler.persistance.room.repository.RoomRepository;
-import com.examination.project.handler.persistance.subject.entities.SubjectEntity;
-import com.examination.project.handler.persistance.subject.repository.SubjectRepository;
+import com.examination.project.infrastructure.persistance.room.entities.RoomEntity;
+import com.examination.project.infrastructure.persistance.room.repository.RoomRepository;
+import com.examination.project.infrastructure.persistance.subject.entities.SubjectEntity;
+import com.examination.project.infrastructure.persistance.subject.repository.SubjectRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;

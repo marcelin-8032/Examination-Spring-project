@@ -1,18 +1,18 @@
 package com.examination.project;
 
 
-import com.examination.project.entities.Classe;
-import com.examination.project.entities.Module;
-import com.examination.project.handler.persistance.exam.entities.ExamEntity;
-import com.examination.project.handler.persistance.exam.repository.ExamRepository;
-import com.examination.project.handler.persistance.invigilator.entities.InvigilatorEntity;
-import com.examination.project.handler.persistance.invigilator.repository.InvigilatorRepository;
-import com.examination.project.handler.persistance.room.entities.RoomEntity;
-import com.examination.project.handler.persistance.room.repository.RoomRepository;
-import com.examination.project.handler.persistance.student.entities.StudentEntity;
-import com.examination.project.handler.persistance.student.repository.StudentRepository;
-import com.examination.project.handler.persistance.subject.entities.SubjectEntity;
-import com.examination.project.handler.persistance.subject.repository.SubjectRepository;
+import com.examination.project.domain.entities.Classe;
+import com.examination.project.domain.entities.Module;
+import com.examination.project.infrastructure.persistance.exam.entities.ExamEntity;
+import com.examination.project.infrastructure.persistance.exam.repository.ExamRepository;
+import com.examination.project.infrastructure.persistance.invigilator.entities.InvigilatorEntity;
+import com.examination.project.infrastructure.persistance.invigilator.repository.InvigilatorRepository;
+import com.examination.project.infrastructure.persistance.room.entities.RoomEntity;
+import com.examination.project.infrastructure.persistance.room.repository.RoomRepository;
+import com.examination.project.infrastructure.persistance.student.entities.StudentEntity;
+import com.examination.project.infrastructure.persistance.student.repository.StudentRepository;
+import com.examination.project.infrastructure.persistance.subject.entities.SubjectEntity;
+import com.examination.project.infrastructure.persistance.subject.repository.SubjectRepository;
 import io.vavr.collection.HashSet;
 import io.vavr.collection.Set;
 import org.junit.jupiter.api.BeforeEach;

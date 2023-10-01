@@ -1,7 +1,7 @@
 package com.examination.project.utils;
 
-import com.examination.project.entities.*;
-import com.examination.project.entities.Module;
+import com.examination.project.domain.entities.*;
+import com.examination.project.domain.entities.Module;
 import io.vavr.collection.List;
 import io.vavr.collection.Set;
 
