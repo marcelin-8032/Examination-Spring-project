@@ -19,7 +19,7 @@ import java.util.Collection;
 import java.util.List;
 
 @RestController
-@RequestMapping("/exams")
+@RequestMapping("v1/exams")
 @Slf4j
 @RequiredArgsConstructor
 public class ExamRestHandler implements ExamHandler {

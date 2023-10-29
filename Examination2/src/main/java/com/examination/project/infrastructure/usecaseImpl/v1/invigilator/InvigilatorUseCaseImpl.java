@@ -1,4 +1,4 @@
-package com.examination.project.infrastructure.usercaseImpl.v1.invigilator;
+package com.examination.project.infrastructure.usecaseImpl.v1.invigilator;
 
 
 import com.examination.project.domain.entities.Invigilator;

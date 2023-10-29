@@ -1,4 +1,4 @@
-package com.examination.project.infrastructure.usercaseImpl.v1.student;
+package com.examination.project.infrastructure.usecaseImpl.v1.student;
 
 import com.examination.project.domain.entities.Classe;
 import com.examination.project.domain.entities.Student;

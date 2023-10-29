@@ -14,7 +14,7 @@ import java.util.Collection;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/subject")
+@RequestMapping("v1/subject")
 public class SubjectRestHandler implements SubjectHandler {
 
     private final SubjectUseCase subjectUseCase;

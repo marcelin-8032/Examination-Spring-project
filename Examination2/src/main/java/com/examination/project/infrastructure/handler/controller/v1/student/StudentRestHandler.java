@@ -14,7 +14,7 @@ import java.util.Collection;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/student")
+@RequestMapping("v1/student")
 public class StudentRestHandler implements StudentHandler {
     private final StudentUseCase studentUseCase;
 

@@ -1,4 +1,4 @@
-package com.examination.project.infrastructure.usercaseImpl.v1.room;
+package com.examination.project.infrastructure.usecaseImpl.v1.room;
 
 import com.examination.project.domain.entities.Room;
 import com.examination.project.domain.exception.ExaminationException;

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/invigilator")
+@RequestMapping("v1/invigilator")
 public class InvigilatorRestHandler implements InvigilatorHandler {
 
     private final InvigilatorUseCase invigilatorUseCase;
