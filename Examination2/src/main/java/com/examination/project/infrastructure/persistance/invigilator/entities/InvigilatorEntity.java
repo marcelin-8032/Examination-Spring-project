@@ -23,12 +23,13 @@ public class InvigilatorEntity implements Serializable {
     private static final long serialVersionUID = -5461477499521864156L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false, updatable = false)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer invigilatorId;
 
     @Column
     @NonNull
-    private String nom;
+    private String name;
 
     @OneToMany
     @JoinColumn(name = "invigilator_id")

@@ -8,9 +8,11 @@ import java.io.Serializable;
 
 @Builder
 @With
-public record Subject(Integer subjectId,
-                      String title,
-                      int coefficient,
-                      Module module,
-                      Set<Exam> exams) implements Serializable {
+public record Subject(
+        Integer subjectId,
+        String title,
+        int coefficient,
+        Module module,
+
+        Set<Exam> exams) {
 }

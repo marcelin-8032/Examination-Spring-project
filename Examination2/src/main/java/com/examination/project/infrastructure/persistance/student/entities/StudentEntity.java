@@ -1,5 +1,6 @@
 package com.examination.project.infrastructure.persistance.student.entities;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
@@ -22,14 +23,16 @@ import lombok.*;
 @Table(name = "students")
 public class StudentEntity implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1478410950907668609L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false, updatable = false)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer studentId;
 
     @Column
-    private String nom;
+    private String name;
 
     @Enumerated(EnumType.STRING)
     @Column
@@ -39,8 +42,8 @@ public class StudentEntity implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY, targetEntity = ExamEntity.class, cascade = CascadeType.ALL)
     private Collection<ExamEntity> examEntities =new HashSet<>();
 
-    public StudentEntity(String nom, Classe classe, Set<ExamEntity> examEntities) {
-        this.nom = nom;
+    public StudentEntity(String name, Classe classe, Set<ExamEntity> examEntities) {
+        this.name= name;
         this.classe = classe;
         this.examEntities = (Collection<ExamEntity>) examEntities;
     }

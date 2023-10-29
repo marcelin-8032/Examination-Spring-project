@@ -1,11 +1,11 @@
 package com.examination.project.infrastructure.handler.controller.v2;
 
-import com.examination.project.domain.usecasesV2.UseCaseWrapper;
+import com.examination.project.domain.usecases.v2.UseCaseWrapper;
 import com.examination.project.domain.exception.ExaminationException;
 
 import java.util.function.Function;
 
-import static com.examination.project.domain.usecasesV2.UseCase.*;
+import static com.examination.project.domain.usecases.v2.UseCase.*;
 
 public abstract class HandlerResolver {
 

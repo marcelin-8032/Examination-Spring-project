@@ -61,7 +61,7 @@ public class ModelFactory {
         return Invigilator.builder()
                 .name("Alex")
                 .invigilatorId(1)
-                .exams(defaultExams())
+                //.exams(defaultExams())
                 .build();
     }
 

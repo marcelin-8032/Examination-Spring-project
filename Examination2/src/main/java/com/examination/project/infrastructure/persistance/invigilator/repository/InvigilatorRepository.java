@@ -2,9 +2,8 @@ package com.examination.project.infrastructure.persistance.invigilator.repositor
 
 import com.examination.project.infrastructure.persistance.invigilator.entities.InvigilatorEntity;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
+
 public interface InvigilatorRepository extends CrudRepository<InvigilatorEntity, Integer> {
 
 }

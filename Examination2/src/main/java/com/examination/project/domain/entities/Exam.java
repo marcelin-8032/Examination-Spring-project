@@ -10,11 +10,20 @@ import java.time.LocalDateTime;
 
 @Builder
 @With
-public record Exam(Integer examId,
-                   LocalDateTime dateExam,
-                   Set<Student> students,
-                   Subject subject,
-                   Room room,
-                   Invigilator invigilator) implements Serializable {
+public record Exam(
+        Integer examId,
+
+        String name,
+
+        LocalDateTime dateExam,
+
+        Set<Student> students,
+
+        Subject subject,
+
+        Room room,
+
+        Invigilator invigilator
+) {
 
 }

@@ -8,6 +8,8 @@ import com.examination.project.infrastructure.persistance.common.audit.Auditable
 import com.examination.project.infrastructure.persistance.exam.entities.ExamEntity;
 import lombok.*;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -19,15 +21,18 @@ import java.util.HashSet;
 @RequiredArgsConstructor
 @Builder(toBuilder = true)
 @Table(name = "room")
-public class RoomEntity extends AuditableBaseEntity {
+public class RoomEntity extends AuditableBaseEntity  implements Serializable {
 
+    @Serial
+    private static final long serialVersionUID = 1709421529408867178L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false, updatable = false)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer roomId;
 
     @Column
     @NonNull
-    private int numero;
+    private int number;
 
     @OneToMany
 	@JoinColumn(name = "room_id")

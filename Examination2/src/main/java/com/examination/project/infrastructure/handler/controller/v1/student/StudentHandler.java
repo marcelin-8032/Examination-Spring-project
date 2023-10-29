@@ -13,19 +13,16 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
-@RequestMapping("/student")
+
 public interface StudentHandler {
 
     @Tag(name = " student", description = "add student")
     @Operation(method = "Post", summary = "add student", description = "this method allows to add the student")
     @ApiResponse(content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Student.class))})
-    @PostMapping(value = "/create", headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Student> createStudent(@RequestBody Student student);
+    ResponseEntity<Student> createStudent(Student student);
 
-    @GetMapping(value = "/students")
     ResponseEntity<Collection<Student>> getAllStudents();
 
-    @GetMapping(value = "/findbyclasse/{classe}")
-    ResponseEntity<Collection<Student>> getStudentByClass(@PathVariable("classe") Classe classe);
+    ResponseEntity<Collection<Student>> getStudentByClass( Classe classe);
 
 }

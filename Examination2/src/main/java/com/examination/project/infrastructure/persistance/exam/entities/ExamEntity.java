@@ -23,26 +23,28 @@ public class ExamEntity implements Serializable {
     private static final long serialVersionUID = 6958515320559275010L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false, updatable = false)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer examId;
+
+
+    @Column
+    private String ExamName;
 
     @Column
     @NonNull
-    private LocalDateTime dateExam;
+    private LocalDateTime examDate;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "subject_id", nullable = false)
     @NonNull
     private SubjectEntity subjectEntity;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "room_id", nullable = false)
     @NonNull
-    private RoomEntity roomEntity;
+    private RoomEntity room;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "invigilator_id", nullable = false)
     @NonNull

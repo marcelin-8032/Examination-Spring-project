@@ -3,21 +3,24 @@ package com.examination.project.infrastructure.handler.controller.v1.student;
 
 import com.examination.project.domain.entities.Classe;
 import com.examination.project.domain.entities.Student;
-import com.examination.project.domain.usecasesV1.student.StudentUseCase;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.examination.project.domain.usecases.v1.student.StudentUseCase;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
+@RequiredArgsConstructor
 @RestController
+@RequestMapping("/student")
 public class StudentRestHandler implements StudentHandler {
-    @Autowired
-    private StudentUseCase studentUseCase;
+    private final StudentUseCase studentUseCase;
 
     @Override
-    public ResponseEntity<Student> createStudent(Student student) {
+    @PostMapping(value = "/create", headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Student> createStudent(@RequestBody Student student) {
         return studentUseCase.createStudent(student).fold(
                 a -> ResponseEntity.badRequest().build(),
                 student1 -> ResponseEntity.status(HttpStatus.CREATED).build()
@@ -25,18 +28,20 @@ public class StudentRestHandler implements StudentHandler {
     }
 
     @Override
+    @GetMapping(value = "/students")
     public ResponseEntity<Collection<Student>> getAllStudents() {
         return studentUseCase.findStudents().fold(
                 a -> ResponseEntity.badRequest().build(),
-                students -> new ResponseEntity<>(HttpStatus.FOUND)
+                ResponseEntity::ok
         );
     }
 
     @Override
-    public ResponseEntity<Collection<Student>> getStudentByClass(Classe classe) {
+    @GetMapping(value = "/classe/{classe}")
+    public ResponseEntity<Collection<Student>> getStudentByClass(@PathVariable("classe") Classe classe) {
         return studentUseCase.findStudentByClasse(classe).fold(
                 a -> ResponseEntity.notFound().build(),
-                class1 -> ResponseEntity.status(HttpStatus.OK).build()
+                ResponseEntity::ok
         );
     }
 

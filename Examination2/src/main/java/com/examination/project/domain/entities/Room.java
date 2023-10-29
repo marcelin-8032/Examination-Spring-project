@@ -9,8 +9,9 @@ import java.io.Serializable;
 
 @Builder
 @With
-public record Room(Integer roomId,
-                   int number,
-                   Set<Exam> exams) implements Serializable {
+public record Room(
+        Integer roomId,
+        int number,
+        Set<Exam> exams) {
 
 }

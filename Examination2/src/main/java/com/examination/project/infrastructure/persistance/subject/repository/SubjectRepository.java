@@ -10,7 +10,7 @@ import com.examination.project.infrastructure.persistance.subject.entities.Subje
 
 import java.util.Collection;
 
-@Repository
+//@Repository
 public interface SubjectRepository extends JpaRepository<SubjectEntity, Integer> , QuerydslPredicateExecutor<SubjectEntity> {
 
     Collection<SubjectEntity> findByCoefficientGreaterThan(int coefficient);

@@ -3,34 +3,35 @@ package com.examination.project.infrastructure.handler.controller.v1.exam;
 
 import com.examination.project.domain.entities.Exam;
 import com.examination.project.domain.entities.Room;
-import com.examination.project.domain.mapper.ExamMapper;
-import com.examination.project.domain.usecasesV1.exam.ExamUseCase;
+import com.examination.project.domain.usecases.v1.exam.ExamUseCase;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
 @RestController
+@RequestMapping("/exams")
 @Slf4j
+@RequiredArgsConstructor
 public class ExamRestHandler implements ExamHandler {
 
     private static final String TASKS_LIST_NOT_FOUND = "Not found";
+    private final ExamUseCase examUseCase;
 
-    @Autowired
-    private ExamUseCase examUseCase;
-    @Autowired
-    private ExamMapper examMapper;
-
+    // private final ExamMapper examMapper;
 
     @Override
-    public ResponseEntity<Void> createExams(List<Exam> exams) {
+    @PostMapping(value = "/create", headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> createExams(@RequestBody List<Exam> exams) {
         log.info("This list of exams {} have been created: ", exams);
         return examUseCase.createExams(exams).fold(
                 a -> ResponseEntity.badRequest().build(),
@@ -39,6 +40,7 @@ public class ExamRestHandler implements ExamHandler {
     }
 
     @Override
+    @GetMapping(value = "/exams")
     public ResponseEntity<Collection<Exam>> getAllExams() {
         return examUseCase.getAllExams().fold(
                 b -> ResponseEntity.notFound().build(),
@@ -47,7 +49,8 @@ public class ExamRestHandler implements ExamHandler {
     }
 
     @Override
-    public ResponseEntity<Collection<Exam>> getExamsByDate(LocalDateTime date) {
+    @GetMapping(value = "/examsByDate")
+    public ResponseEntity<Collection<Exam>> getExamsByDate(@RequestBody LocalDateTime date) {
         return examUseCase.getExamsByDate(date).fold(
                 a -> ResponseEntity.notFound().build(),
                 exams -> new ResponseEntity<>(HttpStatus.FOUND)
@@ -55,7 +58,8 @@ public class ExamRestHandler implements ExamHandler {
     }
 
     @Override
-    public ResponseEntity<Collection<Exam>> getExamsAtRoomAndAfterADate(Room room, LocalDateTime date) {
+    @GetMapping(value = "/examsByRoomDate")
+    public ResponseEntity<Collection<Exam>> getExamsAtRoomAndAfterADate(@RequestBody Room room, LocalDateTime date) {
         return examUseCase.getExamsAtRoomAndAfterADate(room, date).fold(
                 a -> ResponseEntity.notFound().build(),
                 exams -> new ResponseEntity<>(HttpStatus.FOUND)
@@ -63,7 +67,8 @@ public class ExamRestHandler implements ExamHandler {
     }
 
     @Override
-    public ResponseEntity<Collection<Exam>> getExamsAtRecentDataAtSpecificRoom(Room room) {
+    @GetMapping(value = "/examsByRoom")
+    public ResponseEntity<Collection<Exam>> getExamsAtRecentDataAtSpecificRoom(@RequestBody Room room) {
         return examUseCase.getExamsAtRecentDateAtSpecificRoom(room).fold(
                 a -> ResponseEntity.notFound().build(),
                 exams -> new ResponseEntity<>(HttpStatus.FOUND)
@@ -71,7 +76,8 @@ public class ExamRestHandler implements ExamHandler {
     }
 
     @Override
-    public ResponseEntity<Page<Exam>> getAllExamsInPages(Pageable pageable) {
+    @GetMapping
+    public ResponseEntity<Page<Exam>> getAllExamsInPages(@NotNull final Pageable pageable) {
         return examUseCase.getAllExamsInPages(pageable).fold(
                 a -> ResponseEntity.notFound().build(),
                 exams -> new ResponseEntity<>(HttpStatus.FOUND)
@@ -79,7 +85,8 @@ public class ExamRestHandler implements ExamHandler {
     }
 
     @Override
-    public ResponseEntity<Page<Exam>> getAllExamsByRoom(Integer roomId, Pageable pageable) {
+    @GetMapping(value = "exams/{roomId}")
+    public ResponseEntity<Page<Exam>> getAllExamsByRoom(@PathVariable("roomId") Integer roomId, @NotNull final  Pageable pageable) {
         return examUseCase.getAllExamsByRoom(roomId, pageable).fold(
                 a -> ResponseEntity.notFound().build(),
                 exams -> new ResponseEntity<>(HttpStatus.FOUND)

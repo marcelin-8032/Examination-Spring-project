@@ -5,7 +5,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.http.ResponseEntity;
 
-import static com.examination.project.domain.usecasesV2.UseCase.*;
+import static com.examination.project.domain.usecases.v2.UseCase.*;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class HandlerResponse {

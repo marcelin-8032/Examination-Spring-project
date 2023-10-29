@@ -1,5 +1,6 @@
 package com.examination.project.infrastructure.persistance.subject.entities;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
@@ -22,10 +23,12 @@ import lombok.*;
 @Table(name = "subject")
 public class SubjectEntity implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -6377054955014203603L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false, updatable = false)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer subjectId;
 
     @Column
@@ -37,7 +40,7 @@ public class SubjectEntity implements Serializable {
     private int coefficient;
 
     @Enumerated(EnumType.STRING)
-    @Column
+    @Column(name = "subject_module")
     @NonNull
     private Module module;
 
