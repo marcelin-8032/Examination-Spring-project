@@ -16,7 +16,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -80,7 +82,7 @@ public class ExamUseCaseImpl implements ExamUseCase {
 
     @Override
     public Either<ExaminationException, Collection<Exam>> getExamsAtRoomAndGivenDate(Option<Room> room, LocalDateTime localDateTime) {
-                return Try.of(() -> this.roomMapper.optionToOptional(room))
+        return Try.of(() -> this.roomMapper.optionToOptional(room))
                 .map(room1 -> {
                     this.roomRepository.findById(room1.get().roomId());
                     return this.examRepository.findByRoomAndExamDate(room1.get(), localDateTime);
@@ -106,62 +108,39 @@ public class ExamUseCaseImpl implements ExamUseCase {
 
     @Override
     public Either<ExaminationException, Collection<Exam>> getExamsAtRecentDateAtSpecificRoom(Room room) {
-        return null;
-    }
 
-    @Override
-    public Either<ExaminationException, Page<Exam>> getAllExamsInPages(Pageable pageable) {
-        return null;
-    }
-
-    @Override
-    public Either<ExaminationException, Page<Exam>> getAllExamsByRoom(Integer id, Pageable pageable) {
-        return null;
-    }
-
-
-
-//
-//    @Override
-//    public Either<ExaminationException, Collection<Exam>> getExamsAtRoomAndAfterADate(Room room, LocalDateTime localDateTime) {
-
-//    }
-//
-//
-//    @Override
-//    public Either<ExaminationException, Collection<Exam>> getExamsAtRecentDateAtSpecificRoom(Room room) {
 //        return Try.of(() -> this.roomMapper.toRoomEntity(room))
 //                .map(this.examRepository::findTopByRoomOrderByDateExamDesc)
 //                .map(this.examMapper::toExams)
 //                .toEither()
 //                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
-//    }
-//
+        return null;
+    }
+
+    @Override
+    public Either<ExaminationException, Page<Exam>> getAllExamsInPages(Pageable pageable) {
+        return Try.of(() -> of(0, 2, Sort.Direction.ASC, "exam_id"))
+                .map(this.examRepository::findAll)
+                .map(this.examMapper::pageExamEntityToPageExamDto)
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
+    }
+
+    @Override
+    public Either<ExaminationException, Page<Exam>> getAllExamsByRoom(Integer roomId, Pageable pageable) {
+
+        return Try.of(() -> PageRequest.of(0, 3, Sort.Direction.DESC, "room_id"))
+                .map(pageable2 -> this.examRepository.findByRoom(roomId, pageable2))
+                .map(this.examMapper::pageExamEntityToPageExamDto)
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
+    }
+
+
 //    @Override
-//    public Either<ExaminationException, Page<Exam>> getAllExamsInPages(Pageable pageable) {
-//        return Try.of(() -> of(0, 2, Sort.Direction.ASC, "exam_id"))
-//                .map(this.examRepository::findAllExams)
-//                .map(this.examMapper::pageExamEntityToPageExamDto)
-//                .toEither()
-//                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
+//    public Either<ExaminationException, Collection<Exam>> getExamsAtRecentDateAtSpecificRoom(Room room) {
+
 //    }
-//
-//    @Override
-//    public Either<ExaminationException, Page<Exam>> getAllExamsByRoom(Integer roomId, Pageable pageable) {
-////
-////                pageable = PageRequest.of(0, 3, Sort.Direction.DESC, "room_id");
-////        val finalPageable = pageable;
-////
-////        return Try.of(() -> this.examRepository.findByRoom(roomId, finalPageable))
-////                .map(this.examMapper::pageExamEntityToPageExamDto)
-////                .toEither()
-////                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
-//
-//        return Try.of(() -> PageRequest.of(0, 3, Sort.Direction.DESC, "room_id"))
-//                .map(pageable2 -> this.examRepository.findByRoom(roomId, pageable2))
-//                .map(this.examMapper::pageExamEntityToPageExamDto)
-//                .toEither()
-//                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
-//    }
+
 
 }

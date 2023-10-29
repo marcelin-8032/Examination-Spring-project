@@ -30,6 +30,6 @@ public interface ExamUseCase {
 
     Either<ExaminationException, Page<Exam>> getAllExamsInPages(Pageable pageable);
 
-    Either<ExaminationException, Page<Exam>> getAllExamsByRoom(Integer id, Pageable pageable);
+    Either<ExaminationException, Page<Exam>> getAllExamsByRoom(Integer roomId, Pageable pageable);
 
 }
