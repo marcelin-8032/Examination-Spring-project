@@ -1,4 +1,4 @@
-package com.examination.project.domain.mapper;
+package com.examination.project.infrastructure.mapper;
 
 import com.examination.project.domain.entities.Room;
 import com.examination.project.infrastructure.persistance.room.entities.RoomEntity;

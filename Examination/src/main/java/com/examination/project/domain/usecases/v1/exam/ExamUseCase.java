@@ -1,4 +1,4 @@
-package com.examination.project.domain.fixtures;
+package com.examination.project.domain.usecases.v1.exam;
 
 import com.examination.project.domain.entities.Exam;
 import com.examination.project.domain.entities.Room;

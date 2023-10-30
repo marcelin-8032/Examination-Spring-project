@@ -4,7 +4,7 @@ import com.examination.project.domain.entities.Classe;
 import com.examination.project.domain.entities.Student;
 import com.examination.project.domain.exception.ExaminationException;
 import com.examination.project.domain.exception.ExaminationExceptionSanitize;
-import com.examination.project.domain.mapper.StudentMapper;
+import com.examination.project.infrastructure.mapper.StudentMapper;
 import com.examination.project.domain.usecases.v1.student.StudentUseCase;
 import com.examination.project.infrastructure.persistance.student.repository.StudentRepository;
 import io.vavr.control.Either;
