@@ -2,7 +2,6 @@ package com.examination.project.infrastructure.persistance.exam.entities;
 
 import com.examination.project.infrastructure.persistance.invigilator.entities.InvigilatorEntity;
 import com.examination.project.infrastructure.persistance.subject.entities.SubjectEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.examination.project.infrastructure.persistance.room.entities.RoomEntity;
 import lombok.*;
 
@@ -29,7 +28,7 @@ public class ExamEntity implements Serializable {
 
 
     @Column
-    private String ExamName;
+    private String examName;
 
     @Column
     @NonNull

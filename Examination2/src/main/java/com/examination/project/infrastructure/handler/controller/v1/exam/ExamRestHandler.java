@@ -3,7 +3,7 @@ package com.examination.project.infrastructure.handler.controller.v1.exam;
 
 import com.examination.project.domain.entities.Exam;
 import com.examination.project.domain.entities.Room;
-import com.examination.project.domain.usecases.v1.exam.ExamUseCase;
+import com.examination.project.domain.fixtures.ExamUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

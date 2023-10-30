@@ -18,34 +18,32 @@ public interface ExamRepository extends JpaRepository<ExamEntity, Integer>,
 
     Collection<ExamEntity> findByExamDate(LocalDateTime examDate);
 
-    //Collection<ExamEntity> findByRoomAndDateExamGreaterThan(RoomEntity room, LocalDateTime dateExam);
-//
-    //Collection<ExamEntity> findTopByRoomOrderByDateExamDesc(RoomEntity roomEntity);
-//
-//    /********************************  -------------------------Query methods------------------***************/
-//    @Query(value = "SELECT * FROM examens e WHERE e.date_exam=:date_exam", nativeQuery = true)
-//    Collection<ExamEntity> findRoomsAsDateExamQuery(@Param("date_exam") LocalDateTime date_exam);
-//
-//    @Query(value = "SELECT * FROM examens e INNER JOIN salle s ON  e.salle_id=s.salle_id " +
-//            " WHERE e.salle_id=:salle_id AND e.date_exam > :date_exam", nativeQuery = true)
-//    Collection<ExamEntity> findRoomAndDateExamQuery(@Param("salle_id") Integer salle_id, @Param("date_exam") LocalDateTime dateExam);
-//
-//    @Query(value = "SELECT * FROM examens e INNER JOIN salle s ON e.salle_id=s.salle_id " +
-//            "WHERE e.salle_id=:salle_id ORDER BY date_exam DESC LIMIT 1", nativeQuery = true)
-//    Collection<ExamEntity> findExamsAtRecentDateQuery(@Param("salle_id") Integer salle_id);
-//
-//
+    Collection<ExamEntity> findByRoomAndExamDateGreaterThan(RoomEntity room, LocalDateTime examDate);
+
+    Collection<ExamEntity> findByRoomOrderByExamDateDesc(RoomEntity room);
+
+    /********************************  -------------------------Query methods------------------***************/
+    @Query(value = "SELECT * FROM examens e WHERE e.date_exam=:date_exam", nativeQuery = true)
+    Collection<ExamEntity> findRoomsAsDateExamQuery(@Param("date_exam") LocalDateTime date_exam);
+
+    @Query(value = "SELECT * FROM examens e INNER JOIN salle s ON  e.salle_id=s.salle_id " +
+            " WHERE e.salle_id=:salle_id AND e.date_exam > :date_exam", nativeQuery = true)
+    Collection<ExamEntity> findRoomAndDateExamQuery(@Param("salle_id") Integer salle_id, @Param("date_exam") LocalDateTime dateExam);
+
+    @Query(value = "SELECT * FROM examens e INNER JOIN salle s ON e.salle_id=s.salle_id " +
+            "WHERE e.salle_id=:salle_id ORDER BY date_exam DESC LIMIT 1", nativeQuery = true)
+    Collection<ExamEntity> findExamsAtRecentDateQuery(@Param("salle_id") Integer salle_id);
+
 
     /********************************  -------------------------Pagination and sorting methods------------------***************/
 
-//    @Query(value = "SELECT * FROM examens e WHERE e.surveillant_id=:surveillant_id",
-//            countQuery = "SELECT COUNT(*) FROM examens e WHERE e.surveillant_id=:surveillant_id", nativeQuery = true)
-//    Page<ExamEntity> findByInvigilator(@Param("surveillant_id") Integer surveillant_id, Pageable pageable);
-//
+    @Query(value = "SELECT * FROM exams e WHERE e.invigilator_id=:invigilator_id",
+            countQuery = "SELECT COUNT(*) FROM exams e WHERE e.invigilator_id=:invigilator_id", nativeQuery = true)
+    Page<ExamEntity> findByInvigilatorId(@Param("invigilator_id") Integer invigilator_id, Pageable pageable);
+
     @Query(value = "SELECT * FROM exams e WHERE e.room_id=:room_id",
             countQuery = "SELECT COUNT(*) FROM exams e WHERE e.room_id=:room_id", nativeQuery = true)
     Page<ExamEntity> findByRoom(@Param("room_id") Integer room_id, Pageable pageable);
 
     Collection<ExamEntity> findByRoomAndExamDate(Room room, LocalDateTime examDate);
-
 }

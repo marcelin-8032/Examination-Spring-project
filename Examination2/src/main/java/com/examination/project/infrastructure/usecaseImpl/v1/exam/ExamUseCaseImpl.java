@@ -6,7 +6,7 @@ import com.examination.project.domain.exception.ExaminationException;
 import com.examination.project.domain.exception.ExaminationExceptionSanitize;
 import com.examination.project.domain.mapper.ExamMapper;
 import com.examination.project.domain.mapper.RoomMapper;
-import com.examination.project.domain.usecases.v1.exam.ExamUseCase;
+import com.examination.project.domain.fixtures.ExamUseCase;
 import com.examination.project.infrastructure.persistance.exam.repository.ExamRepository;
 import com.examination.project.infrastructure.persistance.room.repository.RoomRepository;
 import io.vavr.control.Either;
@@ -94,27 +94,26 @@ public class ExamUseCaseImpl implements ExamUseCase {
 
     @Override
     public Either<ExaminationException, Collection<Exam>> getExamsAtRoomAndAfterADate(Room room, LocalDateTime localDateTime) {
-//                return Try.of(() -> this.roomRepository.findById(room.roomId()))
-//                .map(roomEntity -> {
-//                    this.roomMapper.unwrapReferenceRoom(roomEntity);
-//                    return this.examRepository.findByRoomAndDateExamGreaterThan(roomEntity.get(), localDateTime);
-//                }).onFailure(cause -> log.error("there is a problem in getting exams at Given Room and after a Date"))
-//                .map(this.examMapper::toExams)
-//                .toEither()
-//                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
-
-        return null;
+        return Try.of(() -> this.roomRepository.findById(room.roomId()))
+                .map(roomEntity -> {
+                    this.roomMapper.unwrapReferenceRoom(roomEntity);
+                    return roomEntity.map(entity ->
+                                    this.examRepository.findByRoomAndExamDateGreaterThan(entity, localDateTime))
+                            .orElse(null);
+                }).onFailure(cause -> log.error("there is a problem in getting exams at Given Room and after a Date"))
+                .map(this.examMapper::toExams)
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
 
     @Override
     public Either<ExaminationException, Collection<Exam>> getExamsAtRecentDateAtSpecificRoom(Room room) {
 
-//        return Try.of(() -> this.roomMapper.toRoomEntity(room))
-//                .map(this.examRepository::findTopByRoomOrderByDateExamDesc)
-//                .map(this.examMapper::toExams)
-//                .toEither()
-//                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
-        return null;
+        return Try.of(() -> this.roomMapper.toRoomEntity(room))
+                .map(this.examRepository::findByRoomOrderByExamDateDesc)
+                .map(this.examMapper::toExams)
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
 
     @Override
@@ -135,12 +134,4 @@ public class ExamUseCaseImpl implements ExamUseCase {
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
-
-
-//    @Override
-//    public Either<ExaminationException, Collection<Exam>> getExamsAtRecentDateAtSpecificRoom(Room room) {
-
-//    }
-
-
 }
