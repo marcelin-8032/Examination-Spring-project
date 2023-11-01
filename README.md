@@ -8,4 +8,5 @@
 - Vavr
 - Mapper Struct
 - Querydsl
-- Audit 
+- Audit
+- OpenAPI V.3
