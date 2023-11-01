@@ -1,16 +1,15 @@
 package com.examination.project.infrastructure.handler.controller.v1.subject;
 
 
-import com.examination.project.domain.entities.Subject;
-import org.springframework.data.domain.Example;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import com.examination.project.domain.entities.Module;
+import com.examination.project.domain.entities.Subject;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.data.domain.Example;
+import org.springframework.http.ResponseEntity;
+
 import java.util.Collection;
 
-
-
+@Tag(name = " Subjects API", description = "subject management")
 public interface SubjectHandler {
 
     ResponseEntity<Void> createSubject(Subject subject);

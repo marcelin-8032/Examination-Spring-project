@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("v1/invigilator")
+@RequestMapping("/v1/" + "invigilator")
 public class InvigilatorRestHandler implements InvigilatorHandler {
 
     private final InvigilatorUseCase invigilatorUseCase;
@@ -22,7 +22,7 @@ public class InvigilatorRestHandler implements InvigilatorHandler {
     @Override
     @PostMapping(value = "/create", headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> createAnInvigilator(Invigilator invigilator) {
-       // log.info("An invigilator {} has been added: ", invigilator);
+        // log.info("An invigilator {} has been added: ", invigilator);
         return invigilatorUseCase.createInvigilator(invigilator).fold(
                 a -> ResponseEntity.badRequest().build(),
                 invigilator1 -> ResponseEntity.status(HttpStatus.CREATED).build()

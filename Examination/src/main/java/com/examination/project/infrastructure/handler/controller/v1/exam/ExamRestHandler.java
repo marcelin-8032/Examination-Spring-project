@@ -19,7 +19,7 @@ import java.util.Collection;
 import java.util.List;
 
 @RestController
-@RequestMapping("v1/exam")
+@RequestMapping("/v1/" + "exam")
 @Slf4j
 @RequiredArgsConstructor
 public class ExamRestHandler implements ExamHandler {
@@ -86,7 +86,7 @@ public class ExamRestHandler implements ExamHandler {
 
     @Override
     @GetMapping(value = "examPages/{roomId}")
-    public ResponseEntity<Page<Exam>> getAllExamsByRoom(@PathVariable("roomId") Integer roomId, @NotNull final  Pageable pageable) {
+    public ResponseEntity<Page<Exam>> getAllExamsByRoom(@PathVariable("roomId") Integer roomId, @NotNull final Pageable pageable) {
         return examUseCase.getAllExamsByRoom(roomId, pageable).fold(
                 a -> ResponseEntity.notFound().build(),
                 ResponseEntity::ok
