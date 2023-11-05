@@ -7,7 +7,7 @@ import com.examination.project.domain.exception.ExaminationException;
 import io.vavr.control.Either;
 import io.vavr.control.Option;
 import org.springframework.data.domain.Example;
-import com.examination.project.domain.entities.Module;
+import com.examination.project.domain.entities.SubjectModule;
 
 public interface SubjectUseCase {
 
@@ -25,9 +25,9 @@ public interface SubjectUseCase {
 
 	Either<ExaminationException, Collection<Subject>> getAllSubjects();
 
-	Either<ExaminationException, Collection<Subject>> getSubjectCoeffBiggerTitleEqDataModuleEq2(int coeff, Module module);
+	Either<ExaminationException, Collection<Subject>> getSubjectCoeffBiggerTitleEqDataModuleEq2(int coeff, SubjectModule subjectModule);
 
-	Either<ExaminationException, Collection<Subject>> getSubjectCoeffBiggerThanModuleEq2(int coeff, Module module);
+	Either<ExaminationException, Collection<Subject>> getSubjectCoeffBiggerThanModuleEq2(int coeff, SubjectModule subjectModule);
 
-	Either<ExaminationException, Collection<Subject>> getSubjectTitleEqDataModuleEq2(Module module);
+	Either<ExaminationException, Collection<Subject>> getSubjectTitleEqDataModuleEq2(SubjectModule subjectModule);
 }

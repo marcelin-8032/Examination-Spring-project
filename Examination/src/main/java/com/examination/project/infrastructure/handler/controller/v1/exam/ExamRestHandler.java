@@ -23,7 +23,6 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class ExamRestHandler implements ExamHandler {
-
     private static final String TASKS_LIST_NOT_FOUND = "Not found";
     private final ExamUseCase examUseCase;
 

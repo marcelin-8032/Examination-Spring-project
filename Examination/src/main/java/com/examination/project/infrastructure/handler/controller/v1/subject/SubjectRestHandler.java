@@ -1,6 +1,7 @@
 package com.examination.project.infrastructure.handler.controller.v1.subject;
 
 import com.examination.project.domain.entities.Subject;
+import com.examination.project.domain.entities.SubjectModule;
 import com.examination.project.domain.usecases.v1.subject.SubjectUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;
@@ -8,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.examination.project.domain.entities.Module;
 
 import java.util.Collection;
 
@@ -18,7 +18,6 @@ import java.util.Collection;
 public class SubjectRestHandler implements SubjectHandler {
 
     private final SubjectUseCase subjectUseCase;
-
 
     @Override
     @PostMapping(value = "/create", headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -86,8 +85,8 @@ public class SubjectRestHandler implements SubjectHandler {
     @Override
     @GetMapping(value = "/subjectsquerydsl3a/coeff/{coeff}/module/{module}")
     public ResponseEntity<Collection<Subject>> getSubjectByCoeffBiggerThanAndTitleDataAndModule(
-            @PathVariable("coeff") int coeff, @PathVariable("module") Module module) {
-        return subjectUseCase.getSubjectCoeffBiggerTitleEqDataModuleEq2(coeff, module).fold(
+            @PathVariable("coeff") int coeff, @PathVariable("module") SubjectModule subjectModule) {
+        return subjectUseCase.getSubjectCoeffBiggerTitleEqDataModuleEq2(coeff, subjectModule).fold(
                 a -> ResponseEntity.notFound().build(),
                 subjects -> new ResponseEntity<>(HttpStatus.FOUND)
         );
@@ -97,8 +96,8 @@ public class SubjectRestHandler implements SubjectHandler {
     @GetMapping(value = "/subjectesquerydsl3b/coeff/{coeff}/module/{module}")
     public ResponseEntity<Collection<Subject>> getSubjectByCoeffBiggerThanAndModule(
             @PathVariable("coeff") int coeff,
-            @PathVariable("module") Module module) {
-        return subjectUseCase.getSubjectCoeffBiggerThanModuleEq2(coeff, module).fold(
+            @PathVariable("module") SubjectModule subjectModule) {
+        return subjectUseCase.getSubjectCoeffBiggerThanModuleEq2(coeff, subjectModule).fold(
                 a -> ResponseEntity.notFound().build(),
                 subjects -> new ResponseEntity<>(HttpStatus.FOUND)
         );
@@ -106,8 +105,8 @@ public class SubjectRestHandler implements SubjectHandler {
 
     @Override
     @GetMapping(value = "/subjectsquerydsl3c/module/{module}")
-    public ResponseEntity<Collection<Subject>> getSubjectTitleDataAndModuleEq2(@PathVariable("module") Module module) {
-        return subjectUseCase.getSubjectTitleEqDataModuleEq2(module).fold(
+    public ResponseEntity<Collection<Subject>> getSubjectTitleDataAndModuleEq2(@PathVariable("module") SubjectModule subjectModule) {
+        return subjectUseCase.getSubjectTitleEqDataModuleEq2(subjectModule).fold(
                 a -> ResponseEntity.notFound().build(),
                 subjects -> new ResponseEntity<>(HttpStatus.FOUND)
         );

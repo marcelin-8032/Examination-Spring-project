@@ -8,7 +8,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 @Accessors(fluent = true)
 @AllArgsConstructor(access = PRIVATE)
-public enum Module {
+public enum SubjectModule {
 
     MODULE_1 ("Module1"),
     MODULE_2 ("Module2"),

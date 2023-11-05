@@ -1,29 +1,28 @@
 package com.examination.project.utils;
 
 import com.examination.project.domain.entities.*;
-import com.examination.project.domain.entities.Module;
+import com.examination.project.domain.entities.SubjectModule;
 import io.vavr.collection.List;
 import io.vavr.collection.Set;
+import lombok.NoArgsConstructor;
 
 
 import java.time.LocalDateTime;
 
+import static lombok.AccessLevel.PRIVATE;
 
+
+@NoArgsConstructor(access = PRIVATE)
 public class ModelFactory {
-
-    private ModelFactory() {
-
-    }
 
     public static Subject defaultSubject() {
         return Subject.builder()
                 .title("Physics")
-                .module(Module.MODULE_2)
+                .subjectModule(SubjectModule.MODULE_2)
                 .coefficient(164)
                 .exams(defaultExams())
                 .build();
     }
-
 
     public static Student defaultStudent() {
         return Student
@@ -48,7 +47,6 @@ public class ModelFactory {
 
     }
 
-
     public static Room defaultRoom() {
         return Room.builder()
                 .roomId(1)
@@ -65,7 +63,6 @@ public class ModelFactory {
                 .build();
     }
 
-
     public static Exam defaultExam() {
         return Exam
                 .builder()
@@ -76,7 +73,6 @@ public class ModelFactory {
                 .students(defaultStudents())
                 .build();
     }
-
 
     public static Set<Exam> defaultExams() {
         return List.of(defaultExam(),

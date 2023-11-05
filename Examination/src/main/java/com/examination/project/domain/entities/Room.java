@@ -13,5 +13,4 @@ public record Room(
         Integer roomId,
         int number,
         Set<Exam> exams) {
-
 }

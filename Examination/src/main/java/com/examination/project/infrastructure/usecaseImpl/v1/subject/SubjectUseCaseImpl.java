@@ -1,6 +1,6 @@
 package com.examination.project.infrastructure.usecaseImpl.v1.subject;
 
-import com.examination.project.domain.entities.Module;
+import com.examination.project.domain.entities.SubjectModule;
 import com.examination.project.domain.entities.Subject;
 import com.examination.project.domain.exception.ExaminationException;
 import com.examination.project.domain.exception.ExaminationExceptionSanitize;
@@ -107,11 +107,11 @@ public class SubjectUseCaseImpl implements SubjectUseCase {
     }
 
     @Override
-    public Either<ExaminationException, Collection<Subject>> getSubjectCoeffBiggerTitleEqDataModuleEq2(int coeff, Module module) {
+    public Either<ExaminationException, Collection<Subject>> getSubjectCoeffBiggerTitleEqDataModuleEq2(int coeff, SubjectModule subjectModule) {
         var qMatiere = new QSubjectEntity("matiere");
         var filterByCoeff = qMatiere.coefficient.gt(coeff);
         var filterByIntitule = qMatiere.title.contains("data");
-        var filterByModule = qMatiere.module.eq(module);
+        var filterByModule = qMatiere.subjectModule.eq(subjectModule);
 
         return Try.of(() -> this.subjectRepository.findAll(filterByCoeff.and(filterByIntitule).and(filterByModule)))
                 .map(subjectEntities -> subjectEntities.iterator().next())
@@ -122,10 +122,10 @@ public class SubjectUseCaseImpl implements SubjectUseCase {
     }
 
     @Override
-    public Either<ExaminationException, Collection<Subject>> getSubjectCoeffBiggerThanModuleEq2(int coeff, Module module) {
+    public Either<ExaminationException, Collection<Subject>> getSubjectCoeffBiggerThanModuleEq2(int coeff, SubjectModule subjectModule) {
         var qMatiere = new QSubjectEntity("matiere");
         var filterByCoeff = qMatiere.coefficient.gt(coeff);
-        var filterByModule = qMatiere.module.eq(module);
+        var filterByModule = qMatiere.subjectModule.eq(subjectModule);
 
         return Try.of(() -> this.subjectRepository.findAll(filterByCoeff.and(filterByModule)))
                 .map(subjectEntities -> subjectEntities.iterator().next())
@@ -136,10 +136,10 @@ public class SubjectUseCaseImpl implements SubjectUseCase {
     }
 
     @Override
-    public Either<ExaminationException, Collection<Subject>> getSubjectTitleEqDataModuleEq2(Module module) {
+    public Either<ExaminationException, Collection<Subject>> getSubjectTitleEqDataModuleEq2(SubjectModule subjectModule) {
         var qMatiere = new QSubjectEntity("matiere");
         var filterByIntitule = qMatiere.title.contains("data");
-        var filterByModule = qMatiere.module.eq(module);
+        var filterByModule = qMatiere.subjectModule.eq(subjectModule);
 
         return Try.of(() -> this.subjectRepository.findAll(filterByIntitule.and(filterByModule)))
                 .map(subjectEntities -> subjectEntities.iterator().next())

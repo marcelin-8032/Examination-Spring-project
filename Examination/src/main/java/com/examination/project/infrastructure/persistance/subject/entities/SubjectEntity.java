@@ -7,7 +7,7 @@ import java.util.HashSet;
 
 import javax.persistence.*;
 
-import com.examination.project.domain.entities.Module;
+import com.examination.project.domain.entities.SubjectModule;
 
 import com.examination.project.infrastructure.persistance.exam.entities.ExamEntity;
 
@@ -42,7 +42,7 @@ public class SubjectEntity implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "subject_module")
     @NonNull
-    private Module module;
+    private SubjectModule subjectModule;
 
     @OneToMany
     @JoinColumn(name = "subject_id")
