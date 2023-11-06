@@ -78,7 +78,7 @@ public class SubjectRestHandler implements SubjectHandler {
     public ResponseEntity<Collection<Subject>> getSubjects() {
         return subjectUseCase.getAllSubjects().fold(
                 a -> ResponseEntity.notFound().build(),
-                subjects -> new ResponseEntity<>(HttpStatus.FOUND)
+                ResponseEntity::ok
         );
     }
 

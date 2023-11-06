@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Collection;
 
-//@Repository
+
 public interface SubjectRepository extends JpaRepository<SubjectEntity, Integer> , QuerydslPredicateExecutor<SubjectEntity> {
 
     Collection<SubjectEntity> findByCoefficientGreaterThan(int coefficient);

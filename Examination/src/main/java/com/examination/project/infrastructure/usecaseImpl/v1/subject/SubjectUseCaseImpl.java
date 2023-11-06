@@ -100,7 +100,7 @@ public class SubjectUseCaseImpl implements SubjectUseCase {
 
     @Override
     public Either<ExaminationException, Collection<Subject>> getAllSubjects() {
-        return Try.of(() -> this.subjectRepository.findAll())
+        return Try.of(this.subjectRepository::findAll)
                 .map(this.subjectMapper::toSubjects)
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
