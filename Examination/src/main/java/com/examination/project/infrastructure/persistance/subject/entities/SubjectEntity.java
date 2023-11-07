@@ -46,16 +46,5 @@ public class SubjectEntity implements Serializable {
 
     @OneToMany
     @JoinColumn(name = "subject_id")
-    private Collection<ExamEntity> examEntities = new HashSet<>();
-
-
-//    @Override
-//    public String toString() {
-//        return "SubjectEntity{" +
-//                "subjectId=" + subjectId +
-//                ", title='" + title + '\'' +
-//                ", coefficient=" + coefficient +
-//                ", subjectModule=" + subjectModule +
-//                '}';
-//    }
+    private Collection<ExamEntity> examEntities ;
 }

@@ -38,7 +38,6 @@ public class StudentEntity implements Serializable {
     @Column
     private Classe classe;
 
-    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, targetEntity = ExamEntity.class, cascade = CascadeType.ALL)
     private Collection<ExamEntity> examEntities =new HashSet<>();
 

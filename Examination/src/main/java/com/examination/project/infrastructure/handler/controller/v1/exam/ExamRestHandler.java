@@ -23,7 +23,9 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class ExamRestHandler implements ExamHandler {
+
     private static final String TASKS_LIST_NOT_FOUND = "Not found";
+
     private final ExamUseCase examUseCase;
 
     // private final ExamMapper examMapper;
@@ -43,7 +45,7 @@ public class ExamRestHandler implements ExamHandler {
     public ResponseEntity<Collection<Exam>> getAllExams() {
         return examUseCase.getAllExams().fold(
                 b -> ResponseEntity.notFound().build(),
-                exams -> new ResponseEntity<>(HttpStatus.FOUND)
+                ResponseEntity::ok
         );
     }
 

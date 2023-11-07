@@ -26,7 +26,6 @@ public class ExamEntity implements Serializable {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer examId;
 
-
     @Column
     private String examName;
 
