@@ -1,19 +1,18 @@
 package com.examination.project.infrastructure.persistance.student.entities;
 
+import com.examination.project.domain.entities.Classe;
+import com.examination.project.infrastructure.persistance.exam.entities.ExamEntity;
+import io.vavr.collection.Set;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
-
-
-import javax.persistence.*;
-
-import com.examination.project.domain.entities.Classe;
-import com.examination.project.infrastructure.persistance.exam.entities.ExamEntity;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.vavr.collection.Set;
-import lombok.*;
 
 @Data
 @NoArgsConstructor
@@ -28,21 +27,22 @@ public class StudentEntity implements Serializable {
 
     @Id
     @Column(nullable = false, updatable = false)
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer studentId;
 
     @Column
     private String name;
 
     @Enumerated(EnumType.STRING)
-    @Column
-    private Classe classe;
+    @Column(name = "classe")
+    @Builder.Default
+    private Classe classe = Classe.classeA;
 
-    @ManyToMany(fetch = FetchType.LAZY, targetEntity = ExamEntity.class, cascade = CascadeType.ALL)
-    private Collection<ExamEntity> examEntities =new HashSet<>();
+    @ManyToMany(fetch = FetchType.EAGER, targetEntity = ExamEntity.class, cascade = CascadeType.ALL)
+    private Collection<ExamEntity> examEntities = new HashSet<>();
 
     public StudentEntity(String name, Classe classe, Set<ExamEntity> examEntities) {
-        this.name= name;
+        this.name = name;
         this.classe = classe;
         this.examEntities = (Collection<ExamEntity>) examEntities;
     }

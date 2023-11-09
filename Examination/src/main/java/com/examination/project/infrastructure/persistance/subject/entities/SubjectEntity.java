@@ -28,7 +28,7 @@ public class SubjectEntity implements Serializable {
 
     @Id
     @Column(nullable = false, updatable = false)
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer subjectId;
 
     @Column
@@ -42,9 +42,14 @@ public class SubjectEntity implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "subject_module")
     @NonNull
-    private SubjectModule subjectModule;
+    @Builder.Default
+    private SubjectModule subjectModule = SubjectModule.MODULE_1;
 
     @OneToMany
     @JoinColumn(name = "subject_id")
-    private Collection<ExamEntity> examEntities ;
+    private Collection<ExamEntity> examEntities = new HashSet<>();
+
+    public void setExamEntities(Collection<ExamEntity> examEntities) {
+        this.examEntities.addAll(examEntities);
+    }
 }

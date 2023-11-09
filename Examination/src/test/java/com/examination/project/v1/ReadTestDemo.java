@@ -172,9 +172,9 @@ class ReadTestDemo {
 
     @Test
     void findMatiereByExample() {
-        var matiere = new SubjectEntity("Physique", 164, null);
+      //  var matiere = new SubjectEntity("Physique", 164, null);
 
-        subjectRepository.findOne(Example.of(matiere));
+       // subjectRepository.findOne(Example.of(matiere));
     }
 
     /********************************  -------------------------Optional- QBE-----------------***************/

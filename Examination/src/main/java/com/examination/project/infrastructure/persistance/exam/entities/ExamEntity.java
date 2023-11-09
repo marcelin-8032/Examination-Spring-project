@@ -6,6 +6,7 @@ import com.examination.project.infrastructure.persistance.room.entities.RoomEnti
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
 @Table(name = "exams")
 public class ExamEntity implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 6958515320559275010L;
 
     @Id
@@ -33,12 +35,12 @@ public class ExamEntity implements Serializable {
     @NonNull
     private LocalDateTime examDate;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "subject_id", nullable = false)
     @NonNull
     private SubjectEntity subjectEntity;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "room_id", nullable = false)
     @NonNull
     private RoomEntity room;

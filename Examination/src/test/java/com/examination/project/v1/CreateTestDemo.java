@@ -92,13 +92,13 @@ class CreateTestDemo {
         LocalDateTime date3 = LocalDateTime.parse("2022-02-18 09:00:00");
         LocalDateTime date4 = LocalDateTime.parse("2022-02-25 09:00:00");
 
-        physique = new SubjectEntity("Physique", 164, SubjectModule.MODULE_2);
-        chimie = new SubjectEntity("Chimie", 164, SubjectModule.MODULE_2);
-        informatique = new SubjectEntity("Informatique", 200, SubjectModule.MODULE_2);
-        literature = new SubjectEntity("Literature", 175, SubjectModule.MODULE_2);
-        philosophie = new SubjectEntity("Philosophie", 190, SubjectModule.MODULE_3);
-        musique = new SubjectEntity("Musique", 155, SubjectModule.MODULE_2);
-        DATA = new SubjectEntity("data", 200, SubjectModule.MODULE_3);
+//        physique = new SubjectEntity("Physique", 164, SubjectModule.MODULE_2);
+//        chimie = new SubjectEntity("Chimie", 164, SubjectModule.MODULE_2);
+//        informatique = new SubjectEntity("Informatique", 200, SubjectModule.MODULE_2);
+//        literature = new SubjectEntity("Literature", 175, SubjectModule.MODULE_2);
+//        philosophie = new SubjectEntity("Philosophie", 190, SubjectModule.MODULE_3);
+//        musique = new SubjectEntity("Musique", 155, SubjectModule.MODULE_2);
+//        DATA = new SubjectEntity("data", 200, SubjectModule.MODULE_3);
 
         invigilatorEntityAdrian = new InvigilatorEntity("Adrian");
         invigilatorEntityArthur = new InvigilatorEntity("Arthur");

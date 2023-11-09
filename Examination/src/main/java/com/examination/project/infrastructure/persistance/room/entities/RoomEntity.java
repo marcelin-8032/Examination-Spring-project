@@ -21,22 +21,27 @@ import java.util.HashSet;
 @RequiredArgsConstructor
 @Builder(toBuilder = true)
 @Table(name = "room")
-public class RoomEntity extends AuditableBaseEntity  implements Serializable {
+public class RoomEntity extends AuditableBaseEntity implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1709421529408867178L;
     @Id
     @Column(nullable = false, updatable = false)
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer roomId;
 
     @Column
     @NonNull
     private int number;
 
-    @OneToMany
-	@JoinColumn(name = "room_id")
+
+    @OneToMany()
+    @JoinColumn(name = "room_id")
     private Collection<ExamEntity> examEntities = new HashSet<>();
+
+    public void setExamEntities(Collection<ExamEntity> examEntities) {
+        this.examEntities.addAll(examEntities);
+    }
 
     // Audit by annotation
     /*
