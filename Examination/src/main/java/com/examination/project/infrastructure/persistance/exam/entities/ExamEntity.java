@@ -1,14 +1,18 @@
 package com.examination.project.infrastructure.persistance.exam.entities;
 
 import com.examination.project.infrastructure.persistance.invigilator.entities.InvigilatorEntity;
+import com.examination.project.infrastructure.persistance.student.entities.StudentEntity;
 import com.examination.project.infrastructure.persistance.subject.entities.SubjectEntity;
 import com.examination.project.infrastructure.persistance.room.entities.RoomEntity;
+import io.vavr.collection.Set;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.HashSet;
 
 
 @Data
@@ -25,7 +29,7 @@ public class ExamEntity implements Serializable {
 
     @Id
     @Column(nullable = false, updatable = false)
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer examId;
 
     @Column
@@ -35,7 +39,7 @@ public class ExamEntity implements Serializable {
     @NonNull
     private LocalDateTime examDate;
 
-    @ManyToOne(optional = false,fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "subject_id", nullable = false)
     @NonNull
     private SubjectEntity subject;
@@ -49,4 +53,12 @@ public class ExamEntity implements Serializable {
     @JoinColumn(name = "invigilator_id", nullable = false)
     @NonNull
     private InvigilatorEntity invigilator;
+
+    @ManyToMany(mappedBy = "examEntities")
+    @Builder.Default
+    private Collection<StudentEntity> students = new HashSet<>();
+
+    public void setStudent(Collection<StudentEntity> students) {
+        this.students.addAll(students);
+    }
 }

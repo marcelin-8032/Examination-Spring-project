@@ -20,7 +20,6 @@ public class ModelFactory {
                 .title("Physics")
                 .subjectModule(SubjectModule.MODULE_2)
                 .coefficient(164)
-                .exams(defaultExams())
                 .build();
     }
 
@@ -51,7 +50,6 @@ public class ModelFactory {
         return Room.builder()
                 .roomId(1)
                 .number(1254)
-                .exams(defaultExams())
                 .build();
     }
 
@@ -59,7 +57,6 @@ public class ModelFactory {
         return Invigilator.builder()
                 .name("Alex")
                 .invigilatorId(1)
-                //.exams(defaultExams())
                 .build();
     }
 
@@ -70,7 +67,6 @@ public class ModelFactory {
                 .subject(defaultSubject())
                 .room(defaultRoom())
                 .invigilator(defaultInvigilator())
-                .students(defaultStudents())
                 .build();
     }
 

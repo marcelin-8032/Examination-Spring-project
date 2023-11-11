@@ -1,6 +1,5 @@
 package com.examination.project.domain.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.vavr.collection.Set;
 import lombok.Builder;
@@ -32,10 +31,6 @@ public record Exam(
         Room room,
 
         @Schema(name = "invigilator", requiredMode = REQUIRED)
-        Invigilator invigilator,
-
-        @JsonIgnore
-        @Schema(name = "studentsExams", requiredMode = NOT_REQUIRED)
-        Set<Student> students
+        Invigilator invigilator
 ) {
 }

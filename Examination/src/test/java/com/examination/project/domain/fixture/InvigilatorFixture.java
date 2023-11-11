@@ -34,7 +34,6 @@ public class InvigilatorFixture {
         return Invigilator.builder()
                 .invigilatorId(random.nextInt())
                 .name(lorem.characters(1,20))
-                .exams(List.of(ExamFixture.one(),ExamFixture.one()).toSet())
                 .build();
     }
 
