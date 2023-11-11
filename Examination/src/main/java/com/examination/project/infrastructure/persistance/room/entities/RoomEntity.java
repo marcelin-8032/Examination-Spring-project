@@ -20,7 +20,7 @@ import java.util.HashSet;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Builder(toBuilder = true)
-@Table(name = "room")
+@Table(name = "rooms")
 public class RoomEntity extends AuditableBaseEntity implements Serializable {
 
     @Serial
@@ -34,9 +34,9 @@ public class RoomEntity extends AuditableBaseEntity implements Serializable {
     @NonNull
     private int number;
 
-
     @OneToMany()
     @JoinColumn(name = "room_id")
+    @Builder.Default
     private Collection<ExamEntity> examEntities = new HashSet<>();
 
     public void setExamEntities(Collection<ExamEntity> examEntities) {
@@ -44,22 +44,18 @@ public class RoomEntity extends AuditableBaseEntity implements Serializable {
     }
 
     // Audit by annotation
-    /*
-     * @CreatedBy
-     *
-     * @Column private User createdBy;
-     *
-     * @CreatedDate
-     *
-     * @Column private ZonedDateTime createdAt;
-     *
-     * @LastModifiedBy
-     *
-     * @Column private User updatedBy;
-     *
-     * @LastModifiedDate
-     *
-     * @Column private ZonedDateTime updatedAt;
-     */
+ /*    @CreatedBy
+     @Column
+     private User createdBy;
 
+     @CreatedDate
+     @Column
+     private ZonedDateTime createdAt;
+
+     @LastModifiedBy
+     @Column private User updatedBy;
+
+     @LastModifiedDate
+     @Column
+     private ZonedDateTime updatedAt;*/
 }

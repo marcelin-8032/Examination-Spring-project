@@ -11,14 +11,16 @@ import static lombok.AccessLevel.PRIVATE;
 
 @Accessors(fluent = true)
 @AllArgsConstructor(access = PRIVATE)
-//@ToString
+////@ToString
 public enum SubjectModule {
 
-    MODULE_1 ("Module1"),
-    MODULE_2 ("Module2"),
-    MODULE_3 ("Module3");
+    MODULE_1, MODULE_2, MODULE_3;
 
-    @Getter
-    private String message;
+//    MODULE_1 ("Module1"),
+//    MODULE_2 ("Module2"),
+//    MODULE_3 ("Module3");
+//
+//    @Getter
+//    private String message;
 
 }

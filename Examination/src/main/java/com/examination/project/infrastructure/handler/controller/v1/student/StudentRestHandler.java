@@ -14,7 +14,7 @@ import java.util.Collection;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/v1/" + "student")
+@RequestMapping("/v1/" + "students")
 public class StudentRestHandler implements StudentHandler {
     private final StudentUseCase studentUseCase;
 
@@ -28,7 +28,7 @@ public class StudentRestHandler implements StudentHandler {
     }
 
     @Override
-    @GetMapping(value = "/students")
+    @GetMapping
     public ResponseEntity<Collection<Student>> getAllStudents() {
         return studentUseCase.findStudents().fold(
                 a -> ResponseEntity.badRequest().build(),

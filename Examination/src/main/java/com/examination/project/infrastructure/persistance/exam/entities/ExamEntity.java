@@ -35,19 +35,18 @@ public class ExamEntity implements Serializable {
     @NonNull
     private LocalDateTime examDate;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,fetch = FetchType.EAGER)
     @JoinColumn(name = "subject_id", nullable = false)
     @NonNull
-    private SubjectEntity subjectEntity;
+    private SubjectEntity subject;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "room_id", nullable = false)
     @NonNull
     private RoomEntity room;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "invigilator_id", nullable = false)
     @NonNull
-    private InvigilatorEntity invigilatorEntity;
-
+    private InvigilatorEntity invigilator;
 }

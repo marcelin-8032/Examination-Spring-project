@@ -18,7 +18,7 @@ import lombok.*;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Builder(toBuilder = true)
-@Table(name = "invigilator")
+@Table(name = "invigilators")
 public class InvigilatorEntity implements Serializable {
 
     @Serial
@@ -26,7 +26,7 @@ public class InvigilatorEntity implements Serializable {
 
     @Id
     @Column(nullable = false, updatable = false)
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer invigilatorId;
 
     @Column
@@ -35,6 +35,7 @@ public class InvigilatorEntity implements Serializable {
 
     @OneToMany
     @JoinColumn(name = "invigilator_id")
+    @Builder.Default
     private Collection<ExamEntity> examEntities = new HashSet<>();
 
     public void setExamEntities(Collection<ExamEntity> examEntities) {

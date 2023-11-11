@@ -2,7 +2,6 @@ package com.examination.project.infrastructure.persistance.student.entities;
 
 import com.examination.project.domain.entities.Classe;
 import com.examination.project.infrastructure.persistance.exam.entities.ExamEntity;
-import io.vavr.collection.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -39,11 +38,9 @@ public class StudentEntity implements Serializable {
     private Classe classe = Classe.classeA;
 
     @ManyToMany(fetch = FetchType.EAGER, targetEntity = ExamEntity.class, cascade = CascadeType.ALL)
+    @JoinTable( name = "students_exam_entities",
+            joinColumns = {@JoinColumn(name = "student_entity_student_id")},
+            inverseJoinColumns = {@JoinColumn(name =  "exam_entities_exam_id")})
+    @Builder.Default
     private Collection<ExamEntity> examEntities = new HashSet<>();
-
-    public StudentEntity(String name, Classe classe, Set<ExamEntity> examEntities) {
-        this.name = name;
-        this.classe = classe;
-        this.examEntities = (Collection<ExamEntity>) examEntities;
-    }
 }

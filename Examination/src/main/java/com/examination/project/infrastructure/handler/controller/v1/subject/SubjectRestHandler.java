@@ -14,7 +14,7 @@ import java.util.Collection;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/v1/" + "subject")
+@RequestMapping("/v1/" + "subjects")
 public class SubjectRestHandler implements SubjectHandler {
 
     private final SubjectUseCase subjectUseCase;
@@ -74,7 +74,7 @@ public class SubjectRestHandler implements SubjectHandler {
     }
 
     @Override
-    @GetMapping(value = "/subjects")
+    @GetMapping
     public ResponseEntity<Collection<Subject>> getSubjects() {
         return subjectUseCase.getAllSubjects().fold(
                 a -> ResponseEntity.notFound().build(),

@@ -127,14 +127,14 @@ class CreateTestDemo {
         listExamens3 = HashSet.empty();
         listExamens3.add(examEntity6);
 
-        studentEntity1 = new StudentEntity("Alex", Classe.classeA, listExamens1);
-        studentEntity2 = new StudentEntity("Albert", Classe.classeB, listExamens1);
-        studentEntity3 = new StudentEntity("Robert", Classe.classeC, listExamens1);
-        studentEntity4 = new StudentEntity("Mickael", Classe.classeB, listExamens2);
-        studentEntity5 = new StudentEntity("Mohsen", Classe.classeA, listExamens2);
-        studentEntity6 = new StudentEntity("Betty", Classe.classeC, listExamens2);
-        studentEntity7 = new StudentEntity("Maria", Classe.classeA, listExamens3);
-        studentEntity8 = new StudentEntity("Nathalia", Classe.classeC, listExamens3);
+//        studentEntity1 = new StudentEntity("Alex", Classe.classeA, listExamens1);
+//        studentEntity2 = new StudentEntity("Albert", Classe.classeB, listExamens1);
+//        studentEntity3 = new StudentEntity("Robert", Classe.classeC, listExamens1);
+//        studentEntity4 = new StudentEntity("Mickael", Classe.classeB, listExamens2);
+//        studentEntity5 = new StudentEntity("Mohsen", Classe.classeA, listExamens2);
+//        studentEntity6 = new StudentEntity("Betty", Classe.classeC, listExamens2);
+//        studentEntity7 = new StudentEntity("Maria", Classe.classeA, listExamens3);
+//        studentEntity8 = new StudentEntity("Nathalia", Classe.classeC, listExamens3);
 
     }
 

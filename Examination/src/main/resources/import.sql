@@ -1,17 +1,17 @@
-INSERT INTO invigilator  VALUES(1000, 'Adrian');
-INSERT INTO invigilator  VALUES(1001, 'Maria');
-INSERT INTO invigilator  VALUES(1002, 'Arthur');
+INSERT INTO invigilators  VALUES(1000, 'Adrian');
+INSERT INTO invigilators  VALUES(1001, 'Maria');
+INSERT INTO invigilators  VALUES(1002, 'Arthur');
 
-INSERT INTO room VALUES(1180,1254);
-INSERT INTO room VALUES(1181,1255);
-INSERT INTO room VALUES(1182,1256);
+INSERT INTO rooms VALUES(1180,1254);
+INSERT INTO rooms VALUES(1181,1255);
+INSERT INTO rooms VALUES(1182,1256);
 
-INSERT INTO subject VALUES(2200, 164, 'Module2','Physics');
-INSERT INTO subject VALUES(2201, 165, 'Module2','Chemistry');
-INSERT INTO subject VALUES(2202, 175, 'Module2','Computer-Science');
-INSERT INTO subject VALUES(2203, 190, 'Module3','Literature');
-INSERT INTO subject VALUES(2204, 155, 'Module3','Philosophy');
-INSERT INTO subject VALUES(2205, 180, 'Module1','Music');
+INSERT INTO subjects VALUES(2200, 164, 'MODULE_2','Physics');
+INSERT INTO subjects VALUES(2201, 165, 'MODULE_2','Chemistry');
+INSERT INTO subjects VALUES(2202, 175, 'MODULE_2','Computer-Science');
+INSERT INTO subjects VALUES(2203, 190, 'MODULE_3','Literature');
+INSERT INTO subjects VALUES(2204, 155, 'MODULE_3','Philosophy');
+INSERT INTO subjects VALUES(2205, 180, 'MODULE_1','Music');
 
 INSERT INTO students VALUES(800,'classeA','Alex');
 INSERT INTO students VALUES(801,'classeB','Albert');

@@ -30,8 +30,6 @@ class DeleteTestDemo {
             examEntity.setRoom(null);
             examRepository.save(examEntity);
         }
-
         roomRepository.deleteAll();
     }
-
 }

@@ -19,7 +19,7 @@ import java.util.Collection;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/" + "exam")
+@RequestMapping("/v1/" + "exams")
 @Slf4j
 @RequiredArgsConstructor
 public class ExamRestHandler implements ExamHandler {
@@ -41,7 +41,7 @@ public class ExamRestHandler implements ExamHandler {
     }
 
     @Override
-    @GetMapping(value = "/exams")
+    @GetMapping
     public ResponseEntity<Collection<Exam>> getAllExams() {
         return examUseCase.getAllExams().fold(
                 b -> ResponseEntity.notFound().build(),

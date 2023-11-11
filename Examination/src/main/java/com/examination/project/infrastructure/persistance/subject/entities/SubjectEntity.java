@@ -20,7 +20,7 @@ import lombok.*;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Builder(toBuilder = true)
-@Table(name = "subject")
+@Table(name = "subjects")
 public class SubjectEntity implements Serializable {
 
     @Serial
@@ -39,14 +39,14 @@ public class SubjectEntity implements Serializable {
     @NonNull
     private int coefficient;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "subject_module")
-    @NonNull
     @Builder.Default
+    @Enumerated(EnumType.STRING)
     private SubjectModule subjectModule = SubjectModule.MODULE_1;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "subject_id")
+    @Builder.Default
     private Collection<ExamEntity> examEntities = new HashSet<>();
 
     public void setExamEntities(Collection<ExamEntity> examEntities) {
