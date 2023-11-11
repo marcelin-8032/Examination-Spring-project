@@ -15,7 +15,7 @@ import static org.mockito.Mockito.when;
 class SubjectHandlerTest extends IntegrationTest {
 
     @Test
-    void getAllSubject() {
+    void should_get_All_Subject() {
 
         //GIVEN
         var subjects = SubjectFixture.from(5);

@@ -36,8 +36,6 @@ public class SubjectFixture {
                 .coefficient(random.nextInt(100,200))
                 .title(lorem.characters(1,20))
                 .subjectModule(SubjectModule.valueOf(randomEnum(SubjectModule.class).name()))
-                //.exams(List.of(ExamFixture.one(),ExamFixture.one()).toSet())
                 .build();
     }
-
 }

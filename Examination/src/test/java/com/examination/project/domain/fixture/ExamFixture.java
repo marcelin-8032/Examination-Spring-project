@@ -37,7 +37,6 @@ public class ExamFixture {
                 .invigilator(InvigilatorFixture.one())
                 .room(RoomFixture.one())
                 .subject(SubjectFixture.one())
-              //  .students(List.of(StudentFixture.one(), StudentFixture.one()).toSet())
                 .build();
     }
 
