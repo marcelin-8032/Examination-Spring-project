@@ -15,7 +15,6 @@ public class StudentFixture {
 
     private static final Faker FAKER = new Faker();
 
-
     public static Student one() {
 
         return from(1).get(0);

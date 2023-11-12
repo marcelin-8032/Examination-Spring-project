@@ -15,12 +15,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class SubjectRestHandlerFixture extends MockMvcUtils {
 
-    private final String SUBJECT_URL = "v1/subject";
+    private final String SUBJECT_URL = "v1/subjects";
 
     protected SubjectRestHandlerFixture(MockMvc mockMvc, ObjectMapper objectMapper) {
         super(mockMvc, objectMapper);
     }
-
 
     public static SubjectRestHandlerFixture from(MockMvc mockMvc, ObjectMapper objectMapper) {
         return new SubjectRestHandlerFixture(mockMvc, objectMapper);

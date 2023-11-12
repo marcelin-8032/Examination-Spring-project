@@ -14,7 +14,6 @@ public class RoomFixture {
 
     private static final Faker FAKER = new Faker();
 
-
     public static Room one() {
 
         return from(1).get(0);
@@ -33,7 +32,6 @@ public class RoomFixture {
         return Room.builder()
                 .roomId(random.nextInt())
                 .number(random.nextInt(100,150))
-              //  .exams(List.of(ExamFixture.one(),ExamFixture.one()).toSet())
                 .build();
     }
 

@@ -2,6 +2,7 @@ package com.examination.project.infrastructure.handler.controller.v1.subject;
 
 import com.examination.project.domain.fixture.SubjectFixture;
 import com.examination.project.infrastructure.handler.controller.IntegrationTest;
+import io.vavr.control.Either;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -22,7 +23,7 @@ class SubjectHandlerTest extends IntegrationTest {
 
         //WHEN
         when(this.subjectUseCaseMocked.getAllSubjects());
-        //   .thenReturn();
+        // .thenReturn(Either.right(subjects));
 
         var expected = this.subjectRestHandlerFixture.getAllSubjects();
 
