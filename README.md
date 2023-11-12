@@ -6,7 +6,7 @@
 - Spring Data
 - JPA/Hibernate
 - Vavr
-- Mapper Struct
+- MapStruct
 - Querydsl
 - Audit
 - OpenAPI V.3
