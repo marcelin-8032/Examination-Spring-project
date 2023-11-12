@@ -32,7 +32,8 @@ public class ExamEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer examId;
 
-    @Column
+    @Column()
+    @NonNull
     private String examName;
 
     @Column
@@ -61,4 +62,5 @@ public class ExamEntity implements Serializable {
     public void setStudent(Collection<StudentEntity> students) {
         this.students.addAll(students);
     }
+
 }

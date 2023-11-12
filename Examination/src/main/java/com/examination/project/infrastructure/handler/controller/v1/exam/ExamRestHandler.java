@@ -24,8 +24,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ExamRestHandler implements ExamHandler {
 
-    private static final String TASKS_LIST_NOT_FOUND = "Not found";
-
     private final ExamUseCase examUseCase;
 
     // private final ExamMapper examMapper;
@@ -54,7 +52,7 @@ public class ExamRestHandler implements ExamHandler {
     public ResponseEntity<Collection<Exam>> getExamsByDate(@RequestBody LocalDateTime date) {
         return examUseCase.getExamsByDate(date).fold(
                 a -> ResponseEntity.notFound().build(),
-                exams -> new ResponseEntity<>(HttpStatus.FOUND)
+                ResponseEntity::ok
         );
     }
 
@@ -63,7 +61,7 @@ public class ExamRestHandler implements ExamHandler {
     public ResponseEntity<Collection<Exam>> getExamsAtRoomAndAfterADate(@RequestBody Room room, LocalDateTime date) {
         return examUseCase.getExamsAtRoomAndAfterADate(room, date).fold(
                 a -> ResponseEntity.notFound().build(),
-                exams -> new ResponseEntity<>(HttpStatus.FOUND)
+                ResponseEntity::ok
         );
     }
 
@@ -72,7 +70,7 @@ public class ExamRestHandler implements ExamHandler {
     public ResponseEntity<Collection<Exam>> getExamsAtRecentDataAtSpecificRoom(@RequestBody Room room) {
         return examUseCase.getExamsAtRecentDateAtSpecificRoom(room).fold(
                 a -> ResponseEntity.notFound().build(),
-                exams -> new ResponseEntity<>(HttpStatus.FOUND)
+                ResponseEntity::ok
         );
     }
 

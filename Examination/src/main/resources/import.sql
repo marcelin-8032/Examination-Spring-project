@@ -23,13 +23,14 @@ INSERT INTO students VALUES(806,'classeA','Maria');
 INSERT INTO students VALUES(807,'classeC','Natalia');
 INSERT INTO students VALUES(808,'classeC','Alexandra');
 
-INSERT INTO exams VALUES(300,'2022-01-11 12:16:44','Physics Exam',1000,1180,2200);
-INSERT INTO exams VALUES(301,'2022-02-11 12:16:44','Chemistry Exam',1001,1180,2201);
-INSERT INTO exams VALUES(302,'2022-03-11 12:16:44','Computer-Science',1002,1181,2202);
+INSERT INTO exams VALUES(300, '2022-01-31 09:00:00', 'Physics Exam',1000,1180,2200);
+INSERT INTO exams VALUES(301,'2023-11-13T12:31:50.737847400','Chemistry Exam',1001,1180,2201);
+INSERT INTO exams VALUES(302,'2023-11-14T12:31:50.737847400','Computer-Science',1002,1181,2202);
 INSERT INTO exams VALUES(303,'2022-04-15 12:16:44','Literature',1001,1181,2203);
 INSERT INTO exams VALUES(304,'2022-04-20 12:16:44','Philosophy',1002,1182,2204);
 INSERT INTO exams VALUES(305,'2022-06-21 12:16:44','Music',1000,1182,2205);
 
+INSERT INTO students_exam_entities VALUES (800, 300);
 INSERT INTO students_exam_entities VALUES (801, 300);
 INSERT INTO students_exam_entities VALUES (802, 300);
 INSERT INTO students_exam_entities VALUES (803, 300);
@@ -54,3 +55,4 @@ INSERT INTO students_exam_entities VALUES (808, 304);
 INSERT INTO students_exam_entities VALUES (806, 305);
 INSERT INTO students_exam_entities VALUES (807, 305);
 INSERT INTO students_exam_entities VALUES (808, 305);
+

@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import java.util.Collection;
 
 public interface SubjectHandler {
-
     @Tag(name = " Subject API", description = "add subject")
     @Operation(
             summary = "Add subject",

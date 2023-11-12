@@ -108,24 +108,24 @@ class CreateTestDemo {
         roomEntity1255 = new RoomEntity(1255);
         roomEntity1256 = new RoomEntity(1256);
 
-        examEntity1 = new ExamEntity(date1, physique, roomEntity1254, invigilatorEntityArthur);
-        examEntity2 = new ExamEntity(date2, literature, roomEntity1254, invigilatorEntityMaria);
-        examEntity3 = new ExamEntity(date3, philosophie, roomEntity1254, invigilatorEntityArthur);
-        examEntity4 = new ExamEntity(date1, chimie, roomEntity1255, invigilatorEntityAdrian);
-        examEntity5 = new ExamEntity(date3, informatique, roomEntity1255, invigilatorEntityMaria);
-        examEntity6 = new ExamEntity(date4, musique, roomEntity1256, invigilatorEntityAdrian);
-
-        listExamens1 = HashSet.empty();
-        listExamens1.add(examEntity1);
-        listExamens1.add(examEntity2);
-        listExamens1.add(examEntity3);
-
-        listExamens2 = HashSet.empty();
-        listExamens2.add(examEntity4);
-        listExamens2.add(examEntity5);
-
-        listExamens3 = HashSet.empty();
-        listExamens3.add(examEntity6);
+//        examEntity1 = new ExamEntity(date1, physique, roomEntity1254, invigilatorEntityArthur);
+//        examEntity2 = new ExamEntity(date2, literature, roomEntity1254, invigilatorEntityMaria);
+//        examEntity3 = new ExamEntity(date3, philosophie, roomEntity1254, invigilatorEntityArthur);
+//        examEntity4 = new ExamEntity(date1, chimie, roomEntity1255, invigilatorEntityAdrian);
+//        examEntity5 = new ExamEntity(date3, informatique, roomEntity1255, invigilatorEntityMaria);
+//        examEntity6 = new ExamEntity(date4, musique, roomEntity1256, invigilatorEntityAdrian);
+//
+//        listExamens1 = HashSet.empty();
+//        listExamens1.add(examEntity1);
+//        listExamens1.add(examEntity2);
+//        listExamens1.add(examEntity3);
+//
+//        listExamens2 = HashSet.empty();
+//        listExamens2.add(examEntity4);
+//        listExamens2.add(examEntity5);
+//
+//        listExamens3 = HashSet.empty();
+//        listExamens3.add(examEntity6);
 
 //        studentEntity1 = new StudentEntity("Alex", Classe.classeA, listExamens1);
 //        studentEntity2 = new StudentEntity("Albert", Classe.classeB, listExamens1);
