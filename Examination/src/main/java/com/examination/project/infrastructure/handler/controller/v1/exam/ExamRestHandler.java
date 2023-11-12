@@ -26,8 +26,6 @@ public class ExamRestHandler implements ExamHandler {
 
     private final ExamUseCase examUseCase;
 
-    // private final ExamMapper examMapper;
-
     @Override
     @PostMapping(value = "/create", headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> createExams(@RequestBody List<Exam> exams) {
@@ -35,6 +33,15 @@ public class ExamRestHandler implements ExamHandler {
         return examUseCase.createExams(exams).fold(
                 a -> ResponseEntity.badRequest().build(),
                 list -> ResponseEntity.status(HttpStatus.CREATED).build()
+        );
+    }
+
+    @Override
+    @PostMapping(value = "/add")
+    public ResponseEntity<Void> addExam(@RequestBody Exam exam) {
+        return examUseCase.createExam(exam).fold(
+                a -> ResponseEntity.badRequest().build(),
+                exam1 -> ResponseEntity.status(HttpStatus.CREATED).build()
         );
     }
 
@@ -48,7 +55,7 @@ public class ExamRestHandler implements ExamHandler {
     }
 
     @Override
-    @GetMapping(value = "/examsByDate")
+    @GetMapping(value = "/date")
     public ResponseEntity<Collection<Exam>> getExamsByDate(@RequestBody LocalDateTime date) {
         return examUseCase.getExamsByDate(date).fold(
                 a -> ResponseEntity.notFound().build(),
@@ -57,7 +64,7 @@ public class ExamRestHandler implements ExamHandler {
     }
 
     @Override
-    @GetMapping(value = "/examsByRoomDate")
+    @GetMapping(value = "/room")
     public ResponseEntity<Collection<Exam>> getExamsAtRoomAndAfterADate(@RequestBody Room room, LocalDateTime date) {
         return examUseCase.getExamsAtRoomAndAfterADate(room, date).fold(
                 a -> ResponseEntity.notFound().build(),

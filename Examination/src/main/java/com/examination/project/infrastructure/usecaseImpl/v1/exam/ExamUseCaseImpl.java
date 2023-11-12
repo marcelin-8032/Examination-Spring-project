@@ -52,7 +52,6 @@ public class ExamUseCaseImpl implements ExamUseCase {
 //        }
 //        return Try.of(() -> this.examMapper.toExams(examsEntities))
 //                .toEither().mapLeft(ExaminationExceptionSanitize::sanitizeError);
-
         return Try.of(() -> this.examMapper.toExamEntities(exams))
                 .map(examEntities ->
                         examEntities.stream().map(this.examRepository::save)
@@ -131,6 +130,15 @@ public class ExamUseCaseImpl implements ExamUseCase {
         return Try.of(() -> PageRequest.of(0, 3, Sort.Direction.DESC, "room_id"))
                 .map(pageable2 -> this.examRepository.findByRoom(roomId, pageable2))
                 .map(this.examMapper::pageExamEntityToPageExamDto)
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
+    }
+
+    @Override
+    public Either<ExaminationException, Exam> createExam(Exam exam) {
+        return Try.of(() -> this.examMapper.toExamEntity(exam))
+                .map(this.examRepository::save)
+                .map(this.examMapper::toExam)
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }

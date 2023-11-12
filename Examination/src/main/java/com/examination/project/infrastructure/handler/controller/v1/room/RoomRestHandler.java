@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 
 
@@ -37,7 +38,7 @@ public class RoomRestHandler implements RoomHandler {
     }
 
     @Override
-    @PostMapping
+    @PostMapping(value = "createTwoRooms")
     public ResponseEntity<Void> createTwoRoom(@RequestBody List<Room> rooms) {
         return roomUseCase.createTwoRooms(rooms).fold(
                 a -> ResponseEntity.badRequest().build(),
@@ -46,7 +47,7 @@ public class RoomRestHandler implements RoomHandler {
     }
 
     @Override
-    @DeleteMapping
+    @DeleteMapping(value = "/deleteAll")
     public ResponseEntity<Void> deleteAllRooms() {
         return roomUseCase.deleteAllRooms().fold(
                 e -> ResponseEntity.notFound().build(),
@@ -54,4 +55,12 @@ public class RoomRestHandler implements RoomHandler {
         );
     }
 
+    @Override
+    @GetMapping
+    public ResponseEntity<Collection<Room>> fetchAllRooms() {
+        return roomUseCase.getAllRooms().fold(
+                a->ResponseEntity.notFound().build(),
+                ResponseEntity::ok
+        );
+    }
 }

@@ -28,4 +28,5 @@ public interface ExamHandler {
 
     ResponseEntity<Page<Exam>> getAllExamsByRoom( Integer roomId, Pageable pageable);
 
+    ResponseEntity<Void> addExam(Exam exam);
 }

@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface RoomHandler {
@@ -62,5 +63,17 @@ public interface RoomHandler {
             }
     )
     ResponseEntity<Void> deleteAllRooms();
+
+    @Tag(name = " Rooms API", description = "fetch all rooms")
+    @Operation(
+            summary = "fetch all rooms",
+            description = "fetch all rooms",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "successful operation", content = {
+                            @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Room.class)))
+                    })
+            }
+    )
+    ResponseEntity<Collection<Room>> fetchAllRooms();
 
 }

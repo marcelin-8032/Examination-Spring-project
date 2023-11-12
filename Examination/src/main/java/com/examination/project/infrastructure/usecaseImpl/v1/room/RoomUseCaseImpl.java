@@ -79,4 +79,12 @@ public class RoomUseCaseImpl implements RoomUseCase {
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
+
+    @Override
+    public Either<ExaminationException, Collection<Room>> getAllRooms() {
+        return Try.of(this.roomRepository::findAll)
+                .map(this.roomMapper::toRooms)
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
+    }
 }

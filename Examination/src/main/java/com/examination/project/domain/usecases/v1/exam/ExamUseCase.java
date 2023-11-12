@@ -32,4 +32,5 @@ public interface ExamUseCase {
 
     Either<ExaminationException, Page<Exam>> getAllExamsByRoom(Integer roomId, Pageable pageable);
 
+   Either<ExaminationException,Exam> createExam(Exam exam);
 }

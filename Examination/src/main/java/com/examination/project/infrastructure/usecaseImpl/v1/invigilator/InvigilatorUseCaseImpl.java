@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -27,6 +29,14 @@ public class InvigilatorUseCaseImpl implements InvigilatorUseCase {
         return Try.of(() -> this.invigilatorMapper.toInvigilatorEntity(invigilator))
                 .map(this.invigilatorRepository::save)
                 .map(this.invigilatorMapper::toInvigilator)
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
+    }
+
+    @Override
+    public Either<ExaminationException, Collection<Invigilator>> findAllInvigilator() {
+        return Try.of(this.invigilatorRepository::findAll)
+                .map(this.invigilatorMapper::toInvigilators)
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }

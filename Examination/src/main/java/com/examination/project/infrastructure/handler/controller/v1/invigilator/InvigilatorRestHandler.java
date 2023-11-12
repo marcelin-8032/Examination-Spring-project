@@ -7,9 +7,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Collection;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -26,6 +29,15 @@ public class InvigilatorRestHandler implements InvigilatorHandler {
         return invigilatorUseCase.createInvigilator(invigilator).fold(
                 a -> ResponseEntity.badRequest().build(),
                 invigilator1 -> ResponseEntity.status(HttpStatus.CREATED).build()
+        );
+    }
+
+    @Override
+    @GetMapping
+    public ResponseEntity<Collection<Invigilator>> getAllInvigilator() {
+        return invigilatorUseCase.findAllInvigilator().fold(
+                a->ResponseEntity.badRequest().build(),
+                ResponseEntity::ok
         );
     }
 }
