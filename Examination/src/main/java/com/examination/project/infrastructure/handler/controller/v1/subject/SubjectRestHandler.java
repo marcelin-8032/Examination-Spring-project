@@ -16,7 +16,6 @@ import java.util.Collection;
 @RestController
 @RequestMapping("/v1/" + "subjects")
 public class SubjectRestHandler implements SubjectHandler {
-
     private final SubjectUseCase subjectUseCase;
 
     @Override

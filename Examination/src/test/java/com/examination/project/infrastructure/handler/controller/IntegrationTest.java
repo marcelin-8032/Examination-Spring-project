@@ -6,7 +6,6 @@ import com.examination.project.infrastructure.config.web.ObjectMapperConfigurati
 import com.examination.project.infrastructure.handler.controller.v1.subject.SubjectRestHandler;
 import com.examination.project.infrastructure.handler.controller.v1.subject.fixture.SubjectRestHandlerFixture;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.datafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -15,8 +14,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 public abstract class IntegrationTest {
-
-    protected final static Faker FAKER = new Faker();
 
     protected MockMvc mockMvc;
 
