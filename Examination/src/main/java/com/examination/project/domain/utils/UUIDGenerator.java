@@ -7,7 +7,7 @@ public interface UUIDGenerator {
 
     Supplier<UUID> RANDOM_UUID = UUID::randomUUID;
 
-    static UUID generate() {
+    UUID generate() {
         return RANDOM_UUID.get();
     }
 

@@ -6,7 +6,6 @@ import org.springframework.test.web.servlet.MockMvc;
 public class MockMvcUtils {
 
     protected final MockMvc mockMvc;
-
     protected final ObjectMapper objectMapper;
 
     protected MockMvcUtils(MockMvc mockMvc, ObjectMapper objectMapper) {

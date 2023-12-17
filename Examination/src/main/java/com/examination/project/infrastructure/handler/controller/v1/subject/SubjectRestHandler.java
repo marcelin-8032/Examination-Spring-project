@@ -19,16 +19,16 @@ public class SubjectRestHandler implements SubjectHandler {
     private final SubjectUseCase subjectUseCase;
 
     @Override
-    @PostMapping(value = "/create", headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/create")
     public ResponseEntity<Void> createSubject(@RequestBody Subject subject) {
         return subjectUseCase.createSubject(subject).fold(
                 a -> ResponseEntity.badRequest().build(),
-                subject1 -> ResponseEntity.status(HttpStatus.CREATED).build()
+                subject1 -> ResponseEntity.status(HttpStatus.OK).build()
         );
     }
 
     @Override
-    @PutMapping(value = "/update/{subjectId}", headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/update/{subjectId}")
     public ResponseEntity<Void> updateSubjectWithNumber(@PathVariable("subjectId") Integer subjectId, int number) throws Exception {
         return subjectUseCase.updateSubject(subjectId, number).fold(
                 a -> ResponseEntity.notFound().build(),

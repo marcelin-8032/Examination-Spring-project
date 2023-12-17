@@ -37,6 +37,5 @@ public abstract class IntegrationTest {
         this.objectMapper = new ObjectMapperConfiguration().objectMapper();
 
         this.subjectRestHandlerFixture = SubjectRestHandlerFixture.from(this.mockMvc, this.objectMapper);
-
     }
 }

@@ -39,6 +39,19 @@ public class RoomUseCaseImpl implements RoomUseCase {
     }
 
     @Override
+    public Either<ExaminationException, Void> createTwoRooms(Collection<Room> rooms) {
+        var listRoomEntities =
+                Try.of(() -> this.roomMapper.toRoomEntities(rooms));
+
+        return Try.run(() -> listRoomEntities.toJavaStream()
+                        .map(roomEntities -> roomEntities.iterator().next())
+                        .map(this.roomRepository::save)
+                )
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
+    }
+
+    @Override
     public Either<ExaminationException, Void> deleteAllRooms() {
         var examList =
                 Try.of(() -> this.examRepository.findAll())
@@ -55,6 +68,13 @@ public class RoomUseCaseImpl implements RoomUseCase {
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
 
+    @Override
+    public Either<ExaminationException, Collection<Room>> getAllRooms() {
+        return Try.of(this.roomRepository::findAll)
+                .map(this.roomMapper::toRooms)
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
+    }
 
     @Override
     public Either<ExaminationException, Void> updateRoom(Integer id, int numero) throws Exception {
@@ -67,24 +87,4 @@ public class RoomUseCaseImpl implements RoomUseCase {
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
 
-    @Override
-    public Either<ExaminationException, Void> createTwoRooms(Collection<Room> rooms) {
-        var listRoomEntities =
-                Try.of(() -> this.roomMapper.toRoomEntities(rooms));
-
-        return Try.run(() -> listRoomEntities.toJavaStream()
-                        .map(roomEntities -> roomEntities.iterator().next())
-                        .map(this.roomRepository::save)
-                )
-                .toEither()
-                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
-    }
-
-    @Override
-    public Either<ExaminationException, Collection<Room>> getAllRooms() {
-        return Try.of(this.roomRepository::findAll)
-                .map(this.roomMapper::toRooms)
-                .toEither()
-                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
-    }
 }
