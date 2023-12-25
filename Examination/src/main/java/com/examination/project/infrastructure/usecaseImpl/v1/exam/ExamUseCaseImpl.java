@@ -7,6 +7,7 @@ import com.examination.project.domain.exception.ExaminationExceptionSanitize;
 import com.examination.project.infrastructure.mapper.ExamMapper;
 import com.examination.project.infrastructure.mapper.RoomMapper;
 import com.examination.project.domain.usecases.v1.exam.ExamUseCase;
+import com.examination.project.infrastructure.persistance.exam.entities.ExamEntity;
 import com.examination.project.infrastructure.persistance.exam.repository.ExamRepository;
 import com.examination.project.infrastructure.persistance.room.repository.RoomRepository;
 import io.vavr.control.Either;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.springframework.data.domain.PageRequest.of;

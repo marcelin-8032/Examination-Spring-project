@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,16 +26,6 @@ public class ExamRestHandler implements ExamHandler {
     private final ExamUseCase examUseCase;
 
     @Override
-    @PostMapping(value = "/create", headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> createExams(@RequestBody List<Exam> exams) {
-        log.info("This list of exams {} have been created: ", exams);
-        return examUseCase.createExams(exams).fold(
-                a -> ResponseEntity.badRequest().build(),
-                list -> ResponseEntity.status(HttpStatus.CREATED).build()
-        );
-    }
-
-    @Override
     @PostMapping(value = "/add")
     public ResponseEntity<Void> addExam(@RequestBody Exam exam) {
         return examUseCase.createExam(exam).fold(
@@ -45,6 +34,15 @@ public class ExamRestHandler implements ExamHandler {
         );
     }
 
+    @Override
+    @PostMapping(value = "/create")
+    public ResponseEntity<Void> createExams(@RequestBody List<Exam> exams) {
+        log.info("This list of exams {} have been created: ", exams);
+        return examUseCase.createExams(exams).fold(
+                a -> ResponseEntity.badRequest().build(),
+                list -> ResponseEntity.status(HttpStatus.CREATED).build()
+        );
+    }
     @Override
     @GetMapping
     public ResponseEntity<Collection<Exam>> getAllExams() {
@@ -98,5 +96,4 @@ public class ExamRestHandler implements ExamHandler {
                 ResponseEntity::ok
         );
     }
-
 }

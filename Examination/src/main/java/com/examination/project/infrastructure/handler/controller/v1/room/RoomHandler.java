@@ -1,7 +1,6 @@
 package com.examination.project.infrastructure.handler.controller.v1.room;
 
 import com.examination.project.domain.entities.Room;
-import com.examination.project.domain.entities.Student;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -37,7 +36,7 @@ public interface RoomHandler {
                     @ApiResponse(responseCode = "400", description = "Invalid room number")
             }
     )
-    ResponseEntity<Void> updateRoomWithNumber( Integer roomId, int number) throws Exception;
+    ResponseEntity<Void> updateRoomNumber(Integer roomId, int number) throws Exception;
 
     @Tag(name = " Rooms API", description = "add two rooms")
     @Operation(
@@ -49,7 +48,7 @@ public interface RoomHandler {
                     })
             }
     )
-    ResponseEntity<Void> createTwoRoom( List<Room> rooms);
+    ResponseEntity<Void> addSeveralRooms(List<Room> rooms);
 
 
     @Tag(name = " Rooms API", description = "delete all rooms")

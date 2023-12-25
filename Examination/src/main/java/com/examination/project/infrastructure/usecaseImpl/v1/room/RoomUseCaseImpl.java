@@ -4,7 +4,9 @@ import com.examination.project.domain.entities.Room;
 import com.examination.project.domain.exception.ExaminationException;
 import com.examination.project.domain.exception.ExaminationExceptionSanitize;
 import com.examination.project.domain.usecases.v1.room.RoomUseCase;
+import com.examination.project.infrastructure.persistance.exam.entities.ExamEntity;
 import com.examination.project.infrastructure.persistance.exam.repository.ExamRepository;
+import com.examination.project.infrastructure.persistance.room.entities.RoomEntity;
 import com.examination.project.infrastructure.persistance.room.repository.RoomRepository;
 import com.examination.project.infrastructure.mapper.ExamMapper;
 import com.examination.project.infrastructure.mapper.RoomMapper;
@@ -14,7 +16,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -39,31 +44,22 @@ public class RoomUseCaseImpl implements RoomUseCase {
     }
 
     @Override
-    public Either<ExaminationException, Void> createTwoRooms(Collection<Room> rooms) {
-        var listRoomEntities =
-                Try.of(() -> this.roomMapper.toRoomEntities(rooms));
+    public Either<ExaminationException, Void> createSeveralRooms(Collection<Room> rooms) {
 
-        return Try.run(() -> listRoomEntities.toJavaStream()
-                        .map(roomEntities -> roomEntities.iterator().next())
-                        .map(this.roomRepository::save)
-                )
+        return Try.run(() -> this.roomMapper.toRoomEntities(rooms)
+                        .forEach(this.roomRepository::save))
+                .onSuccess(l -> log.info("{} rooms saved. {} ", rooms.size(), rooms))
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
 
     @Override
-    public Either<ExaminationException, Void> deleteAllRooms() {
-        var examList =
-                Try.of(() -> this.examRepository.findAll())
-                        .map(this.examMapper::toExams);
-
-        Try.run(() -> examList.map(xl -> xl.stream()
-                        .map(exam -> exam.withRoom(null)))
-                .map(examStream ->
-                        examStream.map(this.examMapper::toExamEntity)
-                                .map(this.examRepository::save)));
-
-        return Try.run(() -> this.roomRepository.deleteAll())
+    public Either<ExaminationException, Void> updateRoom(Integer id, int number) throws Exception {
+        return Try.run(() -> this.roomRepository.findById(id)
+                        .ifPresent(roomEntity -> {
+                            roomEntity.setNumber(number);
+                            roomRepository.save(roomEntity);
+                        })).onFailure(cause -> log.error("there is a problem in updating room number"))
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
@@ -76,15 +72,17 @@ public class RoomUseCaseImpl implements RoomUseCase {
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
 
+
     @Override
-    public Either<ExaminationException, Void> updateRoom(Integer id, int numero) throws Exception {
-        return Try.run(() -> this.roomRepository.findById(id)
-                        .ifPresent(roomEntity -> {
-                            roomEntity.setRoomId(numero);
-                            roomRepository.save(roomEntity);
-                        })).onFailure(cause -> log.error("there is a problem in updating salle number"))
+    public Either<ExaminationException, Void> deleteAllRooms() {
+       //TODO
+
+        return Try.run(() -> this.examRepository.findAll()
+                        .forEach(examEntity -> {
+                            examEntity.setRoom(null);
+                            this.examRepository.save(examEntity);
+                        })).andThen(() -> this.roomRepository.deleteAll())
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
-
 }
