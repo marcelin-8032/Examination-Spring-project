@@ -32,8 +32,8 @@ public class ExamFixture {
         var examDate = FAKER.date().birthday().toLocalDateTime();
 
         return Exam.builder()
-                .name(lorem.characters(1, 20))
-                .dateExam(examDate)
+                .examName(lorem.characters(1, 20))
+                .examDate(examDate)
                 .invigilator(InvigilatorFixture.one())
                 .room(RoomFixture.one())
                 .subject(SubjectFixture.one())

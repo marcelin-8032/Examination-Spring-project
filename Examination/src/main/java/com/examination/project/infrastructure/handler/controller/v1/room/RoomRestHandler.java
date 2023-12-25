@@ -37,7 +37,7 @@ public class RoomRestHandler implements RoomHandler {
     }
 
     @Override
-    @PostMapping(value = "createSeveralRooms")
+    @PostMapping(value = "/createSeveralRooms")
     public ResponseEntity<Void> addSeveralRooms(@RequestBody List<Room> rooms) {
         return roomUseCase.createSeveralRooms(rooms).fold(
                 a -> ResponseEntity.badRequest().build(),

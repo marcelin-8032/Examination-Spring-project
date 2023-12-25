@@ -16,11 +16,11 @@ public record Exam(
         @Schema(name = "examId", requiredMode = NOT_REQUIRED)
         Integer examId,
 
-        @Schema(name = "name", requiredMode = REQUIRED)
-        String name,
+        @Schema(name = "examName", requiredMode = REQUIRED)
+        String examName,
 
-        @Schema(name = "dateExam", requiredMode = REQUIRED)
-        LocalDateTime dateExam,
+        @Schema(name = "examDate", requiredMode = REQUIRED)
+        LocalDateTime examDate,
 
         @Schema(name = "subject", requiredMode = REQUIRED)
         Subject subject,

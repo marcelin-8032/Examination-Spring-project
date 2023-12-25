@@ -15,7 +15,7 @@ public record Invigilator(
         @Schema(name = "invigilatorId", requiredMode = NOT_REQUIRED)
         Integer invigilatorId,
 
-        @Schema(name = "name", requiredMode = REQUIRED)
+        @Schema(name = "examName", requiredMode = REQUIRED)
         String name
 ) {
 }

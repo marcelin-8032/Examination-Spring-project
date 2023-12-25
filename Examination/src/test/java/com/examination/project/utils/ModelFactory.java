@@ -63,7 +63,7 @@ public class ModelFactory {
     public static Exam defaultExam() {
         return Exam
                 .builder()
-                .dateExam(LocalDateTime.now())
+                .examDate(LocalDateTime.now())
                 .subject(defaultSubject())
                 .room(defaultRoom())
                 .invigilator(defaultInvigilator())
@@ -72,12 +72,12 @@ public class ModelFactory {
 
     public static Set<Exam> defaultExams() {
         return List.of(defaultExam(),
-                defaultExam().withDateExam(LocalDateTime.now().plusDays(2)),
-                defaultExam().withDateExam(LocalDateTime.now().plusDays(3)),
-                defaultExam().withDateExam(LocalDateTime.now().plusDays(4)),
-                defaultExam().withDateExam(LocalDateTime.now().plusDays(5)),
-                defaultExam().withDateExam(LocalDateTime.now().plusDays(6)),
-                defaultExam().withDateExam(LocalDateTime.now().plusDays(7))).toLinkedSet();
+                defaultExam().withExamDate(LocalDateTime.now().plusDays(2)),
+                defaultExam().withExamDate(LocalDateTime.now().plusDays(3)),
+                defaultExam().withExamDate(LocalDateTime.now().plusDays(4)),
+                defaultExam().withExamDate(LocalDateTime.now().plusDays(5)),
+                defaultExam().withExamDate(LocalDateTime.now().plusDays(6)),
+                defaultExam().withExamDate(LocalDateTime.now().plusDays(7))).toLinkedSet();
     }
 
 }
