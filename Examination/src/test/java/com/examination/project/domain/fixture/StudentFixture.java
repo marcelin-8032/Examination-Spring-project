@@ -33,9 +33,8 @@ public class StudentFixture {
 
         return Student.builder()
                 .studentId(random.nextInt())
-                .name(lorem.characters(1,20))
+                .name(lorem.characters(1, 20))
                 .classe(Classe.valueOf(randomEnum(Classe.class).name()))
-                .exams(List.of(ExamFixture.one(),ExamFixture.one()).toSet())
                 .build();
     }
 

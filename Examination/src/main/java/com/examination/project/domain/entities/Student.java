@@ -21,9 +21,6 @@ public record Student(
         String name,
 
         @Schema(name = "classe", requiredMode = REQUIRED)
-        Classe classe,
-
-        @Schema(name = "studentExams", requiredMode = REQUIRED)
-        Set<Exam> exams
+        Classe classe
 ) {
 }

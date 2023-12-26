@@ -29,19 +29,18 @@ public class ModelFactory {
                 .studentId(1)
                 .name("Alex")
                 .classe(Classe.classeA)
-                .exams(defaultExams())
                 .build();
     }
 
     public static Set<Student> defaultStudents() {
         return List.of(defaultStudent(),
-                        defaultStudent().withName("Albert").withClasse(Classe.classeB).withExams(defaultExams()),
-                        defaultStudent().withName("Robert").withClasse(Classe.classeC).withExams(defaultExams()),
-                        defaultStudent().withName("Mickael").withClasse(Classe.classeB).withExams(defaultExams()),
-                        defaultStudent().withName("Albert").withClasse(Classe.classeB).withExams(defaultExams()),
-                        defaultStudent().withName("Albert").withClasse(Classe.classeB).withExams(defaultExams()),
-                        defaultStudent().withName("Maria").withClasse(Classe.classeA).withExams(defaultExams()),
-                        defaultStudent().withName("Natalia").withClasse(Classe.classeC).withExams(defaultExams()))
+                        defaultStudent().withName("Albert").withClasse(Classe.classeB),
+                        defaultStudent().withName("Robert").withClasse(Classe.classeC),
+                        defaultStudent().withName("Mickael").withClasse(Classe.classeB),
+                        defaultStudent().withName("Albert").withClasse(Classe.classeB),
+                        defaultStudent().withName("Albert").withClasse(Classe.classeB),
+                        defaultStudent().withName("Maria").withClasse(Classe.classeA),
+                        defaultStudent().withName("Natalia").withClasse(Classe.classeC))
                 .toLinkedSet();
 
     }
