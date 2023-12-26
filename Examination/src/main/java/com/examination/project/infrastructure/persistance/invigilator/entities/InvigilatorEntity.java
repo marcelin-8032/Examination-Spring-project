@@ -27,7 +27,7 @@ public class InvigilatorEntity implements Serializable {
     @Id
     @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer invigilatorId;
+    private int invigilatorId;
 
     @Column
     @NonNull

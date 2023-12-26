@@ -30,7 +30,7 @@ public class ExamEntity implements Serializable {
     @Id
     @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer examId;
+    private int examId;
 
     @Column()
     @NonNull

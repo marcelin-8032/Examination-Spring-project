@@ -28,7 +28,7 @@ public class RoomEntity extends AuditableBaseEntity implements Serializable {
     @Id
     @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer roomId;
+    private int roomId;
 
     @Column
     @NonNull

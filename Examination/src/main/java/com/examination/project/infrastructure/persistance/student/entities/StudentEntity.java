@@ -27,7 +27,7 @@ public class StudentEntity implements Serializable {
     @Id
     @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer studentId;
+    private int studentId;
 
     @Column(name = "student_name")
     private String name;

@@ -29,7 +29,7 @@ public class SubjectEntity implements Serializable {
     @Id
     @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer subjectId;
+    private int subjectId;
 
     @Column
     @NonNull
