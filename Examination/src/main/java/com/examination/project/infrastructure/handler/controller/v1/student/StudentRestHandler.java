@@ -6,7 +6,6 @@ import com.examination.project.domain.entities.Student;
 import com.examination.project.domain.usecases.v1.student.StudentUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +18,7 @@ public class StudentRestHandler implements StudentHandler {
     private final StudentUseCase studentUseCase;
 
     @Override
-    @PostMapping(value = "/create", headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/create")
     public ResponseEntity<Student> createStudent(@RequestBody Student student) {
         return studentUseCase.createStudent(student).fold(
                 a -> ResponseEntity.badRequest().build(),
@@ -44,5 +43,4 @@ public class StudentRestHandler implements StudentHandler {
                 ResponseEntity::ok
         );
     }
-
 }

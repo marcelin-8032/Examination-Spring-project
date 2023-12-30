@@ -4,7 +4,6 @@ import com.examination.project.infrastructure.persistance.invigilator.entities.I
 import com.examination.project.infrastructure.persistance.student.entities.StudentEntity;
 import com.examination.project.infrastructure.persistance.subject.entities.SubjectEntity;
 import com.examination.project.infrastructure.persistance.room.entities.RoomEntity;
-import io.vavr.collection.Set;
 import lombok.*;
 
 import javax.persistence.*;
@@ -59,7 +58,7 @@ public class ExamEntity implements Serializable {
     @Builder.Default
     private Collection<StudentEntity> students = new HashSet<>();
 
-    public void setStudent(Collection<StudentEntity> students) {
+    public void setStudents(Collection<StudentEntity> students) {
         this.students.addAll(students);
     }
 

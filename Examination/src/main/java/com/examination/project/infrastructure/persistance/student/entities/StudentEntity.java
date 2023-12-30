@@ -37,7 +37,8 @@ public class StudentEntity implements Serializable {
     @Builder.Default
     private Classe classe = Classe.classeA;
 
-    @ManyToMany(fetch = FetchType.EAGER, targetEntity = ExamEntity.class, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER,
+            targetEntity = ExamEntity.class, cascade = CascadeType.ALL)
     @JoinTable(name = "students_exam_entities",
             joinColumns = {@JoinColumn(name = "exam_entities_exam_id")},
             inverseJoinColumns = {@JoinColumn(name = "student_entity_student_id")})

@@ -26,7 +26,7 @@ public interface SubjectHandler {
     )
     ResponseEntity<Void> createSubject(Subject subject);
 
-    ResponseEntity<Void> updateSubjectWithNumber(Integer subjectId, int number) throws Exception;
+    ResponseEntity<Void> updateSubjectCoefficient(Integer subjectId, int number) throws Exception;
 
 
     ResponseEntity<Collection<Subject>> getSubjectByCoeffBiggerThan(int coeff);

@@ -13,7 +13,7 @@ public interface SubjectUseCase {
 
 	Either<ExaminationException, Void> createSubject(Subject subject);
 
-	Either<ExaminationException, Void> updateSubject(Integer id, int coefficient) throws Exception;
+	Either<ExaminationException, Void> updateSubjectCoefficient(Integer id, int coefficient) throws Exception;
 
 	Either<ExaminationException, Collection<Subject>> getSubjectsGreaterThanACoefficient(int coefficient);
 

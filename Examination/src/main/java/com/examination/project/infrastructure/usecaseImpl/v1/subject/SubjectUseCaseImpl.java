@@ -43,7 +43,7 @@ public class SubjectUseCaseImpl implements SubjectUseCase {
     }
 
     @Override
-    public Either<ExaminationException, Void> updateSubject(Integer id, int coefficient) throws Exception {
+    public Either<ExaminationException, Void> updateSubjectCoefficient(Integer id, int coefficient) throws Exception {
         return Try.run(() -> this.subjectRepository.findById(id).ifPresent(
                         subjectEntity -> {
                             subjectEntity.setCoefficient(coefficient);
@@ -56,6 +56,57 @@ public class SubjectUseCaseImpl implements SubjectUseCase {
     @Override
     public Either<ExaminationException, Collection<Subject>> getSubjectsGreaterThanACoefficient(int coefficient) {
         return Try.of(() -> this.subjectRepository.findByCoefficientGreaterThan(coefficient))
+                .map(this.subjectMapper::toSubjects)
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
+    }
+
+    @Override
+    public Either<ExaminationException, Collection<Subject>> getAllSubjects() {
+        return Try.of(this.subjectRepository::findAll)
+                .map(this.subjectMapper::toSubjects)
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
+    }
+
+    @Override
+    public Either<ExaminationException, Collection<Subject>> getSubjectCoeffBiggerTitleEqDataModuleEq2(int coeff, SubjectModule subjectModule) {
+        var qMatiere = new QSubjectEntity("subject");
+        var filterByCoeff = qMatiere.coefficient.gt(coeff);
+        var filterByIntitule = qMatiere.title.contains("data");
+        var filterByModule = qMatiere.subjectModule.eq(subjectModule);
+
+        return Try.of(() -> this.subjectRepository.findAll(filterByCoeff.and(filterByIntitule).and(filterByModule)))
+                .map(subjectEntities -> subjectEntities.iterator().next())
+                .map(List::of)
+                .map(this.subjectMapper::toSubjects)
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
+    }
+
+    @Override
+    public Either<ExaminationException, Collection<Subject>> getSubjectCoeffBiggerThanModuleEq2(int coeff, SubjectModule subjectModule) {
+        var qMatiere = new QSubjectEntity("matiere");
+        var filterByCoeff = qMatiere.coefficient.gt(coeff);
+        var filterByModule = qMatiere.subjectModule.eq(subjectModule);
+
+        return Try.of(() -> this.subjectRepository.findAll(filterByCoeff.and(filterByModule)))
+                .map(subjectEntities -> subjectEntities.iterator().next())
+                .map(List::of)
+                .map(this.subjectMapper::toSubjects)
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
+    }
+
+    @Override
+    public Either<ExaminationException, Collection<Subject>> getSubjectTitleEqDataModuleEq2(SubjectModule subjectModule) {
+        var qMatiere = new QSubjectEntity("matiere");
+        var filterByIntitule = qMatiere.title.contains("data");
+        var filterByModule = qMatiere.subjectModule.eq(subjectModule);
+
+        return Try.of(() -> this.subjectRepository.findAll(filterByIntitule.and(filterByModule)))
+                .map(subjectEntities -> subjectEntities.iterator().next())
+                .map(List::of)
                 .map(this.subjectMapper::toSubjects)
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
@@ -97,56 +148,4 @@ public class SubjectUseCaseImpl implements SubjectUseCase {
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
-
-    @Override
-    public Either<ExaminationException, Collection<Subject>> getAllSubjects() {
-        return Try.of(this.subjectRepository::findAll)
-                .map(this.subjectMapper::toSubjects)
-                .toEither()
-                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
-    }
-
-    @Override
-    public Either<ExaminationException, Collection<Subject>> getSubjectCoeffBiggerTitleEqDataModuleEq2(int coeff, SubjectModule subjectModule) {
-        var qMatiere = new QSubjectEntity("matiere");
-        var filterByCoeff = qMatiere.coefficient.gt(coeff);
-        var filterByIntitule = qMatiere.title.contains("data");
-        var filterByModule = qMatiere.subjectModule.eq(subjectModule);
-
-        return Try.of(() -> this.subjectRepository.findAll(filterByCoeff.and(filterByIntitule).and(filterByModule)))
-                .map(subjectEntities -> subjectEntities.iterator().next())
-                .map(List::of)
-                .map(this.subjectMapper::toSubjects)
-                .toEither()
-                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
-    }
-
-    @Override
-    public Either<ExaminationException, Collection<Subject>> getSubjectCoeffBiggerThanModuleEq2(int coeff, SubjectModule subjectModule) {
-        var qMatiere = new QSubjectEntity("matiere");
-        var filterByCoeff = qMatiere.coefficient.gt(coeff);
-        var filterByModule = qMatiere.subjectModule.eq(subjectModule);
-
-        return Try.of(() -> this.subjectRepository.findAll(filterByCoeff.and(filterByModule)))
-                .map(subjectEntities -> subjectEntities.iterator().next())
-                .map(List::of)
-                .map(this.subjectMapper::toSubjects)
-                .toEither()
-                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
-    }
-
-    @Override
-    public Either<ExaminationException, Collection<Subject>> getSubjectTitleEqDataModuleEq2(SubjectModule subjectModule) {
-        var qMatiere = new QSubjectEntity("matiere");
-        var filterByIntitule = qMatiere.title.contains("data");
-        var filterByModule = qMatiere.subjectModule.eq(subjectModule);
-
-        return Try.of(() -> this.subjectRepository.findAll(filterByIntitule.and(filterByModule)))
-                .map(subjectEntities -> subjectEntities.iterator().next())
-                .map(List::of)
-                .map(this.subjectMapper::toSubjects)
-                .toEither()
-                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
-    }
-
 }

@@ -28,24 +28,63 @@ public class SubjectRestHandler implements SubjectHandler {
 
     @Override
     @PutMapping(value = "/update/{subjectId}")
-    public ResponseEntity<Void> updateSubjectWithNumber(@PathVariable("subjectId") Integer subjectId, int number) throws Exception {
-        return subjectUseCase.updateSubject(subjectId, number).fold(
+    public ResponseEntity<Void> updateSubjectCoefficient(@PathVariable("subjectId") Integer subjectId, int coefficient) throws Exception {
+        return subjectUseCase.updateSubjectCoefficient(subjectId, coefficient).fold(
                 a -> ResponseEntity.notFound().build(),
                 subject -> ResponseEntity.status(HttpStatus.OK).build()
         );
     }
 
     @Override
-    @GetMapping(value = "/matieresbycoeff")
-    public ResponseEntity<Collection<Subject>> getSubjectByCoeffBiggerThan(int coeff) {
+    @GetMapping(value = "/subjectByCoeff")
+    public ResponseEntity<Collection<Subject>> getSubjectByCoeffBiggerThan(@RequestParam(value = "coeff") int coeff) {
         return subjectUseCase.getSubjectsGreaterThanACoefficient(coeff).fold(
                 a -> ResponseEntity.notFound().build(),
-                subject -> ResponseEntity.status(HttpStatus.FOUND).build()
+                ResponseEntity::ok
         );
     }
 
     @Override
-    @GetMapping(value = "/matieresbyexp")
+    @GetMapping
+    public ResponseEntity<Collection<Subject>> getSubjects() {
+        return subjectUseCase.getAllSubjects().fold(
+                a -> ResponseEntity.notFound().build(),
+                ResponseEntity::ok
+        );
+    }
+
+    @Override
+    @GetMapping(value = "/coeff/{coeff}/subjectModule/{subjectModule}")
+    public ResponseEntity<Collection<Subject>> getSubjectByCoeffBiggerThanAndTitleDataAndModule(
+            @PathVariable("coeff") int coeff, @PathVariable("subjectModule") SubjectModule subjectModule) {
+        return subjectUseCase.getSubjectCoeffBiggerTitleEqDataModuleEq2(coeff, subjectModule).fold(
+                a -> ResponseEntity.notFound().build(),
+                ResponseEntity::ok
+        );
+    }
+
+    @Override
+    @GetMapping(value = "/coeff/{coeff}/module/{module}")
+    public ResponseEntity<Collection<Subject>> getSubjectByCoeffBiggerThanAndModule(
+            @PathVariable("coeff") int coeff,
+            @PathVariable("module") SubjectModule subjectModule) {
+        return subjectUseCase.getSubjectCoeffBiggerThanModuleEq2(coeff, subjectModule).fold(
+                a -> ResponseEntity.notFound().build(),
+                subjects -> new ResponseEntity<>(HttpStatus.FOUND)
+        );
+    }
+
+    @Override
+    @GetMapping(value = "/subjectsquerydsl3c/module/{module}")
+    public ResponseEntity<Collection<Subject>> getSubjectTitleDataAndModuleEq2(@PathVariable("module") SubjectModule subjectModule) {
+        return subjectUseCase.getSubjectTitleEqDataModuleEq2(subjectModule).fold(
+                a -> ResponseEntity.notFound().build(),
+                subjects -> new ResponseEntity<>(HttpStatus.FOUND)
+        );
+    }
+
+    @Override
+    @GetMapping(value = "/subjetByExp")
     public ResponseEntity<Subject> getSubjectByExample(Example<?> example) {
         return subjectUseCase.getSubjectByExample(example).fold(
                 a -> ResponseEntity.notFound().build(),
@@ -68,45 +107,6 @@ public class SubjectRestHandler implements SubjectHandler {
         return subjectUseCase.getSubjectByTitleWithIgnoreCase(example).fold(
                 a -> ResponseEntity.notFound().build(),
                 subjects -> ResponseEntity.status(HttpStatus.FOUND).build()
-        );
-    }
-
-    @Override
-    @GetMapping
-    public ResponseEntity<Collection<Subject>> getSubjects() {
-        return subjectUseCase.getAllSubjects().fold(
-                a -> ResponseEntity.notFound().build(),
-                ResponseEntity::ok
-        );
-    }
-
-    @Override
-    @GetMapping(value = "/subjectsquerydsl3a/coeff/{coeff}/module/{module}")
-    public ResponseEntity<Collection<Subject>> getSubjectByCoeffBiggerThanAndTitleDataAndModule(
-            @PathVariable("coeff") int coeff, @PathVariable("module") SubjectModule subjectModule) {
-        return subjectUseCase.getSubjectCoeffBiggerTitleEqDataModuleEq2(coeff, subjectModule).fold(
-                a -> ResponseEntity.notFound().build(),
-                subjects -> new ResponseEntity<>(HttpStatus.FOUND)
-        );
-    }
-
-    @Override
-    @GetMapping(value = "/subjectesquerydsl3b/coeff/{coeff}/module/{module}")
-    public ResponseEntity<Collection<Subject>> getSubjectByCoeffBiggerThanAndModule(
-            @PathVariable("coeff") int coeff,
-            @PathVariable("module") SubjectModule subjectModule) {
-        return subjectUseCase.getSubjectCoeffBiggerThanModuleEq2(coeff, subjectModule).fold(
-                a -> ResponseEntity.notFound().build(),
-                subjects -> new ResponseEntity<>(HttpStatus.FOUND)
-        );
-    }
-
-    @Override
-    @GetMapping(value = "/subjectsquerydsl3c/module/{module}")
-    public ResponseEntity<Collection<Subject>> getSubjectTitleDataAndModuleEq2(@PathVariable("module") SubjectModule subjectModule) {
-        return subjectUseCase.getSubjectTitleEqDataModuleEq2(subjectModule).fold(
-                a -> ResponseEntity.notFound().build(),
-                subjects -> new ResponseEntity<>(HttpStatus.FOUND)
         );
     }
 }

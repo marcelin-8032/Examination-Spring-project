@@ -2,17 +2,20 @@ package com.examination.project.infrastructure.usecaseImpl.v1.exam;
 
 import com.examination.project.domain.entities.Exam;
 import com.examination.project.domain.entities.Room;
+import com.examination.project.domain.entities.Student;
 import com.examination.project.domain.exception.ExaminationException;
 import com.examination.project.domain.exception.ExaminationExceptionSanitize;
 import com.examination.project.infrastructure.mapper.ExamMapper;
 import com.examination.project.infrastructure.mapper.RoomMapper;
 import com.examination.project.domain.usecases.v1.exam.ExamUseCase;
-import com.examination.project.infrastructure.persistance.exam.entities.ExamEntity;
 import com.examination.project.infrastructure.persistance.exam.repository.ExamRepository;
 import com.examination.project.infrastructure.persistance.room.repository.RoomRepository;
+import com.examination.project.infrastructure.persistance.student.entities.StudentEntity;
+import com.examination.project.infrastructure.persistance.student.repository.StudentRepository;
 import io.vavr.control.Either;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
+import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -23,9 +26,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.springframework.data.domain.PageRequest.of;
@@ -38,6 +39,8 @@ public class ExamUseCaseImpl implements ExamUseCase {
     private final ExamRepository examRepository;
 
     private final RoomRepository roomRepository;
+
+    private final StudentRepository studentRepository;
 
     private final ExamMapper examMapper;
 
@@ -143,5 +146,46 @@ public class ExamUseCaseImpl implements ExamUseCase {
                 .map(this.examMapper::toExam)
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
+    }
+
+    @Override
+    public Either<ExaminationException, Void> addOrUpdateStudentsToExam(int examId, List<Integer> studentIds) {
+
+        var examEntity = this.examRepository.findById(examId);
+
+        var studentEntity = this.studentRepository.findAllById(studentIds);
+
+        if (examEntity.isPresent() && !studentEntity.isEmpty()) {
+
+
+           // this.studentRepository.saveAll(studentEntities);
+        }
+
+
+//        ExamValidation(examId);
+//
+//        var studentIds = students.get("students");
+//
+//        var examEntity = examRepository.findById(examId);
+//
+//        for (int studentId : studentIds) {
+//            if (studentRepository.findById(studentId).isEmpty()) {
+//                throw new NotFoundException("Student " + studentId + "Not found");
+//            }
+//
+//            if (studentRepository.findById(studentId).isPresent() && examEntity.isPresent()) {
+//                examEntity.get().setStudents(studentRepository.findAllById(studentIds));
+//                examRepository.save(examEntity.get());
+//            }
+//
+//        }
+
+        return null;
+    }
+
+    private void ExamValidation(int examId) throws NotFoundException {
+        if (!examRepository.existsById(examId)) {
+            throw new NotFoundException("Exam " + examId + "Not found");
+        }
     }
 }

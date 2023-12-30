@@ -3,7 +3,9 @@ package com.examination.project.infrastructure.handler.controller.v1.exam;
 
 import com.examination.project.domain.entities.Exam;
 import com.examination.project.domain.entities.Room;
+import com.examination.project.domain.entities.Student;
 import com.examination.project.domain.usecases.v1.exam.ExamUseCase;
+import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -12,9 +14,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -43,6 +48,7 @@ public class ExamRestHandler implements ExamHandler {
                 list -> ResponseEntity.status(HttpStatus.CREATED).build()
         );
     }
+
     @Override
     @GetMapping
     public ResponseEntity<Collection<Exam>> getAllExams() {
@@ -96,4 +102,19 @@ public class ExamRestHandler implements ExamHandler {
                 ResponseEntity::ok
         );
     }
+
+
+    @Override
+    @PutMapping(value = "{examId}/student/{studentId}")
+    public ResponseEntity<Exam> addOrUpdateStudentsToExam(@Valid
+                                                         @PathVariable("examId")
+                                                         int examId,
+                                                         List<Integer> studentIds){
+
+        return examUseCase.addOrUpdateStudentsToExam(examId, studentIds).fold(
+                a -> ResponseEntity.notFound().build(),
+                exam2 -> ResponseEntity.status(HttpStatus.OK).build()
+        );
+    }
+
 }

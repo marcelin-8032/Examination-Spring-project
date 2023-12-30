@@ -18,15 +18,19 @@ public interface ExamHandler {
 
     ResponseEntity<Collection<Exam>> getAllExams();
 
-    ResponseEntity<Collection<Exam>> getExamsByDate( LocalDateTime date);
+    ResponseEntity<Collection<Exam>> getExamsByDate(LocalDateTime date);
 
-    ResponseEntity<Collection<Exam>> getExamsAtRoomAndAfterADate( Room room, LocalDateTime date);
+    ResponseEntity<Collection<Exam>> getExamsAtRoomAndAfterADate(Room room, LocalDateTime date);
 
-    ResponseEntity<Collection<Exam>> getExamsAtRecentDataAtSpecificRoom( Room room);
+    ResponseEntity<Collection<Exam>> getExamsAtRecentDataAtSpecificRoom(Room room);
 
     ResponseEntity<Page<Exam>> getAllExamsInPages(Pageable pageable);
 
-    ResponseEntity<Page<Exam>> getAllExamsByRoom( Integer roomId, Pageable pageable);
+    ResponseEntity<Page<Exam>> getAllExamsByRoom(Integer roomId, Pageable pageable);
 
     ResponseEntity<Void> addExam(Exam exam);
+
+    ResponseEntity<Exam> addOrUpdateStudentsToExam(int examId, List<Integer> studentIds);
+
+    //ResponseEntity<Exam> deleteExamsStudents(int examId, HashMap<String, ArrayList<Integer>> students);
 }
