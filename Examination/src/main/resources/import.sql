@@ -30,29 +30,29 @@ INSERT INTO exams VALUES(303,'2022-04-15 12:16:44','Literature',1001,1181,2203);
 INSERT INTO exams VALUES(304,'2022-04-20 12:16:44','Philosophy',1002,1182,2204);
 INSERT INTO exams VALUES(305,'2022-06-21 12:16:44','Music',1000,1182,2205);
 
-INSERT INTO students_exam_entities VALUES (800, 300);
-INSERT INTO students_exam_entities VALUES (801, 300);
-INSERT INTO students_exam_entities VALUES (802, 300);
-INSERT INTO students_exam_entities VALUES (803, 300);
+INSERT INTO students_exams VALUES (800, 300);
+INSERT INTO students_exams VALUES (801, 300);
+INSERT INTO students_exams VALUES (802, 300);
+INSERT INTO students_exams VALUES (803, 300);
 
-INSERT INTO students_exam_entities VALUES (801, 301);
-INSERT INTO students_exam_entities VALUES (802, 301);
-INSERT INTO students_exam_entities VALUES (803, 301);
-INSERT INTO students_exam_entities VALUES (804, 301);
+INSERT INTO students_exams VALUES (801, 301);
+INSERT INTO students_exams VALUES (802, 301);
+INSERT INTO students_exams VALUES (803, 301);
+INSERT INTO students_exams VALUES (804, 301);
 
-INSERT INTO students_exam_entities VALUES (805, 300);
-INSERT INTO students_exam_entities VALUES (805, 301);
-INSERT INTO students_exam_entities VALUES (805, 302);
+INSERT INTO students_exams VALUES (805, 300);
+INSERT INTO students_exams VALUES (805, 301);
+INSERT INTO students_exams VALUES (805, 302);
 
-INSERT INTO students_exam_entities VALUES (806, 303);
-INSERT INTO students_exam_entities VALUES (807, 303);
-INSERT INTO students_exam_entities VALUES (808, 303);
+INSERT INTO students_exams VALUES (806, 303);
+INSERT INTO students_exams VALUES (807, 303);
+INSERT INTO students_exams VALUES (808, 303);
 
-INSERT INTO students_exam_entities VALUES (806, 304);
-INSERT INTO students_exam_entities VALUES (807, 304);
-INSERT INTO students_exam_entities VALUES (808, 304);
+INSERT INTO students_exams VALUES (806, 304);
+INSERT INTO students_exams VALUES (807, 304);
+INSERT INTO students_exams VALUES (808, 304);
 
-INSERT INTO students_exam_entities VALUES (806, 305);
-INSERT INTO students_exam_entities VALUES (807, 305);
-INSERT INTO students_exam_entities VALUES (808, 305);
+INSERT INTO students_exams VALUES (806, 305);
+INSERT INTO students_exams VALUES (807, 305);
+INSERT INTO students_exams VALUES (808, 305);
 

@@ -18,6 +18,4 @@ public interface StudentRepository extends JpaRepository<StudentEntity, Integer>
 
     @Query(value = "SELECT * FROM students e WHERE e.classe=:classe", nativeQuery = true)
     Collection<StudentEntity> findByClasse(@Param("classe") Classe classe);
-
-
 }

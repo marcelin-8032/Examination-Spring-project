@@ -1,6 +1,7 @@
 package com.examination.project.infrastructure.handler.controller.v1.student;
 
 import com.examination.project.domain.entities.Classe;
+import com.examination.project.domain.entities.Exam;
 import com.examination.project.domain.entities.Student;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -13,6 +14,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface StudentHandler {
 
@@ -55,4 +57,10 @@ public interface StudentHandler {
             }
     )
     ResponseEntity<Collection<Student>> getStudentByClass(Classe classe);
+
+    ResponseEntity<Void> addOrUpdateStudentToExam(Integer studentId, Integer examId);
+
+    ResponseEntity<Collection<Exam>> getExamsAssignedToSpecificStudent(Integer studentId);
+
+    ResponseEntity<Void> deleteStudentAssignedToExam(Integer studentId, Integer examId);
 }

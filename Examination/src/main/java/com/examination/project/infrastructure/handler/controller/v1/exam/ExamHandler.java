@@ -2,6 +2,7 @@ package com.examination.project.infrastructure.handler.controller.v1.exam;
 
 import com.examination.project.domain.entities.Exam;
 import com.examination.project.domain.entities.Room;
+import com.examination.project.domain.entities.Student;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,8 +30,4 @@ public interface ExamHandler {
     ResponseEntity<Page<Exam>> getAllExamsByRoom(Integer roomId, Pageable pageable);
 
     ResponseEntity<Void> addExam(Exam exam);
-
-    ResponseEntity<Exam> addOrUpdateStudentsToExam(int examId, List<Integer> studentIds);
-
-    //ResponseEntity<Exam> deleteExamsStudents(int examId, HashMap<String, ArrayList<Integer>> students);
 }

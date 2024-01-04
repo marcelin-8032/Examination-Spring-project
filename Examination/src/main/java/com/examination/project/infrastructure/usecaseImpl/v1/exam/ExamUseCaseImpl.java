@@ -8,6 +8,7 @@ import com.examination.project.domain.exception.ExaminationExceptionSanitize;
 import com.examination.project.infrastructure.mapper.ExamMapper;
 import com.examination.project.infrastructure.mapper.RoomMapper;
 import com.examination.project.domain.usecases.v1.exam.ExamUseCase;
+import com.examination.project.infrastructure.mapper.StudentMapper;
 import com.examination.project.infrastructure.persistance.exam.repository.ExamRepository;
 import com.examination.project.infrastructure.persistance.room.repository.RoomRepository;
 import com.examination.project.infrastructure.persistance.student.entities.StudentEntity;
@@ -44,24 +45,26 @@ public class ExamUseCaseImpl implements ExamUseCase {
 
     private final ExamMapper examMapper;
 
+    private final StudentMapper studentMapper;
+
     private final RoomMapper roomMapper;
 
     @Override
     public Either<ExaminationException, Collection<Exam>> createExams(List<Exam> exams) {
-        //        val examsEntities = this.examMapper.toExamEntities(exams);
-//        for (var examEntity : examsEntities) {
-//            if (examsEntities.iterator().hasNext()) {
-//                examsEntities.add(examEntity);
-//                this.examRepository.save(examEntity);
-//            }
-//        }
-//        return Try.of(() -> this.examMapper.toExams(examsEntities))
-//                .toEither().mapLeft(ExaminationExceptionSanitize::sanitizeError);
+
         return Try.of(() -> this.examMapper.toExamEntities(exams))
                 .map(examEntities ->
-                        examEntities.stream().map(this.examRepository::save)
-                                .collect(Collectors.toList()))
+                        examEntities.stream().map(this.examRepository::save).toList())
                 .map(this.examMapper::toExams)
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
+    }
+
+    @Override
+    public Either<ExaminationException, Exam> createExam(Exam exam) {
+        return Try.of(() -> this.examMapper.toExamEntity(exam))
+                .map(this.examRepository::save)
+                .map(this.examMapper::toExam)
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
@@ -137,55 +140,5 @@ public class ExamUseCaseImpl implements ExamUseCase {
                 .map(this.examMapper::pageExamEntityToPageExamDto)
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
-    }
-
-    @Override
-    public Either<ExaminationException, Exam> createExam(Exam exam) {
-        return Try.of(() -> this.examMapper.toExamEntity(exam))
-                .map(this.examRepository::save)
-                .map(this.examMapper::toExam)
-                .toEither()
-                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
-    }
-
-    @Override
-    public Either<ExaminationException, Void> addOrUpdateStudentsToExam(int examId, List<Integer> studentIds) {
-
-        var examEntity = this.examRepository.findById(examId);
-
-        var studentEntity = this.studentRepository.findAllById(studentIds);
-
-        if (examEntity.isPresent() && !studentEntity.isEmpty()) {
-
-
-           // this.studentRepository.saveAll(studentEntities);
-        }
-
-
-//        ExamValidation(examId);
-//
-//        var studentIds = students.get("students");
-//
-//        var examEntity = examRepository.findById(examId);
-//
-//        for (int studentId : studentIds) {
-//            if (studentRepository.findById(studentId).isEmpty()) {
-//                throw new NotFoundException("Student " + studentId + "Not found");
-//            }
-//
-//            if (studentRepository.findById(studentId).isPresent() && examEntity.isPresent()) {
-//                examEntity.get().setStudents(studentRepository.findAllById(studentIds));
-//                examRepository.save(examEntity.get());
-//            }
-//
-//        }
-
-        return null;
-    }
-
-    private void ExamValidation(int examId) throws NotFoundException {
-        if (!examRepository.existsById(examId)) {
-            throw new NotFoundException("Exam " + examId + "Not found");
-        }
     }
 }

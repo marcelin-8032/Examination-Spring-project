@@ -2,10 +2,7 @@ package com.examination.project.infrastructure.persistance.student.entities;
 
 import com.examination.project.domain.entities.Classe;
 import com.examination.project.infrastructure.persistance.exam.entities.ExamEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serial;
@@ -37,15 +34,33 @@ public class StudentEntity implements Serializable {
     @Builder.Default
     private Classe classe = Classe.classeA;
 
-    @ManyToMany(fetch = FetchType.EAGER,
-            targetEntity = ExamEntity.class, cascade = CascadeType.ALL)
-    @JoinTable(name = "students_exam_entities",
-            joinColumns = {@JoinColumn(name = "exam_entities_exam_id")},
-            inverseJoinColumns = {@JoinColumn(name = "student_entity_student_id")})
+  //  @ManyToMany(fetch = FetchType.LAZY,
+     //       targetEntity = ExamEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "students_exams",
+            joinColumns = {@JoinColumn(name = "student_entity_student_id")},
+            inverseJoinColumns = {@JoinColumn(name = "exam_entity_exam_id")})
     @Builder.Default
+    @ToString.Exclude
     private Collection<ExamEntity> examEntities = new HashSet<>();
 
-    public void setExamEntities(Collection<ExamEntity> examEntities) {
-        this.examEntities.addAll(examEntities);
-    }
+
+//    public void setExamEntities(Collection<ExamEntity> examEntities) {
+//        this.examEntities = examEntities;
+//    }
+//
+//    public void addExam(ExamEntity examEntity) {
+//        this.examEntities.add(examEntity);
+//        //examEntity.getStudents().add(this);
+//    }
+
+
+//    @Override
+//    public String toString() {
+//        return "StudentEntity{" +
+//                "studentId=" + studentId +
+//                ", name='" + name + '\'' +
+//                ", classe=" + classe +
+//                '}';
+//    }
 }

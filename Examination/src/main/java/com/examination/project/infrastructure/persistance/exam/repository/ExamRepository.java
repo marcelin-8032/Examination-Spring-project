@@ -46,4 +46,8 @@ public interface ExamRepository extends JpaRepository<ExamEntity, Integer>,
     Page<ExamEntity> findByRoom(@Param("room_id") Integer room_id, Pageable pageable);
 
     Collection<ExamEntity> findByRoomAndExamDate(Room room, LocalDateTime examDate);
+
+    @Query(value = "SELECT * FROM exams e INNER JOIN students_exams se ON e.exam_id=se.exam_entity_exam_id WHERE se.student_entity_student_id=:studentId",
+            nativeQuery = true)
+    Collection<ExamEntity> findExamsByStudentId(@Param("studentId") Integer studentId);
 }

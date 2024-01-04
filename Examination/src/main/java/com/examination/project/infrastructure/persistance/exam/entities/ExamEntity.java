@@ -42,24 +42,44 @@ public class ExamEntity implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "subject_id", nullable = false)
     @NonNull
+    @ToString.Exclude
     private SubjectEntity subject;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "room_id", nullable = false)
     @NonNull
+    @ToString.Exclude
     private RoomEntity room;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "invigilator_id", nullable = false)
     @NonNull
+    @ToString.Exclude
     private InvigilatorEntity invigilator;
 
     @ManyToMany(mappedBy = "examEntities")
     @Builder.Default
+    @ToString.Exclude
     private Collection<StudentEntity> students = new HashSet<>();
 
-    public void setStudents(Collection<StudentEntity> students) {
-        this.students.addAll(students);
-    }
+//    public void setStudents(Collection<StudentEntity> students) {
+//        this.students = students;
+//    }
+//
+//    public void addStudent(StudentEntity studentEntity) {
+//        this.students.add(studentEntity);
+//        studentEntity.getExamEntities().add(this);
+//    }
 
+//    @Override
+//    public String toString() {
+//        return "ExamEntity{" +
+//                "examId=" + examId +
+//                ", examName='" + examName + '\'' +
+//                ", examDate=" + examDate +
+//                ", subject=" + subject +
+//                ", room=" + room +
+//                ", invigilator=" + invigilator +
+//                '}';
+//    }
 }
