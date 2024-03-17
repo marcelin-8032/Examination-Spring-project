@@ -1,4 +1,4 @@
-package com.examination.project.configuration;
+package com.examination.project.infrastructure.configuration;
 
 import java.util.Optional;
 

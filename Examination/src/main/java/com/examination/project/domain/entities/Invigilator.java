@@ -1,5 +1,6 @@
 package com.examination.project.domain.entities;
 
+import com.examination.project.domain.validation.InvigilatorValidation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.With;
@@ -10,6 +11,7 @@ import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 
 @Builder
 @With
+@InvigilatorValidation
 public record Invigilator(
 
         @Schema(name = "invigilatorId", requiredMode = NOT_REQUIRED)

@@ -1,4 +1,4 @@
-package com.examination.project.domain.utils;
+package com.examination.project.utils.functional;
 
 
 import io.vavr.Function2;

@@ -5,13 +5,11 @@ import com.examination.project.domain.entities.Room;
 import com.examination.project.domain.exception.ExaminationException;
 import com.examination.project.domain.usecases.v2.UseCaseAction;
 import com.examination.project.domain.usecases.v2.room.RoomUseCase;
-import com.examination.project.domain.utils.UUIDGenerator;
+import com.examination.project.utils.misc.UUIDGenerator;
 import com.examination.project.domain.valueobject.FunctionalUniqueId;
 import io.github.resilience4j.retry.Retry;
 import io.github.resilience4j.retry.RetryConfig;
 import io.github.resilience4j.retry.RetryRegistry;
-import io.vavr.CheckedFunction0;
-import io.vavr.Function0;
 import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
 

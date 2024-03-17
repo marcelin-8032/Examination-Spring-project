@@ -1,4 +1,4 @@
-package com.examination.project.domain.utils;
+package com.examination.project.utils.misc;
 
 import java.util.UUID;
 import java.util.function.Supplier;

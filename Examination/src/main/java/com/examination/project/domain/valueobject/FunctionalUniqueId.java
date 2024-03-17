@@ -10,7 +10,6 @@ public abstract class FunctionalUniqueId {
     @Getter
     private final Integer id;
 
-
     protected FunctionalUniqueId(Integer id) {
         this.id = id;
     }
