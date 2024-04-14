@@ -16,7 +16,6 @@ public class TypeConversionUtils {
 
     private static final String NAME_LIST_SEPARATOR = ";";
 
-
     public static List<String> mapSeparateStringToList(String value) {
 
         return Optional.ofNullable(value)

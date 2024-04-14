@@ -8,9 +8,9 @@ import lombok.Getter;
 public abstract class FunctionalUniqueId {
 
     @Getter
-    private final Integer id;
+    private final String  id;
 
-    protected FunctionalUniqueId(Integer id) {
+    protected FunctionalUniqueId(String id) {
         this.id = id;
     }
 

@@ -18,7 +18,6 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor(access = PRIVATE)
 public class ConditionalMapper {
 
-
     public static <T> void notNullOrEmpty(Set<T> values, Consumer<Set<T>> bindTo) {
 
         Optional.ofNullable(values)

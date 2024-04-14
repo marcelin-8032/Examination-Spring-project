@@ -11,12 +11,10 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor(access = PRIVATE)
 public class FunctionalExtension {
 
-
     public static Void doNothing() {
         return run(() -> {
         });
     }
-
 
     public static Either<ExaminationException, Void> nothing() {
         return Either.right(null);

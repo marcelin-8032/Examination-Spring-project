@@ -1,4 +1,4 @@
-package com.examination.project.infrastructure.handler.controller.v2;
+package com.examination.project.infrastructure.handler.controller.utils;
 
 import com.examination.project.domain.usecases.v2.UseCaseWrapper;
 import com.examination.project.domain.exception.ExaminationException;

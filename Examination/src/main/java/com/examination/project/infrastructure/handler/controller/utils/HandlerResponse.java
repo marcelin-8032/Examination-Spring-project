@@ -1,4 +1,4 @@
-package com.examination.project.infrastructure.handler.controller.v2;
+package com.examination.project.infrastructure.handler.controller.utils;
 
 
 import lombok.AccessLevel;
@@ -13,4 +13,8 @@ public final class HandlerResponse {
     public static <T> ResponseEntity<T> toOk(Result result) {
         return ResponseEntity.ok((T) result.data());
     }
+
+
+
+
 }

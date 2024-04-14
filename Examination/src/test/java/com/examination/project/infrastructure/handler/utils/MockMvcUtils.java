@@ -1,4 +1,4 @@
-package com.examination.project.infrastructure.handler.controller.utils;
+package com.examination.project.infrastructure.handler.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.test.web.servlet.MockMvc;
