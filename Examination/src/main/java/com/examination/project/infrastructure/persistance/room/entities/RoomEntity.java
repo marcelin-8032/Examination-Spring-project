@@ -34,6 +34,15 @@ public class RoomEntity extends AuditableBaseEntity implements Serializable {
     @NonNull
     private int number;
 
+    @Column
+    private String building;
+
+    @Column
+    private String department;
+
+    @Column
+    private int floor;
+
     @OneToMany()
     @JoinColumn(name = "room_id")
     @Builder.Default

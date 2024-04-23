@@ -7,6 +7,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -27,15 +28,27 @@ public class StudentEntity implements Serializable {
     private int studentId;
 
     @Column(name = "student_name")
-    private String name;
+    private String firstName;
+
+    @Column
+    private String lastName;
+
+    @Column
+    private int identificationId;
+
+    @Column
+    private int studyYear;
+
+    @Column
+    private Instant birthDay;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "classe")
     @Builder.Default
     private Classe classe = Classe.classeA;
 
-  //  @ManyToMany(fetch = FetchType.LAZY,
-     //       targetEntity = ExamEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    //  @ManyToMany(fetch = FetchType.LAZY,
+    //       targetEntity = ExamEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "students_exams",
             joinColumns = {@JoinColumn(name = "student_entity_student_id")},

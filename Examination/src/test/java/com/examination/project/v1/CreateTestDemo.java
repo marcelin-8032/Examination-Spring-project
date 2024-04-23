@@ -100,13 +100,13 @@ class CreateTestDemo {
 //        musique = new SubjectEntity("Musique", 155, SubjectModule.MODULE_2);
 //        DATA = new SubjectEntity("data", 200, SubjectModule.MODULE_3);
 
-        invigilatorEntityAdrian = new InvigilatorEntity("Adrian");
-        invigilatorEntityArthur = new InvigilatorEntity("Arthur");
-        invigilatorEntityMaria = new InvigilatorEntity("Maria");
-
-        roomEntity1254 = new RoomEntity(1254);
-        roomEntity1255 = new RoomEntity(1255);
-        roomEntity1256 = new RoomEntity(1256);
+//        invigilatorEntityAdrian = new InvigilatorEntity("Adrian");
+//        invigilatorEntityArthur = new InvigilatorEntity("Arthur");
+//        invigilatorEntityMaria = new InvigilatorEntity("Maria");
+//
+//        roomEntity1254 = new RoomEntity(1254);
+//        roomEntity1255 = new RoomEntity(1255);
+//        roomEntity1256 = new RoomEntity(1256);
 
 //        examEntity1 = new ExamEntity(date1, physique, roomEntity1254, invigilatorEntityArthur);
 //        examEntity2 = new ExamEntity(date2, literature, roomEntity1254, invigilatorEntityMaria);

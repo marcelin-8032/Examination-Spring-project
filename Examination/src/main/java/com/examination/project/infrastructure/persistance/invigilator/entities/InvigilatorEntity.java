@@ -31,7 +31,15 @@ public class InvigilatorEntity implements Serializable {
 
     @Column
     @NonNull
-    private String name;
+    private String firstName;
+
+    @Column
+    private String lastName;
+
+    @Column
+    @NonNull
+    private int identificationNumber;
+
 
     @OneToMany
     @JoinColumn(name = "invigilator_id")
