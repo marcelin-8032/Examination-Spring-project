@@ -2,6 +2,7 @@ package com.examination.project.infrastructure.persistance.subject.entities;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -12,6 +13,10 @@ import com.examination.project.domain.entities.SubjectModule;
 import com.examination.project.infrastructure.persistance.exam.entities.ExamEntity;
 
 import lombok.*;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 
 
 @Data
@@ -38,6 +43,22 @@ public class SubjectEntity implements Serializable {
     @Column
     @NonNull
     private int coefficient;
+
+    @Column
+    @CreatedDate
+    private LocalDateTime createDate;
+
+    @Column
+    @CreatedBy
+    private String createdBy;
+
+    @Column
+    @LastModifiedDate
+    private LocalDateTime modifiedDate;
+
+    @Column
+    @LastModifiedBy
+    private String modifiedBy;
 
     @Column(name = "subject_module")
     @Builder.Default

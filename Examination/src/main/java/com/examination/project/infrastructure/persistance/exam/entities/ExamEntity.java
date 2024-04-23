@@ -5,6 +5,10 @@ import com.examination.project.infrastructure.persistance.student.entities.Stude
 import com.examination.project.infrastructure.persistance.subject.entities.SubjectEntity;
 import com.examination.project.infrastructure.persistance.room.entities.RoomEntity;
 import lombok.*;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.io.Serial;
@@ -38,6 +42,22 @@ public class ExamEntity implements Serializable {
     @Column
     @NonNull
     private LocalDateTime examDate;
+
+    @Column
+    @CreatedDate
+    private LocalDateTime createDate;
+
+    @Column
+    @CreatedBy
+    private String createdBy;
+
+    @Column
+    @LastModifiedDate
+    private LocalDateTime modifiedDate;
+
+    @Column
+    @LastModifiedBy
+    private String modifiedBy;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "subject_id", nullable = false)

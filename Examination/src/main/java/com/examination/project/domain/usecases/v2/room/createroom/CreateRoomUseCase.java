@@ -52,7 +52,7 @@ public class CreateRoomUseCase implements RoomUseCase<CreateRoomPort, CreateRoom
 
         final Function<FunctionalUniqueId, Room> roomBuilder = id -> {
             final Room room = Room.builder()
-                    .roomId(id.getId())
+                    .roomId(Integer.valueOf(id.getId()))
                     .build();
 
             return room;
