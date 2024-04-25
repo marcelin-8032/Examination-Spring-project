@@ -13,8 +13,6 @@ import java.util.List;
 @RequestMapping("/v2/exams")
 public class ExaminationController {
 
-
-
     @PostMapping("/add")
     public ResponseEntity<Void> createExams(@RequestBody List<Exam> exams) {
 

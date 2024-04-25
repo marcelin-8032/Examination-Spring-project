@@ -189,6 +189,14 @@
             <version>4.4</version>
         </dependency>
 
+
+       <!-- <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-maven-plugin</artifactId>
+            <version>10.11.1</version>
+        </dependency>
+-->
+
     </dependencies>
     <build>
         <plugins>
@@ -224,6 +232,18 @@
                 <artifactId>lint-maven-plugin</artifactId>
                 <version>0.0.11</version>
             </plugin>
+        <!--    <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>10.11.1</version>
+                <configuration>
+                    <user>postgres</user>
+                    <password>123456</password>
+                    <schemas>
+                        <schema>examination</schema>
+                    </schemas>
+                </configuration>
+            </plugin>-->
         </plugins>
     </build>
 </project>

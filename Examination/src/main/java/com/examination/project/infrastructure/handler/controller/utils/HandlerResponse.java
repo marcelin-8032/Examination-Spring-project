@@ -14,7 +14,4 @@ public final class HandlerResponse {
         return ResponseEntity.ok((T) result.data());
     }
 
-
-
-
 }
