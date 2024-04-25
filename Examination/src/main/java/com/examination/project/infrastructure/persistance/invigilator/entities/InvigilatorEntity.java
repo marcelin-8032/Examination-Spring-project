@@ -1,15 +1,13 @@
 package com.examination.project.infrastructure.persistance.invigilator.entities;
 
+import com.examination.project.infrastructure.persistance.exam.entities.ExamEntity;
+import lombok.*;
+
+import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
-
-import javax.persistence.*;
-
-
-import com.examination.project.infrastructure.persistance.exam.entities.ExamEntity;
-import lombok.*;
 
 
 @Data
@@ -30,7 +28,6 @@ public class InvigilatorEntity implements Serializable {
     private int invigilatorId;
 
     @Column
-    @NonNull
     private String firstName;
 
     @Column
@@ -40,7 +37,6 @@ public class InvigilatorEntity implements Serializable {
     @NonNull
     private int identificationNumber;
 
-
     @OneToMany
     @JoinColumn(name = "invigilator_id")
     @Builder.Default
@@ -49,4 +45,5 @@ public class InvigilatorEntity implements Serializable {
     public void setExamEntities(Collection<ExamEntity> examEntities) {
         this.examEntities.addAll(examEntities);
     }
+
 }

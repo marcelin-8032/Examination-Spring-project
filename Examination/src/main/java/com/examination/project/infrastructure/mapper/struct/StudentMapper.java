@@ -1,4 +1,4 @@
-package com.examination.project.infrastructure.mapper;
+package com.examination.project.infrastructure.mapper.struct;
 
 import com.examination.project.domain.entities.Student;
 import com.examination.project.infrastructure.persistance.student.entities.StudentEntity;

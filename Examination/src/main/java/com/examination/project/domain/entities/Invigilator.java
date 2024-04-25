@@ -17,7 +17,13 @@ public record Invigilator(
         @Schema(name = "invigilatorId", requiredMode = NOT_REQUIRED)
         Integer invigilatorId,
 
-        @Schema(name = "examName", requiredMode = REQUIRED)
-        String name
+        @Schema(name = "firstName", requiredMode = REQUIRED)
+        String firstName,
+
+        @Schema(name = "lastName", requiredMode = REQUIRED)
+        String lastName,
+
+        @Schema(name = "identificationNumber", requiredMode = REQUIRED)
+        Integer identificationNumber
 ) {
 }

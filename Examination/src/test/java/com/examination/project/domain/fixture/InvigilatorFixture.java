@@ -33,7 +33,9 @@ public class InvigilatorFixture {
 
         return Invigilator.builder()
                 .invigilatorId(random.nextInt())
-                .name(lorem.characters(1,20))
+                .firstName(lorem.characters(1,20))
+                .lastName(lorem.characters(1,20))
+                .identificationNumber(FAKER.random().nextInt(1,10))
                 .build();
     }
 

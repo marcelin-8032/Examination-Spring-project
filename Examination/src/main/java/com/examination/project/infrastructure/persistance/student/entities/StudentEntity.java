@@ -72,7 +72,7 @@ public class StudentEntity implements Serializable {
 //    public String toString() {
 //        return "StudentEntity{" +
 //                "studentId=" + studentId +
-//                ", name='" + name + '\'' +
+//                ", examName='" + examName + '\'' +
 //                ", classe=" + classe +
 //                '}';
 //    }

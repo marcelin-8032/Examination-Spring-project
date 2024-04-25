@@ -4,22 +4,17 @@ import com.examination.project.domain.entities.Room;
 import com.examination.project.domain.exception.ExaminationException;
 import com.examination.project.domain.exception.ExaminationExceptionSanitize;
 import com.examination.project.domain.usecases.v1.room.RoomUseCase;
-import com.examination.project.infrastructure.persistance.exam.entities.ExamEntity;
 import com.examination.project.infrastructure.persistance.exam.repository.ExamRepository;
-import com.examination.project.infrastructure.persistance.room.entities.RoomEntity;
 import com.examination.project.infrastructure.persistance.room.repository.RoomRepository;
-import com.examination.project.infrastructure.mapper.ExamMapper;
-import com.examination.project.infrastructure.mapper.RoomMapper;
+import com.examination.project.infrastructure.mapper.struct.ExamMapper;
+import com.examination.project.infrastructure.mapper.struct.RoomMapper;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor

@@ -54,7 +54,7 @@ public class ModelFactory {
 
     public static Invigilator defaultInvigilator() {
         return Invigilator.builder()
-                .name("Alex")
+                .firstName("Alex")
                 .invigilatorId(1)
                 .build();
     }

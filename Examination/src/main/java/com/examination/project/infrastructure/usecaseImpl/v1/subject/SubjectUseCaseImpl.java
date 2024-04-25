@@ -4,7 +4,7 @@ import com.examination.project.domain.entities.SubjectModule;
 import com.examination.project.domain.entities.Subject;
 import com.examination.project.domain.exception.ExaminationException;
 import com.examination.project.domain.exception.ExaminationExceptionSanitize;
-import com.examination.project.infrastructure.mapper.SubjectMapper;
+import com.examination.project.infrastructure.mapper.struct.SubjectMapper;
 import com.examination.project.domain.usecases.v1.subject.SubjectUseCase;
 import com.examination.project.infrastructure.persistance.subject.entities.QSubjectEntity;
 import com.examination.project.infrastructure.persistance.subject.repository.SubjectRepository;

@@ -2,21 +2,18 @@ package com.examination.project.infrastructure.usecaseImpl.v1.exam;
 
 import com.examination.project.domain.entities.Exam;
 import com.examination.project.domain.entities.Room;
-import com.examination.project.domain.entities.Student;
 import com.examination.project.domain.exception.ExaminationException;
 import com.examination.project.domain.exception.ExaminationExceptionSanitize;
-import com.examination.project.infrastructure.mapper.ExamMapper;
-import com.examination.project.infrastructure.mapper.RoomMapper;
+import com.examination.project.infrastructure.mapper.struct.ExamMapper;
+import com.examination.project.infrastructure.mapper.struct.RoomMapper;
 import com.examination.project.domain.usecases.v1.exam.ExamUseCase;
-import com.examination.project.infrastructure.mapper.StudentMapper;
+import com.examination.project.infrastructure.mapper.struct.StudentMapper;
 import com.examination.project.infrastructure.persistance.exam.repository.ExamRepository;
 import com.examination.project.infrastructure.persistance.room.repository.RoomRepository;
-import com.examination.project.infrastructure.persistance.student.entities.StudentEntity;
 import com.examination.project.infrastructure.persistance.student.repository.StudentRepository;
 import io.vavr.control.Either;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
-import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -28,7 +25,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static org.springframework.data.domain.PageRequest.of;
 

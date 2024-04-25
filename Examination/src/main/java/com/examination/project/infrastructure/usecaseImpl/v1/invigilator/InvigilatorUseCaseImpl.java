@@ -4,7 +4,7 @@ package com.examination.project.infrastructure.usecaseImpl.v1.invigilator;
 import com.examination.project.domain.entities.Invigilator;
 import com.examination.project.domain.exception.ExaminationException;
 import com.examination.project.domain.exception.ExaminationExceptionSanitize;
-import com.examination.project.infrastructure.mapper.InvigilatorMapper;
+import com.examination.project.infrastructure.mapper.struct.InvigilatorMapper;
 import com.examination.project.domain.usecases.v1.invigilator.InvigilatorUseCase;
 import com.examination.project.infrastructure.persistance.invigilator.repository.InvigilatorRepository;
 import io.vavr.control.Either;

@@ -15,6 +15,15 @@ public record Room(
         Integer roomId,
 
         @Schema(name = "number", requiredMode = REQUIRED)
-        int number
+        int number,
+
+        @Schema(name = "building", requiredMode = REQUIRED)
+        String building,
+
+        @Schema(name = "department", requiredMode = REQUIRED)
+        String department,
+
+        @Schema(name = "floor", requiredMode = REQUIRED)
+        int floor
 ) {
 }

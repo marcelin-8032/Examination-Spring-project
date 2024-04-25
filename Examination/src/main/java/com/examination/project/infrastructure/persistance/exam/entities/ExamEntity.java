@@ -1,9 +1,9 @@
 package com.examination.project.infrastructure.persistance.exam.entities;
 
 import com.examination.project.infrastructure.persistance.invigilator.entities.InvigilatorEntity;
+import com.examination.project.infrastructure.persistance.room.entities.RoomEntity;
 import com.examination.project.infrastructure.persistance.student.entities.StudentEntity;
 import com.examination.project.infrastructure.persistance.subject.entities.SubjectEntity;
-import com.examination.project.infrastructure.persistance.room.entities.RoomEntity;
 import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -13,7 +13,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -41,11 +41,11 @@ public class ExamEntity implements Serializable {
 
     @Column
     @NonNull
-    private LocalDateTime examDate;
+    private Instant examDate;
 
     @Column
     @CreatedDate
-    private LocalDateTime createDate;
+    private Instant createDate;
 
     @Column
     @CreatedBy
@@ -53,7 +53,7 @@ public class ExamEntity implements Serializable {
 
     @Column
     @LastModifiedDate
-    private LocalDateTime modifiedDate;
+    private Instant modifiedDate;
 
     @Column
     @LastModifiedBy

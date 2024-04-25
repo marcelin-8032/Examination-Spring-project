@@ -1,22 +1,19 @@
 package com.examination.project.infrastructure.persistance.subject.entities;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.HashSet;
-
-import javax.persistence.*;
-
 import com.examination.project.domain.entities.SubjectModule;
-
 import com.examination.project.infrastructure.persistance.exam.entities.ExamEntity;
-
 import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+
+import javax.persistence.*;
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.Instant;
+import java.util.Collection;
+import java.util.HashSet;
 
 
 @Data
@@ -46,7 +43,7 @@ public class SubjectEntity implements Serializable {
 
     @Column
     @CreatedDate
-    private LocalDateTime createDate;
+    private Instant createDate;
 
     @Column
     @CreatedBy
@@ -54,7 +51,7 @@ public class SubjectEntity implements Serializable {
 
     @Column
     @LastModifiedDate
-    private LocalDateTime modifiedDate;
+    private Instant modifiedDate;
 
     @Column
     @LastModifiedBy
