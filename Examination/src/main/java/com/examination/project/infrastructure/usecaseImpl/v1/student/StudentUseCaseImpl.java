@@ -30,7 +30,6 @@ public class StudentUseCaseImpl implements StudentUseCase {
 
     private final StudentMapper studentMapper;
 
-
     private final ExamMapper examMapper;
 
     @Override

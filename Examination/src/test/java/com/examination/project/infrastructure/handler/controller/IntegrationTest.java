@@ -23,6 +23,7 @@ public abstract class IntegrationTest {
     protected ObjectMapper objectMapper;
 
     protected SubjectRestHandlerFixture subjectRestHandlerFixture;
+
     protected ExamRestHandlerFixture examRestHandlerFixture;
 
     @Mock

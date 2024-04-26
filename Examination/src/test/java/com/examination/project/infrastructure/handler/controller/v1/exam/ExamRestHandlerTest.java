@@ -12,7 +12,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.ArgumentMatchers.isNotNull;
 import static org.mockito.Mockito.when;
 
-public class ExamRestHandlerTest extends IntegrationTest {
+class ExamRestHandlerTest extends IntegrationTest {
 
     @Test
     void should_return_all_exams() {
