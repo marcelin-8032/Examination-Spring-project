@@ -1,6 +1,6 @@
-package com.examination.project.domain.usecase.room;
+package com.examination.project.domain.usecases.room;
 
-import com.examination.project.domain.usecase.UseCaseIntegrationTest;
+import com.examination.project.domain.usecases.UseCaseIntegrationTest;
 import org.junit.jupiter.api.Test;
 
 class RoomUseCaseTest extends UseCaseIntegrationTest {

@@ -1,6 +1,6 @@
-package com.examination.project.domain.usecase.invigilator;
+package com.examination.project.domain.usecases.invigilator;
 
-import com.examination.project.domain.usecase.UseCaseIntegrationTest;
+import com.examination.project.domain.usecases.UseCaseIntegrationTest;
 import org.junit.jupiter.api.Test;
 
 class InvigilatorUseCaseTest extends UseCaseIntegrationTest {

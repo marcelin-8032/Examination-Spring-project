@@ -1,8 +1,8 @@
-package com.examination.project.domain.usecase.exam;
+package com.examination.project.domain.usecases.exam;
 
 import com.examination.project.domain.entities.Exam;
 import com.examination.project.domain.fixture.ExamFixture;
-import com.examination.project.domain.usecase.UseCaseIntegrationTest;
+import com.examination.project.domain.usecases.UseCaseIntegrationTest;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

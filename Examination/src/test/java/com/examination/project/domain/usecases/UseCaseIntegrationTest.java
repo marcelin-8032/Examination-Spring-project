@@ -1,4 +1,4 @@
-package com.examination.project.domain.usecase;
+package com.examination.project.domain.usecases;
 
 import com.examination.project.domain.entities.Exam;
 import com.examination.project.domain.usecases.v1.exam.ExamUseCase;
@@ -13,14 +13,11 @@ import com.examination.project.infrastructure.persistance.invigilator.repository
 import com.examination.project.infrastructure.persistance.room.repository.RoomRepository;
 import com.examination.project.infrastructure.persistance.student.repository.StudentRepository;
 import com.examination.project.infrastructure.persistance.subject.repository.SubjectRepository;
-import com.examination.project.infrastructure.usecaseImpl.v1.exam.ExamUseCaseImpl;
-import com.examination.project.infrastructure.usecaseImpl.v1.invigilator.InvigilatorUseCaseImpl;
-import com.examination.project.infrastructure.usecaseImpl.v1.room.RoomUseCaseImpl;
-import com.examination.project.infrastructure.usecaseImpl.v1.student.StudentUseCaseImpl;
-import com.examination.project.infrastructure.usecaseImpl.v1.subject.SubjectUseCaseImpl;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.InjectMocks;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
@@ -28,6 +25,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@SpringBootTest
 public abstract class UseCaseIntegrationTest {
 
     protected ExamRepository examRepositoryMocked = mock(ExamRepository.class);
@@ -104,4 +102,17 @@ public abstract class UseCaseIntegrationTest {
         when(this.examRepositoryMocked.save(any())).thenReturn(List.of(ExamEntity.builder().build()));
         when(this.examMapperMocked.toExams(any())).thenReturn(List.of(Exam.builder().build()));
     }
+
+
+    @AfterEach
+    void tearDownEach() {
+
+    }
+
+    @AfterAll
+    void tearDownAll() {
+
+    }
+
+
 }

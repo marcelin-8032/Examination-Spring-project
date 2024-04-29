@@ -1,6 +1,6 @@
-package com.examination.project.domain.usecase.subject;
+package com.examination.project.domain.usecases.subject;
 
-import com.examination.project.domain.usecase.UseCaseIntegrationTest;
+import com.examination.project.domain.usecases.UseCaseIntegrationTest;
 import org.junit.jupiter.api.Test;
 
 class SubjectUseCaseTest extends UseCaseIntegrationTest {
