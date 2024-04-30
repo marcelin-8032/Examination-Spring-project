@@ -34,7 +34,7 @@ public class InvigilatorRestHandler implements InvigilatorHandler {
 
     @Override
     @GetMapping
-    public ResponseEntity<Collection<Invigilator>> getAllInvigilator() {
+    public ResponseEntity<Collection<Invigilator>> getAllInvigilators() {
         return invigilatorUseCase.findAllInvigilator().fold(
                 a->ResponseEntity.badRequest().build(),
                 ResponseEntity::ok

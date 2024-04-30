@@ -37,5 +37,5 @@ public interface InvigilatorHandler {
             }),
             @ApiResponse(responseCode = "404", description = "Not Found Invigilator")
     })
-    ResponseEntity<Collection<Invigilator>> getAllInvigilator();
+    ResponseEntity<Collection<Invigilator>> getAllInvigilators();
 }
