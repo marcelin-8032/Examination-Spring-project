@@ -1,8 +1,6 @@
 package com.examination.project.v1;
 
 
-import com.examination.project.domain.entities.Classe;
-import com.examination.project.domain.entities.SubjectModule;
 import com.examination.project.infrastructure.persistance.exam.entities.ExamEntity;
 import com.examination.project.infrastructure.persistance.exam.repository.ExamRepository;
 import com.examination.project.infrastructure.persistance.invigilator.entities.InvigilatorEntity;
