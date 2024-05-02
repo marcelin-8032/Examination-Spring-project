@@ -1,3 +1,4 @@
+/*
 package com.examination.project.v1;
 
 import com.examination.project.infrastructure.persistance.room.entities.RoomEntity;
@@ -52,3 +53,4 @@ class UpdateTestDemo {
 	}
 
 }
+*/

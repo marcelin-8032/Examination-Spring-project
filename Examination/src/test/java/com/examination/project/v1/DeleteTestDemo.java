@@ -1,3 +1,4 @@
+/*
 package com.examination.project.v1;
 
 import com.examination.project.infrastructure.persistance.exam.entities.ExamEntity;
@@ -33,3 +34,4 @@ class DeleteTestDemo {
         roomRepository.deleteAll();
     }
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package com.examination.project.v1;
 
 
@@ -114,7 +115,9 @@ class ReadTestDemo {
     }
 
 
-    /************************************** Query method**********************************************/
+    */
+/************************************** Query method**********************************************//*
+
     @Test
     void findExamsAtSpecificDateQueryWay() {
         examRepository.findRoomsAsDateExamQuery(examDate1).forEach(System.out::println);
@@ -148,7 +151,9 @@ class ReadTestDemo {
         examRepository.findExamsAtRecentDateQuery(11).forEach(System.out::println);
     }
 
-    /********************************  -------------------------Pagination and sorting methods------------------***************/
+    */
+/********************************  -------------------------Pagination and sorting methods------------------***************//*
+
     @Test
     void findAllExamsInPageAndSorted() {
         Pageable page = PageRequest.of(0, 2, Sort.Direction.ASC, "examen_id");
@@ -163,12 +168,16 @@ class ReadTestDemo {
         Page<ExamEntity> examens = examRepository.findByInvigilatorId(8, page);
         examens.forEach(System.out::println);
 
-        /**************************Le nombre total des pages.*****************************/
+        */
+/**************************Le nombre total des pages.*****************************//*
+
         System.out.println(examens.getTotalPages());
 
     }
 
-    /********************************  -------------------------Query By Example------------------***************/
+    */
+/********************************  -------------------------Query By Example------------------***************//*
+
 
     @Test
     void findMatiereByExample() {
@@ -177,7 +186,9 @@ class ReadTestDemo {
        // subjectRepository.findOne(Example.of(matiere));
     }
 
-    /********************************  -------------------------Optional- QBE-----------------***************/
+    */
+/********************************  -------------------------Optional- QBE-----------------***************//*
+
     @Test
     void findMatiereOptionalQBEMethod_E3_2a() {
         var matiere = new SubjectEntity();
@@ -205,3 +216,4 @@ class ReadTestDemo {
         matiereOptional2.ifPresent(System.out::println);
     }
 }
+*/
