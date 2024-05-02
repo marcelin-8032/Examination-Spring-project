@@ -1,13 +1,13 @@
 package com.examination.project.utils;
 
 import com.examination.project.domain.entities.*;
-import com.examination.project.domain.entities.SubjectModule;
+import com.examination.project.infrastructure.persistance.invigilator.entities.InvigilatorEntity;
 import io.vavr.collection.List;
 import io.vavr.collection.Set;
 import lombok.NoArgsConstructor;
 
-
 import java.time.LocalDateTime;
+import java.util.Collections;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -52,13 +52,6 @@ public class ModelFactory {
                 .build();
     }
 
-    public static Invigilator defaultInvigilator() {
-        return Invigilator.builder()
-                .firstName("Alex")
-                .invigilatorId(1)
-                .build();
-    }
-
     public static Exam defaultExam() {
         return Exam
                 .builder()
@@ -79,4 +72,29 @@ public class ModelFactory {
                 defaultExam().withExamDate(LocalDateTime.now().plusDays(7))).toLinkedSet();
     }
 
+    public static Invigilator defaultInvigilator() {
+        return Invigilator.builder()
+                .invigilatorId(1)
+                .firstName("Mohsen")
+                .lastName("David")
+                .identificationNumber(123454)
+                .build();
+    }
+
+    public static InvigilatorEntity defaultInvigilatorEntity() {
+        return InvigilatorEntity.builder()
+                .invigilatorId(1)
+                .firstName("Mohsen")
+                .lastName("David")
+                .identificationNumber(123454)
+                .build();
+    }
+
+    public static java.util.List defaultInvigilatorEntityList() {
+        return Collections.singletonList(defaultInvigilatorEntity());
+    }
+
+    public static java.util.List defaultInvigilatorList() {
+        return Collections.singletonList(defaultInvigilator());
+    }
 }

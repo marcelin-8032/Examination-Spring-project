@@ -1,33 +1,18 @@
 package com.examination.project.domain.usecases;
 
-import com.examination.project.domain.entities.Exam;
-import com.examination.project.domain.usecases.v1.exam.ExamUseCase;
-import com.examination.project.domain.usecases.v1.invigilator.InvigilatorUseCase;
-import com.examination.project.domain.usecases.v1.room.RoomUseCase;
-import com.examination.project.domain.usecases.v1.student.StudentUseCase;
-import com.examination.project.domain.usecases.v1.subject.SubjectUseCase;
-import com.examination.project.infrastructure.mapper.struct.*;
-import com.examination.project.infrastructure.persistance.exam.entities.ExamEntity;
-import com.examination.project.infrastructure.persistance.exam.repository.ExamRepository;
+import com.examination.project.infrastructure.mapper.struct.InvigilatorMapper;
 import com.examination.project.infrastructure.persistance.invigilator.repository.InvigilatorRepository;
-import com.examination.project.infrastructure.persistance.room.repository.RoomRepository;
-import com.examination.project.infrastructure.persistance.student.repository.StudentRepository;
-import com.examination.project.infrastructure.persistance.subject.repository.SubjectRepository;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
+import com.examination.project.infrastructure.usecaseImpl.v1.invigilator.InvigilatorUseCaseImpl;
 import org.junit.jupiter.api.BeforeEach;
-import org.mockito.InjectMocks;
-import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
-
+import static com.examination.project.utils.ModelFactory.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
 public abstract class UseCaseIntegrationTest {
 
+/*
     protected ExamRepository examRepositoryMocked = mock(ExamRepository.class);
 
     protected RoomRepository roomRepositoryMocked = mock(RoomRepository.class);
@@ -40,19 +25,12 @@ public abstract class UseCaseIntegrationTest {
 
     protected RoomMapper roomMapperMocked = mock(RoomMapper.class);
 
-    protected InvigilatorRepository invigilatorRepositoryMocked = mock(InvigilatorRepository.class);
-
-    protected InvigilatorMapper invigilatorMapperMocked = mock(InvigilatorMapper.class);
-
     protected SubjectRepository subjectRepositoryMocked = mock(SubjectRepository.class);
 
     protected SubjectMapper subjectMapperMocked = mock(SubjectMapper.class);
 
     @InjectMocks
     protected ExamUseCase examUseCase;
-
-    @InjectMocks
-    protected InvigilatorUseCase invigilatorUseCase;
 
     @InjectMocks
     protected RoomUseCase roomUseCase;
@@ -62,6 +40,7 @@ public abstract class UseCaseIntegrationTest {
 
     @InjectMocks
     protected SubjectUseCase subjectUseCase;
+*/
 
   /*  protected ExamUseCaseImpl examUseCase = new ExamUseCaseImpl(
             examRepositoryMocked,
@@ -72,9 +51,6 @@ public abstract class UseCaseIntegrationTest {
             roomMapperMocked
     );
 
-    protected InvigilatorUseCaseImpl invigilatorUseCase = new InvigilatorUseCaseImpl(
-            invigilatorRepositoryMocked,
-            invigilatorMapperMocked);
 
     protected RoomUseCaseImpl roomUseCase = new RoomUseCaseImpl(
             roomRepositoryMocked,
@@ -95,24 +71,28 @@ public abstract class UseCaseIntegrationTest {
             subjectMapperMocked
     );*/
 
+    protected InvigilatorRepository invigilatorRepositoryMocked = mock(InvigilatorRepository.class);
+
+    protected InvigilatorMapper invigilatorMapperMocked = mock(InvigilatorMapper.class);
+
+    protected InvigilatorUseCaseImpl invigilatorUseCase = new InvigilatorUseCaseImpl(
+            invigilatorRepositoryMocked,
+            invigilatorMapperMocked);
 
     @BeforeEach
     void setUp() {
-        when(this.examMapperMocked.toExamEntities(any())).thenReturn(List.of(ExamEntity.builder().build()));
+    /*    when(this.examMapperMocked.toExamEntities(any())).thenReturn(List.of(ExamEntity.builder().build()));
         when(this.examRepositoryMocked.save(any())).thenReturn(List.of(ExamEntity.builder().build()));
         when(this.examMapperMocked.toExams(any())).thenReturn(List.of(Exam.builder().build()));
+*/
+        when(this.invigilatorRepositoryMocked.save(any()))
+                .thenReturn(defaultInvigilatorEntity());
+        when(this.invigilatorMapperMocked.toInvigilator(defaultInvigilatorEntity()))
+                .thenReturn(defaultInvigilator());
+
+        when(this.invigilatorRepositoryMocked.findAll())
+                .thenReturn(defaultInvigilatorEntityList());
+        when(this.invigilatorMapperMocked.toInvigilators(defaultInvigilatorEntityList()))
+                .thenReturn(defaultInvigilatorList());
     }
-
-
-    @AfterEach
-    void tearDownEach() {
-
-    }
-
-    @AfterAll
-    void tearDownAll() {
-
-    }
-
-
 }
