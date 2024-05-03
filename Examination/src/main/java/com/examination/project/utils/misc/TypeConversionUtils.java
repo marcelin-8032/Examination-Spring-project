@@ -3,7 +3,6 @@ package com.examination.project.utils.misc;
 
 import lombok.NoArgsConstructor;
 
-import javax.print.attribute.standard.MediaSize;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
