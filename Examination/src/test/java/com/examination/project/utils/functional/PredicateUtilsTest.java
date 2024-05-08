@@ -11,15 +11,20 @@ import static org.junit.jupiter.api.Assertions.*;
 class PredicateUtilsTest {
 
     @Test
-    void fold() {
+    void should_fold() {
 
-        Function<Boolean, String> function = aBoolean -> "true";
+         //given
+        Function<Boolean, String> expected1 = aBoolean -> Boolean.toString(true);
+        Function<Boolean, String> expected2 = aBoolean -> Boolean.toString(false);
 
-        Supplier<String> supplier1 = () -> "true";
-        Supplier<String> supplier2 = () -> "false";
+        Supplier<String> supplier1 = () -> "false";
+        Supplier<String> supplier2 = () -> "true";
 
+        //when
         val result = PredicateUtils.fold(supplier1, supplier2);
-        assertEquals(function.toString(), result.toString());
 
+        //then
+        assertEquals(expected1.apply(true), result.apply(true));
+        assertEquals(expected2.apply(false), result.apply(false));
     }
 }
