@@ -1,17 +1,19 @@
 package com.examination.project.utils.functional;
 
 import lombok.val;
+import net.minidev.json.JSONUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toSet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 class ConditionalMapperTest {
 
@@ -62,32 +64,28 @@ class ConditionalMapperTest {
     @Test
     void notNullOrEmptyWithFunctionIterate() {
 
-        Set<String> stringSet1 = new HashSet<>();
-        stringSet1.add("A");
-        stringSet1.add("B");
+        Set<String> s = new HashSet<>();
+        s.add("A");
+        s.add("B");
 
         Function<String, String> convert = String::toLowerCase;
 
-        Function<Set<String>, Set<String>> iterate = ts -> ts.stream().map(convert).collect(toSet());
-
-        Consumer<Set<String>> bindTo = integers -> {
-            integers.add("a");
-            integers.add("b");
+        Consumer<Set<String>> bindTo = strings -> {
+            strings.add("Ab");
+            strings.add("Bb");
+            System.out.println(strings);
         };
 
-         Optional.ofNullable(stringSet1)
-                        .map(iterate).ifPresent(bindTo);
-        System.out.println(stringSet1);
-
-      //  ConditionalMapper.notNullOrEmpty(stringSet1, bindTo,convert);
-
-      //  assertEquals("", stringSet1);
+        ConditionalMapper.notNullOrEmpty(s, bindTo, convert);
+        System.out.println(s);
+        System.out.println(bindTo.andThen(a -> a
+                .forEach(System.out::println)));
+        //  assertEquals("", stringSet1);
 
     }
 
     @Test
     void notNullOrEmptyWithDefault() {
-
 
     }
 

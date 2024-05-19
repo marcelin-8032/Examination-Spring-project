@@ -11,13 +11,15 @@ import java.util.Collection;
 
 public interface StudentUseCase {
 
-	Either<ExaminationException, Student> createStudent(Student student);
+    Either<ExaminationException, Student> createStudent(Student student);
 
-	Either<ExaminationException, Collection<Student>> findStudents();
+    Either<ExaminationException, Collection<Student>> findStudents();
 
-	Either<ExaminationException, Collection<Student>> findStudentByClasse(Classe classe);
+    Either<ExaminationException, Collection<Student>> findStudentByClasse(Classe classe);
 
-	Either<ExaminationException, Void> addOrUpdateStudentToExam(int examId, Student student);
+    Either<ExaminationException, Void> addOrUpdateStudentToExam(Integer examId, Integer studentId);
 
-    Either<ExaminationException,  Collection<Exam>> fetchExamsAssignedToSpecificStudent(Integer studentId);
+    Either<ExaminationException, Collection<Exam>> fetchExamsAssignedToSpecificStudent(Integer studentId);
+
+    Either<ExaminationException, Void> deleteStudent(Integer examId, Integer studentId);
 }

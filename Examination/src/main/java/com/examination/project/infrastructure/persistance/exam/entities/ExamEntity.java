@@ -67,7 +67,6 @@ public class ExamEntity implements Serializable {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "room_id", nullable = false)
-    @NonNull
     @ToString.Exclude
     private RoomEntity room;
 

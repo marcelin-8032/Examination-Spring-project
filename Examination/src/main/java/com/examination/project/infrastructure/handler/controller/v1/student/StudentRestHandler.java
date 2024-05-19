@@ -46,15 +46,14 @@ public class StudentRestHandler implements StudentHandler {
     }
 
     @Override
-    @PutMapping(value = "{studentI}/exams/{examId}")
+    @PutMapping(value = "{studentId}/exams/{examId}")
     public ResponseEntity<Void> addOrUpdateStudentToExam(@PathVariable("studentId") Integer studentId,
                                                          @PathVariable("examId") Integer examId) {
 
-//        return  studentUseCase.addOrUpdateStudentToExam(examId, student).fold(
-//                a -> ResponseEntity.notFound().build(),
-//                ResponseEntity::ok
-//        );
-        return null;
+        return studentUseCase.addOrUpdateStudentToExam(examId, studentId)
+                .fold(a -> ResponseEntity.badRequest().build(),
+                        ResponseEntity::ok
+                );
     }
 
     @Override
@@ -68,14 +67,13 @@ public class StudentRestHandler implements StudentHandler {
     }
 
     @Override
-    @DeleteMapping(value = "{studentI}/exams/{examId}")
+    @DeleteMapping(value = "{studentId}/exams/{examId}")
     public ResponseEntity<Void> deleteStudentAssignedToExam(@PathVariable("studentId") Integer studentId,
-                                                         @PathVariable("examId") Integer examId) {
+                                                            @PathVariable("examId") Integer examId) {
 
-//        return  studentUseCase.addOrUpdateStudentToExam(examId, student).fold(
-//                a -> ResponseEntity.notFound().build(),
-//                ResponseEntity::ok
-//        );
-        return null;
+        return  studentUseCase.deleteStudent(examId, studentId).fold(
+                a -> ResponseEntity.notFound().build(),
+                ResponseEntity::ok
+        );
     }
 }

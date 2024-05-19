@@ -70,12 +70,11 @@ public class RoomUseCaseImpl implements RoomUseCase {
 
     @Override
     public Either<ExaminationException, Void> deleteAllRooms() {
-       //TODO
 
         return Try.run(() -> this.examRepository.findAll()
                         .forEach(examEntity -> {
                             examEntity.setRoom(null);
-                            this.examRepository.save(examEntity);
+                          //  this.examRepository.save(examEntity);
                         })).andThen(() -> this.roomRepository.deleteAll())
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);

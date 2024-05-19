@@ -57,7 +57,6 @@ public class StudentEntity implements Serializable {
     @ToString.Exclude
     private Collection<ExamEntity> examEntities = new HashSet<>();
 
-
 //    public void setExamEntities(Collection<ExamEntity> examEntities) {
 //        this.examEntities = examEntities;
 //    }
