@@ -12,7 +12,9 @@ import io.vavr.control.Either;
 import io.vavr.control.Try;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 
@@ -28,6 +30,8 @@ public class RoomUseCaseImpl implements RoomUseCase {
     private final RoomMapper roomMapper;
 
     private final ExamMapper examMapper;
+
+    private final JdbcTemplate jdbcTemplate;
 
     @Override
     public Either<ExaminationException, Room> createRoom(Room room) {
@@ -69,14 +73,13 @@ public class RoomUseCaseImpl implements RoomUseCase {
 
 
     @Override
+    @Transactional
     public Either<ExaminationException, Void> deleteAllRooms() {
 
-        return Try.run(() -> this.examRepository.findAll()
-                        .forEach(examEntity -> {
-                            examEntity.setRoom(null);
-                          //  this.examRepository.save(examEntity);
-                        })).andThen(() -> this.roomRepository.deleteAll())
+        return Try.run(() -> this.jdbcTemplate.execute("delete from rooms"))
+                .onFailure(cause -> log.error("The exams should be deleted first!"))
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
+
     }
 }

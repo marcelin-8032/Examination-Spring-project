@@ -49,17 +49,17 @@ public class RoomRestHandler implements RoomHandler {
     @GetMapping
     public ResponseEntity<Collection<Room>> fetchAllRooms() {
         return roomUseCase.getAllRooms().fold(
-                a->ResponseEntity.notFound().build(),
+                a -> ResponseEntity.notFound().build(),
                 ResponseEntity::ok
         );
     }
 
     @Override
-    @DeleteMapping(value = "/deleteAll")
+    @DeleteMapping(value = "/delete-all")
     public ResponseEntity<Void> deleteAllRooms() {
         return roomUseCase.deleteAllRooms().fold(
-                e -> ResponseEntity.notFound().build(),
-                room2 -> ResponseEntity.status(HttpStatus.OK).build()
+                e -> ResponseEntity.status(HttpStatus.CONFLICT).build(),
+                a -> ResponseEntity.status(HttpStatus.OK).build()
         );
     }
 }

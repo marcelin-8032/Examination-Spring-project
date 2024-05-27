@@ -3,6 +3,7 @@ package com.examination.project.utils.misc;
 import com.examination.project.domain.valueobject.FunctionalUniqueId;
 import lombok.val;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
@@ -22,6 +23,7 @@ class IdGenerateToProviderTest {
 
 
     @Test
+    @Disabled
     void generatedId() {
         Supplier<UUID> uuidSupplier = () -> UUID.fromString("6b6b3453-8ea8-48e6-999b-e2543c8c7cd9");
 

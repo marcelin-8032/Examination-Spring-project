@@ -33,7 +33,7 @@ public class ExamEntity implements Serializable {
     @Id
     @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int examId;
+    private Integer examId;
 
     @Column()
     @NonNull
@@ -66,7 +66,7 @@ public class ExamEntity implements Serializable {
     private SubjectEntity subject;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "room_id", nullable = false)
+    @JoinColumn(name = "room_id", foreignKey = @ForeignKey(name = "fk_room_id"))
     @ToString.Exclude
     private RoomEntity room;
 
@@ -81,24 +81,13 @@ public class ExamEntity implements Serializable {
     @ToString.Exclude
     private Collection<StudentEntity> students = new HashSet<>();
 
-//    public void setStudents(Collection<StudentEntity> students) {
-//        this.students = students;
-//    }
-//
-//    public void addStudent(StudentEntity studentEntity) {
-//        this.students.add(studentEntity);
-//        studentEntity.getExamEntities().add(this);
-//    }
+    public void setStudents(Collection<StudentEntity> students) {
+        this.students = students;
+    }
 
-//    @Override
-//    public String toString() {
-//        return "ExamEntity{" +
-//                "examId=" + examId +
-//                ", examName='" + examName + '\'' +
-//                ", examDate=" + examDate +
-//                ", subject=" + subject +
-//                ", room=" + room +
-//                ", invigilator=" + invigilator +
-//                '}';
-//    }
+    public void addStudent(StudentEntity studentEntity) {
+        this.students.add(studentEntity);
+        studentEntity.getExamEntities().add(this);
+    }
+
 }

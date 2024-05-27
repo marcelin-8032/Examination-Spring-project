@@ -4,9 +4,9 @@ import com.examination.project.domain.entities.Exam;
 import com.examination.project.domain.entities.Room;
 import com.examination.project.domain.exception.ExaminationException;
 import com.examination.project.domain.exception.ExaminationExceptionSanitize;
+import com.examination.project.domain.usecases.v1.exam.ExamUseCase;
 import com.examination.project.infrastructure.mapper.struct.ExamMapper;
 import com.examination.project.infrastructure.mapper.struct.RoomMapper;
-import com.examination.project.domain.usecases.v1.exam.ExamUseCase;
 import com.examination.project.infrastructure.mapper.struct.StudentMapper;
 import com.examination.project.infrastructure.persistance.exam.repository.ExamRepository;
 import com.examination.project.infrastructure.persistance.room.repository.RoomRepository;
@@ -21,10 +21,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
 
 import static org.springframework.data.domain.PageRequest.of;
 
@@ -44,6 +47,8 @@ public class ExamUseCaseImpl implements ExamUseCase {
     private final StudentMapper studentMapper;
 
     private final RoomMapper roomMapper;
+
+    private final JdbcTemplate jdbcTemplate;
 
     @Override
     public Either<ExaminationException, Collection<Exam>> createExams(List<Exam> exams) {
@@ -134,6 +139,15 @@ public class ExamUseCaseImpl implements ExamUseCase {
         return Try.of(() -> PageRequest.of(0, 3, Sort.Direction.DESC, "room_id"))
                 .map(pageable2 -> this.examRepository.findByRoom(roomId, pageable2))
                 .map(this.examMapper::pageExamEntityToPageExamDto)
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
+    }
+
+    @Override
+    @Transactional
+    public Either<ExaminationException, Void> deleteAllExams() {
+        return Try.run(()-> this.jdbcTemplate.execute("delete from students_exams"))
+                .andThen(()->this.jdbcTemplate.execute("delete from exams"))
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }

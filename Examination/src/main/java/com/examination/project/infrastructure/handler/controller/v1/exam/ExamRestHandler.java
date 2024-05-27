@@ -34,6 +34,7 @@ public class ExamRestHandler implements ExamHandler {
         );
     }
 
+
     @Override
     @PostMapping(value = "/create")
     public ResponseEntity<Void> createExams(@RequestBody List<Exam> exams) {
@@ -98,6 +99,12 @@ public class ExamRestHandler implements ExamHandler {
         );
     }
 
-
-
+    @Override
+    @DeleteMapping("/delete-all")
+    public ResponseEntity<Void> deleteAllExams() {
+        return examUseCase.deleteAllExams().fold(
+                a -> ResponseEntity.notFound().build(),
+                a->ResponseEntity.status(HttpStatus.OK).build()
+        );
+    }
 }
