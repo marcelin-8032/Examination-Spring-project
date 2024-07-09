@@ -1,0 +1,667 @@
+{
+	"info": {
+		"_postman_id": "0f6b11a5-520e-485f-9447-b8268172cb01",
+		"name": "examination",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11336977",
+		"_collection_link": "https://cloudy-space-522254.postman.co/workspace/My-Workspace~2fbcdfe7-3d65-40dc-8b9e-a3b829b25ac2/collection/11336977-0f6b11a5-520e-485f-9447-b8268172cb01?action=share&source=collection_link&creator=11336977"
+	},
+	"item": [
+		{
+			"name": "student",
+			"item": [
+				{
+					"name": "getAllStudents",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/student/students",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"student",
+								"students"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getStudentByClass",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:8090/student/classe/classeA",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"student",
+								"classe",
+								"classeA"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addStudent",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Ferdinand\",\r\n    \"lastName\": \"Porche\",\r\n    \"identificationId\": 456544589,\r\n    \"studyYear\": 3,\r\n    \"birthDay\": \"2002-04-25T11:22:09.389366Z\",\r\n    \"classe\": \"classeA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/v1/students/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"v1",
+								"students",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addOrUpdateStudentToExam",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n        \"studentId\": 18,\r\n        \"firstName\": \"Benjamin\",\r\n        \"lastName\": \"Porche\",\r\n        \"identificationId\": 456544589,\r\n        \"studyYear\": 3,\r\n        \"birthDay\": \"2002-04-25T11:22:09.389366Z\",\r\n        \"classe\": \"classeA\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/v1/students/18/exams/300",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"v1",
+								"students",
+								"18",
+								"exams",
+								"300"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getExamsSpecificStudent",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/v1/students/18/exams",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"v1",
+								"students",
+								"18",
+								"exams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteStudentAssignedToExams",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/v1/students/18/exams/300",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"v1",
+								"students",
+								"18",
+								"exams",
+								"300"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "invigilator",
+			"item": [
+				{
+					"name": "addInvigilator",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Arnold\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/v1/invigilators/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"v1",
+								"invigilators",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "fetchAllInvigilator",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/v1/invigilators",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"v1",
+								"invigilators"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/v1/invigilators/1000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"v1",
+								"invigilators",
+								"1000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteAllInvigilators",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/v1/invigilators/deleteAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"v1",
+								"invigilators",
+								"deleteAll"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "room",
+			"item": [
+				{
+					"name": "createRoom",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"number\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/v1/rooms/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"v1",
+								"rooms",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createSeveralRooms",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"number\": 1200\r\n    },\r\n    {\r\n        \"number\": 12012\r\n    },\r\n     {\r\n        \"number\": 12013\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/v1/rooms/createSeveralRooms",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"v1",
+								"rooms",
+								"createSeveralRooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateRoomNumberById",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "",
+								"value": "1180",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "number",
+									"value": "126054",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8090/v1/rooms/update/1180?roomId=1180",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"v1",
+								"rooms",
+								"update",
+								"1180"
+							],
+							"query": [
+								{
+									"key": "roomId",
+									"value": "1180"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "fetchAllRooms",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/v1/rooms",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"v1",
+								"rooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteAllRooms",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/v1/rooms/deleteAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"v1",
+								"rooms",
+								"deleteAll"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "exams",
+			"item": [
+				{
+					"name": "addExam",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"examName\": \"Art\",\r\n    \"examDate\": \"2023-02-31T09:00:00\",\r\n    \"subject\": {\r\n        \"subjectId\": 2200,\r\n        \"title\": \"Art Plastic\",\r\n        \"coefficient\": 164,\r\n        \"subjectModule\": \"MODULE_2\"\r\n    },\r\n    \"room\": {\r\n        \"roomId\": 1180,\r\n        \"number\": 1254\r\n    },\r\n    \"invigilator\": {\r\n        \"invigilatorId\": 1000,\r\n        \"name\": \"Adrian\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/v1/exams/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"v1",
+								"exams",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getExamPages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/v1/exam/examPages",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"v1",
+								"exam",
+								"examPages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getExamsByRoomId",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "getAllExams",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/v1/exams/exam",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"v1",
+								"exams",
+								"exam"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteAllExams",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/v1/exams/delete-all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"v1",
+								"exams",
+								"delete-all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getExamsByDate",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "subject",
+			"item": [
+				{
+					"name": "addSubject",
+					"request": {
+						"method": "POST",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "updateSubjectCoefficient",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "coefficient",
+									"value": "10000",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8090/v1/subjects/update/2200?subjectId=2200",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"v1",
+								"subjects",
+								"update",
+								"2200"
+							],
+							"query": [
+								{
+									"key": "subjectId",
+									"value": "2200"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllSubject",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/v1/subject",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"v1",
+								"subject"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSubjectByCoeffBiggerThan",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/v1/subjects/subjectByCoeff?coeff=165",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"v1",
+								"subjects",
+								"subjectByCoeff"
+							],
+							"query": [
+								{
+									"key": "coeff",
+									"value": "165"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSubjectByCoeffBiggerThanAndTitleEqualDataAndModule",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/v1/subjects/coeff/166/subjectModule/MODULE_2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"v1",
+								"subjects",
+								"coeff",
+								"166",
+								"subjectModule",
+								"MODULE_2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
