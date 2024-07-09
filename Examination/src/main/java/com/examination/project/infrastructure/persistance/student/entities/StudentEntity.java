@@ -47,8 +47,6 @@ public class StudentEntity implements Serializable {
     @Builder.Default
     private Classe classe = Classe.classeA;
 
-    //  @ManyToMany(fetch = FetchType.LAZY,
-    //       targetEntity = ExamEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "students_exams",
             joinColumns = {@JoinColumn(name = "student_entity_student_id")},
@@ -57,22 +55,13 @@ public class StudentEntity implements Serializable {
     @ToString.Exclude
     private Collection<ExamEntity> examEntities = new HashSet<>();
 
-//    public void setExamEntities(Collection<ExamEntity> examEntities) {
-//        this.examEntities = examEntities;
-//    }
-//
-//    public void addExam(ExamEntity examEntity) {
-//        this.examEntities.add(examEntity);
-//        //examEntity.getStudents().add(this);
-//    }
+    public void setExamEntities(Collection<ExamEntity> examEntities) {
+        this.examEntities = examEntities;
+    }
 
+    public void addExam(ExamEntity examEntity) {
+        this.examEntities.add(examEntity);
+        examEntity.getStudents().add(this);
+    }
 
-//    @Override
-//    public String toString() {
-//        return "StudentEntity{" +
-//                "studentId=" + studentId +
-//                ", examName='" + examName + '\'' +
-//                ", classe=" + classe +
-//                '}';
-//    }
 }

@@ -33,9 +33,32 @@ public interface InvigilatorHandler {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation", content = {
                     @Content(mediaType = "application/json",
-                           array = @ArraySchema(schema=@Schema(implementation = Invigilator.class)))
+                            array = @ArraySchema(schema = @Schema(implementation = Invigilator.class)))
             }),
             @ApiResponse(responseCode = "404", description = "Not Found Invigilator")
     })
     ResponseEntity<Collection<Invigilator>> getAllInvigilators();
+
+    @Tag(name = " Invigilator API", description = "delete Invigilator by Id")
+    @Operation(summary = "delete Invigilator by Id", description = "delete Invigilator by Id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+                    @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Invigilator.class)))
+            }),
+            @ApiResponse(responseCode = "404", description = "Not Found Invigilator")
+    })
+    ResponseEntity<Void> deleteInvigilatorById(Integer integer);
+
+
+    @Tag(name = " Invigilator API", description = "delete Invigilators")
+    @Operation(summary = "delete Invigilators", description = "delete Invigilators")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+                    @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Invigilator.class)))
+            }),
+            @ApiResponse(responseCode = "404", description = "Not Found Invigilator")
+    })
+    ResponseEntity<Void> deleteAllInvigilators();
 }

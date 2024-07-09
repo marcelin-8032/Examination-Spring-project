@@ -7,16 +7,13 @@ import com.examination.project.domain.exception.ExaminationExceptionSanitize;
 import com.examination.project.domain.usecases.v1.exam.ExamUseCase;
 import com.examination.project.infrastructure.mapper.struct.ExamMapper;
 import com.examination.project.infrastructure.mapper.struct.RoomMapper;
-import com.examination.project.infrastructure.mapper.struct.StudentMapper;
 import com.examination.project.infrastructure.persistance.exam.repository.ExamRepository;
 import com.examination.project.infrastructure.persistance.room.repository.RoomRepository;
-import com.examination.project.infrastructure.persistance.student.repository.StudentRepository;
 import io.vavr.control.Either;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -40,11 +37,7 @@ public class ExamUseCaseImpl implements ExamUseCase {
 
     private final RoomRepository roomRepository;
 
-    private final StudentRepository studentRepository;
-
     private final ExamMapper examMapper;
-
-    private final StudentMapper studentMapper;
 
     private final RoomMapper roomMapper;
 
@@ -80,12 +73,10 @@ public class ExamUseCaseImpl implements ExamUseCase {
 
     @Override
     public Either<ExaminationException, Collection<Exam>> getExamsByDate(LocalDateTime localDateTime) {
-        val examEntities = this.examRepository.findByExamDate(localDateTime);
-        this.examMapper.toExams(examEntities);
-        return Try.of(() -> this.examRepository.findByExamDate(localDateTime))
-                .map(this.examMapper::toExams)
-                .toEither()
-                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
+       return Try.of(()->this.examRepository.findByExamDate(localDateTime))
+               .map(this.examMapper::toExams)
+               .toEither()
+               .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
 
     @Override

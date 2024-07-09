@@ -56,7 +56,6 @@ public class ConditionalMapper {
                 .filter(CollectionUtils::isNotEmpty)
                 .map(iterate)
                 .ifPresent(source::addAll);
-
     }
 
     public static <T, R> void notNull(T value, Consumer<R> bindTo, Function<T, R> convert) {

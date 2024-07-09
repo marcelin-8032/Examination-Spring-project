@@ -46,7 +46,7 @@ public class SubjectRestHandler implements SubjectHandler {
 
     @Override
     @GetMapping
-    public ResponseEntity<Collection<Subject>> getSubjects() {
+    public ResponseEntity<Collection<Subject>> getAllSubjects() {
         return subjectUseCase.getAllSubjects().fold(
                 a -> ResponseEntity.notFound().build(),
                 ResponseEntity::ok

@@ -7,6 +7,8 @@ import io.vavr.collection.Stream;
 import lombok.NoArgsConstructor;
 import net.datafaker.Faker;
 
+import java.time.Instant;
+
 import static com.examination.project.utils.EnumTools.randomEnum;
 import static lombok.AccessLevel.PRIVATE;
 
@@ -33,7 +35,11 @@ public class StudentFixture {
 
         return Student.builder()
                 .studentId(random.nextInt())
-                .name(lorem.characters(1, 20))
+                .firstName(lorem.characters(1, 20))
+                .lastName(lorem.characters(1, 20))
+                .birthDay(Instant.now())
+                .identificationId(random.nextInt())
+                .studyYear(random.nextInt())
                 .classe(Classe.valueOf(randomEnum(Classe.class).name()))
                 .build();
     }

@@ -26,10 +26,30 @@ public interface SubjectHandler {
     )
     ResponseEntity<Void> createSubject(Subject subject);
 
+    @Tag(name = " Subject API", description = "update subject")
+    @Operation(
+            summary = "Add subject",
+            description = "add subject",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "successful operation", content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = Subject.class))
+                    }),
+            }
+    )
     ResponseEntity<Void> updateSubjectCoefficient(Integer subjectId, int number) throws Exception;
 
-
+    @Tag(name = " Subject API", description = "get subject by coeff bigger than")
+    @Operation(
+            summary = "get subject bigger than",
+            description = "get subject bigger than",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "successful operation", content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = Subject.class))
+                    }),
+            }
+    )
     ResponseEntity<Collection<Subject>> getSubjectByCoeffBiggerThan(int coeff);
+
 
     ResponseEntity<Subject> getSubjectByExample(Example<?> example);
 
@@ -40,7 +60,7 @@ public interface SubjectHandler {
     ResponseEntity<Subject> getSubjectByTitleWithIgnoreCase(Example<?> example);
 
 
-    ResponseEntity<Collection<Subject>> getSubjects();
+    ResponseEntity<Collection<Subject>> getAllSubjects();
 
 
     ResponseEntity<Collection<Subject>> getSubjectByCoeffBiggerThanAndTitleDataAndModule(
@@ -49,7 +69,6 @@ public interface SubjectHandler {
 
     ResponseEntity<Collection<Subject>> getSubjectByCoeffBiggerThanAndModule( int coeff,
                                                                              SubjectModule subjectModule);
-
 
     ResponseEntity<Collection<Subject>> getSubjectTitleDataAndModuleEq2(SubjectModule subjectModule);
 

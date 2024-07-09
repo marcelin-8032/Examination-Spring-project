@@ -58,7 +58,20 @@ public interface StudentHandler {
     )
     ResponseEntity<Collection<Student>> getStudentByClass(Classe classe);
 
+    @Tag(name = " Students API", description = "add or update a student to an exam")
+    @Operation(
+            summary = "add or update a student to an exam",
+            description = "add or update a student to an exam",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "successful operation", content = {
+                            @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Student.class)))
+                    }),
+                    @ApiResponse(responseCode = "400", description = "Invalid class value")
+            }
+    )
     ResponseEntity<Void> addOrUpdateStudentToExam(Integer studentId, Integer examId);
+
+
 
     ResponseEntity<Collection<Exam>> getExamsAssignedToSpecificStudent(Integer studentId);
 

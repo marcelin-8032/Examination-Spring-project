@@ -55,7 +55,7 @@ public class RoomRestHandler implements RoomHandler {
     }
 
     @Override
-    @DeleteMapping(value = "/delete-all")
+    @DeleteMapping(value = "/deleteAll")
     public ResponseEntity<Void> deleteAllRooms() {
         return roomUseCase.deleteAllRooms().fold(
                 e -> ResponseEntity.status(HttpStatus.CONFLICT).build(),

@@ -1,8 +1,15 @@
 package com.examination.project.infrastructure.handler.controller.v1.exam;
 
 import com.examination.project.domain.entities.Exam;
+import com.examination.project.domain.entities.Invigilator;
 import com.examination.project.domain.entities.Room;
 import com.examination.project.domain.entities.Student;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,12 +18,28 @@ import org.springframework.http.ResponseEntity;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
-
-@Tag(name = " Exams API", description = "Exam management")
 public interface ExamHandler {
 
+    @Tag(name = "Exam API", description = "adding list of exams")
+    @Operation(summary = "add Exams", description = "Return nothing")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+                    @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Exam.class))
+            }),
+    })
     ResponseEntity<Void> createExams(List<Exam> exams);
 
+
+    @Tag(name = "Exam API", description = "find all exams")
+    @Operation(summary = "find all exams", description = "Returns list of exams")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+                    @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema=@Schema(implementation = Exam.class)))
+            }),
+            @ApiResponse(responseCode = "404", description = "Not Found Invigilator")
+    })
     ResponseEntity<Collection<Exam>> getAllExams();
 
     ResponseEntity<Collection<Exam>> getExamsByDate(LocalDateTime date);
@@ -31,5 +54,14 @@ public interface ExamHandler {
 
     ResponseEntity<Void> addExam(Exam exam);
 
+
+    @Tag(name = "Exam API", description = "delete all exams")
+    @Operation(summary = "delete all Exams", description = "Return http code 200")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+                    @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Exam.class))
+            }),
+    })
     ResponseEntity<Void> deleteAllExams();
 }

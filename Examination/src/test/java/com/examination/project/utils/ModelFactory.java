@@ -6,6 +6,7 @@ import io.vavr.collection.List;
 import io.vavr.collection.Set;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Collections;
 
@@ -27,20 +28,24 @@ public class ModelFactory {
         return Student
                 .builder()
                 .studentId(1)
-                .name("Alex")
+                .firstName("Alex")
+                .lastName("Fergosen")
+                .studyYear(2023)
+                .identificationId(15698)
+                .birthDay(Instant.now())
                 .classe(Classe.classeA)
                 .build();
     }
 
     public static Set<Student> defaultStudents() {
         return List.of(defaultStudent(),
-                        defaultStudent().withName("Albert").withClasse(Classe.classeB),
-                        defaultStudent().withName("Robert").withClasse(Classe.classeC),
-                        defaultStudent().withName("Mickael").withClasse(Classe.classeB),
-                        defaultStudent().withName("Albert").withClasse(Classe.classeB),
-                        defaultStudent().withName("Albert").withClasse(Classe.classeB),
-                        defaultStudent().withName("Maria").withClasse(Classe.classeA),
-                        defaultStudent().withName("Natalia").withClasse(Classe.classeC))
+                        defaultStudent().withFirstName("Albert").withClasse(Classe.classeB),
+                        defaultStudent().withFirstName("Robert").withClasse(Classe.classeC),
+                        defaultStudent().withFirstName("Mickael").withClasse(Classe.classeB),
+                        defaultStudent().withFirstName("Albert").withClasse(Classe.classeB),
+                        defaultStudent().withFirstName("Albert").withClasse(Classe.classeB),
+                        defaultStudent().withFirstName("Maria").withClasse(Classe.classeA),
+                        defaultStudent().withFirstName("Natalia").withClasse(Classe.classeC))
                 .toLinkedSet();
 
     }

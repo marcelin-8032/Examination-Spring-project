@@ -4,10 +4,15 @@ package com.examination.project.infrastructure.persistance.room.entities;
 import com.examination.project.infrastructure.persistance.common.audit.AuditableBaseEntity;
 import com.examination.project.infrastructure.persistance.exam.entities.ExamEntity;
 import lombok.*;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -33,16 +38,7 @@ public class RoomEntity extends AuditableBaseEntity implements Serializable {
     @NonNull
     private int number;
 
-    @Column
-    private String building;
-
-    @Column
-    private String department;
-
-    @Column
-    private int floor;
-
-  /*  @Column
+/*    @Column
     @CreatedDate
     private Instant createDate;
 
@@ -58,8 +54,16 @@ public class RoomEntity extends AuditableBaseEntity implements Serializable {
     @LastModifiedBy
     private String modifiedBy;*/
 
+    @Column
+    private String building;
+
+    @Column
+    private String department;
+
+    @Column
+    private int floor;
+
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
-    //@JoinColumn(name = "room_id")
     @Builder.Default
     private Collection<ExamEntity> examEntities = new HashSet<>();
 

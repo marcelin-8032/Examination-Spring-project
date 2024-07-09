@@ -14,6 +14,7 @@ import io.vavr.control.Option;
 import io.vavr.control.Try;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
@@ -71,12 +72,13 @@ public class SubjectUseCaseImpl implements SubjectUseCase {
 
     @Override
     public Either<ExaminationException, Collection<Subject>> getSubjectCoeffBiggerTitleEqDataModuleEq2(int coeff, SubjectModule subjectModule) {
-        var qMatiere = new QSubjectEntity("subject");
-        var filterByCoeff = qMatiere.coefficient.gt(coeff);
-        var filterByIntitule = qMatiere.title.contains("data");
-        var filterByModule = qMatiere.subjectModule.eq(subjectModule);
 
-        return Try.of(() -> this.subjectRepository.findAll(filterByCoeff.and(filterByIntitule).and(filterByModule)))
+        val qSubject = new QSubjectEntity("subject");
+        val filterByCoeff = qSubject.coefficient.gt(coeff);
+        val filterByTitle = qSubject.title.contains("data");
+        val filterByModule = qSubject.subjectModule.eq(subjectModule);
+
+        return Try.of(() -> this.subjectRepository.findAll(filterByCoeff.and(filterByTitle).and(filterByModule)))
                 .map(subjectEntities -> subjectEntities.iterator().next())
                 .map(List::of)
                 .map(this.subjectMapper::toSubjects)
@@ -114,10 +116,9 @@ public class SubjectUseCaseImpl implements SubjectUseCase {
 
     @Override
     public Either<ExaminationException, Option<Subject>> getSubjectByExample(Example<?> example) {
-        //Matiere matiere=matiereRepository.findAll(null);
+
         return Try.of(() -> subjectRepository.findOne((Predicate) example))
                 .map(this.subjectMapper::unwrapReferenceToOption)
-                //  .map(Option::ofOptional)
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }

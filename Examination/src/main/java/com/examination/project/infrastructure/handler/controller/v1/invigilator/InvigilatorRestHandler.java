@@ -7,10 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -25,7 +22,7 @@ public class InvigilatorRestHandler implements InvigilatorHandler {
     @Override
     @PostMapping(value = "/create", headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> createAnInvigilator(Invigilator invigilator) {
-        // log.info("An invigilator {} has been added: ", invigilator);
+
         return invigilatorUseCase.createInvigilator(invigilator).fold(
                 a -> ResponseEntity.badRequest().build(),
                 invigilator1 -> ResponseEntity.status(HttpStatus.CREATED).build()
@@ -36,7 +33,25 @@ public class InvigilatorRestHandler implements InvigilatorHandler {
     @GetMapping
     public ResponseEntity<Collection<Invigilator>> getAllInvigilators() {
         return invigilatorUseCase.findAllInvigilator().fold(
-                a->ResponseEntity.badRequest().build(),
+                a -> ResponseEntity.badRequest().build(),
+                ResponseEntity::ok
+        );
+    }
+
+    @Override
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteInvigilatorById(@PathVariable Integer id) {
+        return invigilatorUseCase.deleteInvigilatorById(id).fold(
+                a -> ResponseEntity.badRequest().build(),
+                ResponseEntity::ok
+        );
+    }
+
+    @Override
+    @DeleteMapping("/deleteAll")
+    public ResponseEntity<Void> deleteAllInvigilators() {
+        return invigilatorUseCase.deleteAllInvigilators().fold(
+                e -> ResponseEntity.status(HttpStatus.CONFLICT).build(),
                 ResponseEntity::ok
         );
     }

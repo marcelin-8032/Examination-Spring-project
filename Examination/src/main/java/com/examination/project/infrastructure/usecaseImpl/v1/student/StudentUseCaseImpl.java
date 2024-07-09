@@ -88,14 +88,14 @@ public class StudentUseCaseImpl implements StudentUseCase {
     @Override
     public Either<ExaminationException, Void> deleteStudent(Integer examId, Integer studentId) {
 
-        return Try.run(() -> this.examRepository.findById(studentId)
+        return Try.run(() -> this.examRepository.findById(examId)
                         .map(examEntity -> {
                             val studentEntity = this.studentRepository.findById(studentId);
-
                             studentEntity.ifPresent(student -> {
-                                this.studentRepository.deleteById(studentId);
-                                this.examRepository.deleteById(examId);
-                            });
+                                        student.getExamEntities().remove(examEntity);
+                                        this.studentRepository.save(student);
+                                    }
+                            );
                             return null;
                         }))
                 .toEither()

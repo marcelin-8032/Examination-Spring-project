@@ -21,6 +21,7 @@ public class StudentRestHandler implements StudentHandler {
     @Override
     @PostMapping(value = "/create")
     public ResponseEntity<Student> createStudent(@RequestBody Student student) {
+
         return studentUseCase.createStudent(student).fold(
                 a -> ResponseEntity.badRequest().build(),
                 student1 -> ResponseEntity.status(HttpStatus.CREATED).build()
@@ -30,6 +31,7 @@ public class StudentRestHandler implements StudentHandler {
     @Override
     @GetMapping
     public ResponseEntity<Collection<Student>> getAllStudents() {
+
         return studentUseCase.findStudents().fold(
                 a -> ResponseEntity.badRequest().build(),
                 ResponseEntity::ok
@@ -38,7 +40,9 @@ public class StudentRestHandler implements StudentHandler {
 
     @Override
     @GetMapping(value = "/classe/{classe}")
-    public ResponseEntity<Collection<Student>> getStudentByClass(@PathVariable("classe") Classe classe) {
+    public ResponseEntity<Collection<Student>> getStudentByClass(
+            @PathVariable("classe") Classe classe) {
+
         return studentUseCase.findStudentByClasse(classe).fold(
                 a -> ResponseEntity.notFound().build(),
                 ResponseEntity::ok
@@ -47,8 +51,9 @@ public class StudentRestHandler implements StudentHandler {
 
     @Override
     @PutMapping(value = "{studentId}/exams/{examId}")
-    public ResponseEntity<Void> addOrUpdateStudentToExam(@PathVariable("studentId") Integer studentId,
-                                                         @PathVariable("examId") Integer examId) {
+    public ResponseEntity<Void> addOrUpdateStudentToExam(
+            @PathVariable("studentId") Integer studentId,
+            @PathVariable("examId") Integer examId) {
 
         return studentUseCase.addOrUpdateStudentToExam(examId, studentId)
                 .fold(a -> ResponseEntity.badRequest().build(),
@@ -58,7 +63,8 @@ public class StudentRestHandler implements StudentHandler {
 
     @Override
     @GetMapping(value = "/{studentId}/exams")
-    public ResponseEntity<Collection<Exam>> getExamsAssignedToSpecificStudent(@PathVariable("studentId") Integer studentId) {
+    public ResponseEntity<Collection<Exam>> getExamsAssignedToSpecificStudent(
+            @PathVariable("studentId") Integer studentId) {
 
         return studentUseCase.fetchExamsAssignedToSpecificStudent(studentId).fold(
                 a -> ResponseEntity.badRequest().build(),
@@ -68,10 +74,11 @@ public class StudentRestHandler implements StudentHandler {
 
     @Override
     @DeleteMapping(value = "{studentId}/exams/{examId}")
-    public ResponseEntity<Void> deleteStudentAssignedToExam(@PathVariable("studentId") Integer studentId,
-                                                            @PathVariable("examId") Integer examId) {
+    public ResponseEntity<Void> deleteStudentAssignedToExam(
+            @PathVariable("studentId") Integer studentId,
+            @PathVariable("examId") Integer examId) {
 
-        return  studentUseCase.deleteStudent(examId, studentId).fold(
+        return studentUseCase.deleteStudent(examId, studentId).fold(
                 a -> ResponseEntity.notFound().build(),
                 ResponseEntity::ok
         );

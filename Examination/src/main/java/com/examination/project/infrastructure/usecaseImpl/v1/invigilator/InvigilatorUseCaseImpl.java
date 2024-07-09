@@ -41,4 +41,19 @@ public class InvigilatorUseCaseImpl implements InvigilatorUseCase {
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
 
+    @Override
+    public Either<ExaminationException, Void> deleteInvigilatorById(Integer id) {
+        return Try.run(() -> this.invigilatorRepository.deleteById(id))
+                .onFailure(cause -> log.error("The exams should be deleted first!"))
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
+    }
+
+    @Override
+    public Either<ExaminationException, Void> deleteAllInvigilators() {
+        return Try.run(this.invigilatorRepository::deleteAll)
+                .onFailure(cause -> log.error("The exams should be deleted first!"))
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
+    }
 }

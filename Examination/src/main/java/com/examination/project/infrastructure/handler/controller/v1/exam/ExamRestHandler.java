@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,6 @@ public class ExamRestHandler implements ExamHandler {
         );
     }
 
-
     @Override
     @PostMapping(value = "/create")
     public ResponseEntity<Void> createExams(@RequestBody List<Exam> exams) {
@@ -55,8 +55,29 @@ public class ExamRestHandler implements ExamHandler {
     }
 
     @Override
-    @GetMapping(value = "/date")
-    public ResponseEntity<Collection<Exam>> getExamsByDate(@RequestBody LocalDateTime date) {
+    @GetMapping(value = "examPages/{roomId}")
+    public ResponseEntity<Page<Exam>> getAllExamsByRoom(@PathVariable("roomId") Integer roomId, @NotNull final Pageable pageable) {
+        return examUseCase.getAllExamsByRoom(roomId, pageable).fold(
+                a -> ResponseEntity.notFound().build(),
+                ResponseEntity::ok
+        );
+    }
+
+    @Override
+    @DeleteMapping("/delete-all")
+    public ResponseEntity<Void> deleteAllExams() {
+        return examUseCase.deleteAllExams().fold(
+                a -> ResponseEntity.notFound().build(),
+                a -> ResponseEntity.status(HttpStatus.OK).build()
+        );
+    }
+
+
+    @Override
+    @GetMapping(value = "/date/{date}")
+    public ResponseEntity<Collection<Exam>> getExamsByDate(@PathVariable
+                                                         //  @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+                                                           LocalDateTime date) {
         return examUseCase.getExamsByDate(date).fold(
                 a -> ResponseEntity.notFound().build(),
                 ResponseEntity::ok
@@ -90,21 +111,5 @@ public class ExamRestHandler implements ExamHandler {
         );
     }
 
-    @Override
-    @GetMapping(value = "examPages/{roomId}")
-    public ResponseEntity<Page<Exam>> getAllExamsByRoom(@PathVariable("roomId") Integer roomId, @NotNull final Pageable pageable) {
-        return examUseCase.getAllExamsByRoom(roomId, pageable).fold(
-                a -> ResponseEntity.notFound().build(),
-                ResponseEntity::ok
-        );
-    }
 
-    @Override
-    @DeleteMapping("/delete-all")
-    public ResponseEntity<Void> deleteAllExams() {
-        return examUseCase.deleteAllExams().fold(
-                a -> ResponseEntity.notFound().build(),
-                a->ResponseEntity.status(HttpStatus.OK).build()
-        );
-    }
 }
