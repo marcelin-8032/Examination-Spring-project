@@ -3,7 +3,7 @@ package com.examination.project.infrastructure.mapper.struct;
 
 import com.examination.project.domain.entities.Exam;
 import com.examination.project.infrastructure.persistance.exam.entities.ExamEntity;
-import com.examination.project.utils.misc.DateUtils;
+import com.examination.project.utils.DateUtils;
 import org.mapstruct.Mapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

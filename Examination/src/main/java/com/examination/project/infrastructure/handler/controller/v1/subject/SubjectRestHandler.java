@@ -22,7 +22,7 @@ public class SubjectRestHandler implements SubjectHandler {
     public ResponseEntity<Void> createSubject(@RequestBody Subject subject) {
         return subjectUseCase.createSubject(subject).fold(
                 a -> ResponseEntity.badRequest().build(),
-                subject1 -> ResponseEntity.status(HttpStatus.OK).build()
+                subject1 -> ResponseEntity.status(HttpStatus.CREATED).build()
         );
     }
 

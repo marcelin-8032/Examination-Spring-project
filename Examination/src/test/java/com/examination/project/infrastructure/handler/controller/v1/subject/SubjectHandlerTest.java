@@ -20,17 +20,17 @@ class SubjectHandlerTest extends IntegrationTest {
     @Test
     void should_create_new_subject()  {
         //GIVEN
-//        var subject = SubjectFixture.one();
-//
-//        //  var subjectArgumentCaptor = ArgumentCaptor.forClass(Subject.class);
-//        //WHEN
-//        when(this.subjectUseCaseMocked.createSubject(subject)).thenReturn(nothing());
-//
-//        var expectedSubject = SubjectRestHandlerFixture.createSubject().with(mockMvc, objectMapper);
-//
-//        //THEN
-//        assertThat(this.subjectUseCaseMocked.createSubject(subject).isRight(), is(true));
-//        assertThat(expectedSubject,is(subject));
+        var subject = SubjectFixture.one();
+
+        //  var subjectArgumentCaptor = ArgumentCaptor.forClass(Subject.class);
+        //WHEN
+        when(this.subjectUseCaseMocked.createSubject(subject)).thenReturn(nothing());
+
+        var expectedSubject = SubjectRestHandlerFixture.createSubject().with(mockMvc, objectMapper);
+
+        //THEN
+        assertThat(this.subjectUseCaseMocked.createSubject(subject).isRight(), is(true));
+        assertThat(expectedSubject,is(subject));
     }
 
 

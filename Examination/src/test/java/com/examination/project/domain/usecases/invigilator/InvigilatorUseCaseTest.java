@@ -5,8 +5,8 @@ import io.vavr.control.Either;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 
-import static com.examination.project.utils.ModelFactory.defaultInvigilator;
-import static com.examination.project.utils.ModelFactory.defaultInvigilatorList;
+import static com.examination.project.infrastructure.handler.utils.ModelFactory.defaultInvigilator;
+import static com.examination.project.infrastructure.handler.utils.ModelFactory.defaultInvigilatorList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 

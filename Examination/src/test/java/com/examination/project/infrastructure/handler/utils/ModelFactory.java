@@ -1,4 +1,4 @@
-package com.examination.project.utils;
+package com.examination.project.infrastructure.handler.utils;
 
 import com.examination.project.domain.entities.*;
 import com.examination.project.infrastructure.persistance.invigilator.entities.InvigilatorEntity;

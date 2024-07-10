@@ -17,15 +17,14 @@ class InvigilatorRestHandlerTest extends IntegrationTest {
     void should_add_new_Invigilator() {
 
         //given
-
         val invigilator = InvigilatorFixture.one();
 
         //when
         when(this.invigilatorUseCaseMocked.createInvigilator(invigilator)).thenReturn(Either.right(invigilator));
 
-        val expected = this.invigilatorRestHandler.createAnInvigilator(invigilator);
+        val expected = this.invigilatorRestHandlerFixture.createInvigilator();
 
-       //then
+        //then
         verify(invigilatorUseCaseMocked, atLeastOnce()).createInvigilator(invigilator);
         assertEquals(expected, new ResponseEntity<>(HttpStatus.CREATED));
     }
@@ -45,5 +44,31 @@ class InvigilatorRestHandlerTest extends IntegrationTest {
         assertEquals(expected.asJava().size(), invigilatorList.asJava().size());
         assertEquals(expected, invigilatorList);
     }
+
+    @Test
+    void should_delete_invigilator_byId() {
+
+        //given
+        val invigilator = InvigilatorFixture.one().withInvigilatorId(1);
+
+        //when
+     doReturn(Either.right(null)).when(this.invigilatorUseCaseMocked).deleteInvigilatorById(1);
+     //   when(this.invigilatorUseCaseMocked.deleteInvigilatorById(1)).thenReturn(Either.right(null));
+
+        //then
+        //val expected = this.invigilatorRestHandlerFixture.deleteInvigilatorById();
+
+      // verify(invigilatorUseCaseMocked, atLeastOnce()).deleteInvigilatorById(1);
+       // assertEquals(expected, new ResponseEntity<>(HttpStatus.OK));
+
+    }
+
+
+    @Test
+    void should_delete_all_invigilators() {
+
+
+    }
+
 
 }
