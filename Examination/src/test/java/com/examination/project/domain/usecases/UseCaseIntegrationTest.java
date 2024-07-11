@@ -3,12 +3,12 @@ package com.examination.project.domain.usecases;
 import com.examination.project.infrastructure.mapper.struct.InvigilatorMapper;
 import com.examination.project.infrastructure.persistance.invigilator.repository.InvigilatorRepository;
 import com.examination.project.infrastructure.usecaseImpl.v1.invigilator.InvigilatorUseCaseImpl;
+import io.vavr.control.Either;
 import org.junit.jupiter.api.BeforeEach;
 
-import static com.examination.project.utils.ModelFactory.*;
+import static com.examination.project.infrastructure.handler.utils.ModelFactory.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public abstract class UseCaseIntegrationTest {
 
@@ -94,5 +94,9 @@ public abstract class UseCaseIntegrationTest {
                 .thenReturn(defaultInvigilatorEntityList());
         when(this.invigilatorMapperMocked.toInvigilators(defaultInvigilatorEntityList()))
                 .thenReturn(defaultInvigilatorList());
+
+        doNothing().when(this.invigilatorRepositoryMocked).deleteById(1);
+        doNothing().when(this.invigilatorRepositoryMocked).deleteAll();
+
     }
 }

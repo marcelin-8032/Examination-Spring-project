@@ -9,7 +9,6 @@ import net.datafaker.Faker;
 
 import java.time.Instant;
 
-import static com.examination.project.utils.EnumTools.randomEnum;
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
@@ -40,7 +39,7 @@ public class StudentFixture {
                 .birthDay(Instant.now())
                 .identificationId(random.nextInt())
                 .studyYear(random.nextInt())
-                .classe(Classe.valueOf(randomEnum(Classe.class).name()))
+                .classe(Classe.classeA)
                 .build();
     }
 

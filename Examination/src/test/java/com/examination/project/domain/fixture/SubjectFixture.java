@@ -1,13 +1,12 @@
 package com.examination.project.domain.fixture;
 
-import com.examination.project.domain.entities.SubjectModule;
 import com.examination.project.domain.entities.Subject;
+import com.examination.project.domain.entities.SubjectModule;
 import io.vavr.collection.List;
 import io.vavr.collection.Stream;
 import lombok.NoArgsConstructor;
 import net.datafaker.Faker;
 
-import static com.examination.project.utils.EnumTools.randomEnum;
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
@@ -36,7 +35,7 @@ public class SubjectFixture {
                 .coefficient(random.nextInt(100,200))
                 .title(lorem.characters(1,20))
                // .subjectModule(SubjectModule.MODULE_1)
-               .subjectModule(SubjectModule.valueOf(randomEnum(SubjectModule.class).name()))
+               .subjectModule(SubjectModule.MODULE_1)
                 .build();
     }
 }

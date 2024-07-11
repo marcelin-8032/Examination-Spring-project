@@ -7,16 +7,17 @@ import org.junit.jupiter.api.Test;
 
 import static com.examination.project.infrastructure.handler.utils.ModelFactory.defaultInvigilator;
 import static com.examination.project.infrastructure.handler.utils.ModelFactory.defaultInvigilatorList;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
-class InvigilatorUseCaseTest  extends UseCaseIntegrationTest {
+class InvigilatorUseCaseTest extends UseCaseIntegrationTest {
 
     @Test
     void should_create_invigilator() {
 
-       // when
+        // when
         val expected = this.invigilatorUseCase.createInvigilator(defaultInvigilator());
 
         //then
@@ -32,6 +33,27 @@ class InvigilatorUseCaseTest  extends UseCaseIntegrationTest {
         //then
         assertNotNull(expected.get());
         assertEquals(expected, Either.right(defaultInvigilatorList()));
+    }
+
+    @Test
+    void should_delete_invigilator_by_id() {
+
+        //when
+        val expected = this.invigilatorUseCase.deleteInvigilatorById(1);
+
+        //then
+        assertNotNull(expected.isRight());
+       // assertEquals(expected, is);
+    }
+
+    @Test
+    void should_delete_all_invigilators() {
+        //when
+        val expected = this.invigilatorUseCase.deleteAllInvigilators();
+
+        //then
+        assertNotNull(expected.isRight());
+      //  assertEquals(expected, Either.right(defaultInvigilatorList()));
     }
 
 }

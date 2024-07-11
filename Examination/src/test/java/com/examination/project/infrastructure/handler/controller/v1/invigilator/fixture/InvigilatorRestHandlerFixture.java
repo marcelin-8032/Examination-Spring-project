@@ -8,10 +8,14 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.vavr.collection.List;
 import lombok.val;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
+
+import java.lang.reflect.Type;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -30,11 +34,11 @@ public class InvigilatorRestHandlerFixture extends MockMvcUtils {
         return new InvigilatorRestHandlerFixture(mockMvc, objectMapper);
     }
 
-    public MvcBinder<Invigilator> createInvigilator() {
+    public MvcBinder<ResponseEntity<Void>> createInvigilator() {
 
         var invigilator = InvigilatorFixture.one();
 
-        return (mockMvc, objectMapper) -> {
+        return (mvc, objectMapper) -> {
 
             try {
                 final ResultActions resultActions = mockMvc.perform(post(INVIGILATOR_URL + "/create")
@@ -44,49 +48,76 @@ public class InvigilatorRestHandlerFixture extends MockMvcUtils {
 
                 final MvcResult result = resultActions.andReturn();
                 final String contentAsString = result.getResponse().getContentAsString();
-
-                return objectMapper.readValue(contentAsString, Invigilator.class);
+                return objectMapper.readValue(contentAsString, new TypeReference<>() {
+                });
 
             } catch (Exception exception) {
                 throw new AssertionError("thrown exception", exception);
             }
         };
+    }
+
+
+    public MvcBinder<List<Invigilator>> getAllInvigilators() {
+
+        return (mvc, objectMapper) -> {
+            try {
+                final ResultActions resultActions = mockMvc.perform(get(INVIGILATOR_URL)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                ).andExpect(status().isOk());
+
+                final MvcResult result = resultActions.andReturn();
+                final String contentAsString = result.getResponse().getContentAsString();
+
+                return objectMapper.readValue(contentAsString, new TypeReference<List<Invigilator>>() {
+                });
+
+            } catch (Exception e) {
+                throw new AssertionError("should not have thrown any exception", e);
+            }
+
+        };
 
     }
 
-    public List<Invigilator> getAllInvigilators() {
+    public MvcBinder<ResponseEntity<Void>> deleteInvigilatorById() {
 
-        try {
-            val resultActions = mockMvc.perform(get(INVIGILATOR_URL)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
-            ).andExpect(status().isOk());
-
-            val result = resultActions.andReturn();
+        return (mvc, objectMapper) -> {
+            try {
+                mockMvc.perform(delete(INVIGILATOR_URL + "1"))
+                        .andExpect(status().isOk())
+                        .andDo(print());
+        /*    val result = resultActions.andReturn();
             val contentAsString = result.getResponse().getContentAsString();
-            return objectMapper.readValue(contentAsString, new TypeReference<>() {
-            });
+            objectMapper.readValue(contentAsString, Invigilator.class);*/
+                return new ResponseEntity<>(HttpStatus.OK);
+            } catch (Exception exception) {
+                throw new AssertionError("thrown exception", exception);
 
-        } catch (Exception e) {
-            throw new AssertionError("should not have thrown any exception", e);
-        }
+            }
+        };
     }
 
-    public void deleteInvigilatorById() {
 
-        try {
-            val resultActions = mockMvc.perform(delete(INVIGILATOR_URL + "1"))
-                    .andExpect(status().isOk())
-                    .andDo(print());
+    public MvcBinder<ResponseEntity<Void>> deleteAllInvigilator() {
 
-            val result = resultActions.andReturn();
+        return (mvc, objectMapper) -> {
+            try {
+                mockMvc.perform(delete(INVIGILATOR_URL + "/deleteAll"))
+                        .andExpect(status().isOk())
+                        .andDo(print());
+
+        /*    val result = resultActions.andReturn();
             val contentAsString = result.getResponse().getContentAsString();
-            objectMapper.readValue(contentAsString, Invigilator.class);
-
-        } catch (Exception exception) {
-            throw new AssertionError("thrown exception", exception);
-        }
+            objectMapper.readValue(contentAsString, Invigilator.class);*/
+                return new ResponseEntity<>(HttpStatus.OK);
+            } catch (Exception exception) {
+                throw new AssertionError("thrown exception", exception);
+            }
+        };
     }
+
 
 }
 

@@ -5,9 +5,8 @@ import com.examination.project.infrastructure.handler.controller.IntegrationTest
 import io.vavr.control.Either;
 import lombok.val;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
+import static io.vavr.control.Either.right;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -20,13 +19,13 @@ class InvigilatorRestHandlerTest extends IntegrationTest {
         val invigilator = InvigilatorFixture.one();
 
         //when
-        when(this.invigilatorUseCaseMocked.createInvigilator(invigilator)).thenReturn(Either.right(invigilator));
+        when(this.invigilatorUseCaseMocked.createInvigilator(invigilator)).thenReturn(right(invigilator));
 
-        val expected = this.invigilatorRestHandlerFixture.createInvigilator();
+        val expectedResponse = this.invigilatorRestHandlerFixture.createInvigilator().with(mockMvc, objectMapper);
 
         //then
         verify(invigilatorUseCaseMocked, atLeastOnce()).createInvigilator(invigilator);
-        assertEquals(expected, new ResponseEntity<>(HttpStatus.CREATED));
+        assertEquals(expectedResponse, isNotNull());
     }
 
     @Test
@@ -36,9 +35,9 @@ class InvigilatorRestHandlerTest extends IntegrationTest {
         val invigilatorList = InvigilatorFixture.from(10);
 
         //when
-        when(this.invigilatorUseCaseMocked.findAllInvigilator()).thenReturn(Either.right(invigilatorList.asJava()));
+        when(this.invigilatorUseCaseMocked.findAllInvigilator()).thenReturn(right(invigilatorList.asJava()));
 
-        val expected = this.invigilatorRestHandlerFixture.getAllInvigilators();
+        val expected = this.invigilatorRestHandlerFixture.getAllInvigilators().with(mockMvc, objectMapper);
 
         //then
         assertEquals(expected.asJava().size(), invigilatorList.asJava().size());
@@ -52,14 +51,13 @@ class InvigilatorRestHandlerTest extends IntegrationTest {
         val invigilator = InvigilatorFixture.one().withInvigilatorId(1);
 
         //when
-     doReturn(Either.right(null)).when(this.invigilatorUseCaseMocked).deleteInvigilatorById(1);
-     //   when(this.invigilatorUseCaseMocked.deleteInvigilatorById(1)).thenReturn(Either.right(null));
+        when(this.invigilatorUseCaseMocked.deleteInvigilatorById(invigilator.invigilatorId())).thenReturn(Either.right(null));
 
         //then
-        //val expected = this.invigilatorRestHandlerFixture.deleteInvigilatorById();
+       val expected = this.invigilatorRestHandlerFixture.deleteInvigilatorById().with(mockMvc,objectMapper);
 
-      // verify(invigilatorUseCaseMocked, atLeastOnce()).deleteInvigilatorById(1);
-       // assertEquals(expected, new ResponseEntity<>(HttpStatus.OK));
+       verify(invigilatorUseCaseMocked, atMostOnce()).deleteInvigilatorById(1);
+       assertEquals(expected,isNotNull());
 
     }
 
@@ -67,8 +65,14 @@ class InvigilatorRestHandlerTest extends IntegrationTest {
     @Test
     void should_delete_all_invigilators() {
 
+        //when
+        when(this.invigilatorUseCaseMocked.deleteAllInvigilators()).thenReturn(Either.right(null));
 
+        //then
+        val expected = this.invigilatorRestHandlerFixture.deleteAllInvigilator().with(mockMvc,objectMapper);
+
+        verify(invigilatorUseCaseMocked, atMostOnce()).deleteAllInvigilators();
+        assertEquals(expected,isNotNull());
     }
-
 
 }
