@@ -42,8 +42,8 @@ public class InvigilatorRestHandler implements InvigilatorHandler {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteInvigilatorById(@PathVariable Integer id) {
         return invigilatorUseCase.deleteInvigilatorById(id).fold(
-                a -> ResponseEntity.badRequest().build(),
-                ResponseEntity::ok
+                e -> ResponseEntity.status(HttpStatus.CONFLICT).build(),
+                a -> ResponseEntity.noContent().build()
         );
     }
 
@@ -52,7 +52,7 @@ public class InvigilatorRestHandler implements InvigilatorHandler {
     public ResponseEntity<Void> deleteAllInvigilators() {
         return invigilatorUseCase.deleteAllInvigilators().fold(
                 e -> ResponseEntity.status(HttpStatus.CONFLICT).build(),
-                ResponseEntity::ok
+                a -> ResponseEntity.noContent().build()
         );
     }
 }

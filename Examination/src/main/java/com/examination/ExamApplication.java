@@ -10,7 +10,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories (excludeFilters = @ComponentScan.Filter(ReadOnlyRepository.class))
 public class ExamApplication {
 
-    //UUIDGenerator uuidGenerator;
     public static void main(String[] args) {
         SpringApplication.run(ExamApplication.class, args);
     }

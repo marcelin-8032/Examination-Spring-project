@@ -34,7 +34,6 @@ public class SubjectFixture {
                 .subjectId(random.nextInt())
                 .coefficient(random.nextInt(100,200))
                 .title(lorem.characters(1,20))
-               // .subjectModule(SubjectModule.MODULE_1)
                .subjectModule(SubjectModule.MODULE_1)
                 .build();
     }

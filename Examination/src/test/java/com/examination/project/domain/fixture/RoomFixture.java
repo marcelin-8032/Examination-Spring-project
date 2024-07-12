@@ -27,11 +27,15 @@ public class RoomFixture {
 
     private static Room generateRoom() {
 
+        var lorem = FAKER.lorem();
         var random = FAKER.random();
 
         return Room.builder()
                 .roomId(random.nextInt())
                 .number(random.nextInt(100,150))
+                .building(lorem.characters(1,20))
+                .department(lorem.characters(1,20))
+                .floor(random.nextInt())
                 .build();
     }
 
