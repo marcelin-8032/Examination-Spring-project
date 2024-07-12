@@ -1,15 +1,14 @@
 package com.examination.project.domain.usecases.invigilator;
 
 import com.examination.project.domain.usecases.UseCaseIntegrationTest;
-import io.vavr.control.Either;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 
+import static com.examination.project.infrastructure.handler.utils.EitherTools.nothing;
 import static com.examination.project.infrastructure.handler.utils.ModelFactory.defaultInvigilator;
 import static com.examination.project.infrastructure.handler.utils.ModelFactory.defaultInvigilatorList;
-import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static io.vavr.control.Either.right;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class InvigilatorUseCaseTest extends UseCaseIntegrationTest {
@@ -22,17 +21,22 @@ class InvigilatorUseCaseTest extends UseCaseIntegrationTest {
 
         //then
         assertNotNull(expected.get());
-        assertEquals(expected, Either.right(defaultInvigilator()));
+        assertEquals(expected, right(defaultInvigilator()));
     }
 
     @Test
     void should_find_all_invigilators() {
+
         //when
         val expected = this.invigilatorUseCase.findAllInvigilator();
 
         //then
-        assertNotNull(expected.get());
-        assertEquals(expected, Either.right(defaultInvigilatorList()));
+        assertAll(
+                "find all inviglilator",
+                () -> assertTrue(expected.isRight()),
+                () -> assertNotNull(expected.get()),
+                () -> assertEquals(expected, right(defaultInvigilatorList()))
+        );
     }
 
     @Test
@@ -42,18 +46,16 @@ class InvigilatorUseCaseTest extends UseCaseIntegrationTest {
         val expected = this.invigilatorUseCase.deleteInvigilatorById(1);
 
         //then
-        assertNotNull(expected.isRight());
-       // assertEquals(expected, is);
+        assertEquals(expected, nothing());
     }
 
     @Test
     void should_delete_all_invigilators() {
+
         //when
         val expected = this.invigilatorUseCase.deleteAllInvigilators();
 
         //then
-        assertNotNull(expected.isRight());
-      //  assertEquals(expected, Either.right(defaultInvigilatorList()));
+        assertEquals(expected, nothing());
     }
-
 }

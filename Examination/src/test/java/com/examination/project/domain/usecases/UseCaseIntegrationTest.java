@@ -3,7 +3,6 @@ package com.examination.project.domain.usecases;
 import com.examination.project.infrastructure.mapper.struct.InvigilatorMapper;
 import com.examination.project.infrastructure.persistance.invigilator.repository.InvigilatorRepository;
 import com.examination.project.infrastructure.usecaseImpl.v1.invigilator.InvigilatorUseCaseImpl;
-import io.vavr.control.Either;
 import org.junit.jupiter.api.BeforeEach;
 
 import static com.examination.project.infrastructure.handler.utils.ModelFactory.*;
