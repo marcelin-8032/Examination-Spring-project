@@ -1,21 +1,20 @@
 package com.examination.project.infrastructure.handler.controller.v1.room.fixture;
 
 import com.examination.project.domain.entities.Room;
-import com.examination.project.domain.fixture.RoomFixture;
 import com.examination.project.infrastructure.handler.utils.MockMvcUtils;
 import com.examination.project.infrastructure.handler.utils.MvcBinder;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.vavr.collection.List;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 
+import static com.examination.project.infrastructure.handler.utils.ModelFactory.defaultRoom;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class RoomRestHandlerFixture extends MockMvcUtils {
@@ -30,29 +29,18 @@ public class RoomRestHandlerFixture extends MockMvcUtils {
         return new RoomRestHandlerFixture(mockMvc, objectMapper);
     }
 
-    public MvcBinder<ResponseEntity<Void>> createRoom() {
+    public MvcResult createRoom() {
 
-        var room = RoomFixture.one();
+        try {
+            return mockMvc.perform(post(ROOM_URL + "/create")
+                            .contentType(APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(defaultRoom())))
+                    .andExpect(status().isCreated()).andReturn();
 
-        return (mvc, objectMapper) -> {
-
-            try {
-                final ResultActions resultActions = mockMvc.perform(post(ROOM_URL + "/create")
-                                .contentType(APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(room)))
-                        .andExpect(status().isCreated());
-
-                final MvcResult result = resultActions.andReturn();
-                final String contentAsString = result.getResponse().getContentAsString();
-                return objectMapper.readValue(contentAsString, new TypeReference<>() {
-                });
-
-            } catch (Exception exception) {
-                throw new AssertionError("thrown exception", exception);
-            }
-        };
+        } catch (Exception exception) {
+            throw new AssertionError("thrown exception", exception);
+        }
     }
-
 
     public MvcBinder<List<Room>> getAllRooms() {
 
@@ -74,44 +62,18 @@ public class RoomRestHandlerFixture extends MockMvcUtils {
         };
 
     }
-//
-//    public MvcBinder<ResponseEntity<Void>> deleteInvigilatorById() {
-//
-//        return (mvc, objectMapper) -> {
-//            try {
-//                mockMvc.perform(delete(INVIGILATOR_URL + "1"))
-//                        .andExpect(status().isOk())
-//                        .andDo(print());
-//        /*    val result = resultActions.andReturn();
-//            val contentAsString = result.getResponse().getContentAsString();
-//            objectMapper.readValue(contentAsString, Invigilator.class);*/
-//                return new ResponseEntity<>(HttpStatus.OK);
-//            } catch (Exception exception) {
-//                throw new AssertionError("thrown exception", exception);
-//
-//            }
-//        };
-//    }
-//
-//
-//    public MvcBinder<ResponseEntity<Void>> deleteAllInvigilator() {
-//
-//        return (mvc, objectMapper) -> {
-//            try {
-//                mockMvc.perform(delete(INVIGILATOR_URL + "/deleteAll"))
-//                        .andExpect(status().isOk())
-//                        .andDo(print());
-//
-//        /*    val result = resultActions.andReturn();
-//            val contentAsString = result.getResponse().getContentAsString();
-//            objectMapper.readValue(contentAsString, Invigilator.class);*/
-//                return new ResponseEntity<>(HttpStatus.OK);
-//            } catch (Exception exception) {
-//                throw new AssertionError("thrown exception", exception);
-//            }
-//        };
-//    }
 
+    public MvcResult deleteAllRooms() {
 
+        try {
+            return mockMvc.perform(delete(ROOM_URL + "/deleteAll"))
+                    .andDo(print())
+                    .andReturn();
+
+        } catch (Exception exception) {
+            throw new AssertionError("thrown exception", exception);
+
+        }
+    }
 }
 

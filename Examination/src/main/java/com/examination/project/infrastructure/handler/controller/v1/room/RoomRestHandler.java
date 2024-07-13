@@ -59,7 +59,7 @@ public class RoomRestHandler implements RoomHandler {
     public ResponseEntity<Void> deleteAllRooms() {
         return roomUseCase.deleteAllRooms().fold(
                 e -> ResponseEntity.status(HttpStatus.CONFLICT).build(),
-                a -> ResponseEntity.status(HttpStatus.OK).build()
+                a -> ResponseEntity.status(HttpStatus.NO_CONTENT).build()
         );
     }
 }

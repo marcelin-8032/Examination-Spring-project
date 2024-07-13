@@ -6,6 +6,7 @@ import com.examination.project.infrastructure.handler.controller.IntegrationTest
 import io.vavr.control.Either;
 import lombok.val;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpStatus;
 
 import static com.examination.project.infrastructure.handler.utils.ModelFactory.defaultInvigilator;
 import static io.vavr.control.Either.right;
@@ -24,7 +25,7 @@ class InvigilatorRestHandlerTest extends IntegrationTest {
         val resultActions = this.invigilatorRestHandlerFixture.createInvigilator();
 
         verify(invigilatorUseCaseMocked, atLeastOnce()).createInvigilator(defaultInvigilator());
-        assertEquals(resultActions.andReturn().getResponse().getStatus(), 201);
+        assertEquals(resultActions.andReturn().getResponse().getStatus(), HttpStatus.CREATED.value());
 
     }
 
@@ -54,7 +55,7 @@ class InvigilatorRestHandlerTest extends IntegrationTest {
 
         //then
         verify(invigilatorUseCaseMocked, atMostOnce()).deleteInvigilatorById(1);
-        assertEquals(resultActions.getResponse().getStatus(), 204);
+        assertEquals(resultActions.getResponse().getStatus(), HttpStatus.NO_CONTENT.value());
     }
 
     @Test
@@ -67,6 +68,6 @@ class InvigilatorRestHandlerTest extends IntegrationTest {
 
         //then
         verify(invigilatorUseCaseMocked, atMostOnce()).deleteAllInvigilators();
-        assertEquals(resultActions.getResponse().getStatus(), 204);
+        assertEquals(resultActions.getResponse().getStatus(), HttpStatus.NO_CONTENT.value());
     }
 }

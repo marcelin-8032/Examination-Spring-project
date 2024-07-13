@@ -53,6 +53,8 @@ public class ModelFactory {
     public static Room defaultRoom() {
         return Room.builder()
                 .roomId(1)
+                .department("main")
+                .floor(3)
                 .number(1254)
                 .build();
     }
