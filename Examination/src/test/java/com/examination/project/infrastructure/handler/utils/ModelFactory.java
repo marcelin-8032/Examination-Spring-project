@@ -59,6 +59,12 @@ public class ModelFactory {
                 .build();
     }
 
+    public static List<Room> defaultRooms() {
+        return List.of(defaultRoom(),
+                defaultRoom().withRoomId(2),
+                defaultRoom().withRoomId(3));
+    }
+
     public static Exam defaultExam() {
         return Exam
                 .builder()

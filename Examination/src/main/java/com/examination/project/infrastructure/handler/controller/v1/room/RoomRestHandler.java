@@ -29,7 +29,9 @@ public class RoomRestHandler implements RoomHandler {
 
     @Override
     @PutMapping(value = "/update/{roomId}")
-    public ResponseEntity<Void> updateRoomNumber(@PathVariable("roomId") Integer roomId, int number) throws Exception {
+    public ResponseEntity<Void> updateRoomNumber(
+            @PathVariable("roomId") Integer roomId, @RequestParam("number") int number)
+            throws Exception {
         return roomUseCase.updateRoom(roomId, number).fold(
                 a -> ResponseEntity.badRequest().build(),
                 room2 -> ResponseEntity.status(HttpStatus.OK).build()

@@ -53,7 +53,7 @@ public class RoomUseCaseImpl implements RoomUseCase {
     }
 
     @Override
-    public Either<ExaminationException, Void> updateRoom(Integer id, int number) throws Exception {
+    public Either<ExaminationException, Void> updateRoom(Integer id, int number) {
         return Try.run(() -> this.roomRepository.findById(id)
                         .ifPresent(roomEntity -> {
                             roomEntity.setNumber(number);

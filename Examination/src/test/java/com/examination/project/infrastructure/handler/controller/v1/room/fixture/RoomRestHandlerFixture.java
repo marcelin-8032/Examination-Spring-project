@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 
 import static com.examination.project.infrastructure.handler.utils.ModelFactory.defaultRoom;
+import static com.examination.project.infrastructure.handler.utils.ModelFactory.defaultRooms;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -42,6 +43,34 @@ public class RoomRestHandlerFixture extends MockMvcUtils {
         }
     }
 
+    public MvcResult updateRoomNumber() {
+
+        try {
+            return mockMvc.perform(put("/v1/" + "rooms" + "/update/" + 1)
+                            .param("number", "54555555")
+                    )
+                    .andDo(print())
+                    .andReturn();
+
+        } catch (Exception exception) {
+            throw new AssertionError("thrown exception", exception);
+        }
+    }
+
+    public MvcResult addSeveralRooms() {
+
+        try {
+            return mockMvc.perform(post(ROOM_URL + "/createSeveralRooms")
+                            .contentType(APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(defaultRooms())))
+                    .andDo(print())
+                    .andReturn();
+
+        } catch (Exception exception) {
+            throw new AssertionError("thrown exception", exception);
+        }
+    }
+    
     public MvcBinder<List<Room>> getAllRooms() {
 
         return (mvc, objectMapper) -> {
@@ -60,7 +89,6 @@ public class RoomRestHandlerFixture extends MockMvcUtils {
                 throw new AssertionError("should not have thrown any exception", e);
             }
         };
-
     }
 
     public MvcResult deleteAllRooms() {
@@ -72,7 +100,6 @@ public class RoomRestHandlerFixture extends MockMvcUtils {
 
         } catch (Exception exception) {
             throw new AssertionError("thrown exception", exception);
-
         }
     }
 }
