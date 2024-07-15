@@ -70,7 +70,7 @@ public class RoomRestHandlerFixture extends MockMvcUtils {
             throw new AssertionError("thrown exception", exception);
         }
     }
-    
+
     public MvcBinder<List<Room>> getAllRooms() {
 
         return (mvc, objectMapper) -> {

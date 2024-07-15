@@ -2,6 +2,7 @@ package com.examination.project.infrastructure.handler.utils;
 
 import com.examination.project.domain.entities.*;
 import com.examination.project.infrastructure.persistance.invigilator.entities.InvigilatorEntity;
+import com.examination.project.infrastructure.persistance.room.entities.RoomEntity;
 import io.vavr.collection.List;
 import io.vavr.collection.Set;
 import lombok.NoArgsConstructor;
@@ -109,5 +110,26 @@ public class ModelFactory {
 
     public static java.util.List defaultInvigilatorList() {
         return Collections.singletonList(defaultInvigilator());
+    }
+
+    public static List<RoomEntity> defaultRoomEntities() {
+        return List.of(defaultRoomEntity(),
+                defaultRoomEntity()
+                        .toBuilder()
+                        .roomId(2)
+                        .build(),
+                defaultRoomEntity()
+                        .toBuilder()
+                        .roomId(3)
+                        .build());
+    }
+
+    public static RoomEntity defaultRoomEntity() {
+        return RoomEntity.builder()
+                .roomId(1)
+                .department("main")
+                .floor(3)
+                .number(1254)
+                .build();
     }
 }

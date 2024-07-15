@@ -3,8 +3,6 @@ package com.examination.project.infrastructure.handler.controller.v1.room;
 import com.examination.project.domain.entities.Room;
 import com.examination.project.domain.fixture.RoomFixture;
 import com.examination.project.infrastructure.handler.controller.IntegrationTest;
-import com.examination.project.infrastructure.handler.utils.EitherTools;
-import io.vavr.control.Either;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -14,12 +12,7 @@ import static com.examination.project.infrastructure.handler.utils.ModelFactory.
 import static com.examination.project.infrastructure.handler.utils.ModelFactory.defaultRooms;
 import static io.vavr.control.Either.right;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
-import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class RoomRestHandlerTest extends IntegrationTest {
 

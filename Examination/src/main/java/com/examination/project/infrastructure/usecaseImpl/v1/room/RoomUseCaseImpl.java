@@ -4,10 +4,8 @@ import com.examination.project.domain.entities.Room;
 import com.examination.project.domain.exception.ExaminationException;
 import com.examination.project.domain.exception.ExaminationExceptionSanitize;
 import com.examination.project.domain.usecases.v1.room.RoomUseCase;
-import com.examination.project.infrastructure.persistance.exam.repository.ExamRepository;
-import com.examination.project.infrastructure.persistance.room.repository.RoomRepository;
-import com.examination.project.infrastructure.mapper.struct.ExamMapper;
 import com.examination.project.infrastructure.mapper.struct.RoomMapper;
+import com.examination.project.infrastructure.persistance.room.repository.RoomRepository;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
 import lombok.RequiredArgsConstructor;
@@ -25,11 +23,7 @@ public class RoomUseCaseImpl implements RoomUseCase {
 
     private final RoomRepository roomRepository;
 
-    private final ExamRepository examRepository;
-
     private final RoomMapper roomMapper;
-
-    private final ExamMapper examMapper;
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -71,7 +65,6 @@ public class RoomUseCaseImpl implements RoomUseCase {
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
 
-
     @Override
     @Transactional
     public Either<ExaminationException, Void> deleteAllRooms() {
@@ -80,6 +73,5 @@ public class RoomUseCaseImpl implements RoomUseCase {
                 .onFailure(cause -> log.error("The exams should be deleted first!"))
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
-
     }
 }
