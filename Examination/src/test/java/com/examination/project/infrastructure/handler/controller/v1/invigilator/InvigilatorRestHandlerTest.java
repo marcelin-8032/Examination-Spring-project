@@ -8,7 +8,7 @@ import lombok.val;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 
-import static com.examination.project.infrastructure.handler.utils.ModelFactory.defaultInvigilator;
+import static com.examination.project.infrastructure.handler.controller.utils.ModelFactory.defaultInvigilator;
 import static io.vavr.control.Either.right;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;

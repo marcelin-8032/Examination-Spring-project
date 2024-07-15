@@ -32,7 +32,7 @@ public class StudentRestHandler implements StudentHandler {
     @GetMapping
     public ResponseEntity<Collection<Student>> getAllStudents() {
 
-        return studentUseCase.findStudents().fold(
+        return studentUseCase.findAllStudents().fold(
                 a -> ResponseEntity.badRequest().build(),
                 ResponseEntity::ok
         );

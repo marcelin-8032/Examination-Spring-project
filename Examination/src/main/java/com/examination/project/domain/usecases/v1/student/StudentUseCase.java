@@ -13,7 +13,7 @@ public interface StudentUseCase {
 
     Either<ExaminationException, Student> createStudent(Student student);
 
-    Either<ExaminationException, Collection<Student>> findStudents();
+    Either<ExaminationException, Collection<Student>> findAllStudents();
 
     Either<ExaminationException, Collection<Student>> findStudentByClasse(Classe classe);
 

@@ -1,8 +1,8 @@
 package com.examination.project.infrastructure.handler.controller.v1.room.fixture;
 
 import com.examination.project.domain.entities.Room;
-import com.examination.project.infrastructure.handler.utils.MockMvcUtils;
-import com.examination.project.infrastructure.handler.utils.MvcBinder;
+import com.examination.project.infrastructure.handler.controller.utils.MockMvcUtils;
+import com.examination.project.infrastructure.handler.controller.utils.MvcBinder;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.vavr.collection.List;
@@ -11,8 +11,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 
-import static com.examination.project.infrastructure.handler.utils.ModelFactory.defaultRoom;
-import static com.examination.project.infrastructure.handler.utils.ModelFactory.defaultRooms;
+import static com.examination.project.infrastructure.handler.controller.utils.ModelFactory.defaultRoom;
+import static com.examination.project.infrastructure.handler.controller.utils.ModelFactory.defaultRooms;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;

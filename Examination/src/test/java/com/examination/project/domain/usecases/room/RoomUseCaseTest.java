@@ -4,8 +4,8 @@ import com.examination.project.domain.usecases.UseCaseIntegrationTest;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 
-import static com.examination.project.infrastructure.handler.utils.ModelFactory.defaultRoom;
-import static com.examination.project.infrastructure.handler.utils.ModelFactory.defaultRooms;
+import static com.examination.project.infrastructure.handler.controller.utils.ModelFactory.defaultRoom;
+import static com.examination.project.infrastructure.handler.controller.utils.ModelFactory.defaultRooms;
 import static io.vavr.control.Either.right;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -40,7 +40,6 @@ class RoomUseCaseTest extends UseCaseIntegrationTest {
 
         assertTrue(result.isRight());
     }
-
 
     @Test
     void should_get_all_rooms() {

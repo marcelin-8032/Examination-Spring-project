@@ -43,7 +43,7 @@ public class StudentUseCaseImpl implements StudentUseCase {
     }
 
     @Override
-    public Either<ExaminationException, Collection<Student>> findStudents() {
+    public Either<ExaminationException, Collection<Student>> findAllStudents() {
         return Try.of(this.studentRepository::findAll)
                 .map(this.studentMapper::toStudents)
                 .toEither()
