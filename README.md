@@ -11,5 +11,5 @@
 - Audit
 - OpenAPI V.3
 
-### The CI/CD is being done by github Actions and a docker image is sent to my docker hub public repository, you can pull the image by this command: 
-### docker pull marcelin8032/examination
+ The CI/CD is being done by Github Actions, a docker image is sent to my docker hub public repository, you can pull the image by this command: 
+ - docker pull marcelin8032/examination
