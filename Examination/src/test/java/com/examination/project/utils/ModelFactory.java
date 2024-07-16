@@ -1,8 +1,6 @@
-package com.examination.project.infrastructure.handler.utils;
+package com.examination.project.utils;
 
 import com.examination.project.domain.entities.*;
-import com.examination.project.infrastructure.persistance.invigilator.entities.InvigilatorEntity;
-import com.examination.project.infrastructure.persistance.room.entities.RoomEntity;
 import io.vavr.collection.List;
 import io.vavr.collection.Set;
 import lombok.NoArgsConstructor;
@@ -95,41 +93,18 @@ public class ModelFactory {
                 .build();
     }
 
-    public static InvigilatorEntity defaultInvigilatorEntity() {
-        return InvigilatorEntity.builder()
-                .invigilatorId(1)
-                .firstName("Mohsen")
-                .lastName("David")
-                .identificationNumber(123454)
-                .build();
-    }
-
-    public static java.util.List defaultInvigilatorEntityList() {
-        return Collections.singletonList(defaultInvigilatorEntity());
-    }
-
     public static java.util.List defaultInvigilatorList() {
         return Collections.singletonList(defaultInvigilator());
     }
 
-    public static List<RoomEntity> defaultRoomEntities() {
-        return List.of(defaultRoomEntity(),
-                defaultRoomEntity()
-                        .toBuilder()
-                        .roomId(2)
-                        .build(),
-                defaultRoomEntity()
-                        .toBuilder()
-                        .roomId(3)
-                        .build());
-    }
-
-    public static RoomEntity defaultRoomEntity() {
-        return RoomEntity.builder()
-                .roomId(1)
-                .department("main")
-                .floor(3)
-                .number(1254)
-                .build();
+    public static Set<Student> defaultStudents2() {
+        return List.of(defaultStudent().withClasse(Classe.classeB),
+                        defaultStudent()
+                                .withStudentId(2)
+                                .withFirstName("Albert")
+                                .withClasse(Classe.classeB),
+                        defaultStudent().withStudentId(3).withFirstName("Mickael").withClasse(Classe.classeB),
+                        defaultStudent().withStudentId(4).withFirstName("Albert").withClasse(Classe.classeB))
+                .toLinkedSet();
     }
 }

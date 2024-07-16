@@ -8,6 +8,10 @@ class SubjectUseCaseTest extends UseCaseIntegrationTest {
     @Test
     void should_create_subject() {
 
+
+
+
+
     }
 
     @Test

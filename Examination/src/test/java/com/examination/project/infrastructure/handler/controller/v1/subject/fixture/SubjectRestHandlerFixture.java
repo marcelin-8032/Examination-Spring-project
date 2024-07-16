@@ -2,7 +2,7 @@ package com.examination.project.infrastructure.handler.controller.v1.subject.fix
 
 import com.examination.project.domain.entities.Subject;
 import com.examination.project.domain.fixture.SubjectFixture;
-import com.examination.project.infrastructure.handler.controller.utils.MockMvcUtils;
+import com.examination.project.utils.MockMvcUtils;
 import com.examination.project.infrastructure.handler.controller.utils.MvcBinder;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

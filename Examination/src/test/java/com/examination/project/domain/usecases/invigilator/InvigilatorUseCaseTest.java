@@ -4,9 +4,9 @@ import com.examination.project.domain.usecases.UseCaseIntegrationTest;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 
-import static com.examination.project.infrastructure.handler.controller.utils.EitherTools.nothing;
-import static com.examination.project.infrastructure.handler.controller.utils.ModelFactory.defaultInvigilator;
-import static com.examination.project.infrastructure.handler.controller.utils.ModelFactory.defaultInvigilatorList;
+
+import static com.examination.project.utils.EitherTools.nothing;
+import static com.examination.project.utils.ModelFactory.*;
 import static io.vavr.control.Either.right;
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -7,9 +7,9 @@ import lombok.val;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 
-import static com.examination.project.infrastructure.handler.controller.utils.EitherTools.nothing;
-import static com.examination.project.infrastructure.handler.controller.utils.ModelFactory.defaultRoom;
-import static com.examination.project.infrastructure.handler.controller.utils.ModelFactory.defaultRooms;
+
+import static com.examination.project.utils.EitherTools.nothing;
+import static com.examination.project.utils.ModelFactory.*;
 import static io.vavr.control.Either.right;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;

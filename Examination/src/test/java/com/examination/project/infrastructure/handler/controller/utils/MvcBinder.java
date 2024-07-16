@@ -8,5 +8,4 @@ import org.springframework.test.web.servlet.MockMvc;
 public interface MvcBinder<R> {
 
     R with(MockMvc mvc, ObjectMapper objectMapper);
-
 }

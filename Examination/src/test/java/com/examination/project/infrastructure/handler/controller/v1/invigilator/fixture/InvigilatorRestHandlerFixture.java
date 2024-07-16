@@ -1,7 +1,7 @@
 package com.examination.project.infrastructure.handler.controller.v1.invigilator.fixture;
 
 import com.examination.project.domain.entities.Invigilator;
-import com.examination.project.infrastructure.handler.controller.utils.MockMvcUtils;
+import com.examination.project.utils.MockMvcUtils;
 import com.examination.project.infrastructure.handler.controller.utils.MvcBinder;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,7 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 
-import static com.examination.project.infrastructure.handler.controller.utils.ModelFactory.defaultInvigilator;
+import static com.examination.project.utils.ModelFactory.defaultInvigilator;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;

@@ -8,10 +8,9 @@ import org.junit.jupiter.api.Test;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
-import static com.examination.project.infrastructure.handler.controller.utils.EntityFactory.examId;
-import static com.examination.project.infrastructure.handler.controller.utils.EntityFactory.studentId;
-import static com.examination.project.infrastructure.handler.controller.utils.ModelFactory.defaultStudent;
-import static com.examination.project.infrastructure.handler.controller.utils.ModelFactory.defaultStudents2;
+import static com.examination.project.utils.EntityFactory.examId;
+import static com.examination.project.utils.EntityFactory.studentId;
+import static com.examination.project.utils.ModelFactory.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class StudentUseCaseTest extends UseCaseIntegrationTest {

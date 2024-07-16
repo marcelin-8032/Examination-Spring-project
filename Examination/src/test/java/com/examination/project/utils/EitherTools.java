@@ -1,4 +1,4 @@
-package com.examination.project.infrastructure.handler.utils;
+package com.examination.project.utils;
 
 
 import com.examination.project.domain.exception.ExaminationException;

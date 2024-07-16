@@ -1,4 +1,4 @@
-package com.examination.project.infrastructure.handler.controller.utils;
+package com.examination.project.utils;
 
 
 import com.examination.project.domain.entities.Classe;
@@ -13,7 +13,6 @@ import io.vavr.collection.Set;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -114,11 +113,8 @@ public class EntityFactory {
                 .build();
     }
 
-
     public static List<ExamEntity> defaultExamEntities() {
         return List.of(defaultExamEntity(),
                 defaultExamEntity().toBuilder().examId(2).build());
     }
-
-
 }
