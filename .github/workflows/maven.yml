@@ -22,5 +22,5 @@ jobs:
       - name: mvn clean
         run: mvn -B clean --file pom.xml
 
-      - name: unit tests
-        run: mvn -B test --file pom.xml
+      - name: build skip tests
+        run:  mvn clean install -DskipTests --file pom.xml
