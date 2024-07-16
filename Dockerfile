@@ -2,8 +2,12 @@ FROM openjdk:17-jdk-slim
 
 WORKDIR /app
 
-COPY target/*.jar /app/examination-docker.jar
+COPY app/build/lib/* build/lib/
+
+COPY app/build/libs/app.jar build/
+
+WORKDIR /app/build
 
 EXPOSE 9090
 
-ENTRYPOINT ["java", "-jar", "examination-docker.jar"]
+ENTRYPOINT java -jar app.jar
