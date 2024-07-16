@@ -2,8 +2,8 @@ FROM openjdk:17-jdk-slim
 
 WORKDIR /app
 
-COPY /Examination/target/Examination-0.0.1-SNAPSHOT.jar /app
+ADD /Examination/target/Examination-0.0.1-SNAPSHOT.jar /app/examination-docker.jar
 
 EXPOSE 9090
 
-CMD ["java","-jar", "Examination-0.0.1-SNAPSHOT.jar"]
+CMD ["java","-jar", "examination-docker.jar"]
