@@ -24,3 +24,11 @@ jobs:
 
       - name: build skip tests
         run:  mvn clean install -DskipTests --file pom.xml
+
+      - name: build the docker image
+        uses: docker/build-push-action@v4
+        with:
+           context: .
+           dockerfile: Dockerfile
+           push: false
+           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/examination:v1.0.0
