@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.Collections;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -109,8 +108,8 @@ public class ModelFactory {
                 .build();
     }
 
-    public static java.util.List defaultInvigilatorList() {
-        return Collections.singletonList(defaultInvigilator());
+    public static List<Invigilator> defaultInvigilatorList() {
+        return List.of(defaultInvigilator());
     }
 
     public static Set<Student> defaultStudents2() {

@@ -73,37 +73,45 @@ class SubjectUseCaseTest extends UseCaseIntegrationTest {
 
 
     @Test
-    void should_get_Subject_Coeff_Bigger_Title_EqData_ModuleEq2() {
+    void should_get_subject_coeff_bigger_title_eq_data_ModuleEq2() {
 
     }
 
 
     @Test
-    void should_get_Subject_CoeffBigger_Than_ModuleEq2() {
+    void should_get_subject_coeff_bigger_than_moduleEq2() {
 
     }
 
 
     @Test
-    void should_get_Subject_Title_EqDataModuleEq2() {
+    void should_get_subject_title_eqDataModuleEq2() {
 
     }
 
 
     @Test
-    void should_get_Subject_By_Example() {
+    void should_get_subject_by_example() {
 
     }
 
 
     @Test
-    void should_get_Subject_By_Coefficient() {
+    void should_get_subject_by_coefficient() {
 
     }
 
 
     @Test
-    void should_get_Subject_By_Title_With_IgnoreCase() {
+    void should_get_subject_by_title_with_ignore_case() {
 
     }
+
+
+
+
+
+
+
+
 }

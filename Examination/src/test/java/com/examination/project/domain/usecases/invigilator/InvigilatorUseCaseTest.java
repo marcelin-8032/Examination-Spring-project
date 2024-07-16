@@ -2,13 +2,12 @@ package com.examination.project.domain.usecases.invigilator;
 
 import com.examination.project.domain.entities.Invigilator;
 import com.examination.project.domain.usecases.UseCaseIntegrationTest;
+import io.vavr.collection.List;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 
-
 import static com.examination.project.utils.EitherTools.nothing;
-import static com.examination.project.utils.ModelFactory.*;
-import static io.vavr.control.Either.right;
+import static com.examination.project.utils.ModelFactory.defaultInvigilator;
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -29,7 +28,7 @@ class InvigilatorUseCaseTest extends UseCaseIntegrationTest {
         val result = this.invigilatorUseCase.createInvigilator(defaultInvigilator());
 
         //then
-          assertAll("create new invigilator",
+        assertAll("create new invigilator",
                 () -> assertTrue(result.isRight()),
                 () -> assertNotNull(result.get()),
                 () -> assertEquals(result.get(), expected)
@@ -39,15 +38,23 @@ class InvigilatorUseCaseTest extends UseCaseIntegrationTest {
     @Test
     void should_find_all_invigilators() {
 
+        //given
+        val expected = List.of(Invigilator.builder()
+                .invigilatorId(1)
+                .firstName("Mohsen")
+                .lastName("David")
+                .identificationNumber(123454)
+                .build());
+
         //when
-        val expected = this.invigilatorUseCase.findAllInvigilator();
+        val result = this.invigilatorUseCase.findAllInvigilator();
 
         //then
         assertAll(
-                "find all inviglilator",
-                () -> assertTrue(expected.isRight()),
-                () -> assertNotNull(expected.get()),
-                () -> assertEquals(expected, right(defaultInvigilatorList()))
+                "find all invigilator",
+                () -> assertTrue(result.isRight()),
+                () -> assertNotNull(result.get()),
+                () -> assertEquals(result.get(), expected.asJava())
         );
     }
 

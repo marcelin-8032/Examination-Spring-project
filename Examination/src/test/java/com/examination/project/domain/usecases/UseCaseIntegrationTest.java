@@ -4,11 +4,13 @@ import com.examination.project.domain.entities.Invigilator;
 import com.examination.project.domain.entities.Room;
 import com.examination.project.domain.entities.Student;
 import com.examination.project.domain.entities.Subject;
+import com.examination.project.domain.usecases.v1.exam.ExamUseCase;
 import com.examination.project.domain.usecases.v1.invigilator.InvigilatorUseCase;
 import com.examination.project.domain.usecases.v1.room.RoomUseCase;
 import com.examination.project.domain.usecases.v1.student.StudentUseCase;
 import com.examination.project.domain.usecases.v1.subject.SubjectUseCase;
 import com.examination.project.infrastructure.mapper.struct.*;
+import com.examination.project.infrastructure.persistance.exam.entities.ExamEntity;
 import com.examination.project.infrastructure.persistance.exam.repository.ExamRepository;
 import com.examination.project.infrastructure.persistance.invigilator.entities.InvigilatorEntity;
 import com.examination.project.infrastructure.persistance.invigilator.repository.InvigilatorRepository;
@@ -18,6 +20,7 @@ import com.examination.project.infrastructure.persistance.student.entities.Stude
 import com.examination.project.infrastructure.persistance.student.repository.StudentRepository;
 import com.examination.project.infrastructure.persistance.subject.entities.SubjectEntity;
 import com.examination.project.infrastructure.persistance.subject.repository.SubjectRepository;
+import com.examination.project.infrastructure.usecaseImpl.v1.exam.ExamUseCaseImpl;
 import com.examination.project.infrastructure.usecaseImpl.v1.invigilator.InvigilatorUseCaseImpl;
 import com.examination.project.infrastructure.usecaseImpl.v1.room.RoomUseCaseImpl;
 import com.examination.project.infrastructure.usecaseImpl.v1.student.StudentUseCaseImpl;
@@ -36,36 +39,6 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public abstract class UseCaseIntegrationTest {
-
-/*
-    protected ExamRepository examRepositoryMocked = mock(ExamRepository.class);
-
-    protected ExamMapper examMapperMocked = mock(ExamMapper.class);
-
-
-    @InjectMocks
-    protected ExamUseCase examUseCase;
-
-    @InjectMocks
-    protected RoomUseCase roomUseCase;
-
-    @InjectMocks
-    protected StudentUseCase studentUseCase;
-
-    @InjectMocks
-    protected SubjectUseCase subjectUseCase;
-*/
-
-  /*  protected ExamUseCaseImpl examUseCase = new ExamUseCaseImpl(
-            examRepositoryMocked,
-            roomRepositoryMocked,
-            studentRepositoryMocked,
-            examMapperMocked,
-            studentMapperMocked,
-            roomMapperMocked
-    );
-
- */
 
     protected InvigilatorRepository invigilatorRepositoryMocked = mock(InvigilatorRepository.class);
 
@@ -111,9 +84,18 @@ public abstract class UseCaseIntegrationTest {
             subjectMapperMocked
     );
 
+    protected ExamUseCase examUseCase = new ExamUseCaseImpl(
+            examRepositoryMocked,
+            roomRepositoryMocked,
+            examMapperMocked,
+            roomMapperMocked,
+            jdbcTemplateMocked
+    );
+
     @BeforeEach
     void setUp() {
 
+        //Invigilator
         when(this.invigilatorMapperMocked.toInvigilatorEntity(any(Invigilator.class)))
                 .thenReturn(defaultInvigilatorEntity());
         when(this.invigilatorRepositoryMocked.save(any(InvigilatorEntity.class)))
@@ -123,10 +105,11 @@ public abstract class UseCaseIntegrationTest {
         when(this.invigilatorRepositoryMocked.findAll())
                 .thenReturn(defaultInvigilatorEntityList().asJava());
         when(this.invigilatorMapperMocked.toInvigilators(anyCollection()))
-                .thenReturn(defaultInvigilatorList());
+                .thenReturn(defaultInvigilatorList().asJava());
         doNothing().when(this.invigilatorRepositoryMocked).deleteById(1);
         doNothing().when(this.invigilatorRepositoryMocked).deleteAll();
 
+        //Room
         when(this.roomMapperMocked.toRoomEntity(any(Room.class))).thenReturn(defaultRoomEntity());
         when(this.roomMapperMocked.toRoom(defaultRoomEntity())).thenReturn(defaultRoom());
         when(this.roomMapperMocked.toRoomEntities(anyCollection())).thenReturn(defaultRoomEntities().asJava());
@@ -136,6 +119,7 @@ public abstract class UseCaseIntegrationTest {
         when(this.roomMapperMocked.toRooms(anyCollection())).thenReturn(defaultRooms().asJava());
         doNothing().when(this.jdbcTemplateMocked).execute("delete from rooms");
 
+        //Student
         when(this.studentMapperMocked.toStudentEntity(any(Student.class))).thenReturn(defaultStudentEntity());
         when(this.studentRepositoryMocked.save(any(StudentEntity.class))).thenReturn(defaultStudentEntity());
         when(this.studentMapperMocked.toStudent(any(StudentEntity.class))).thenReturn(defaultStudent());
@@ -149,11 +133,15 @@ public abstract class UseCaseIntegrationTest {
         when(this.examMapperMocked.toExams(anyCollection())).thenReturn(defaultExams().toJavaList());
         when(this.studentRepositoryMocked.findById(STUDENT_ID)).thenReturn(Optional.of(defaultStudentEntity()));
 
+        //Subject
         when(this.subjectMapperMocked.toSubjectEntity(any(Subject.class))).thenReturn(defaultSubjectEntity());
         when(this.subjectRepositoryMocked.save(any(SubjectEntity.class))).thenReturn(defaultSubjectEntity());
         when(this.subjectRepositoryMocked.findById(SUBJECT_ID)).thenReturn(Optional.of(defaultSubjectEntity()));
         when(this.subjectRepositoryMocked.findByCoefficientGreaterThan(COEFFICIENT_ID)).thenReturn(defaultSubjectEntities().asJava());
         when(this.subjectMapperMocked.toSubjects(anyCollection())).thenReturn(defaultSubjects().asJava());
+
+        //Exam
+        when(this.examRepositoryMocked.save(any(ExamEntity.class))).thenReturn(defaultExamEntity());
 
     }
 }
