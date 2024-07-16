@@ -2,12 +2,8 @@ FROM openjdk:17-jdk-slim
 
 WORKDIR /app
 
-COPY app/build/lib/* build/lib/
-
-COPY app/build/libs/app.jar build/
-
-WORKDIR /app/build
+COPY /Examination/target/Examination-0.0.1-SNAPSHOT.jar /app
 
 EXPOSE 9090
 
-ENTRYPOINT java -jar app.jar
+CMD ["java","-jar", "Examination-0.0.1-SNAPSHOT.jar"]
