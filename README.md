@@ -1,11 +1,14 @@
-# The Examination project is a project where I developed by the clean architecture of Uncle bob
+# The Examination is a project where I developed by the Uncle bob clean architecture.
 ## I use these libraries:
 
 - Java 17
 - Spring MVC
 - Spring Data
 - JPA/Hibernate
+- Lombok
 - VAVR
+- DataFaker
+- Liquidbase
 - MapStruct
 - Querydsl
 - Audit
