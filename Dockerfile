@@ -1,9 +1,9 @@
 FROM openjdk:17-jdk-slim
 
-WORKDIR /app
+VOLUME /tmp
 
-ADD target/Examination-0.0.1-SNAPSHOT.jar /app/examination-docker.jar
+COPY target/*.jar app.jar
 
-EXPOSE 9090
+ENTRYPOINT ["java", "-jar","/app.jar"]
 
-ENTRYPOINT ["java", "-jar", "examination-docker.jar"]
+CMD ["java","-jar","/app.jar"]
