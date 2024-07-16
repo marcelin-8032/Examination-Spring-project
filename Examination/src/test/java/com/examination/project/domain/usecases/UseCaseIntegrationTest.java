@@ -1,9 +1,7 @@
 package com.examination.project.domain.usecases;
 
-import com.examination.project.domain.entities.Invigilator;
-import com.examination.project.domain.entities.Room;
-import com.examination.project.domain.entities.Student;
-import com.examination.project.domain.entities.Subject;
+import com.examination.project.domain.entities.*;
+import com.examination.project.domain.exception.ExaminationExceptionSanitize;
 import com.examination.project.domain.usecases.v1.exam.ExamUseCase;
 import com.examination.project.domain.usecases.v1.invigilator.InvigilatorUseCase;
 import com.examination.project.domain.usecases.v1.room.RoomUseCase;
@@ -25,6 +23,7 @@ import com.examination.project.infrastructure.usecaseImpl.v1.invigilator.Invigil
 import com.examination.project.infrastructure.usecaseImpl.v1.room.RoomUseCaseImpl;
 import com.examination.project.infrastructure.usecaseImpl.v1.student.StudentUseCaseImpl;
 import com.examination.project.infrastructure.usecaseImpl.v1.subject.SubjectUseCaseImpl;
+import io.vavr.control.Try;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -141,8 +140,12 @@ public abstract class UseCaseIntegrationTest {
         when(this.subjectMapperMocked.toSubjects(anyCollection())).thenReturn(defaultSubjects().asJava());
 
         //Exam
+        when(this.examMapperMocked.toExamEntities(anyCollection())).thenReturn(defaultExamEntities().asJava());
         when(this.examRepositoryMocked.save(any(ExamEntity.class))).thenReturn(defaultExamEntity());
-
+        when(this.examMapperMocked.toExams(anyCollection())).thenReturn(defaultExams().toJavaList());
+        when(this.examMapperMocked.toExamEntity(any(Exam.class))).thenReturn(defaultExamEntity());
+        when(this.examMapperMocked.toExam(any(ExamEntity.class))).thenReturn(defaultExam());
+        when(this.examRepositoryMocked.findAll()).thenReturn(defaultExamEntities().asJava());
     }
 }
 

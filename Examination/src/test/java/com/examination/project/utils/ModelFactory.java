@@ -82,7 +82,8 @@ public class ModelFactory {
     public static Exam defaultExam() {
         return Exam
                 .builder()
-                .examDate(LocalDateTime.now())
+                .examId(1)
+                .examDate(LocalDateTime.parse("2024-07-16T17:50:50.024437100"))
                 .subject(defaultSubject())
                 .room(defaultRoom())
                 .invigilator(defaultInvigilator())
@@ -91,12 +92,12 @@ public class ModelFactory {
 
     public static Set<Exam> defaultExams() {
         return List.of(defaultExam(),
-                defaultExam().withExamDate(LocalDateTime.now().plusDays(2)),
-                defaultExam().withExamDate(LocalDateTime.now().plusDays(3)),
-                defaultExam().withExamDate(LocalDateTime.now().plusDays(4)),
-                defaultExam().withExamDate(LocalDateTime.now().plusDays(5)),
-                defaultExam().withExamDate(LocalDateTime.now().plusDays(6)),
-                defaultExam().withExamDate(LocalDateTime.now().plusDays(7))).toLinkedSet();
+                defaultExam().withExamId(2).withExamDate(LocalDateTime.parse("2024-07-16T17:50:50.024437100").plusDays(2)),
+                defaultExam().withExamId(3).withExamDate(LocalDateTime.parse("2024-07-16T17:50:50.024437100").plusDays(3)),
+                defaultExam().withExamId(4).withExamDate(LocalDateTime.parse("2024-07-16T17:50:50.024437100").plusDays(4)),
+                defaultExam().withExamId(5).withExamDate(LocalDateTime.parse("2024-07-16T17:50:50.024437100").plusDays(5)),
+                defaultExam().withExamId(6).withExamDate(LocalDateTime.parse("2024-07-16T17:50:50.024437100").plusDays(6)),
+                defaultExam().withExamId(7).withExamDate(LocalDateTime.parse("2024-07-16T17:50:50.024437100").plusDays(7))).toLinkedSet();
     }
 
     public static Invigilator defaultInvigilator() {
@@ -122,4 +123,5 @@ public class ModelFactory {
                         defaultStudent().withStudentId(4).withFirstName("Albert").withClasse(Classe.classeB))
                 .toLinkedSet();
     }
+
 }
