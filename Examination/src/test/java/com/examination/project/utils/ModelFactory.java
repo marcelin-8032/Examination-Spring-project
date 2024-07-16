@@ -17,11 +17,27 @@ public class ModelFactory {
 
     public static Subject defaultSubject() {
         return Subject.builder()
+                .subjectId(1)
                 .title("Physics")
                 .subjectModule(SubjectModule.MODULE_2)
                 .coefficient(164)
                 .build();
     }
+
+    public static List<Subject> defaultSubjects() {
+        return List.of(defaultSubject().withSubjectId(2).withCoefficient(200),
+                defaultSubject().withSubjectId(4).withCoefficient(180),
+                defaultSubject().withSubjectId(8).withCoefficient(166)
+        );
+    }
+
+    public static List<Subject> defaultSubjects2() {
+        return List.of(defaultSubject(),
+                defaultSubject().withSubjectId(2),
+                defaultSubject().withSubjectId(3)
+        );
+    }
+
 
     public static Student defaultStudent() {
         return Student
@@ -31,7 +47,7 @@ public class ModelFactory {
                 .lastName("Fergosen")
                 .studyYear(2023)
                 .identificationId(15698)
-                .birthDay(Instant.now())
+                .birthDay(Instant.parse("2024-07-15T17:34:43.257072800Z"))
                 .classe(Classe.classeA)
                 .build();
     }

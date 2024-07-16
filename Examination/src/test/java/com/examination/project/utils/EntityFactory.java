@@ -19,9 +19,13 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor(access = PRIVATE)
 public class EntityFactory {
 
-    public static final Integer examId = 1;
+    public static final Integer EXAM_ID = 1;
 
-    public static final Integer studentId = 1;
+    public static final Integer STUDENT_ID = 1;
+
+    public static final Integer SUBJECT_ID = 1;
+
+    public static final Integer COEFFICIENT_ID = 164;
 
     public static StudentEntity defaultStudentEntity() {
         return StudentEntity
@@ -96,15 +100,41 @@ public class EntityFactory {
 
     public static SubjectEntity defaultSubjectEntity() {
         return SubjectEntity.builder()
+                .subjectId(1)
                 .title("Physics")
                 .subjectModule(SubjectModule.MODULE_2)
                 .coefficient(164)
                 .build();
     }
 
+    public static List<SubjectEntity> defaultSubjectEntities() {
+        return List.of(defaultSubjectEntity().toBuilder()
+                        .subjectId(2)
+                        .coefficient(200)
+                        .build(),
+                defaultSubjectEntity().toBuilder()
+                        .subjectId(4)
+                        .coefficient(180)
+                        .build(),
+                defaultSubjectEntity().toBuilder()
+                        .subjectId(8)
+                        .coefficient(166)
+                        .build()
+        );
+    }
+
+    public static List<SubjectEntity> defaultSubjectEntities2() {
+        return List.of(defaultSubjectEntity().toBuilder()
+                        .subjectId(2)
+                        .build(),
+                defaultSubjectEntity().toBuilder()
+                        .subjectId(3)
+                        .build()
+        );
+    }
     public static ExamEntity defaultExamEntity() {
         return ExamEntity.builder()
-                .examId(examId)
+                .examId(EXAM_ID)
                 .examName("examName")
                 .examDate(Instant.parse("2024-07-15T17:34:43.257072800Z"))
                 .subject(defaultSubjectEntity())

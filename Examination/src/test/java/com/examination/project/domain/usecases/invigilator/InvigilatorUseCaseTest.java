@@ -1,5 +1,6 @@
 package com.examination.project.domain.usecases.invigilator;
 
+import com.examination.project.domain.entities.Invigilator;
 import com.examination.project.domain.usecases.UseCaseIntegrationTest;
 import lombok.val;
 import org.junit.jupiter.api.Test;
@@ -16,12 +17,23 @@ class InvigilatorUseCaseTest extends UseCaseIntegrationTest {
     @Test
     void should_create_invigilator() {
 
+        //given
+        val expected = Invigilator.builder()
+                .invigilatorId(1)
+                .firstName("Mohsen")
+                .lastName("David")
+                .identificationNumber(123454)
+                .build();
+
         // when
-        val expected = this.invigilatorUseCase.createInvigilator(defaultInvigilator());
+        val result = this.invigilatorUseCase.createInvigilator(defaultInvigilator());
 
         //then
-        assertNotNull(expected.get());
-        assertEquals(expected, right(defaultInvigilator()));
+          assertAll("create new invigilator",
+                () -> assertTrue(result.isRight()),
+                () -> assertNotNull(result.get()),
+                () -> assertEquals(result.get(), expected)
+        );
     }
 
     @Test

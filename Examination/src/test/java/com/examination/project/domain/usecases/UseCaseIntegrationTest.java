@@ -114,6 +114,8 @@ public abstract class UseCaseIntegrationTest {
     @BeforeEach
     void setUp() {
 
+        when(this.invigilatorMapperMocked.toInvigilatorEntity(any(Invigilator.class)))
+                .thenReturn(defaultInvigilatorEntity());
         when(this.invigilatorRepositoryMocked.save(any(InvigilatorEntity.class)))
                 .thenReturn(defaultInvigilatorEntity());
         when(this.invigilatorMapperMocked.toInvigilator(any(InvigilatorEntity.class)))
@@ -141,15 +143,17 @@ public abstract class UseCaseIntegrationTest {
         when(this.studentMapperMocked.toStudents(anyCollection())).thenReturn(defaultStudents().toJavaList());
         when(this.studentRepositoryMocked.findStudentsByClasse(any())).thenReturn(defaultStudentEntities2().toJavaList());
         when(this.studentMapperMocked.toStudents(anyCollection())).thenReturn(defaultStudents2().toJavaList());
-        when(this.examRepositoryMocked.findById(examId)).thenReturn(Optional.of(defaultExamEntity()));
-        when(this.studentRepositoryMocked.findById(studentId)).thenReturn(Optional.of(defaultStudentEntity()));
-        when(this.examRepositoryMocked.findExamsByStudentId(studentId)).thenReturn(defaultExamEntities().asJava());
+        when(this.examRepositoryMocked.findById(EXAM_ID)).thenReturn(Optional.of(defaultExamEntity()));
+        when(this.studentRepositoryMocked.findById(STUDENT_ID)).thenReturn(Optional.of(defaultStudentEntity()));
+        when(this.examRepositoryMocked.findExamsByStudentId(STUDENT_ID)).thenReturn(defaultExamEntities().asJava());
         when(this.examMapperMocked.toExams(anyCollection())).thenReturn(defaultExams().toJavaList());
-        when(this.studentRepositoryMocked.findById(studentId)).thenReturn(Optional.of(defaultStudentEntity()));
+        when(this.studentRepositoryMocked.findById(STUDENT_ID)).thenReturn(Optional.of(defaultStudentEntity()));
+
         when(this.subjectMapperMocked.toSubjectEntity(any(Subject.class))).thenReturn(defaultSubjectEntity());
         when(this.subjectRepositoryMocked.save(any(SubjectEntity.class))).thenReturn(defaultSubjectEntity());
-
-
+        when(this.subjectRepositoryMocked.findById(SUBJECT_ID)).thenReturn(Optional.of(defaultSubjectEntity()));
+        when(this.subjectRepositoryMocked.findByCoefficientGreaterThan(COEFFICIENT_ID)).thenReturn(defaultSubjectEntities().asJava());
+        when(this.subjectMapperMocked.toSubjects(anyCollection())).thenReturn(defaultSubjects().asJava());
 
     }
 }

@@ -42,8 +42,5 @@ public class ExamRestHandlerFixture extends MockMvcUtils {
         } catch (Exception e) {
             throw new AssertionError("should not have thrown any exception", e);
         }
-
     }
-
-
 }

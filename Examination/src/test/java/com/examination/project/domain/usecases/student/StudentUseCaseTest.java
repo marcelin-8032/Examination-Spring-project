@@ -1,6 +1,7 @@
 package com.examination.project.domain.usecases.student;
 
 import com.examination.project.domain.entities.Classe;
+import com.examination.project.domain.entities.Student;
 import com.examination.project.domain.usecases.UseCaseIntegrationTest;
 import lombok.val;
 import org.junit.jupiter.api.Test;
@@ -8,8 +9,8 @@ import org.junit.jupiter.api.Test;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
-import static com.examination.project.utils.EntityFactory.examId;
-import static com.examination.project.utils.EntityFactory.studentId;
+import static com.examination.project.utils.EntityFactory.EXAM_ID;
+import static com.examination.project.utils.EntityFactory.STUDENT_ID;
 import static com.examination.project.utils.ModelFactory.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,6 +19,18 @@ class StudentUseCaseTest extends UseCaseIntegrationTest {
     @Test
     void should_create_student() {
 
+        //given
+        val expected = Student
+                .builder()
+                .studentId(1)
+                .firstName("Alex")
+                .lastName("Fergosen")
+                .studyYear(2023)
+                .identificationId(15698)
+                .birthDay(Instant.parse("2024-07-15T17:34:43.257072800Z"))
+                .classe(Classe.classeA)
+                .build();
+
         //when
         val result = this.studentUseCase.createStudent(defaultStudent());
 
@@ -25,8 +38,7 @@ class StudentUseCaseTest extends UseCaseIntegrationTest {
         assertAll("create new student",
                 () -> assertTrue(result.isRight()),
                 () -> assertNotNull(result.get()),
-                () -> assertEquals(result.get().birthDay().truncatedTo(ChronoUnit.DAYS),
-                        Instant.now().truncatedTo(ChronoUnit.DAYS))
+                () -> assertEquals(result.get(), expected)
         );
     }
 
@@ -59,8 +71,8 @@ class StudentUseCaseTest extends UseCaseIntegrationTest {
     @Test
     void should_add_or_update_student_to_exam() {
 
-         //when
-        val result = this.studentUseCase.addOrUpdateStudentToExam(examId, studentId);
+        //when
+        val result = this.studentUseCase.addOrUpdateStudentToExam(EXAM_ID, STUDENT_ID);
 
         //then
         assertTrue(result.isRight());
@@ -70,7 +82,7 @@ class StudentUseCaseTest extends UseCaseIntegrationTest {
     void should_fetch_exams_assigned_to_specific_student() {
 
         //when
-        val result = this.studentUseCase.fetchExamsAssignedToSpecificStudent(studentId);
+        val result = this.studentUseCase.fetchExamsAssignedToSpecificStudent(STUDENT_ID);
 
         //then
         assertAll("find exams attached to specific student",
@@ -84,7 +96,7 @@ class StudentUseCaseTest extends UseCaseIntegrationTest {
     void should_delete_student() {
 
         //when
-        val result = this.studentUseCase.deleteStudent(examId,studentId);
+        val result = this.studentUseCase.deleteStudent(EXAM_ID, STUDENT_ID);
 
         //then
         assertTrue(result.isRight());
