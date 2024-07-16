@@ -1,11 +1,11 @@
-# The examEntity project is a project where I developed by the clean architecture of Uncle bob
+# The Examination project is a project where I developed by the clean architecture of Uncle bob
 ## I use these libraries:
 
 - Java 17
-- Spring
+- Spring MVC
 - Spring Data
 - JPA/Hibernate
-- Vavr
+- VAVR
 - MapStruct
 - Querydsl
 - Audit
