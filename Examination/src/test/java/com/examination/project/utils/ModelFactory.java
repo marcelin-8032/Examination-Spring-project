@@ -4,6 +4,8 @@ import com.examination.project.domain.entities.*;
 import io.vavr.collection.List;
 import io.vavr.collection.Set;
 import lombok.NoArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -123,5 +125,8 @@ public class ModelFactory {
                         defaultStudent().withStudentId(4).withFirstName("Albert").withClasse(Classe.classeB))
                 .toLinkedSet();
     }
-
+    
+    public static Page<Exam> defaultPageExam(){
+        return new PageImpl<>(defaultExams().toJavaList());
+    }
 }

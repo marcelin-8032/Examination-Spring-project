@@ -26,8 +26,6 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
-import static org.springframework.data.domain.PageRequest.of;
-
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -117,7 +115,7 @@ public class ExamUseCaseImpl implements ExamUseCase {
 
     @Override
     public Either<ExaminationException, Page<Exam>> getAllExamsInPages(Pageable pageable) {
-        return Try.of(() -> of(0, 2, Sort.Direction.ASC, "exam_id"))
+        return Try.of(() -> PageRequest.of(0, 2, Sort.Direction.ASC, "exam_id"))
                 .map(this.examRepository::findAll)
                 .map(this.examMapper::pageExamEntityToPageExamDto)
                 .toEither()
@@ -137,6 +135,7 @@ public class ExamUseCaseImpl implements ExamUseCase {
     @Override
     @Transactional
     public Either<ExaminationException, Void> deleteAllExams() {
+
         return Try.run(()-> this.jdbcTemplate.execute("delete from students_exams"))
                 .andThen(()->this.jdbcTemplate.execute("delete from exams"))
                 .toEither()

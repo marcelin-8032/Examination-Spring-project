@@ -23,10 +23,14 @@ import com.examination.project.infrastructure.usecaseImpl.v1.invigilator.Invigil
 import com.examination.project.infrastructure.usecaseImpl.v1.room.RoomUseCaseImpl;
 import com.examination.project.infrastructure.usecaseImpl.v1.student.StudentUseCaseImpl;
 import com.examination.project.infrastructure.usecaseImpl.v1.subject.SubjectUseCaseImpl;
+import io.vavr.control.Option;
 import io.vavr.control.Try;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Sort;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.Optional;
@@ -35,6 +39,7 @@ import static com.examination.project.utils.EntityFactory.*;
 import static com.examination.project.utils.ModelFactory.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
+import static org.springframework.data.domain.PageRequest.of;
 
 @ExtendWith(MockitoExtension.class)
 public abstract class UseCaseIntegrationTest {
@@ -146,9 +151,23 @@ public abstract class UseCaseIntegrationTest {
         when(this.examMapperMocked.toExamEntity(any(Exam.class))).thenReturn(defaultExamEntity());
         when(this.examMapperMocked.toExam(any(ExamEntity.class))).thenReturn(defaultExam());
         when(this.examRepositoryMocked.findAll()).thenReturn(defaultExamEntities().asJava());
+        when(this.roomMapperMocked.optionToOptional(Option.of(any()))).thenReturn(Optional.of(defaultRoom()));
+        when(this.roomRepositoryMocked.findById(anyInt())).thenReturn(Optional.of(defaultRoomEntity()));
+        when(this.examRepositoryMocked.findByRoomAndExamDate(any(), any())).thenReturn(defaultExamEntities().asJava());
+        when(this.examMapperMocked.toExams(anyCollection())).thenReturn(defaultExams().toJavaList());
+        when(this.roomRepositoryMocked.findById(anyInt())).thenReturn(Optional.of(defaultRoomEntity()));
+        when(this.roomMapperMocked.unwrapReferenceToOptionalRoom(any())).thenReturn(Optional.of(defaultRoomEntity()));
+        when(this.examRepositoryMocked.findByRoomAndExamDateGreaterThan(any(),any())).thenReturn(defaultExamEntities().asJava());
+        when(this.examMapperMocked.toExams(anyCollection())).thenReturn(defaultExams().toJavaList());
+        when(this.roomMapperMocked.toRoomEntity(any())).thenReturn(defaultRoomEntity());
+        when(this.examRepositoryMocked.findByRoomOrderByExamDateDesc(any())).thenReturn(defaultExamEntities().asJava());
+        when(this.examMapperMocked.toExams(anyCollection())).thenReturn(defaultExams().toJavaList());
+        when(this.roomMapperMocked.toRoomEntity(any())).thenReturn(defaultRoomEntity());
+        when(this.examRepositoryMocked.findByRoomOrderByExamDateDesc(any())).thenReturn(defaultExamEntities().asJava());
+        when(this.examMapperMocked.toExams(anyCollection())).thenReturn(defaultExams().toJavaList());
 
-
-
+        doNothing().when(this.jdbcTemplateMocked).execute("delete from students_exams");
+        doNothing().when(this.jdbcTemplateMocked).execute("delete from exams");
     }
 }
 

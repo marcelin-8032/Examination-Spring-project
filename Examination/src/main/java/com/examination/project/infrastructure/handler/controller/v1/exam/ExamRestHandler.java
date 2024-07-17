@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -64,16 +63,6 @@ public class ExamRestHandler implements ExamHandler {
     }
 
     @Override
-    @DeleteMapping("/delete-all")
-    public ResponseEntity<Void> deleteAllExams() {
-        return examUseCase.deleteAllExams().fold(
-                a -> ResponseEntity.notFound().build(),
-                a -> ResponseEntity.status(HttpStatus.OK).build()
-        );
-    }
-
-
-    @Override
     @GetMapping(value = "/date/{date}")
     public ResponseEntity<Collection<Exam>> getExamsByDate(@PathVariable
                                                          //  @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
@@ -111,5 +100,12 @@ public class ExamRestHandler implements ExamHandler {
         );
     }
 
-
+    @Override
+    @DeleteMapping("/delete-all")
+    public ResponseEntity<Void> deleteAllExams() {
+        return examUseCase.deleteAllExams().fold(
+                a -> ResponseEntity.notFound().build(),
+                a -> ResponseEntity.status(HttpStatus.OK).build()
+        );
+    }
 }

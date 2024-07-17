@@ -1,17 +1,16 @@
 package com.examination.project.domain.usecases.exam;
 
-import com.examination.project.domain.entities.Exam;
 import com.examination.project.domain.usecases.UseCaseIntegrationTest;
-import com.examination.project.utils.EntityFactory;
+import io.vavr.control.Option;
 import lombok.val;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static com.examination.project.utils.EntityFactory.LOCAL_DATE_TIME;
-import static com.examination.project.utils.EntityFactory.defaultExamEntities;
+import static com.examination.project.utils.EitherTools.nothing;
+import static com.examination.project.utils.EntityFactory.*;
 import static com.examination.project.utils.ModelFactory.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -34,7 +33,6 @@ class ExamUseCaseTest extends UseCaseIntegrationTest {
         );
     }
 
-
     @Test
     void should_create_exam() {
 
@@ -47,9 +45,7 @@ class ExamUseCaseTest extends UseCaseIntegrationTest {
                 () -> assertEquals(result.get().examDate(), LocalDateTime.parse("2024-07-16T17:50:50.024437100")),
                 () -> assertEquals(result.get().invigilator(), defaultInvigilator())
         );
-
     }
-
 
     @Test
     void should_get_all_exams() {
@@ -83,7 +79,7 @@ class ExamUseCaseTest extends UseCaseIntegrationTest {
         assertAll("finds by their date",
                 () -> assertTrue(result.isRight()),
                 () -> assertFalse(result.get().isEmpty()),
-                () -> assertEquals(result.get(),expected)
+                () -> assertEquals(result.get(), expected)
         );
     }
 
@@ -91,21 +87,36 @@ class ExamUseCaseTest extends UseCaseIntegrationTest {
     @Test
     void should_get_exams_at_room_and_given_date() {
 
+        //when
+        val result = this.examUseCase.getExamsAtRoomAndGivenDate(Option.of(defaultRoom()), LOCAL_DATE_TIME);
 
-
-
+        //then
+        assertTrue(result.isRight());
+        assertEquals(result.get().size(), 7);
     }
 
 
     @Test
     void get_exams_at_room_and_after_a_date() {
 
+        //when
+        val result = this.examUseCase.getExamsAtRoomAndAfterADate(defaultRoom(), LOCAL_DATE_TIME);
 
+        //then
+        assertTrue(result.isRight());
+        assertEquals(result.get().size(), 7);
     }
 
 
     @Test
     void should_get_exams_at_recent_date_at_specific_room() {
+
+        //when
+        val result = this.examUseCase.getExamsAtRecentDateAtSpecificRoom(defaultRoom());
+
+        //then
+        assertTrue(result.isRight());
+        assertEquals(result.get().size(), 7);
 
     }
 
@@ -113,11 +124,39 @@ class ExamUseCaseTest extends UseCaseIntegrationTest {
     @Test
     void should_get_all_exams_in_pages() {
 
+        //when
+        when(this.examRepositoryMocked.findAll()).thenReturn(defaultExamEntities().asJava());
+        when(this.examMapperMocked.pageExamEntityToPageExamDto(any())).thenReturn(defaultPageExam());
+
+        val result = this.examUseCase.getAllExamsInPages(Pageable.ofSize(10));
+
+        //then
+        assertTrue(result.isRight());
+        assertEquals(result.get().getTotalElements(), 7);
     }
 
     @Test
     void should_get_all_exams_by_room() {
 
+        //when
+        when(this.examRepositoryMocked.findByRoom(any(),any())).thenReturn(defaultPageExamEntities());
+        when(this.examMapperMocked.pageExamEntityToPageExamDto(any())).thenReturn(defaultPageExam());
+
+        val result = this.examUseCase.getAllExamsByRoom(ROOM_ID,Pageable.ofSize(10));
+
+        //then
+        assertTrue(result.isRight());
+        assertEquals(result.get().getTotalElements(), 7);
     }
 
+    @Test
+    void should_delete_all_exams() {
+
+        //when
+        val result = this.examUseCase.deleteAllExams();
+
+        //then
+        assertTrue(result.isRight());
+        assertEquals(result, nothing());
+    }
 }
