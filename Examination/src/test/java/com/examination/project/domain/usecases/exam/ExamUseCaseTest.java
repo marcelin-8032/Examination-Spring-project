@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
+import static com.examination.project.utils.EntityFactory.LOCAL_DATE_TIME;
+import static com.examination.project.utils.EntityFactory.defaultExamEntities;
 import static com.examination.project.utils.ModelFactory.*;
 import static org.junit.jupiter.api.Assertions.*;
 
