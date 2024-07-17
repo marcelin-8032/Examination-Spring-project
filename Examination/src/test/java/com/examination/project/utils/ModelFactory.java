@@ -93,11 +93,11 @@ public class ModelFactory {
     public static Set<Exam> defaultExams() {
         return List.of(defaultExam(),
                 defaultExam().withExamId(2).withExamDate(LocalDateTime.parse("2024-07-16T17:50:50.024437100").plusDays(2)),
-                defaultExam().withExamId(3).withExamDate(LocalDateTime.parse("2024-07-16T17:50:50.024437100").plusDays(3)),
-                defaultExam().withExamId(4).withExamDate(LocalDateTime.parse("2024-07-16T17:50:50.024437100").plusDays(4)),
-                defaultExam().withExamId(5).withExamDate(LocalDateTime.parse("2024-07-16T17:50:50.024437100").plusDays(5)),
-                defaultExam().withExamId(6).withExamDate(LocalDateTime.parse("2024-07-16T17:50:50.024437100").plusDays(6)),
-                defaultExam().withExamId(7).withExamDate(LocalDateTime.parse("2024-07-16T17:50:50.024437100").plusDays(7))).toLinkedSet();
+                defaultExam().withExamId(3).withExamDate(LocalDateTime.parse("2023-07-16T17:50:50.024437100").plusDays(3)),
+                defaultExam().withExamId(4).withExamDate(LocalDateTime.parse("2022-07-16T17:50:50.024437100").plusDays(4)),
+                defaultExam().withExamId(5).withExamDate(LocalDateTime.parse("2025-07-16T17:50:50.024437100").plusDays(5)),
+                defaultExam().withExamId(6).withExamDate(LocalDateTime.parse("2022-07-16T17:50:50.024437100").plusDays(6)),
+                defaultExam().withExamId(7).withExamDate(LocalDateTime.parse("2021-07-16T17:50:50.024437100").plusDays(7))).toLinkedSet();
     }
 
     public static Invigilator defaultInvigilator() {

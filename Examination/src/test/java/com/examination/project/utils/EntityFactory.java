@@ -13,6 +13,7 @@ import io.vavr.collection.Set;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -20,12 +21,10 @@ import static lombok.AccessLevel.PRIVATE;
 public class EntityFactory {
 
     public static final Integer EXAM_ID = 1;
-
     public static final Integer STUDENT_ID = 1;
-
     public static final Integer SUBJECT_ID = 1;
-
     public static final Integer COEFFICIENT_ID = 164;
+    public static final LocalDateTime LOCAL_DATE_TIME = LocalDateTime.parse("2024-07-16T17:50:50.024437100");
 
     public static StudentEntity defaultStudentEntity() {
         return StudentEntity
@@ -132,6 +131,7 @@ public class EntityFactory {
                         .build()
         );
     }
+
     public static ExamEntity defaultExamEntity() {
         return ExamEntity.builder()
                 .examId(EXAM_ID)

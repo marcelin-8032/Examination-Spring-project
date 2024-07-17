@@ -63,9 +63,9 @@ public abstract class UseCaseIntegrationTest {
 
     protected StudentMapper studentMapperMocked = mock(StudentMapper.class);
 
-    private final ExamRepository examRepositoryMocked = mock(ExamRepository.class);
+    protected ExamRepository examRepositoryMocked = mock(ExamRepository.class);
 
-    private final ExamMapper examMapperMocked = mock(ExamMapper.class);
+    protected ExamMapper examMapperMocked = mock(ExamMapper.class);
 
     protected StudentUseCase studentUseCase = new StudentUseCaseImpl(
             studentRepositoryMocked,
@@ -146,6 +146,9 @@ public abstract class UseCaseIntegrationTest {
         when(this.examMapperMocked.toExamEntity(any(Exam.class))).thenReturn(defaultExamEntity());
         when(this.examMapperMocked.toExam(any(ExamEntity.class))).thenReturn(defaultExam());
         when(this.examRepositoryMocked.findAll()).thenReturn(defaultExamEntities().asJava());
+
+
+
     }
 }
 
