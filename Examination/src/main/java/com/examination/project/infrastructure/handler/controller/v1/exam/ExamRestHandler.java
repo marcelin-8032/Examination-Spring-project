@@ -35,7 +35,7 @@ public class ExamRestHandler implements ExamHandler {
     }
 
     @Override
-    @PostMapping(value = "/create")
+    @PostMapping(value = "/addExams")
     public ResponseEntity<Void> createExams(@RequestBody List<Exam> exams) {
         log.info("This list of exams {} have been created: ", exams);
         return examUseCase.createExams(exams).fold(
@@ -105,7 +105,7 @@ public class ExamRestHandler implements ExamHandler {
     public ResponseEntity<Void> deleteAllExams() {
         return examUseCase.deleteAllExams().fold(
                 a -> ResponseEntity.notFound().build(),
-                a -> ResponseEntity.status(HttpStatus.OK).build()
+                a -> ResponseEntity.status(HttpStatus.NO_CONTENT).build()
         );
     }
 }

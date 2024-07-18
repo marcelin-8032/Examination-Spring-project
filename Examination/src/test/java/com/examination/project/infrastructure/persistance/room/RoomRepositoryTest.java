@@ -24,5 +24,4 @@ class RoomRepositoryTest extends RepositoryBaseTest {
 
         assertThat(optionalRoomEntity).isNotEmpty().contains(roomEntity);
     }
-
 }

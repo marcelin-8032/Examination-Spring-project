@@ -125,8 +125,14 @@ public class ModelFactory {
                         defaultStudent().withStudentId(4).withFirstName("Albert").withClasse(Classe.classeB))
                 .toLinkedSet();
     }
-    
-    public static Page<Exam> defaultPageExam(){
+
+    public static Page<Exam> defaultPageExam() {
         return new PageImpl<>(defaultExams().toJavaList());
+    }
+
+    public static Page<Exam> defaultPageExam2() {
+        return new PageImpl<>(List.of(defaultExam().withRoom(Room.builder().roomId(1).build()),
+                        defaultExam().withExamId(2).withRoom(Room.builder().roomId(1).build()))
+                .asJava());
     }
 }

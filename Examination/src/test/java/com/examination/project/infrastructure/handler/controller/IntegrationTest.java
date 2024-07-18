@@ -20,8 +20,15 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.MethodParameter;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableArgumentResolver;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.bind.support.WebDataBinderFactory;
+import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.method.support.ModelAndViewContainer;
 
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
@@ -39,20 +46,7 @@ public abstract class IntegrationTest {
 
     protected InvigilatorRestHandlerFixture invigilatorRestHandlerFixture;
 
-
     protected RoomRestHandlerFixture roomRestHandlerFixture;
-
-    @Mock
-    protected SubjectUseCase subjectUseCaseMocked;
-
-    @InjectMocks
-    protected SubjectRestHandler subjectRestHandler;
-
-    @Mock
-    protected ExamUseCase examUseCaseMocked;
-
-    @InjectMocks
-    protected ExamRestHandler examRestHandler;
 
     @Mock
     protected InvigilatorUseCase invigilatorUseCaseMocked;
@@ -66,6 +60,18 @@ public abstract class IntegrationTest {
     @InjectMocks
     protected RoomRestHandler roomRestHandler;
 
+    @Mock
+    protected ExamUseCase examUseCaseMocked;
+
+    @InjectMocks
+    protected ExamRestHandler examRestHandler;
+
+    @Mock
+    protected SubjectUseCase subjectUseCaseMocked;
+
+    @InjectMocks
+    protected SubjectRestHandler subjectRestHandler;
+
     @BeforeEach
     public void setUp() {
         this.mockMvc = standaloneSetup(
@@ -74,6 +80,7 @@ public abstract class IntegrationTest {
                 invigilatorRestHandler,
                 roomRestHandler
         ).setControllerAdvice(new GlobalExceptionHandler())
+                .setCustomArgumentResolvers(new PageableHandlerMethodArgumentResolver())
                 .build();
 
         this.objectMapper = new ObjectMapperConfiguration().objectMapper();
