@@ -1,11 +1,11 @@
-package com.examination.project.domain.usecases.room;
+package com.examination.project.infrastructure.usecases.room;
 
-import com.examination.project.domain.usecases.UseCaseIntegrationTest;
+import com.examination.project.infrastructure.usecases.UseCaseIntegrationTest;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 
-
-import static com.examination.project.utils.ModelFactory.*;
+import static com.examination.project.utils.ModelFactory.defaultRoom;
+import static com.examination.project.utils.ModelFactory.defaultRooms;
 import static io.vavr.control.Either.right;
 import static org.junit.jupiter.api.Assertions.*;
 

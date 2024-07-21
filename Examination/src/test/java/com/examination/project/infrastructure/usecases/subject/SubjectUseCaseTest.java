@@ -1,14 +1,15 @@
-package com.examination.project.domain.usecases.subject;
+package com.examination.project.infrastructure.usecases.subject;
 
 import com.examination.project.domain.entities.Subject;
-import com.examination.project.domain.usecases.UseCaseIntegrationTest;
+import com.examination.project.infrastructure.usecases.UseCaseIntegrationTest;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static com.examination.project.utils.EntityFactory.*;
-import static com.examination.project.utils.ModelFactory.*;
+import static com.examination.project.utils.ModelFactory.defaultSubject;
+import static com.examination.project.utils.ModelFactory.defaultSubjects2;
 import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyCollection;
@@ -106,12 +107,4 @@ class SubjectUseCaseTest extends UseCaseIntegrationTest {
     void should_get_subject_by_title_with_ignore_case() {
 
     }
-
-
-
-
-
-
-
-
 }

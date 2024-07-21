@@ -1,6 +1,6 @@
-package com.examination.project.domain.usecases.exam;
+package com.examination.project.infrastructure.usecases.exam;
 
-import com.examination.project.domain.usecases.UseCaseIntegrationTest;
+import com.examination.project.infrastructure.usecases.UseCaseIntegrationTest;
 import io.vavr.control.Option;
 import lombok.val;
 import org.junit.jupiter.api.Test;

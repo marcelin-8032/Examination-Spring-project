@@ -1,7 +1,7 @@
-package com.examination.project.domain.usecases.invigilator;
+package com.examination.project.infrastructure.usecases.invigilator;
 
 import com.examination.project.domain.entities.Invigilator;
-import com.examination.project.domain.usecases.UseCaseIntegrationTest;
+import com.examination.project.infrastructure.usecases.UseCaseIntegrationTest;
 import io.vavr.collection.List;
 import lombok.val;
 import org.junit.jupiter.api.Test;

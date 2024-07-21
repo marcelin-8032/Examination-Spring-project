@@ -7,10 +7,16 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import io.vavr.control.Either;
 import lombok.val;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import java.util.ArrayList;
 
 import static com.examination.project.utils.EntityFactory.ROOM_ID;
 import static com.examination.project.utils.ModelFactory.*;
@@ -68,7 +74,8 @@ class ExamRestHandlerTest extends IntegrationTest {
     void should_return_all_exams_by_their_room() throws Exception {
 
         //when
-        given(this.examUseCaseMocked.getAllExamsByRoom(ROOM_ID, Pageable.ofSize(2))).willReturn(right(defaultPageExam2()));
+        given(this.examUseCaseMocked.getAllExamsByRoom(ROOM_ID, Pageable.ofSize(1)))
+                .willReturn(right(defaultPageExam2()));
 
         val resultActions = mockMvc.perform(MockMvcRequestBuilders
                 .get("/v1/exams" + "/examPages/" + "1")
@@ -80,11 +87,11 @@ class ExamRestHandlerTest extends IntegrationTest {
         objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<>() {
         });
 
-        //val result2 = this.examRestHandlerFixture.getAllExamsByRoom();
+      //  val result = this.examRestHandlerFixture.getAllExamsByRoom().with(mockMvc,objectMapper);
 
-        // verify(this.examUseCaseMocked, atLeastOnce()).getAllExamsByRoom(ROOM_ID,Pageable.ofSize(2));
+      //  verify(this.examUseCaseMocked, atLeastOnce()).getAllExamsByRoom(ROOM_ID,Pageable.ofSize(1));
         //then
-        // assertEquals(result.getResponse().getStatus(), HttpStatus.OK.value());
+    // assertEquals(result.getResponse().getStatus(), HttpStatus.OK.value());
         //assertEquals(result.getTotalElements(), 5);
     }
 

@@ -1,7 +1,6 @@
-package com.examination.project.domain.usecases;
+package com.examination.project.infrastructure.usecases;
 
 import com.examination.project.domain.entities.*;
-import com.examination.project.domain.exception.ExaminationExceptionSanitize;
 import com.examination.project.domain.usecases.v1.exam.ExamUseCase;
 import com.examination.project.domain.usecases.v1.invigilator.InvigilatorUseCase;
 import com.examination.project.domain.usecases.v1.room.RoomUseCase;
@@ -24,13 +23,9 @@ import com.examination.project.infrastructure.usecaseImpl.v1.room.RoomUseCaseImp
 import com.examination.project.infrastructure.usecaseImpl.v1.student.StudentUseCaseImpl;
 import com.examination.project.infrastructure.usecaseImpl.v1.subject.SubjectUseCaseImpl;
 import io.vavr.control.Option;
-import io.vavr.control.Try;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Sort;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.Optional;
@@ -39,7 +34,6 @@ import static com.examination.project.utils.EntityFactory.*;
 import static com.examination.project.utils.ModelFactory.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.springframework.data.domain.PageRequest.of;
 
 @ExtendWith(MockitoExtension.class)
 public abstract class UseCaseIntegrationTest {

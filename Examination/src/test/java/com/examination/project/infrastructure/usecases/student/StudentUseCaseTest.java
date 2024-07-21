@@ -1,17 +1,17 @@
-package com.examination.project.domain.usecases.student;
+package com.examination.project.infrastructure.usecases.student;
 
 import com.examination.project.domain.entities.Classe;
 import com.examination.project.domain.entities.Student;
-import com.examination.project.domain.usecases.UseCaseIntegrationTest;
+import com.examination.project.infrastructure.usecases.UseCaseIntegrationTest;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 
 import static com.examination.project.utils.EntityFactory.EXAM_ID;
 import static com.examination.project.utils.EntityFactory.STUDENT_ID;
-import static com.examination.project.utils.ModelFactory.*;
+import static com.examination.project.utils.ModelFactory.defaultStudent;
+import static com.examination.project.utils.ModelFactory.defaultStudents2;
 import static org.junit.jupiter.api.Assertions.*;
 
 class StudentUseCaseTest extends UseCaseIntegrationTest {
