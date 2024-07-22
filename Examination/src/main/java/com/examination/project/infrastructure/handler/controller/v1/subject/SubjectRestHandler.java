@@ -54,7 +54,7 @@ public class SubjectRestHandler implements SubjectHandler {
     }
 
     @Override
-    @GetMapping(value = "/coeff/{coeff}/subjectModule/{subjectModule}")
+    @GetMapping(value = "/coeff/{coeff}/subjectModule/{subjectModule}/title=Chemistry")
     public ResponseEntity<Collection<Subject>> getSubjectByCoeffBiggerThanAndTitleDataAndModule(
             @PathVariable("coeff") int coeff, @PathVariable("subjectModule") SubjectModule subjectModule) {
         return subjectUseCase.getSubjectCoeffBiggerTitleEqDataModuleEq2(coeff, subjectModule).fold(
@@ -64,22 +64,22 @@ public class SubjectRestHandler implements SubjectHandler {
     }
 
     @Override
-    @GetMapping(value = "/coeff/{coeff}/module/{module}")
+    @GetMapping(value = "/coeff/{coeff}/subjectModule/{subjectModule}")
     public ResponseEntity<Collection<Subject>> getSubjectByCoeffBiggerThanAndModule(
-            @PathVariable("coeff") int coeff,
-            @PathVariable("module") SubjectModule subjectModule) {
+            @PathVariable("coeff") int coeff, @PathVariable("subjectModule") SubjectModule subjectModule) {
         return subjectUseCase.getSubjectCoeffBiggerThanModuleEq2(coeff, subjectModule).fold(
                 a -> ResponseEntity.notFound().build(),
-                subjects -> new ResponseEntity<>(HttpStatus.FOUND)
+                ResponseEntity::ok
         );
     }
 
+    /// from here to --->
     @Override
     @GetMapping(value = "/subjectsquerydsl3c/module/{module}")
     public ResponseEntity<Collection<Subject>> getSubjectTitleDataAndModuleEq2(@PathVariable("module") SubjectModule subjectModule) {
         return subjectUseCase.getSubjectTitleEqDataModuleEq2(subjectModule).fold(
                 a -> ResponseEntity.notFound().build(),
-                subjects -> new ResponseEntity<>(HttpStatus.FOUND)
+                ResponseEntity::ok
         );
     }
 
@@ -109,4 +109,6 @@ public class SubjectRestHandler implements SubjectHandler {
                 subjects -> ResponseEntity.status(HttpStatus.FOUND).build()
         );
     }
+
+    // should be review and test
 }

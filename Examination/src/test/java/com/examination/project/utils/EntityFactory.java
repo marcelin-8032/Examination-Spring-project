@@ -7,10 +7,12 @@ import com.examination.project.infrastructure.persistance.exam.entities.ExamEnti
 import com.examination.project.infrastructure.persistance.invigilator.entities.InvigilatorEntity;
 import com.examination.project.infrastructure.persistance.room.entities.RoomEntity;
 import com.examination.project.infrastructure.persistance.student.entities.StudentEntity;
+import com.examination.project.infrastructure.persistance.subject.entities.QSubjectEntity;
 import com.examination.project.infrastructure.persistance.subject.entities.SubjectEntity;
 import io.vavr.collection.List;
 import io.vavr.collection.Set;
 import lombok.NoArgsConstructor;
+import lombok.val;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
@@ -132,6 +134,23 @@ public class EntityFactory {
                         .build(),
                 defaultSubjectEntity().toBuilder()
                         .subjectId(3)
+                        .build()
+        );
+    }
+
+
+    public static List<SubjectEntity> defaultSubjectEntitiesQueryDsl() {
+        return List.of(defaultSubjectEntity().toBuilder()
+                        .subjectId(2)
+                        .title("Chemistry")
+                        .coefficient(200)
+                        .subjectModule(SubjectModule.MODULE_2)
+                        .build(),
+                defaultSubjectEntity().toBuilder()
+                        .subjectId(10)
+                        .title("Chemistry")
+                        .coefficient(500)
+                        .subjectModule(SubjectModule.MODULE_2)
                         .build()
         );
     }

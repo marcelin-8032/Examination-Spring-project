@@ -1,11 +1,11 @@
 package com.examination.project.infrastructure.usecaseImpl.v1.subject;
 
-import com.examination.project.domain.entities.SubjectModule;
 import com.examination.project.domain.entities.Subject;
+import com.examination.project.domain.entities.SubjectModule;
 import com.examination.project.domain.exception.ExaminationException;
 import com.examination.project.domain.exception.ExaminationExceptionSanitize;
-import com.examination.project.infrastructure.mapper.struct.SubjectMapper;
 import com.examination.project.domain.usecases.v1.subject.SubjectUseCase;
+import com.examination.project.infrastructure.mapper.struct.SubjectMapper;
 import com.examination.project.infrastructure.persistance.subject.entities.QSubjectEntity;
 import com.examination.project.infrastructure.persistance.subject.repository.SubjectRepository;
 import com.querydsl.core.types.Predicate;
@@ -20,7 +20,7 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.stream.StreamSupport;
 
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.exact;
 
@@ -73,14 +73,13 @@ public class SubjectUseCaseImpl implements SubjectUseCase {
     @Override
     public Either<ExaminationException, Collection<Subject>> getSubjectCoeffBiggerTitleEqDataModuleEq2(int coeff, SubjectModule subjectModule) {
 
-        val qSubject = new QSubjectEntity("subject");
-        val filterByCoeff = qSubject.coefficient.gt(coeff);
-        val filterByTitle = qSubject.title.contains("data");
-        val filterByModule = qSubject.subjectModule.eq(subjectModule);
+        val subjectEntity = QSubjectEntity.subjectEntity;
+        val filterByCoeff = subjectEntity.coefficient.gt(coeff);
+        val filterByTitle = subjectEntity.title.contains("Chemistry");
+        val filterByModule = subjectEntity.subjectModule.eq(subjectModule);
 
         return Try.of(() -> this.subjectRepository.findAll(filterByCoeff.and(filterByTitle).and(filterByModule)))
-                .map(subjectEntities -> subjectEntities.iterator().next())
-                .map(List::of)
+                .map(iterable -> StreamSupport.stream(iterable.spliterator(), false).toList())
                 .map(this.subjectMapper::toSubjects)
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
@@ -88,13 +87,13 @@ public class SubjectUseCaseImpl implements SubjectUseCase {
 
     @Override
     public Either<ExaminationException, Collection<Subject>> getSubjectCoeffBiggerThanModuleEq2(int coeff, SubjectModule subjectModule) {
-        var qMatiere = new QSubjectEntity("matiere");
-        var filterByCoeff = qMatiere.coefficient.gt(coeff);
-        var filterByModule = qMatiere.subjectModule.eq(subjectModule);
+
+        val qSubjectEntity = QSubjectEntity.subjectEntity;
+        val filterByCoeff = qSubjectEntity.coefficient.gt(coeff);
+        val filterByModule = qSubjectEntity.subjectModule.eq(subjectModule);
 
         return Try.of(() -> this.subjectRepository.findAll(filterByCoeff.and(filterByModule)))
-                .map(subjectEntities -> subjectEntities.iterator().next())
-                .map(List::of)
+                .map(iterable -> StreamSupport.stream(iterable.spliterator(), false).toList())
                 .map(this.subjectMapper::toSubjects)
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
@@ -102,13 +101,13 @@ public class SubjectUseCaseImpl implements SubjectUseCase {
 
     @Override
     public Either<ExaminationException, Collection<Subject>> getSubjectTitleEqDataModuleEq2(SubjectModule subjectModule) {
-        var qMatiere = new QSubjectEntity("matiere");
-        var filterByIntitule = qMatiere.title.contains("data");
-        var filterByModule = qMatiere.subjectModule.eq(subjectModule);
 
-        return Try.of(() -> this.subjectRepository.findAll(filterByIntitule.and(filterByModule)))
-                .map(subjectEntities -> subjectEntities.iterator().next())
-                .map(List::of)
+        val qSubjectEntity = QSubjectEntity.subjectEntity;
+        val filterByTitle = qSubjectEntity.title.contains("data");
+        val filterByModule = qSubjectEntity.subjectModule.eq(subjectModule);
+
+        return Try.of(() -> this.subjectRepository.findAll(filterByTitle.and(filterByModule)))
+                .map(iterable -> StreamSupport.stream(iterable.spliterator(), false).toList())
                 .map(this.subjectMapper::toSubjects)
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);

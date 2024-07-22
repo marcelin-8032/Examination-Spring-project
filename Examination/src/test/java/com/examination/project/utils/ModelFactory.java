@@ -39,6 +39,19 @@ public class ModelFactory {
         );
     }
 
+    public static List<Subject> defaultSubjectsQueryDsl() {
+        return List.of(defaultSubject()
+                        .withSubjectId(2)
+                        .withTitle("Chemistry")
+                        .withCoefficient(200)
+                        .withSubjectModule(SubjectModule.MODULE_2),
+                defaultSubject()
+                        .withSubjectId(10)
+                        .withTitle("Chemistry")
+                        .withCoefficient(500)
+                        .withSubjectModule(SubjectModule.MODULE_2)
+        );
+    }
 
     public static Student defaultStudent() {
         return Student
