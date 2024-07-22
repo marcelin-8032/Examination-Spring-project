@@ -4,12 +4,10 @@ import com.examination.project.domain.entities.Subject;
 import com.examination.project.domain.entities.SubjectModule;
 import com.examination.project.infrastructure.persistance.subject.entities.QSubjectEntity;
 import com.examination.project.infrastructure.usecases.UseCaseIntegrationTest;
-import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.function.Predicate;
 
 import static com.examination.project.utils.EntityFactory.*;
 import static com.examination.project.utils.ModelFactory.*;
@@ -131,11 +129,29 @@ class SubjectUseCaseTest extends UseCaseIntegrationTest {
 
 
     @Test
-    void should_get_subject_title_eqDataModuleEq2() {
+    void should_get_subject_title_eq_Data_Science_ModuleEq3() {
 
+        //given
+        val qSubjectEntity = QSubjectEntity.subjectEntity;
+        val filterByTitle = qSubjectEntity.title.contains("Data_Science");
+        val filterByModule = qSubjectEntity.subjectModule.eq(SubjectModule.MODULE_3);
 
+        //when
+        when(this.subjectRepositoryMocked.saveAll(any())).thenReturn(defaultSubjectEntitiesQueryDsl2().asJava());
+        when(this.subjectRepositoryMocked.findAll(filterByTitle.and(filterByModule))).thenReturn(defaultSubjectEntitiesQueryDsl2().iterator());
+        when(this.subjectMapperMocked.toSubjects(anyCollection())).thenReturn(defaultSubjectsQueryDsl2().asJava());
+
+        val result = this.subjectUseCase.getSubjectsTitleEqDataScienceModuleEq2(SubjectModule.MODULE_3);
+
+        //then
+        assertAll("find subjects by subject module eq module_3",
+                () -> assertTrue(result.isRight()),
+                () -> assertFalse(result.get().isEmpty()),
+                () -> assertEquals(result.get().size(), 2),
+                () -> assertTrue(result.get().stream().allMatch(s -> s.subjectModule().equals(SubjectModule.MODULE_3) &&
+                        s.title().equals("Data_Science")))
+        );
     }
-
 
     @Test
     void should_get_subject_by_example() {

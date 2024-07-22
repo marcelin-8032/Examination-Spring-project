@@ -73,42 +73,41 @@ public class SubjectRestHandler implements SubjectHandler {
         );
     }
 
-    /// from here to --->
     @Override
-    @GetMapping(value = "/subjectsquerydsl3c/module/{module}")
-    public ResponseEntity<Collection<Subject>> getSubjectTitleDataAndModuleEq2(@PathVariable("module") SubjectModule subjectModule) {
-        return subjectUseCase.getSubjectTitleEqDataModuleEq2(subjectModule).fold(
+    @GetMapping(value = "/subjectModule/{subjectModule}")
+    public ResponseEntity<Collection<Subject>> getSubjectTitleDataAndModuleEq2(
+            @PathVariable("subjectModule") SubjectModule subjectModule) {
+        return subjectUseCase.getSubjectsTitleEqDataScienceModuleEq2(subjectModule).fold(
                 a -> ResponseEntity.notFound().build(),
                 ResponseEntity::ok
         );
     }
 
+    /// from here to --->
     @Override
-    @GetMapping(value = "/subjetByExp")
+    @GetMapping(value = "/subjectByExp")
     public ResponseEntity<Subject> getSubjectByExample(Example<?> example) {
         return subjectUseCase.getSubjectByExample(example).fold(
                 a -> ResponseEntity.notFound().build(),
-                subjects -> ResponseEntity.status(HttpStatus.FOUND).build()
+                subject -> ResponseEntity.status(HttpStatus.FOUND).build()
         );
     }
 
     @Override
-    @GetMapping(value = "/subjectbyexpcoeff")
+    @GetMapping(value = "/subjectByExpCoeff")
     public ResponseEntity<Subject> getSubjectByCoeff(Example<?> example) {
         return subjectUseCase.getSubjectByCoefficient(example).fold(
                 a -> ResponseEntity.notFound().build(),
-                subjects -> ResponseEntity.status(HttpStatus.FOUND).build()
+                subject -> ResponseEntity.status(HttpStatus.FOUND).build()
         );
     }
 
     @Override
-    @GetMapping(value = "/subjectbyexpignorcase")
+    @GetMapping(value = "/subjectByExpIgnoreCase")
     public ResponseEntity<Subject> getSubjectByTitleWithIgnoreCase(Example<?> example) {
         return subjectUseCase.getSubjectByTitleWithIgnoreCase(example).fold(
                 a -> ResponseEntity.notFound().build(),
-                subjects -> ResponseEntity.status(HttpStatus.FOUND).build()
+                subject -> ResponseEntity.status(HttpStatus.FOUND).build()
         );
     }
-
-    // should be review and test
 }

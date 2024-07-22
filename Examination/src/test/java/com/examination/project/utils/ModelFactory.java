@@ -53,6 +53,18 @@ public class ModelFactory {
         );
     }
 
+    public static List<Subject> defaultSubjectsQueryDsl2() {
+        return List.of(defaultSubject()
+                        .withSubjectId(2)
+                        .withTitle("Data_Science")
+                        .withSubjectModule(SubjectModule.MODULE_3),
+                defaultSubject()
+                        .withSubjectId(10)
+                        .withTitle("Data_Science")
+                        .withSubjectModule(SubjectModule.MODULE_3)
+        );
+    }
+
     public static Student defaultStudent() {
         return Student
                 .builder()

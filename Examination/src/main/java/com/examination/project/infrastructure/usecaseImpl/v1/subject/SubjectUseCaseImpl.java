@@ -100,10 +100,10 @@ public class SubjectUseCaseImpl implements SubjectUseCase {
     }
 
     @Override
-    public Either<ExaminationException, Collection<Subject>> getSubjectTitleEqDataModuleEq2(SubjectModule subjectModule) {
+    public Either<ExaminationException, Collection<Subject>> getSubjectsTitleEqDataScienceModuleEq2(SubjectModule subjectModule) {
 
         val qSubjectEntity = QSubjectEntity.subjectEntity;
-        val filterByTitle = qSubjectEntity.title.contains("data");
+        val filterByTitle = qSubjectEntity.title.contains("Data_Science");
         val filterByModule = qSubjectEntity.subjectModule.eq(subjectModule);
 
         return Try.of(() -> this.subjectRepository.findAll(filterByTitle.and(filterByModule)))
@@ -124,10 +124,12 @@ public class SubjectUseCaseImpl implements SubjectUseCase {
 
     @Override
     public Either<ExaminationException, Option<Subject>> getSubjectByCoefficient(Example<?> example) {
-        var subject = Subject.builder()
+
+        val subject = Subject.builder()
                 .coefficient(175)
                 .build();
-        var matcher = ExampleMatcher.matching().withMatcher("coefficient", exact());
+
+        val matcher = ExampleMatcher.matching().withMatcher("coefficient", exact());
 
         return Try.of(() -> Example.of(subject, matcher))
                 .map(subjectExample -> this.subjectRepository.findOne((Predicate) example))
@@ -139,8 +141,8 @@ public class SubjectUseCaseImpl implements SubjectUseCase {
     @Override
     public Either<ExaminationException, Option<Subject>> getSubjectByTitleWithIgnoreCase(Example<?> example) {
 
-        var subject = Subject.builder().coefficient(200).title("DATA").build();
-        var matcher = ExampleMatcher.matchingAll().withIgnoreCase();
+        val subject = Subject.builder().coefficient(200).title("Data").build();
+        val matcher = ExampleMatcher.matchingAll().withIgnoreCase();
 
         return Try.of(() -> Example.of(subject, matcher))
                 .map(subjectExample -> this.subjectRepository.findOne((Predicate) example))

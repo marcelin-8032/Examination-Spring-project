@@ -17,17 +17,17 @@ public interface SubjectUseCase {
 
 	Either<ExaminationException, Collection<Subject>> getSubjectsGreaterThanACoefficient(int coefficient);
 
-	Either<ExaminationException, Option<Subject>> getSubjectByExample(Example<?> example);
-
-	Either<ExaminationException, Option<Subject>> getSubjectByCoefficient(Example<?> example);
-
-	Either<ExaminationException, Option<Subject>> getSubjectByTitleWithIgnoreCase(Example<?> example);
-
 	Either<ExaminationException, Collection<Subject>> getAllSubjects();
 
 	Either<ExaminationException, Collection<Subject>> getSubjectCoeffBiggerTitleEqDataModuleEq2(int coeff, SubjectModule subjectModule);
 
 	Either<ExaminationException, Collection<Subject>> getSubjectCoeffBiggerThanModuleEq2(int coeff, SubjectModule subjectModule);
 
-	Either<ExaminationException, Collection<Subject>> getSubjectTitleEqDataModuleEq2(SubjectModule subjectModule);
+	Either<ExaminationException, Collection<Subject>> getSubjectsTitleEqDataScienceModuleEq2(SubjectModule subjectModule);
+
+	Either<ExaminationException, Option<Subject>> getSubjectByExample(Example<?> example);
+
+	Either<ExaminationException, Option<Subject>> getSubjectByCoefficient(Example<?> example);
+
+	Either<ExaminationException, Option<Subject>> getSubjectByTitleWithIgnoreCase(Example<?> example);
 }

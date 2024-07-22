@@ -155,6 +155,20 @@ public class EntityFactory {
         );
     }
 
+    public static List<SubjectEntity> defaultSubjectEntitiesQueryDsl2() {
+        return List.of(defaultSubjectEntity().toBuilder()
+                        .subjectId(2)
+                        .title("Data_Science")
+                        .subjectModule(SubjectModule.MODULE_3)
+                        .build(),
+                defaultSubjectEntity().toBuilder()
+                        .subjectId(10)
+                        .title("Data_Science")
+                        .subjectModule(SubjectModule.MODULE_3)
+                        .build()
+        );
+    }
+
     public static ExamEntity defaultExamEntity() {
         return ExamEntity.builder()
                 .examId(EXAM_ID)

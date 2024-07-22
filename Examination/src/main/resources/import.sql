@@ -29,6 +29,8 @@ INSERT INTO subjects
 VALUES (2206, 182, null, null, null, null, 'MODULE_2', 'Chemistry') ON CONFLICT DO NOTHING;
 INSERT INTO subjects
 VALUES (2207, 190, null, null, null, null, 'MODULE_2', 'Chemistry') ON CONFLICT DO NOTHING;
+INSERT INTO subjects
+VALUES (2208, 188, null, null, null, null, 'MODULE_3', 'Data_Science') ON CONFLICT DO NOTHING;
 
 INSERT INTO students
 VALUES (800, '2002-04-25T13:22:09.389365700Z', 'classeA', 'Alex', 45654654, 'BERNARD', 3) ON CONFLICT DO NOTHING;
