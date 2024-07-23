@@ -72,6 +72,5 @@ public class SubjectRestHandlerFixture extends MockMvcUtils {
                 throw new AssertionError("thrown exception", exception);
             }
         };
-
     }
 }
