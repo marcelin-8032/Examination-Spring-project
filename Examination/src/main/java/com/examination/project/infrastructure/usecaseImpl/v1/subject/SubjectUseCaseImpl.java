@@ -126,7 +126,7 @@ public class SubjectUseCaseImpl implements SubjectUseCase {
     }
 
     @Override
-    public Either<ExaminationException, Collection<Subject>> getSubjectByCoefficient(String title, int coefficient) {
+    public Either<ExaminationException, Collection<Subject>> getSubjectByCoefficientAndTitle(String title, int coefficient) {
 
         val subjectEntity = SubjectEntity.builder()
                 .title(title)

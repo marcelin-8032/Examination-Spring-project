@@ -26,7 +26,7 @@ public interface SubjectUseCase {
 
     Either<ExaminationException, Option<Subject>> getSubjectByExample(Subject subject);
 
-    Either<ExaminationException, Collection<Subject>> getSubjectByCoefficient(String title, int coefficient);
+    Either<ExaminationException, Collection<Subject>> getSubjectByCoefficientAndTitle(String title, int coefficient);
 
     Either<ExaminationException, Collection<Subject>> getSubjectByTitleWithIgnoreCase(String title);
 }

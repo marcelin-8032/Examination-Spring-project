@@ -3,11 +3,16 @@ package com.examination.project.infrastructure.usecases.subject;
 import com.examination.project.domain.entities.Subject;
 import com.examination.project.domain.entities.SubjectModule;
 import com.examination.project.infrastructure.persistance.subject.entities.QSubjectEntity;
+import com.examination.project.infrastructure.persistance.subject.entities.SubjectEntity;
 import com.examination.project.infrastructure.usecases.UseCaseIntegrationTest;
+import io.vavr.control.Option;
 import lombok.val;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.examination.project.utils.EntityFactory.*;
 import static com.examination.project.utils.ModelFactory.*;
@@ -127,7 +132,6 @@ class SubjectUseCaseTest extends UseCaseIntegrationTest {
         );
     }
 
-
     @Test
     void should_get_subject_title_eq_Data_Science_ModuleEq3() {
 
@@ -156,20 +160,86 @@ class SubjectUseCaseTest extends UseCaseIntegrationTest {
     @Test
     void should_get_subject_by_example() {
 
+        //given
+        val expected = Subject.builder()
+                .subjectId(1)
+                .title("Physics")
+                .subjectModule(SubjectModule.MODULE_2)
+                .coefficient(164)
+                .build();
 
+        var matcher = Example.of(defaultSubjectEntity(), ExampleMatcher.matchingAll());
+
+        //when
+        when(this.subjectMapperMocked.toSubjectEntity(any())).thenReturn(defaultSubjectEntity());
+        when(this.subjectRepositoryMocked.save(any())).thenReturn(defaultSubjectEntity());
+        when(this.subjectRepositoryMocked.findOne(matcher)).thenReturn(Optional.of(defaultSubjectEntity()));
+        when(this.subjectMapperMocked.unwrapReferenceToOption(any())).thenReturn(Option.of(defaultSubject()));
+
+        val result = this.subjectUseCase.getSubjectByExample(defaultSubject());
+
+        //then
+        assertAll("find subject by subject Example",
+                () -> assertTrue(result.isRight()),
+                () -> assertFalse(result.get().isEmpty()),
+                () -> assertEquals(result.get().get(), expected)
+        );
     }
 
 
     @Test
-    void should_get_subject_by_coefficient() {
+    void should_get_subject_by_coefficient_and_title() {
 
+        //given
+        val subjectEntity = SubjectEntity.builder()
+                .title("Physics")
+                .coefficient(100)
+                .build();
+
+        var matcher = Example.of(subjectEntity, ExampleMatcher.matchingAll());
+
+        //when
+        when(this.subjectRepositoryMocked.saveAll(anyCollection())).thenReturn(List.of(subjectEntity));
+        when(this.subjectRepositoryMocked.findAll(matcher)).thenReturn(List.of(subjectEntity));
+        when(this.subjectMapperMocked.toSubjects(anyCollection())).thenReturn(List.of(Subject.builder().title("Physics").coefficient(100).build()));
+
+        val result = this.subjectUseCase.getSubjectByCoefficientAndTitle("Physics", 100);
+
+        //then
+        assertAll("find subjects by subject title and coeff",
+                () -> assertTrue(result.isRight()),
+                () -> assertFalse(result.get().isEmpty()),
+                () -> assertTrue(result.get().stream().allMatch(s -> s.coefficient() == 100 &&
+                        s.title().equals("Physics")))
+        );
 
     }
-
 
     @Test
     void should_get_subject_by_title_with_ignore_case() {
 
+        //given
+        val subjectEntity = SubjectEntity.builder()
+                .title("Chemistry")
+                .build();
 
+        val matcher = Example.of(subjectEntity, ExampleMatcher.matchingAll().withIgnoreCase());
+
+        //when
+        when(this.subjectRepositoryMocked.saveAll(anyCollection())).thenReturn(List.of(subjectEntity, subjectEntity));
+        when(this.subjectRepositoryMocked.findAll(matcher)).thenReturn(List.of(subjectEntity, subjectEntity));
+        when(this.subjectMapperMocked.toSubjects(anyCollection()))
+                .thenReturn(List.of(Subject.builder().title("Chemistry").build(),
+                        Subject.builder().title("Chemistry").build()));
+
+        val result = this.subjectUseCase.getSubjectByTitleWithIgnoreCase("Chemistry");
+
+        //then
+        assertAll("find subjects by subject title ignore case",
+                () -> assertTrue(result.isRight()),
+                () -> assertFalse(result.get().isEmpty()),
+                () -> assertEquals(result.get().size(), 2),
+                () -> assertTrue(result.get().stream().allMatch(s -> s.title().equals("Chemistry")))
+        );
     }
 }

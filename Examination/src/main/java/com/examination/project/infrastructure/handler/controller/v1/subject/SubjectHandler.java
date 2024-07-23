@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.Collection;
 
 public interface SubjectHandler {
+
     @Tag(name = " Subject API", description = "add subject")
     @Operation(
             summary = "Add subject",
@@ -49,25 +50,21 @@ public interface SubjectHandler {
     )
     ResponseEntity<Collection<Subject>> getSubjectByCoeffBiggerThan(int coeff);
 
+    ResponseEntity<Collection<Subject>> getAllSubjects();
+
+    ResponseEntity<Collection<Subject>> getSubjectByCoeffBiggerThanAndTitleDataAndModule(
+            int coeff,
+            SubjectModule subjectModule);
+
+    ResponseEntity<Collection<Subject>> getSubjectByCoeffBiggerThanAndModule(
+            int coeff,
+            SubjectModule subjectModule);
+
+    ResponseEntity<Collection<Subject>> getSubjectTitleDataAndModuleEq2(SubjectModule subjectModule);
 
     ResponseEntity<Subject> getSubjectByExample(Subject subject);
 
-
     ResponseEntity<Collection<Subject>> getSubjectByExampleCoeffAndTitle(String title, int coefficient);
 
-
     ResponseEntity<Collection<Subject>> getSubjectByTitleWithIgnoreCase(String title);
-
-
-    ResponseEntity<Collection<Subject>> getAllSubjects();
-
-
-    ResponseEntity<Collection<Subject>> getSubjectByCoeffBiggerThanAndTitleDataAndModule(
-            int coeff, SubjectModule subjectModule);
-
-
-    ResponseEntity<Collection<Subject>> getSubjectByCoeffBiggerThanAndModule(int coeff,
-                                                                             SubjectModule subjectModule);
-
-    ResponseEntity<Collection<Subject>> getSubjectTitleDataAndModuleEq2(SubjectModule subjectModule);
 }

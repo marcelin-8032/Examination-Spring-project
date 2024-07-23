@@ -96,7 +96,7 @@ public class SubjectRestHandler implements SubjectHandler {
     public ResponseEntity<Collection<Subject>> getSubjectByExampleCoeffAndTitle(
             @RequestParam(name = "title") String title,
             @RequestParam(name = "coefficient") int coefficient) {
-        return subjectUseCase.getSubjectByCoefficient(title, coefficient).fold(
+        return subjectUseCase.getSubjectByCoefficientAndTitle(title, coefficient).fold(
                 a -> ResponseEntity.notFound().build(),
                 ResponseEntity::ok
         );
