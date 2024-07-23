@@ -63,5 +63,4 @@ public class StudentEntity implements Serializable {
         this.examEntities.add(examEntity);
         examEntity.getStudents().add(this);
     }
-
 }

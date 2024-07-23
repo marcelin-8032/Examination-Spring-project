@@ -1,14 +1,13 @@
 package com.examination.project.infrastructure.handler.controller.v1.subject;
 
 
-import com.examination.project.domain.entities.SubjectModule;
 import com.examination.project.domain.entities.Subject;
+import com.examination.project.domain.entities.SubjectModule;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.data.domain.Example;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Collection;
@@ -51,13 +50,13 @@ public interface SubjectHandler {
     ResponseEntity<Collection<Subject>> getSubjectByCoeffBiggerThan(int coeff);
 
 
-    ResponseEntity<Subject> getSubjectByExample(Example<?> example);
+    ResponseEntity<Subject> getSubjectByExample(Subject subject);
 
 
-    ResponseEntity<Subject> getSubjectByCoeff(Example<?> example);
+    ResponseEntity<Collection<Subject>> getSubjectByExampleCoeffAndTitle(String title, int coefficient);
 
 
-    ResponseEntity<Subject> getSubjectByTitleWithIgnoreCase(Example<?> example);
+    ResponseEntity<Collection<Subject>> getSubjectByTitleWithIgnoreCase(String title);
 
 
     ResponseEntity<Collection<Subject>> getAllSubjects();
@@ -67,9 +66,8 @@ public interface SubjectHandler {
             int coeff, SubjectModule subjectModule);
 
 
-    ResponseEntity<Collection<Subject>> getSubjectByCoeffBiggerThanAndModule( int coeff,
+    ResponseEntity<Collection<Subject>> getSubjectByCoeffBiggerThanAndModule(int coeff,
                                                                              SubjectModule subjectModule);
 
     ResponseEntity<Collection<Subject>> getSubjectTitleDataAndModuleEq2(SubjectModule subjectModule);
-
 }

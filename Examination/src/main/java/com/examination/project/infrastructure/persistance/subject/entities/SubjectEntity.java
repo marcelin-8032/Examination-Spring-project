@@ -38,7 +38,6 @@ public class SubjectEntity implements Serializable {
     private String title;
 
     @Column
-    @NonNull
     private int coefficient;
 
     @Column

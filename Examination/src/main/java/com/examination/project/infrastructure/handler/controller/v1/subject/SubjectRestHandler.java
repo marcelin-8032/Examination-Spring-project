@@ -4,7 +4,6 @@ import com.examination.project.domain.entities.Subject;
 import com.examination.project.domain.entities.SubjectModule;
 import com.examination.project.domain.usecases.v1.subject.SubjectUseCase;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -83,31 +82,33 @@ public class SubjectRestHandler implements SubjectHandler {
         );
     }
 
-    /// from here to --->
     @Override
     @GetMapping(value = "/subjectByExp")
-    public ResponseEntity<Subject> getSubjectByExample(Example<?> example) {
-        return subjectUseCase.getSubjectByExample(example).fold(
+    public ResponseEntity<Subject> getSubjectByExample(@RequestBody Subject subject) {
+        return subjectUseCase.getSubjectByExample(subject).fold(
                 a -> ResponseEntity.notFound().build(),
-                subject -> ResponseEntity.status(HttpStatus.FOUND).build()
+                subjectFound -> new ResponseEntity<>(subjectFound.get(), HttpStatus.FOUND)
         );
     }
 
     @Override
-    @GetMapping(value = "/subjectByExpCoeff")
-    public ResponseEntity<Subject> getSubjectByCoeff(Example<?> example) {
-        return subjectUseCase.getSubjectByCoefficient(example).fold(
+    @GetMapping(value = "/subjectByExpCoeffAndTitle")
+    public ResponseEntity<Collection<Subject>> getSubjectByExampleCoeffAndTitle(
+            @RequestParam(name = "title") String title,
+            @RequestParam(name = "coefficient") int coefficient) {
+        return subjectUseCase.getSubjectByCoefficient(title, coefficient).fold(
                 a -> ResponseEntity.notFound().build(),
-                subject -> ResponseEntity.status(HttpStatus.FOUND).build()
+                ResponseEntity::ok
         );
     }
 
     @Override
-    @GetMapping(value = "/subjectByExpIgnoreCase")
-    public ResponseEntity<Subject> getSubjectByTitleWithIgnoreCase(Example<?> example) {
-        return subjectUseCase.getSubjectByTitleWithIgnoreCase(example).fold(
+    @GetMapping(value = "/subjectByExpTitleIgnoreCase")
+    public ResponseEntity<Collection<Subject>> getSubjectByTitleWithIgnoreCase(
+            @RequestParam(name = "title") String title) {
+        return subjectUseCase.getSubjectByTitleWithIgnoreCase(title).fold(
                 a -> ResponseEntity.notFound().build(),
-                subject -> ResponseEntity.status(HttpStatus.FOUND).build()
+                ResponseEntity::ok
         );
     }
 }

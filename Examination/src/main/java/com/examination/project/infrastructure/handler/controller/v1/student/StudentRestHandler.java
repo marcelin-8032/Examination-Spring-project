@@ -55,10 +55,10 @@ public class StudentRestHandler implements StudentHandler {
             @PathVariable("studentId") Integer studentId,
             @PathVariable("examId") Integer examId) {
 
-        return studentUseCase.addOrUpdateStudentToExam(examId, studentId)
-                .fold(a -> ResponseEntity.badRequest().build(),
-                        ResponseEntity::ok
-                );
+        return studentUseCase.addOrUpdateStudentToExam(examId, studentId).fold(
+                a -> ResponseEntity.badRequest().build(),
+                ResponseEntity::ok
+        );
     }
 
     @Override

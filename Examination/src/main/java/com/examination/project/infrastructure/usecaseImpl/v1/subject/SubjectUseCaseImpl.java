@@ -7,8 +7,8 @@ import com.examination.project.domain.exception.ExaminationExceptionSanitize;
 import com.examination.project.domain.usecases.v1.subject.SubjectUseCase;
 import com.examination.project.infrastructure.mapper.struct.SubjectMapper;
 import com.examination.project.infrastructure.persistance.subject.entities.QSubjectEntity;
+import com.examination.project.infrastructure.persistance.subject.entities.SubjectEntity;
 import com.examination.project.infrastructure.persistance.subject.repository.SubjectRepository;
-import com.querydsl.core.types.Predicate;
 import io.vavr.control.Either;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.stream.StreamSupport;
 
+import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.contains;
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.exact;
 
 @Slf4j
@@ -114,40 +115,57 @@ public class SubjectUseCaseImpl implements SubjectUseCase {
     }
 
     @Override
-    public Either<ExaminationException, Option<Subject>> getSubjectByExample(Example<?> example) {
+    public Either<ExaminationException, Option<Subject>> getSubjectByExample(Subject subject) {
 
-        return Try.of(() -> subjectRepository.findOne((Predicate) example))
+        return Try.of(() -> this.subjectMapper.toSubjectEntity(subject))
+                .map(subjectEntity1 -> Example.of(subjectEntity1, ExampleMatcher.matchingAll().withIgnoreCase()))
+                .map(this.subjectRepository::findOne)
                 .map(this.subjectMapper::unwrapReferenceToOption)
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
 
     @Override
-    public Either<ExaminationException, Option<Subject>> getSubjectByCoefficient(Example<?> example) {
+    public Either<ExaminationException, Collection<Subject>> getSubjectByCoefficient(String title, int coefficient) {
 
-        val subject = Subject.builder()
-                .coefficient(175)
+        val subjectEntity = SubjectEntity.builder()
+                .title(title)
+                .coefficient(coefficient)
                 .build();
 
-        val matcher = ExampleMatcher.matching().withMatcher("coefficient", exact());
-
-        return Try.of(() -> Example.of(subject, matcher))
-                .map(subjectExample -> this.subjectRepository.findOne((Predicate) example))
-                .map(this.subjectMapper::unwrapReferenceToOption)
+        return Try.of(() -> Example.of(subjectEntity, this.getSubjectMatcher()
+                        .withMatcher("title", contains())
+                        .withMatcher("coefficient", exact())))
+                .map(this.subjectRepository::findAll)
+                .map(this.subjectMapper::toSubjects)
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
 
     @Override
-    public Either<ExaminationException, Option<Subject>> getSubjectByTitleWithIgnoreCase(Example<?> example) {
+    public Either<ExaminationException, Collection<Subject>> getSubjectByTitleWithIgnoreCase(String title) {
 
-        val subject = Subject.builder().coefficient(200).title("Data").build();
-        val matcher = ExampleMatcher.matchingAll().withIgnoreCase();
+        val subjectEntity = SubjectEntity.builder()
+                .title(title)
+                .build();
 
-        return Try.of(() -> Example.of(subject, matcher))
-                .map(subjectExample -> this.subjectRepository.findOne((Predicate) example))
-                .map(this.subjectMapper::unwrapReferenceToOption)
+        return Try.of(() -> Example.of(subjectEntity, this.getSubjectMatcher()
+                        .withIgnorePaths("coefficient").withIgnoreNullValues()
+                        .withMatcher("title", contains().ignoreCase())))
+                .map(this.subjectRepository::findAll)
+                .map(this.subjectMapper::toSubjects)
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
+    }
+
+    private ExampleMatcher getSubjectMatcher() {
+        return ExampleMatcher.matchingAll()
+                .withIgnorePaths("subjectId").withIgnoreNullValues()
+                .withIgnorePaths("subjectModule").withIgnoreNullValues()
+                .withIgnorePaths("createDate").withIgnoreNullValues()
+                .withIgnorePaths("createdBy").withIgnoreNullValues()
+                .withIgnorePaths("modifiedDate").withIgnoreNullValues()
+                .withIgnorePaths("modifiedBy").withIgnoreNullValues()
+                .withIgnorePaths("examEntities").withIgnoreNullValues();
     }
 }
