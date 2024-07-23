@@ -14,7 +14,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Collection;
-import java.util.List;
 
 public interface StudentHandler {
 
@@ -70,8 +69,6 @@ public interface StudentHandler {
             }
     )
     ResponseEntity<Void> addOrUpdateStudentToExam(Integer studentId, Integer examId);
-
-
 
     ResponseEntity<Collection<Exam>> getExamsAssignedToSpecificStudent(Integer studentId);
 

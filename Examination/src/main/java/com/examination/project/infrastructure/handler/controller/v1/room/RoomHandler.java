@@ -74,5 +74,4 @@ public interface RoomHandler {
             }
     )
     ResponseEntity<Collection<Room>> fetchAllRooms();
-
 }

@@ -1,9 +1,7 @@
 package com.examination.project.infrastructure.handler.controller.v1.exam;
 
 import com.examination.project.domain.entities.Exam;
-import com.examination.project.domain.entities.Invigilator;
 import com.examination.project.domain.entities.Room;
-import com.examination.project.domain.entities.Student;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
