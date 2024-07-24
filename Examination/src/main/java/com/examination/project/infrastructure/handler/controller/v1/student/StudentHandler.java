@@ -70,7 +70,5 @@ public interface StudentHandler {
     )
     ResponseEntity<Void> addOrUpdateStudentToExam(Integer studentId, Integer examId);
 
-    ResponseEntity<Collection<Exam>> getExamsAssignedToSpecificStudent(Integer studentId);
-
     ResponseEntity<Void> deleteStudentAssignedToExam(Integer studentId, Integer examId);
 }

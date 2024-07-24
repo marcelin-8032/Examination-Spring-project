@@ -141,4 +141,13 @@ public class ExamUseCaseImpl implements ExamUseCase {
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
+
+    @Override
+    public Either<ExaminationException, Collection<Exam>> fetchExamsAssignedToSpecificStudent(Integer studentId) {
+
+        return Try.of(() -> this.examRepository.findExamsByStudentId(studentId))
+                .map(this.examMapper::toExams)
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
+    }
 }

@@ -88,7 +88,6 @@ public class ModelFactory {
                         defaultStudent().withFirstName("Maria").withClasse(Classe.classeA),
                         defaultStudent().withFirstName("Natalia").withClasse(Classe.classeC))
                 .toLinkedSet();
-
     }
 
     public static Room defaultRoom() {

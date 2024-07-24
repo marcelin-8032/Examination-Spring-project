@@ -27,8 +27,7 @@ public interface ExamHandler {
             }),
     })
     ResponseEntity<Void> createExams(List<Exam> exams);
-
-
+    
     @Tag(name = "Exam API", description = "find all exams")
     @Operation(summary = "find all exams", description = "Returns list of exams")
     @ApiResponses(value = {
@@ -52,7 +51,6 @@ public interface ExamHandler {
 
     ResponseEntity<Void> addExam(Exam exam);
 
-
     @Tag(name = "Exam API", description = "delete all exams")
     @Operation(summary = "delete all Exams", description = "Return http code 200")
     @ApiResponses(value = {
@@ -62,4 +60,6 @@ public interface ExamHandler {
             }),
     })
     ResponseEntity<Void> deleteAllExams();
+
+    ResponseEntity<Collection<Exam>> getExamsAssignedToSpecificStudent(Integer studentId);
 }

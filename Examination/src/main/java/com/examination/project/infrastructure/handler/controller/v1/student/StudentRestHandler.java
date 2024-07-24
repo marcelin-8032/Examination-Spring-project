@@ -2,7 +2,6 @@ package com.examination.project.infrastructure.handler.controller.v1.student;
 
 
 import com.examination.project.domain.entities.Classe;
-import com.examination.project.domain.entities.Exam;
 import com.examination.project.domain.entities.Student;
 import com.examination.project.domain.usecases.v1.student.StudentUseCase;
 import lombok.RequiredArgsConstructor;
@@ -56,17 +55,6 @@ public class StudentRestHandler implements StudentHandler {
             @PathVariable("examId") Integer examId) {
 
         return studentUseCase.addOrUpdateStudentToExam(examId, studentId).fold(
-                a -> ResponseEntity.badRequest().build(),
-                ResponseEntity::ok
-        );
-    }
-
-    @Override
-    @GetMapping(value = "/{studentId}/exams")
-    public ResponseEntity<Collection<Exam>> getExamsAssignedToSpecificStudent(
-            @PathVariable("studentId") Integer studentId) {
-
-        return studentUseCase.fetchExamsAssignedToSpecificStudent(studentId).fold(
                 a -> ResponseEntity.badRequest().build(),
                 ResponseEntity::ok
         );

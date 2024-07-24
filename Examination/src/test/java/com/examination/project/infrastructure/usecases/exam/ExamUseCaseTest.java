@@ -159,4 +159,18 @@ class ExamUseCaseTest extends UseCaseIntegrationTest {
         assertTrue(result.isRight());
         assertEquals(result, nothing());
     }
+
+    @Test
+    void should_fetch_exams_assigned_to_specific_student() {
+
+        //when
+        val result = this.examUseCase.fetchExamsAssignedToSpecificStudent(STUDENT_ID);
+
+        //then
+        assertAll("find exams attached to specific student",
+                () -> assertTrue(result.isRight()),
+                () -> assertFalse(result.get().isEmpty()),
+                () -> assertEquals(result.get().size(), 7)
+        );
+    }
 }

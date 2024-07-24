@@ -35,4 +35,6 @@ public interface ExamUseCase {
     Either<ExaminationException, Exam> createExam(Exam exam);
 
     Either<ExaminationException, Void> deleteAllExams();
+
+    Either<ExaminationException, Collection<Exam>> fetchExamsAssignedToSpecificStudent(Integer studentId);
 }

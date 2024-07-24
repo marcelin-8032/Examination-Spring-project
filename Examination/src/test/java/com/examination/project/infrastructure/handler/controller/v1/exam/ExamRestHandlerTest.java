@@ -7,16 +7,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import io.vavr.control.Either;
 import lombok.val;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
-import java.util.ArrayList;
 
 import static com.examination.project.utils.EntityFactory.ROOM_ID;
 import static com.examination.project.utils.ModelFactory.*;
@@ -87,11 +81,11 @@ class ExamRestHandlerTest extends IntegrationTest {
         objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<>() {
         });
 
-      //  val result = this.examRestHandlerFixture.getAllExamsByRoom().with(mockMvc,objectMapper);
+        //  val result = this.examRestHandlerFixture.getAllExamsByRoom().with(mockMvc,objectMapper);
 
-      //  verify(this.examUseCaseMocked, atLeastOnce()).getAllExamsByRoom(ROOM_ID,Pageable.ofSize(1));
+        //  verify(this.examUseCaseMocked, atLeastOnce()).getAllExamsByRoom(ROOM_ID,Pageable.ofSize(1));
         //then
-    // assertEquals(result.getResponse().getStatus(), HttpStatus.OK.value());
+        // assertEquals(result.getResponse().getStatus(), HttpStatus.OK.value());
         //assertEquals(result.getTotalElements(), 5);
     }
 
@@ -133,5 +127,19 @@ class ExamRestHandlerTest extends IntegrationTest {
         //then
         verify(examUseCaseMocked, atMostOnce()).deleteAllExams();
         assertEquals(resultActions.getResponse().getStatus(), HttpStatus.NO_CONTENT.value());
+    }
+
+    @Test
+    void should_get_Exams_Assigned_To_Specific_Student() {
+
+        //when
+        // when(this.examUseCaseMocked.createExams(anyList())).thenReturn(right(defaultExams().toJavaList()));
+//        when(this.examUseCaseMocked.fetchExamsAssignedToSpecificStudent(anyInt())).thenReturn(right(defaultExams().toJavaList()));
+//
+//       val result = this.examRestHandlerFixture.getExamsAssignedToSpecificStudent().with(mockMvc, objectMapper);
+//
+//        verify(this.examUseCaseMocked, atLeastOnce()).fetchExamsAssignedToSpecificStudent(STUDENT_ID);
+//        assertEquals(result.asJava().size(),6);
+
     }
 }

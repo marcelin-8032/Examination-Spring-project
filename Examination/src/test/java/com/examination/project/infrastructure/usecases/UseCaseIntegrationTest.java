@@ -69,8 +69,7 @@ public abstract class UseCaseIntegrationTest {
     protected StudentUseCase studentUseCase = new StudentUseCaseImpl(
             studentRepositoryMocked,
             examRepositoryMocked,
-            studentMapperMocked,
-            examMapperMocked
+            studentMapperMocked
     );
 
     protected SubjectRepository subjectRepositoryMocked = mock(SubjectRepository.class);

@@ -78,19 +78,6 @@ class StudentUseCaseTest extends UseCaseIntegrationTest {
         assertTrue(result.isRight());
     }
 
-    @Test
-    void should_fetch_exams_assigned_to_specific_student() {
-
-        //when
-        val result = this.studentUseCase.fetchExamsAssignedToSpecificStudent(STUDENT_ID);
-
-        //then
-        assertAll("find exams attached to specific student",
-                () -> assertTrue(result.isRight()),
-                () -> assertFalse(result.get().isEmpty()),
-                () -> assertEquals(result.get().size(), 7)
-        );
-    }
 
     @Test
     void should_delete_student() {

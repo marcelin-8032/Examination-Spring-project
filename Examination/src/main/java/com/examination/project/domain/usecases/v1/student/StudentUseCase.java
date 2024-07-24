@@ -19,7 +19,5 @@ public interface StudentUseCase {
 
     Either<ExaminationException, Void> addOrUpdateStudentToExam(Integer examId, Integer studentId);
 
-    Either<ExaminationException, Collection<Exam>> fetchExamsAssignedToSpecificStudent(Integer studentId);
-
     Either<ExaminationException, Void> deleteStudent(Integer examId, Integer studentId);
 }

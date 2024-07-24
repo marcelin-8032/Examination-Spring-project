@@ -53,6 +53,8 @@ public class ExamRestHandler implements ExamHandler {
         );
     }
 
+
+
     @Override
     @GetMapping(value = "examPages/{roomId}")
     public ResponseEntity<Page<Exam>> getAllExamsByRoom(@PathVariable("roomId") Integer roomId, @NotNull final Pageable pageable) {
@@ -106,6 +108,16 @@ public class ExamRestHandler implements ExamHandler {
         return examUseCase.deleteAllExams().fold(
                 a -> ResponseEntity.notFound().build(),
                 a -> ResponseEntity.status(HttpStatus.NO_CONTENT).build()
+        );
+    }
+
+    @Override
+    @GetMapping(value = "/{studentId}/exams")
+    public ResponseEntity<Collection<Exam>> getExamsAssignedToSpecificStudent(Integer studentId) {
+
+        return examUseCase.fetchExamsAssignedToSpecificStudent(studentId).fold(
+                a -> ResponseEntity.badRequest().build(),
+                ResponseEntity::ok
         );
     }
 }

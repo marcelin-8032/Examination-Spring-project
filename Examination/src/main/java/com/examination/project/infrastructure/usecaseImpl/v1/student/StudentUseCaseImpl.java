@@ -1,12 +1,10 @@
 package com.examination.project.infrastructure.usecaseImpl.v1.student;
 
 import com.examination.project.domain.entities.Classe;
-import com.examination.project.domain.entities.Exam;
 import com.examination.project.domain.entities.Student;
 import com.examination.project.domain.exception.ExaminationException;
 import com.examination.project.domain.exception.ExaminationExceptionSanitize;
 import com.examination.project.domain.usecases.v1.student.StudentUseCase;
-import com.examination.project.infrastructure.mapper.struct.ExamMapper;
 import com.examination.project.infrastructure.mapper.struct.StudentMapper;
 import com.examination.project.infrastructure.persistance.exam.repository.ExamRepository;
 import com.examination.project.infrastructure.persistance.student.repository.StudentRepository;
@@ -30,8 +28,6 @@ public class StudentUseCaseImpl implements StudentUseCase {
     private final ExamRepository examRepository;
 
     private final StudentMapper studentMapper;
-
-    private final ExamMapper examMapper;
 
     @Override
     public Either<ExaminationException, Student> createStudent(Student student) {
@@ -71,16 +67,6 @@ public class StudentUseCaseImpl implements StudentUseCase {
                     );
                     return null;
                 }))
-                .toEither()
-                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
-    }
-
-
-    @Override
-    public Either<ExaminationException, Collection<Exam>> fetchExamsAssignedToSpecificStudent(Integer studentId) {
-
-        return Try.of(() -> this.examRepository.findExamsByStudentId(studentId))
-                .map(this.examMapper::toExams)
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }

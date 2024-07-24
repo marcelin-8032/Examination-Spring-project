@@ -10,11 +10,14 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.examination.project.utils.ModelFactory.defaultStudent;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Slf4j
@@ -52,7 +55,7 @@ public class StudentRestHandlerFixture extends MockMvcUtils {
             }
         };
     }
-    
+
     public MvcBinder<List<Student>> getAllStudents() {
 
         return (mvc, objectMapper) -> {
@@ -72,5 +75,38 @@ public class StudentRestHandlerFixture extends MockMvcUtils {
                 throw new AssertionError("should not have thrown any exception", e);
             }
         };
+    }
+
+    public MvcBinder<List<Student>> getAllStudentsByClasse() {
+
+        return (mvc, objectMapper) -> {
+            try {
+
+                val resultActions = mockMvc.perform(get(STUDENT_URL + "/classe" + "/classeA")
+                        .accept(MediaType.APPLICATION_JSON)
+                ).andExpect(status().isOk());
+
+                val result = resultActions.andReturn();
+                val contentAsString = result.getResponse().getContentAsString();
+
+                return objectMapper.readValue(contentAsString, new TypeReference<List<Student>>() {
+                });
+
+            } catch (Exception e) {
+                throw new AssertionError("should not have thrown any exception", e);
+            }
+        };
+    }
+
+    public ResultActions addOrUpdateStudentToExam() {
+
+        try {
+            return mockMvc.perform(put(STUDENT_URL + "/1" + "/exams" + "/1")
+                    .accept(MediaType.APPLICATION_JSON)
+            ).andDo(print());
+
+        } catch (Exception e) {
+            throw new AssertionError("should not have thrown any exception", e);
+        }
     }
 }
