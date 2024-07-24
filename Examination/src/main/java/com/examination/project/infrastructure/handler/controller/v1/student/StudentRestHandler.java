@@ -24,7 +24,7 @@ public class StudentRestHandler implements StudentHandler {
 
         return studentUseCase.createStudent(student).fold(
                 a -> ResponseEntity.badRequest().build(),
-                student1 -> ResponseEntity.status(HttpStatus.CREATED).build()
+                student1 -> new ResponseEntity<>(student1, HttpStatus.CREATED)
         );
     }
 
