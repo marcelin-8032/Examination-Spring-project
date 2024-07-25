@@ -68,7 +68,7 @@ public class StudentRestHandler implements StudentHandler {
 
         return studentUseCase.deleteStudent(examId, studentId).fold(
                 a -> ResponseEntity.notFound().build(),
-                ResponseEntity::ok
+                a -> ResponseEntity.status(HttpStatus.NO_CONTENT).build()
         );
     }
 }

@@ -15,8 +15,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.examination.project.utils.ModelFactory.defaultStudent;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -107,6 +106,18 @@ public class StudentRestHandlerFixture extends MockMvcUtils {
 
         } catch (Exception e) {
             throw new AssertionError("should not have thrown any exception", e);
+        }
+    }
+
+    public ResultActions deleteStudentAssignedToExam() {
+
+        try {
+            return mockMvc.perform(delete(STUDENT_URL + "/1" + "/exams" + "/1"))
+                    .andExpect(status().isNoContent())
+                    .andDo(print());
+
+        } catch (Exception exception) {
+            throw new AssertionError("thrown exception", exception);
         }
     }
 }

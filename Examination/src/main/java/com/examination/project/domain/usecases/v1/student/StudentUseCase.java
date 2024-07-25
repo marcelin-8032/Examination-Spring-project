@@ -1,7 +1,6 @@
 package com.examination.project.domain.usecases.v1.student;
 
 import com.examination.project.domain.entities.Classe;
-import com.examination.project.domain.entities.Exam;
 import com.examination.project.domain.entities.Student;
 import com.examination.project.domain.exception.ExaminationException;
 import io.vavr.control.Either;

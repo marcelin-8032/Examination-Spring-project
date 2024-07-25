@@ -5,6 +5,7 @@ import com.examination.project.domain.entities.Student;
 import com.examination.project.infrastructure.handler.controller.IntegrationTest;
 import lombok.val;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.http.HttpStatus;
 
 import java.util.List;
@@ -78,10 +79,16 @@ class StudentRestHandlerTest extends IntegrationTest {
         assertEquals(result.andReturn().getResponse().getStatus(), HttpStatus.OK.value());
     }
 
-
     @Test
     void should_delete_Student_Assigned_To_Exam() {
 
+        //when
+        when(this.studentUseCaseMocked.deleteStudent(EXAM_ID, STUDENT_ID)).thenReturn(nothing());
 
+        val result = this.studentRestHandlerFixture.deleteStudentAssignedToExam();
+
+        //then
+        verify(this.studentUseCaseMocked, times(1)).deleteStudent(EXAM_ID, STUDENT_ID);
+        assertEquals(result.andReturn().getResponse().getStatus(), HttpStatus.NO_CONTENT.value());
     }
 }
