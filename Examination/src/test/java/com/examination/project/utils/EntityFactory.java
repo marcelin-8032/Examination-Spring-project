@@ -7,12 +7,10 @@ import com.examination.project.infrastructure.persistance.exam.entities.ExamEnti
 import com.examination.project.infrastructure.persistance.invigilator.entities.InvigilatorEntity;
 import com.examination.project.infrastructure.persistance.room.entities.RoomEntity;
 import com.examination.project.infrastructure.persistance.student.entities.StudentEntity;
-import com.examination.project.infrastructure.persistance.subject.entities.QSubjectEntity;
 import com.examination.project.infrastructure.persistance.subject.entities.SubjectEntity;
 import io.vavr.collection.List;
 import io.vavr.collection.Set;
 import lombok.NoArgsConstructor;
-import lombok.val;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
@@ -28,9 +26,9 @@ public class EntityFactory {
     public static final Integer STUDENT_ID = 1;
     public static final Integer SUBJECT_ID = 1;
     public static final Integer COEFFICIENT_ID = 164;
+    public static final String SUBJECT_TITLE = "Physics";
     public static final LocalDateTime LOCAL_DATE_TIME = LocalDateTime.parse("2024-07-16T17:50:50.024437100");
     public static final Integer ROOM_ID = 1;
-
 
     public static StudentEntity defaultStudentEntity() {
         return StudentEntity

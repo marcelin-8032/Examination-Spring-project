@@ -8,13 +8,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.vavr.collection.List;
 import lombok.val;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.examination.project.utils.ModelFactory.defaultSubject;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class SubjectRestHandlerFixture extends MockMvcUtils {
@@ -83,14 +81,15 @@ public class SubjectRestHandlerFixture extends MockMvcUtils {
 
         return (mvc, objectMapper) -> {
             try {
-                final ResultActions resultActions = mvc.perform(MockMvcRequestBuilders
+                val resultActions = mvc.perform(MockMvcRequestBuilders
                                 .get(SUBJECT_URL)
                                 .contentType(APPLICATION_JSON)
                                 .accept(APPLICATION_JSON))
-                        .andDo(print());
+                        .andExpect(status().isOk());
 
-                final MvcResult result = resultActions.andReturn();
-                final String contentAsString = result.getResponse().getContentAsString();
+
+                val result = resultActions.andReturn();
+                val contentAsString = result.getResponse().getContentAsString();
                 return objectMapper.readValue(contentAsString, new TypeReference<List<Subject>>() {
                 });
 
@@ -104,13 +103,125 @@ public class SubjectRestHandlerFixture extends MockMvcUtils {
 
         return (mvc, objectMapper) -> {
             try {
-                final ResultActions resultActions = mvc.perform(MockMvcRequestBuilders
+                val resultActions = mvc.perform(MockMvcRequestBuilders
                                 .get(SUBJECT_URL + "/coeff" + "/164" + "/subjectModule" + "/MODULE_2" + "/title=Chemistry")
                                 .contentType(APPLICATION_JSON)
-                                .accept(APPLICATION_JSON));
+                                .accept(APPLICATION_JSON))
+                        .andExpect(status().isOk());
 
-                final MvcResult result = resultActions.andReturn();
-                final String contentAsString = result.getResponse().getContentAsString();
+
+                val result = resultActions.andReturn();
+                val contentAsString = result.getResponse().getContentAsString();
+                return objectMapper.readValue(contentAsString, new TypeReference<List<Subject>>() {
+                });
+
+            } catch (Exception exception) {
+                throw new AssertionError("should not have thrown any exception", exception);
+            }
+        };
+    }
+
+    public static MvcBinder<List<Subject>> getSubjectByCoeffBiggerThanAndModule() {
+
+        return (mvc, objectMapper) -> {
+            try {
+                val resultActions = mvc.perform(MockMvcRequestBuilders
+                                .get(SUBJECT_URL + "/coeff" + "/164" + "/subjectModule" + "/MODULE_2")
+                                .contentType(APPLICATION_JSON)
+                                .accept(APPLICATION_JSON))
+                        .andExpect(status().isOk());
+
+
+                val result = resultActions.andReturn();
+                val contentAsString = result.getResponse().getContentAsString();
+                return objectMapper.readValue(contentAsString, new TypeReference<List<Subject>>() {
+                });
+
+            } catch (Exception exception) {
+                throw new AssertionError("should not have thrown any exception", exception);
+            }
+        };
+    }
+
+    public static MvcBinder<List<Subject>> getSubjectTitleDataAndModuleEq2() {
+
+        return (mvc, objectMapper) -> {
+            try {
+                val resultActions = mvc.perform(MockMvcRequestBuilders
+                                .get(SUBJECT_URL + "/subjectModule" + "/MODULE_3")
+                                .contentType(APPLICATION_JSON)
+                                .accept(APPLICATION_JSON))
+                        .andExpect(status().isOk());
+
+
+                val result = resultActions.andReturn();
+                val contentAsString = result.getResponse().getContentAsString();
+                return objectMapper.readValue(contentAsString, new TypeReference<List<Subject>>() {
+                });
+
+            } catch (Exception exception) {
+                throw new AssertionError("should not have thrown any exception", exception);
+            }
+        };
+    }
+
+    public static MvcBinder<Subject> getSubjectByExample() {
+
+        return (mvc, objectMapper) -> {
+            try {
+                val resultActions = mvc.perform(MockMvcRequestBuilders
+                                .get(SUBJECT_URL + "/subjectByExp")
+                                .contentType(APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(Subject.builder().build()))
+                                .accept(APPLICATION_JSON))
+                        .andExpect(status().isFound());
+
+                val result = resultActions.andReturn();
+                val contentAsString = result.getResponse().getContentAsString();
+                return objectMapper.readValue(contentAsString, Subject.class);
+
+            } catch (Exception exception) {
+                throw new AssertionError("should not have thrown any exception", exception);
+            }
+        };
+    }
+
+    public static MvcBinder<List<Subject>> getSubjectByExampleCoeffAndTitle() {
+
+        return (mvc, objectMapper) -> {
+            try {
+                val resultActions = mvc.perform(MockMvcRequestBuilders
+                                .get(SUBJECT_URL + "/subjectByExpCoeffAndTitle")
+                                .contentType(APPLICATION_JSON)
+                                .param("title", "Physics")
+                                .param("coefficient", "164")
+                                .accept(APPLICATION_JSON))
+                        .andExpect(status().isOk());
+
+                val result = resultActions.andReturn();
+                val contentAsString = result.getResponse().getContentAsString();
+                return objectMapper.readValue(contentAsString, new TypeReference<List<Subject>>() {
+                });
+
+            } catch (Exception exception) {
+                throw new AssertionError("should not have thrown any exception", exception);
+            }
+        };
+    }
+
+    public static MvcBinder<List<Subject>> getSubjectByTitleWithIgnoreCase() {
+
+        return (mvc, objectMapper) -> {
+            try {
+                val resultActions = mvc.perform(MockMvcRequestBuilders
+                                .get(SUBJECT_URL + "/subjectByExpTitleIgnoreCase")
+                                .contentType(APPLICATION_JSON)
+                                .param("title", "Physics")
+                                .accept(APPLICATION_JSON))
+                        .andExpect(status().isOk());
+
+                val result = resultActions.andReturn();
+                val contentAsString = result.getResponse().getContentAsString();
                 return objectMapper.readValue(contentAsString, new TypeReference<List<Subject>>() {
                 });
 
