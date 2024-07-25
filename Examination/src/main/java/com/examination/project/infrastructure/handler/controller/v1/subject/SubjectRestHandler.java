@@ -27,7 +27,8 @@ public class SubjectRestHandler implements SubjectHandler {
 
     @Override
     @PutMapping(value = "/update/{subjectId}")
-    public ResponseEntity<Void> updateSubjectCoefficient(@PathVariable("subjectId") Integer subjectId, int coefficient) throws Exception {
+    public ResponseEntity<Void> updateSubjectCoefficient(@PathVariable("subjectId") Integer subjectId,
+                                                         @RequestParam("coefficient") int coefficient) throws Exception {
         return subjectUseCase.updateSubjectCoefficient(subjectId, coefficient).fold(
                 a -> ResponseEntity.notFound().build(),
                 subject -> ResponseEntity.status(HttpStatus.OK).build()
