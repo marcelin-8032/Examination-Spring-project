@@ -2,17 +2,12 @@ package com.examination.project.infrastructure.handler.controller.v1.exam.fixtur
 
 import com.examination.project.domain.entities.Exam;
 import com.examination.project.infrastructure.handler.controller.utils.MvcBinder;
-import com.examination.project.utils.CustomPageImpl;
 import com.examination.project.utils.MockMvcUtils;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.vavr.collection.List;
 import lombok.val;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -24,6 +19,7 @@ import static com.examination.project.utils.ModelFactory.defaultExams;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class ExamRestHandlerFixture extends MockMvcUtils {
@@ -88,30 +84,24 @@ public class ExamRestHandlerFixture extends MockMvcUtils {
         };
     }
 
-    public MvcBinder<Page> getAllExamsByRoom() {
+    public Page<Exam> getAllExamsByRoom() {
 
-        return (mockMvc, objectMapper2) -> {
-            try {
-                val resultActions = mockMvc.perform(MockMvcRequestBuilders
-                        .get("/v1/exams" + "/examPages/" + "1")
-                        .param("page", "0")
-                        .param("size", "3")
-                        .param("sort", "room_id,desc")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                ).andDo(print());
+        try {
+            val resultActions = mockMvc.perform(MockMvcRequestBuilders.get(EXAM_URL + "/examPages/" + "/1")
+                            .param("page", "0")
+                            .param("size", "3")
+                            .accept(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON));
 
-                val result = resultActions.andReturn();
-                val contentAsString = result.getResponse().getContentAsString();
-                return objectMapper.readValue(contentAsString, new TypeReference<>() {
-                });
-
-            } catch (Exception e) {
-                throw new AssertionError("should not have thrown any exception", e);
-            }
-        };
+            val result = resultActions.andReturn();
+            val contentAsString = result.getResponse().getContentAsString();
+            return objectMapper.readValue(contentAsString, new TypeReference<>() {
+            });
+        } catch (Exception e) {
+            throw new AssertionError("should not have thrown any exception", e);
+        }
     }
-
 
     public MvcResult deleteAllExams() {
 
@@ -122,6 +112,32 @@ public class ExamRestHandlerFixture extends MockMvcUtils {
 
         } catch (Exception exception) {
             throw new AssertionError("thrown exception", exception);
+        }
+    }
+
+    public MvcBinder<List<Exam>> getExamsByDate() {
+
+        try {
+            return (mvc, objectMapper1) -> {
+                try {
+                    val resultActions = mockMvc.perform(MockMvcRequestBuilders
+                            .get(EXAM_URL + "/date/" + "2024-07-16T17:50:50.024437100")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .accept(MediaType.APPLICATION_JSON)
+                    ).andExpect(status().isOk());
+
+                    val result = resultActions.andReturn();
+                    val contentAsString = result.getResponse().getContentAsString();
+                    return objectMapper.readValue(contentAsString, new TypeReference<List<Exam>>() {
+                    });
+
+                } catch (Exception e) {
+                    throw new AssertionError("should not have thrown any exception", e);
+                }
+            };
+
+        } catch (Exception e) {
+            throw new AssertionError("should not have thrown any exception", e);
         }
     }
 
@@ -148,18 +164,6 @@ public class ExamRestHandlerFixture extends MockMvcUtils {
     }
 
 /*
-
-    public List<Exam> getExamsByDate() {
-
-        try {
-
-
-        } catch (Exception e) {
-            throw new AssertionError("should not have thrown any exception", e);
-        }
-
-
-    }
 
     public List<Exam> getExamsAtRoomAndAfterADate() {
 

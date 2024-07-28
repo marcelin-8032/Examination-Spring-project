@@ -3,23 +3,25 @@ package com.examination.project.infrastructure.handler.controller.v1.exam;
 import com.examination.project.domain.entities.Exam;
 import com.examination.project.domain.fixture.ExamFixture;
 import com.examination.project.infrastructure.handler.controller.IntegrationTest;
-import com.fasterxml.jackson.core.type.TypeReference;
+import io.vavr.collection.List;
 import io.vavr.control.Either;
 import lombok.val;
 import org.junit.jupiter.api.Test;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import java.time.LocalDateTime;
 
 import static com.examination.project.utils.EntityFactory.ROOM_ID;
-import static com.examination.project.utils.ModelFactory.*;
+import static com.examination.project.utils.ModelFactory.defaultExam;
+import static com.examination.project.utils.ModelFactory.defaultExams;
 import static io.vavr.control.Either.right;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 class ExamRestHandlerTest extends IntegrationTest {
 
@@ -65,35 +67,41 @@ class ExamRestHandlerTest extends IntegrationTest {
     }
 
     @Test
-    void should_return_all_exams_by_their_room() throws Exception {
+    void should_return_all_exams_by_their_room() {
+
+        //given
+        val exams = defaultExams().toJavaList();
+
+        val examPage = new PageImpl<>(exams, PageRequest.of(0, 3), 10);
 
         //when
-        given(this.examUseCaseMocked.getAllExamsByRoom(ROOM_ID, Pageable.ofSize(1)))
-                .willReturn(right(defaultPageExam2()));
+        when(this.examUseCaseMocked.getAllExamsByRoom(eq(ROOM_ID), any())).thenReturn(right(examPage));
 
-        val resultActions = mockMvc.perform(MockMvcRequestBuilders
-                .get("/v1/exams" + "/examPages/" + "1")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-        ).andDo(print());
+        val result = this.examRestHandlerFixture.getAllExamsByRoom();
 
-        val result = resultActions.andReturn();
-        objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<>() {
-        });
-
-        //  val result = this.examRestHandlerFixture.getAllExamsByRoom().with(mockMvc,objectMapper);
-
-        //  verify(this.examUseCaseMocked, atLeastOnce()).getAllExamsByRoom(ROOM_ID,Pageable.ofSize(1));
         //then
-        // assertEquals(result.getResponse().getStatus(), HttpStatus.OK.value());
-        //assertEquals(result.getTotalElements(), 5);
+        verify(this.examUseCaseMocked, times(1)).getAllExamsByRoom(eq(ROOM_ID), any());
+        assertEquals(result.getContent(), examPage.getContent());
+        assertEquals(result.getContent(), examPage.getContent());
+        assertEquals(result.getTotalElements(), examPage.getTotalElements());
+        assertEquals(result.getTotalPages(), examPage.getTotalPages());
     }
-
 
     @Test
     void should_get_exams_by_date() {
 
+/*        //given
+        val exams = List.of(defaultExam().withExamDate(LocalDateTime.parse("2024-07-16T17:50:50.024437100")));
 
+        //when
+        when(this.examUseCaseMocked.getExamsByDate(any())).thenReturn(right(exams.asJava()));
+
+        val result = this.examRestHandlerFixture.getExamsByDate().with(mockMvc, objectMapper);
+
+        //then
+        verify(this.examUseCaseMocked, times(1)).getExamsByDate(any());
+
+        assertEquals(result.asJava().size(), 10);*/
     }
 
     @Test
@@ -101,7 +109,6 @@ class ExamRestHandlerTest extends IntegrationTest {
 
 
     }
-
 
     @Test
     void should_get_exams_at_recent_date_at_specific_room() {
