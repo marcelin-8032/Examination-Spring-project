@@ -3,14 +3,13 @@
 
 - Java 21
 - Spring MVC
-- Spring Data
+- Spring Data (Querydsl, JpaSpecificationExecutor, QueryByExample, PagingAndSorting)
 - JPA/Hibernate
 - Lombok
 - VAVR
 - DataFaker
 - Liquidbase
 - MapStruct
-- Querydsl
 - Audit
 - OpenAPI V.3
 
