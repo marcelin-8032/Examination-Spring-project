@@ -72,6 +72,16 @@ public class ExamUseCaseImpl implements ExamUseCase {
     }
 
     @Override
+    public Either<ExaminationException, Page<Exam>> getAllExamsByRoom(Integer roomId, Pageable pageable) {
+
+        return Try.of(() -> PageRequest.of(0, 3, Sort.Direction.DESC, "room_id"))
+                .map(pageable2 -> this.examRepository.findByRoom(roomId, pageable2))
+                .map(this.examMapper::pageExamEntityToPageExamDto)
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
+    }
+
+    @Override
     public Either<ExaminationException, Collection<Exam>> getExamsByDate(LocalDateTime localDateTime) {
         return Try.of(() -> convertTo(localDateTime))
                 .map(this.examRepository::findByExamDate)
@@ -118,7 +128,7 @@ public class ExamUseCaseImpl implements ExamUseCase {
 
     @Override
     public Either<ExaminationException, Page<Exam>> getAllExamsInPages(Pageable pageable) {
-        return Try.of(() -> PageRequest.of(0, 2, Sort.Direction.ASC, "exam_id"))
+        return Try.of(() -> PageRequest.of(0, 3, Sort.Direction.ASC, "exam_id"))
                 .map(this.examRepository::findAll)
                 .map(this.examMapper::pageExamEntityToPageExamDto)
                 .toEither()
@@ -126,11 +136,10 @@ public class ExamUseCaseImpl implements ExamUseCase {
     }
 
     @Override
-    public Either<ExaminationException, Page<Exam>> getAllExamsByRoom(Integer roomId, Pageable pageable) {
+    public Either<ExaminationException, Collection<Exam>> fetchExamsAssignedToSpecificStudent(Integer studentId) {
 
-        return Try.of(() -> PageRequest.of(0, 3, Sort.Direction.DESC, "room_id"))
-                .map(pageable2 -> this.examRepository.findByRoom(roomId, pageable2))
-                .map(this.examMapper::pageExamEntityToPageExamDto)
+        return Try.of(() -> this.examRepository.findExamsByStudentId(studentId))
+                .map(this.examMapper::toExams)
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
@@ -141,15 +150,6 @@ public class ExamUseCaseImpl implements ExamUseCase {
 
         return Try.run(() -> this.jdbcTemplate.execute("delete from students_exams"))
                 .andThen(() -> this.jdbcTemplate.execute("delete from exams"))
-                .toEither()
-                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
-    }
-
-    @Override
-    public Either<ExaminationException, Collection<Exam>> fetchExamsAssignedToSpecificStudent(Integer studentId) {
-
-        return Try.of(() -> this.examRepository.findExamsByStudentId(studentId))
-                .map(this.examMapper::toExams)
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }

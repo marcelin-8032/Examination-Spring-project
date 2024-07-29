@@ -1,8 +1,10 @@
 package com.examination.project.infrastructure.handler.controller.v1.exam;
 
 import com.examination.project.domain.entities.Exam;
+import com.examination.project.domain.entities.Room;
 import com.examination.project.domain.fixture.ExamFixture;
 import com.examination.project.infrastructure.handler.controller.IntegrationTest;
+import com.examination.project.utils.EitherTools;
 import io.vavr.collection.List;
 import io.vavr.control.Either;
 import lombok.val;
@@ -14,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
+import static com.examination.project.utils.EitherTools.nothing;
 import static com.examination.project.utils.EntityFactory.ROOM_ID;
 import static com.examination.project.utils.ModelFactory.*;
 import static io.vavr.control.Either.right;
@@ -135,40 +138,72 @@ class ExamRestHandlerTest extends IntegrationTest {
     @Test
     void should_get_exams_at_recent_date_at_specific_room() {
 
+        //given
+        val exams = List.of(
+                defaultExam().withExamDate(LocalDateTime.parse("2023-07-29T14:49:41")).withRoom(defaultRoom().withRoomId(1)),
+                defaultExam().withExamDate(LocalDateTime.parse("2024-07-29T14:49:41")).withRoom(defaultRoom().withRoomId(1))
+        );
 
+        //when
+        when(this.examUseCaseMocked.getExamsAtRecentDateAtSpecificRoom(any(Room.class))).thenReturn(right(exams.asJava()));
+
+        val result = this.examRestHandlerFixture.getExamsByRoomOrderByDate().with(mockMvc, objectMapper);
+
+        //then
+        verify(this.examUseCaseMocked, times(1)).getExamsAtRecentDateAtSpecificRoom(any(Room.class));
+        assertEquals(result.asJava().size(), 2);
+        assertEquals(result, exams);
     }
 
 
     @Test
     void should_get_all_exams_in_pages() {
 
+        //given
+        val exams = defaultExams().toJavaList();
 
+        val examPage = new PageImpl<>(exams, PageRequest.of(0, 3), 10);
+
+        //when
+        when(this.examUseCaseMocked.getAllExamsInPages(any())).thenReturn(right(examPage));
+
+        val result = this.examRestHandlerFixture.getAllExamsInPages();
+
+        //then
+        verify(this.examUseCaseMocked, times(1)).getAllExamsInPages(any());
+        assertEquals(result.getContent(), examPage.getContent());
+        assertEquals(result.getContent(), examPage.getContent());
+        assertEquals(result.getTotalElements(), examPage.getTotalElements());
+        assertEquals(result.getTotalPages(), examPage.getTotalPages());
+    }
+
+    @Test
+    void should_get_Exams_Assigned_To_Specific_Student() {
+
+        //given
+        val exams = List.of(defaultExam(), defaultExam());
+
+        //when
+        when(this.examUseCaseMocked.fetchExamsAssignedToSpecificStudent(anyInt())).thenReturn(right(exams.asJava()));
+
+        val result = this.examRestHandlerFixture.getExamsAssignedToSpecificStudent().with(mockMvc, objectMapper);
+
+        //then
+        verify(this.examUseCaseMocked, times(1)).fetchExamsAssignedToSpecificStudent(anyInt());
+        assertEquals(result.asJava().size(), 2);
+        assertEquals(result, exams);
     }
 
     @Test
     void should_delete_all_exams() {
 
         //when
-        when(this.examUseCaseMocked.deleteAllExams()).thenReturn(Either.right(null));
+        when(this.examUseCaseMocked.deleteAllExams()).thenReturn(nothing());
 
         var resultActions = this.examRestHandlerFixture.deleteAllExams();
 
         //then
         verify(examUseCaseMocked, atMostOnce()).deleteAllExams();
         assertEquals(resultActions.getResponse().getStatus(), HttpStatus.NO_CONTENT.value());
-    }
-
-    @Test
-    void should_get_Exams_Assigned_To_Specific_Student() {
-
-        //when
-        // when(this.examUseCaseMocked.createExams(anyList())).thenReturn(right(defaultExams().toJavaList()));
-//        when(this.examUseCaseMocked.fetchExamsAssignedToSpecificStudent(anyInt())).thenReturn(right(defaultExams().toJavaList()));
-//
-//       val result = this.examRestHandlerFixture.getExamsAssignedToSpecificStudent().with(mockMvc, objectMapper);
-//
-//        verify(this.examUseCaseMocked, atLeastOnce()).fetchExamsAssignedToSpecificStudent(STUDENT_ID);
-//        assertEquals(result.asJava().size(),6);
-
     }
 }

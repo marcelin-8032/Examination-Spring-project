@@ -43,7 +43,7 @@ public interface ExamHandler {
 
     ResponseEntity<Collection<Exam>> getExamsAtRoomAndAfterADate(Integer roomId, LocalDateTime date);
 
-    ResponseEntity<Collection<Exam>> getExamsAtRecentDataAtSpecificRoom(Room room);
+    ResponseEntity<Collection<Exam>> getExamsByRoomOrderByDate(Room room);
 
     ResponseEntity<Page<Exam>> getAllExamsInPages(Pageable pageable);
 

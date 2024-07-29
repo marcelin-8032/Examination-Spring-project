@@ -89,10 +89,9 @@ public class ExamRestHandler implements ExamHandler {
         );
     }
 
-    //TODO
     @Override
-    @GetMapping(value = "/examsByRoom")
-    public ResponseEntity<Collection<Exam>> getExamsAtRecentDataAtSpecificRoom(@RequestBody Room room) {
+    @GetMapping(value = "/examsByRoomOrderByDate")
+    public ResponseEntity<Collection<Exam>> getExamsByRoomOrderByDate(@RequestBody Room room) {
         return examUseCase.getExamsAtRecentDateAtSpecificRoom(room).fold(
                 a -> ResponseEntity.notFound().build(),
                 ResponseEntity::ok
@@ -110,16 +109,16 @@ public class ExamRestHandler implements ExamHandler {
 
     @Override
     @GetMapping(value = "/{studentId}/exams")
-    public ResponseEntity<Collection<Exam>> getExamsAssignedToSpecificStudent(@NonNull Integer studentId) {
+    public ResponseEntity<Collection<Exam>> getExamsAssignedToSpecificStudent(
+            @PathVariable(value = "studentId") @NonNull Integer studentId) {
         return examUseCase.fetchExamsAssignedToSpecificStudent(studentId).fold(
                 a -> ResponseEntity.badRequest().build(),
                 ResponseEntity::ok
         );
     }
 
-    //upToHere
     @Override
-    @DeleteMapping("/delete-all")
+    @DeleteMapping("/deleteAll")
     public ResponseEntity<Void> deleteAllExams() {
         return examUseCase.deleteAllExams().fold(
                 a -> ResponseEntity.notFound().build(),
