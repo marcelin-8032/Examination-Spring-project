@@ -9,6 +9,7 @@ import com.examination.project.infrastructure.mapper.struct.ExamMapper;
 import com.examination.project.infrastructure.mapper.struct.RoomMapper;
 import com.examination.project.infrastructure.persistance.exam.repository.ExamRepository;
 import com.examination.project.infrastructure.persistance.room.repository.RoomRepository;
+import com.examination.project.utils.DateUtils;
 import io.vavr.control.Either;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
@@ -25,6 +26,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+
+import static com.examination.project.utils.DateUtils.toInstant.convertTo;
 
 @Service
 @Slf4j
@@ -71,10 +74,11 @@ public class ExamUseCaseImpl implements ExamUseCase {
 
     @Override
     public Either<ExaminationException, Collection<Exam>> getExamsByDate(LocalDateTime localDateTime) {
-       return Try.of(()->this.examRepository.findByExamDate(localDateTime))
-               .map(this.examMapper::toExams)
-               .toEither()
-               .mapLeft(ExaminationExceptionSanitize::sanitizeError);
+        return Try.of(() -> convertTo(localDateTime))
+                .map(this.examRepository::findByExamDate)
+                .map(this.examMapper::toExams)
+                .toEither()
+                .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }
 
     @Override
@@ -136,8 +140,8 @@ public class ExamUseCaseImpl implements ExamUseCase {
     @Transactional
     public Either<ExaminationException, Void> deleteAllExams() {
 
-        return Try.run(()-> this.jdbcTemplate.execute("delete from students_exams"))
-                .andThen(()->this.jdbcTemplate.execute("delete from exams"))
+        return Try.run(() -> this.jdbcTemplate.execute("delete from students_exams"))
+                .andThen(() -> this.jdbcTemplate.execute("delete from exams"))
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
     }

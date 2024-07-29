@@ -4,14 +4,13 @@ package com.examination.project.infrastructure.handler.controller.v1.exam;
 import com.examination.project.domain.entities.Exam;
 import com.examination.project.domain.entities.Room;
 import com.examination.project.domain.usecases.v1.exam.ExamUseCase;
-import com.examination.project.domain.validation.ExamValidation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -57,7 +56,6 @@ public class ExamRestHandler implements ExamHandler {
     }
 
 
-
     @Override
     @GetMapping(value = "examPages/{roomId}")
     public ResponseEntity<Page<Exam>> getAllExamsByRoom(@PathVariable("roomId") Integer roomId, @NotNull final Pageable pageable) {
@@ -69,8 +67,8 @@ public class ExamRestHandler implements ExamHandler {
 
     @Override
     @GetMapping(value = "/date/{date}")
-    public ResponseEntity<Collection<Exam>> getExamsByDate(@PathVariable
-                                                         //  @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    public ResponseEntity<Collection<Exam>> getExamsByDate(@PathVariable(value = "date")
+                                                           @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
                                                            LocalDateTime date) {
         return examUseCase.getExamsByDate(date).fold(
                 a -> ResponseEntity.notFound().build(),

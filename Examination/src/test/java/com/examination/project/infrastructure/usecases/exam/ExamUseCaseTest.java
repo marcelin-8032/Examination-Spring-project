@@ -83,7 +83,6 @@ class ExamUseCaseTest extends UseCaseIntegrationTest {
         );
     }
 
-
     @Test
     void should_get_exams_at_room_and_given_date() {
 

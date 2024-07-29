@@ -13,12 +13,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import static com.examination.project.utils.EntityFactory.ROOM_ID;
 import static com.examination.project.utils.ModelFactory.defaultExam;
 import static com.examination.project.utils.ModelFactory.defaultExams;
 import static io.vavr.control.Either.right;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
@@ -33,7 +36,7 @@ class ExamRestHandlerTest extends IntegrationTest {
 
         val resultActions = this.examRestHandlerFixture.addExam();
 
-        verify(examUseCaseMocked, atLeastOnce()).createExam(defaultExam());
+        verify(examUseCaseMocked, atLeastOnce()).createExam(defaultExam().withExamDate(LocalDateTime.parse("2024-07-16T17:50:50")));
         assertEquals(resultActions.andReturn().getResponse().getStatus(), HttpStatus.CREATED.value());
     }
 
@@ -90,18 +93,23 @@ class ExamRestHandlerTest extends IntegrationTest {
     @Test
     void should_get_exams_by_date() {
 
-/*        //given
-        val exams = List.of(defaultExam().withExamDate(LocalDateTime.parse("2024-07-16T17:50:50.024437100")));
+        //given
+        val exams = List.of(
+                defaultExam().withExamDate(LocalDateTime.parse("2023-07-29T14:49:41")),
+                defaultExam().withExamDate(LocalDateTime.parse("2023-07-29T14:49:41"))
+        );
 
         //when
-        when(this.examUseCaseMocked.getExamsByDate(any())).thenReturn(right(exams.asJava()));
+        when(this.examUseCaseMocked.getExamsByDate(any(LocalDateTime.class))).thenReturn(right(exams.asJava()));
 
         val result = this.examRestHandlerFixture.getExamsByDate().with(mockMvc, objectMapper);
 
         //then
         verify(this.examUseCaseMocked, times(1)).getExamsByDate(any());
 
-        assertEquals(result.asJava().size(), 10);*/
+        assertEquals(result.asJava().size(), 2);
+        assertEquals(result.asJava().stream().map(Exam::examDate).toList(),
+                Arrays.asList(LocalDateTime.parse("2023-07-29T14:49:41"), LocalDateTime.parse("2023-07-29T14:49:41")));
     }
 
     @Test

@@ -14,6 +14,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.time.LocalDateTime;
+
 import static com.examination.project.utils.ModelFactory.defaultExam;
 import static com.examination.project.utils.ModelFactory.defaultExams;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -37,10 +39,9 @@ public class ExamRestHandlerFixture extends MockMvcUtils {
     public ResultActions addExam() {
 
         try {
-
             return mockMvc.perform(post(EXAM_URL + "/add")
                             .contentType(APPLICATION_JSON)
-                            .content(objectMapper.writeValueAsString(defaultExam())))
+                            .content(objectMapper.writeValueAsString(defaultExam().withExamDate(LocalDateTime.parse("2024-07-16T17:50:50")))))
                     .andDo(print());
 
         } catch (Exception e) {
@@ -51,16 +52,13 @@ public class ExamRestHandlerFixture extends MockMvcUtils {
     public ResultActions addListExams() {
 
         try {
-
             return mockMvc.perform(post(EXAM_URL + "/addExams")
                             .contentType(APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(defaultExams())))
                     .andDo(print());
-
         } catch (Exception e) {
             throw new AssertionError("should not have thrown any exception", e);
         }
-
     }
 
     public MvcBinder<List<Exam>> getAllExams() {
@@ -103,25 +101,13 @@ public class ExamRestHandlerFixture extends MockMvcUtils {
         }
     }
 
-    public MvcResult deleteAllExams() {
-
-        try {
-            return mockMvc.perform(delete(EXAM_URL + "/delete-all"))
-                    .andExpect(status().isNoContent())
-                    .andDo(print()).andReturn();
-
-        } catch (Exception exception) {
-            throw new AssertionError("thrown exception", exception);
-        }
-    }
-
     public MvcBinder<List<Exam>> getExamsByDate() {
 
         try {
             return (mvc, objectMapper1) -> {
                 try {
                     val resultActions = mockMvc.perform(MockMvcRequestBuilders
-                            .get(EXAM_URL + "/date/" + "2024-07-16T17:50:50.024437100")
+                            .get(EXAM_URL + "/date/" + "2023-07-29T14:49:41")
                             .contentType(MediaType.APPLICATION_JSON)
                             .accept(MediaType.APPLICATION_JSON)
                     ).andExpect(status().isOk());
@@ -135,9 +121,20 @@ public class ExamRestHandlerFixture extends MockMvcUtils {
                     throw new AssertionError("should not have thrown any exception", e);
                 }
             };
-
         } catch (Exception e) {
             throw new AssertionError("should not have thrown any exception", e);
+        }
+    }
+
+    public MvcResult deleteAllExams() {
+
+        try {
+            return mockMvc.perform(delete(EXAM_URL + "/delete-all"))
+                    .andExpect(status().isNoContent())
+                    .andReturn();
+
+        } catch (Exception exception) {
+            throw new AssertionError("thrown exception", exception);
         }
     }
 

@@ -10,13 +10,14 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
 public interface ExamRepository extends JpaRepository<ExamEntity, Integer>,
         JpaSpecificationExecutor<ExamEntity> {
 
-    Collection<ExamEntity> findByExamDate(LocalDateTime examDate);
+    Collection<ExamEntity> findByExamDate(Instant instant);
 
     Collection<ExamEntity> findByRoomAndExamDateGreaterThan(RoomEntity room, LocalDateTime examDate);
 
