@@ -7,21 +7,17 @@ import io.vavr.collection.List;
 import io.vavr.control.Either;
 import lombok.val;
 import org.junit.jupiter.api.Test;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 import static com.examination.project.utils.EntityFactory.ROOM_ID;
-import static com.examination.project.utils.ModelFactory.defaultExam;
-import static com.examination.project.utils.ModelFactory.defaultExams;
+import static com.examination.project.utils.ModelFactory.*;
 import static io.vavr.control.Either.right;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
@@ -115,7 +111,25 @@ class ExamRestHandlerTest extends IntegrationTest {
     @Test
     void should_get_exams_at_room_and_after_date() {
 
+        //given
+        val exams = List.of(
+                defaultExam().withExamDate(LocalDateTime.parse("2023-07-29T14:49:41")).withRoom(defaultRoom().withRoomId(1)),
+                defaultExam().withExamDate(LocalDateTime.parse("2023-07-29T14:49:41")).withRoom(defaultRoom().withRoomId(1))
+        );
 
+        //when
+        when(this.examUseCaseMocked.getExamsAtRoomAndAfterADate(eq(ROOM_ID), any(LocalDateTime.class)))
+                .thenReturn(right(exams.asJava()));
+
+        val result = this.examRestHandlerFixture.getExamsAtRoomAndAfterADate().with(mockMvc, objectMapper);
+
+        //then
+        verify(this.examUseCaseMocked, times(1)).getExamsAtRoomAndAfterADate(eq(ROOM_ID), any(LocalDateTime.class));
+        assertEquals(result.asJava().size(), 2);
+        assertEquals(result.asJava().stream().map(Exam::examDate).toList(),
+                Arrays.asList(LocalDateTime.parse("2023-07-29T14:49:41"), LocalDateTime.parse("2023-07-29T14:49:41")));
+        assertEquals(result.asJava().stream().map(Exam::room).toList(),
+                Arrays.asList(defaultRoom(), defaultRoom()));
     }
 
     @Test

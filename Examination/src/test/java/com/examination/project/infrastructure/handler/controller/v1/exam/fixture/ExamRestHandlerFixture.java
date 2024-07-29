@@ -126,17 +126,31 @@ public class ExamRestHandlerFixture extends MockMvcUtils {
         }
     }
 
-    public MvcResult deleteAllExams() {
+    public MvcBinder<List<Exam>> getExamsAtRoomAndAfterADate() {
 
         try {
-            return mockMvc.perform(delete(EXAM_URL + "/delete-all"))
-                    .andExpect(status().isNoContent())
-                    .andReturn();
+            return (mvc, objectMapper1) -> {
+                try {
+                    val resultActions = mockMvc.perform(MockMvcRequestBuilders
+                                    .get(EXAM_URL + "/roomAndAfterDate/roomId/1/date/2023-07-29T14:49:41")
+                                    .contentType(MediaType.APPLICATION_JSON)
+                                    .accept(MediaType.APPLICATION_JSON))
+                            .andExpect(status().isOk());
 
-        } catch (Exception exception) {
-            throw new AssertionError("thrown exception", exception);
+                    val result = resultActions.andReturn();
+                    val contentAsString = result.getResponse().getContentAsString();
+                    return objectMapper.readValue(contentAsString, new TypeReference<List<Exam>>() {
+                    });
+
+                } catch (Exception e) {
+                    throw new AssertionError("should not have thrown any exception", e);
+                }
+            };
+        } catch (Exception e) {
+            throw new AssertionError("should not have thrown any exception", e);
         }
     }
+
 
     public MvcBinder<List<Exam>> getExamsAssignedToSpecificStudent() {
 
@@ -160,41 +174,36 @@ public class ExamRestHandlerFixture extends MockMvcUtils {
         };
     }
 
-/*
+//    public List<Exam>  getExamsAtRecentDataAtSpecificRoom(){
+//
+//        try {
+//
+//
+//        } catch (Exception e) {
+//            throw new AssertionError("should not have thrown any exception", e);
+//        }
+//
+//    }
+//
+//    public Page<Exam> getAllExamsInPages() {
+//
+//        try {
+//
+//
+//        } catch (Exception e) {
+//            throw new AssertionError("should not have thrown any exception", e);
+//        }
+//    }
 
-    public List<Exam> getExamsAtRoomAndAfterADate() {
-
-        try {
-
-
-        } catch (Exception e) {
-            throw new AssertionError("should not have thrown any exception", e);
-        }
-
-
-    }
-
-    public List<Exam>  getExamsAtRecentDataAtSpecificRoom(){
-
-        try {
-
-
-        } catch (Exception e) {
-            throw new AssertionError("should not have thrown any exception", e);
-        }
-
-    }
-
-    public Page<Exam> getAllExamsInPages() {
+    public MvcResult deleteAllExams() {
 
         try {
+            return mockMvc.perform(delete(EXAM_URL + "/delete-all"))
+                    .andExpect(status().isNoContent())
+                    .andReturn();
 
-
-        } catch (Exception e) {
-            throw new AssertionError("should not have thrown any exception", e);
+        } catch (Exception exception) {
+            throw new AssertionError("should not have thrown any exception", exception);
         }
-
     }
-*/
-
 }

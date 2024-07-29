@@ -19,7 +19,7 @@ public interface ExamRepository extends JpaRepository<ExamEntity, Integer>,
 
     Collection<ExamEntity> findByExamDate(Instant instant);
 
-    Collection<ExamEntity> findByRoomAndExamDateGreaterThan(RoomEntity room, LocalDateTime examDate);
+    Collection<ExamEntity> findByRoomAndExamDateGreaterThan(RoomEntity room, Instant instant);
 
     Collection<ExamEntity> findByRoomOrderByExamDateDesc(RoomEntity room);
 

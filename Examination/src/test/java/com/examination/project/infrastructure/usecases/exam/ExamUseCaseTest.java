@@ -94,12 +94,11 @@ class ExamUseCaseTest extends UseCaseIntegrationTest {
         assertEquals(result.get().size(), 7);
     }
 
-
     @Test
     void get_exams_at_room_and_after_a_date() {
 
         //when
-        val result = this.examUseCase.getExamsAtRoomAndAfterADate(defaultRoom(), LOCAL_DATE_TIME);
+        val result = this.examUseCase.getExamsAtRoomAndAfterADate(ROOM_ID, LOCAL_DATE_TIME);
 
         //then
         assertTrue(result.isRight());

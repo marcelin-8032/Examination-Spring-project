@@ -24,7 +24,7 @@ public interface ExamUseCase {
 
     Either<ExaminationException, Collection<Exam>> getExamsAtRoomAndGivenDate(Option<Room> room, LocalDateTime localDateTime);
 
-    Either<ExaminationException, Collection<Exam>> getExamsAtRoomAndAfterADate(Room room, LocalDateTime localDateTime);
+    Either<ExaminationException, Collection<Exam>> getExamsAtRoomAndAfterADate(Integer roomId, LocalDateTime localDateTime);
 
     Either<ExaminationException, Collection<Exam>> getExamsAtRecentDateAtSpecificRoom(Room room);
 

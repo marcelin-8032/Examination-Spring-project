@@ -4,6 +4,7 @@ package com.examination.project.infrastructure.handler.controller.v1.exam;
 import com.examination.project.domain.entities.Exam;
 import com.examination.project.domain.entities.Room;
 import com.examination.project.domain.usecases.v1.exam.ExamUseCase;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -77,14 +78,18 @@ public class ExamRestHandler implements ExamHandler {
     }
 
     @Override
-    @GetMapping(value = "/room")
-    public ResponseEntity<Collection<Exam>> getExamsAtRoomAndAfterADate(@RequestBody Room room, LocalDateTime date) {
-        return examUseCase.getExamsAtRoomAndAfterADate(room, date).fold(
+    @GetMapping(value = "/roomAndAfterDate/roomId/{roomId}/date/{date}")
+    public ResponseEntity<Collection<Exam>> getExamsAtRoomAndAfterADate(@PathVariable @NonNull Integer roomId,
+                                                                        @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+                                                                        @PathVariable("date")
+                                                                        LocalDateTime date) {
+        return examUseCase.getExamsAtRoomAndAfterADate(roomId, date).fold(
                 a -> ResponseEntity.notFound().build(),
                 ResponseEntity::ok
         );
     }
 
+    //TODO
     @Override
     @GetMapping(value = "/examsByRoom")
     public ResponseEntity<Collection<Exam>> getExamsAtRecentDataAtSpecificRoom(@RequestBody Room room) {
@@ -96,7 +101,7 @@ public class ExamRestHandler implements ExamHandler {
 
     @Override
     @GetMapping("/examPages")
-    public ResponseEntity<Page<Exam>> getAllExamsInPages(@NotNull final Pageable pageable) {
+    public ResponseEntity<Page<Exam>> getAllExamsInPages(Pageable pageable) {
         return examUseCase.getAllExamsInPages(pageable).fold(
                 a -> ResponseEntity.notFound().build(),
                 ResponseEntity::ok
@@ -104,21 +109,21 @@ public class ExamRestHandler implements ExamHandler {
     }
 
     @Override
+    @GetMapping(value = "/{studentId}/exams")
+    public ResponseEntity<Collection<Exam>> getExamsAssignedToSpecificStudent(@NonNull Integer studentId) {
+        return examUseCase.fetchExamsAssignedToSpecificStudent(studentId).fold(
+                a -> ResponseEntity.badRequest().build(),
+                ResponseEntity::ok
+        );
+    }
+
+    //upToHere
+    @Override
     @DeleteMapping("/delete-all")
     public ResponseEntity<Void> deleteAllExams() {
         return examUseCase.deleteAllExams().fold(
                 a -> ResponseEntity.notFound().build(),
                 a -> ResponseEntity.status(HttpStatus.NO_CONTENT).build()
-        );
-    }
-
-    @Override
-    @GetMapping(value = "/{studentId}/exams")
-    public ResponseEntity<Collection<Exam>> getExamsAssignedToSpecificStudent(Integer studentId) {
-
-        return examUseCase.fetchExamsAssignedToSpecificStudent(studentId).fold(
-                a -> ResponseEntity.badRequest().build(),
-                ResponseEntity::ok
         );
     }
 }

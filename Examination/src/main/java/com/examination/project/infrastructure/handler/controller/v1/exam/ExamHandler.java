@@ -41,7 +41,7 @@ public interface ExamHandler {
 
     ResponseEntity<Collection<Exam>> getExamsByDate(LocalDateTime date);
 
-    ResponseEntity<Collection<Exam>> getExamsAtRoomAndAfterADate(Room room, LocalDateTime date);
+    ResponseEntity<Collection<Exam>> getExamsAtRoomAndAfterADate(Integer roomId, LocalDateTime date);
 
     ResponseEntity<Collection<Exam>> getExamsAtRecentDataAtSpecificRoom(Room room);
 
@@ -50,6 +50,8 @@ public interface ExamHandler {
     ResponseEntity<Page<Exam>> getAllExamsByRoom(Integer roomId, Pageable pageable);
 
     ResponseEntity<Void> addExam(Exam exam);
+
+    ResponseEntity<Collection<Exam>> getExamsAssignedToSpecificStudent(Integer studentId);
 
     @Tag(name = "Exam API", description = "delete all exams")
     @Operation(summary = "delete all Exams", description = "Return http code 200")
@@ -60,6 +62,4 @@ public interface ExamHandler {
             }),
     })
     ResponseEntity<Void> deleteAllExams();
-
-    ResponseEntity<Collection<Exam>> getExamsAssignedToSpecificStudent(Integer studentId);
 }

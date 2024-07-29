@@ -9,7 +9,6 @@ import com.examination.project.infrastructure.mapper.struct.ExamMapper;
 import com.examination.project.infrastructure.mapper.struct.RoomMapper;
 import com.examination.project.infrastructure.persistance.exam.repository.ExamRepository;
 import com.examination.project.infrastructure.persistance.room.repository.RoomRepository;
-import com.examination.project.utils.DateUtils;
 import io.vavr.control.Either;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
@@ -94,14 +93,14 @@ public class ExamUseCaseImpl implements ExamUseCase {
     }
 
     @Override
-    public Either<ExaminationException, Collection<Exam>> getExamsAtRoomAndAfterADate(Room room, LocalDateTime localDateTime) {
-        return Try.of(() -> this.roomRepository.findById(room.roomId()))
+    public Either<ExaminationException, Collection<Exam>> getExamsAtRoomAndAfterADate(Integer roomId, LocalDateTime localDateTime) {
+        return Try.of(() -> this.roomRepository.findById(roomId))
                 .map(roomEntity -> {
                     this.roomMapper.unwrapReferenceRoom(roomEntity);
                     return roomEntity.map(entity ->
-                                    this.examRepository.findByRoomAndExamDateGreaterThan(entity, localDateTime))
-                            .orElse(null);
-                }).onFailure(cause -> log.error("there is a problem in getting exams at Given Room and after a Date"))
+                                    this.examRepository.findByRoomAndExamDateGreaterThan(entity, convertTo(localDateTime)))
+                            .orElseThrow();
+                }).onFailure(cause -> log.error("there is a problem in getting exams at Given Room and after Date: {}" + localDateTime))
                 .map(this.examMapper::toExams)
                 .toEither()
                 .mapLeft(ExaminationExceptionSanitize::sanitizeError);
