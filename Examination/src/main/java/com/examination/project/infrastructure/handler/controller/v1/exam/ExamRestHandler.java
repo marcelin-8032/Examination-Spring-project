@@ -4,14 +4,17 @@ package com.examination.project.infrastructure.handler.controller.v1.exam;
 import com.examination.project.domain.entities.Exam;
 import com.examination.project.domain.entities.Room;
 import com.examination.project.domain.usecases.v1.exam.ExamUseCase;
+import com.examination.project.domain.validation.ExamValidation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -27,7 +30,7 @@ public class ExamRestHandler implements ExamHandler {
 
     @Override
     @PostMapping(value = "/add")
-    public ResponseEntity<Void> addExam(@RequestBody Exam exam) {
+    public ResponseEntity<Void> addExam(@RequestBody @Valid Exam exam) {
         return examUseCase.createExam(exam).fold(
                 a -> ResponseEntity.badRequest().build(),
                 exam1 -> ResponseEntity.status(HttpStatus.CREATED).build()

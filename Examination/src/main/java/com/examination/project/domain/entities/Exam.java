@@ -1,5 +1,6 @@
 package com.examination.project.domain.entities;
 
+import com.examination.project.domain.validation.ExamValidation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.With;
@@ -12,6 +13,7 @@ import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 
 @Builder
 @With
+@ExamValidation
 public record Exam(
         @Schema(name = "examId", requiredMode = NOT_REQUIRED)
         Integer examId,
