@@ -516,7 +516,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8090/v1/exams/delete-all",
+							"raw": "http://localhost:8090/v1/exams/deleteAll",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -525,7 +525,7 @@
 							"path": [
 								"v1",
 								"exams",
-								"delete-all"
+								"deleteAll"
 							]
 						}
 					},
@@ -536,6 +536,91 @@
 					"request": {
 						"method": "GET",
 						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "getExamsAtRoomAndAfterADate",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"roomId\": 1180,\r\n    \"number\": 442220,\r\n    \"building\": \"1254\",\r\n    \"department\": \"Science\",\r\n    \"floor\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/v1/exams/roomAndAfterDate/2024-07-29T12:49:41",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"v1",
+								"exams",
+								"roomAndAfterDate",
+								"2024-07-29T12:49:41"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getExamsByRoomOrderByDate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/v1/exams/examsByRoomOrderByDate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"v1",
+								"exams",
+								"examsByRoomOrderByDate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllExamsInPages",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "getExamsAssignedToSpecificStudent",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/v1/exams/800/exams",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"v1",
+								"exams",
+								"800",
+								"exams"
+							]
+						}
 					},
 					"response": []
 				}
@@ -611,7 +696,31 @@
 					"response": []
 				},
 				{
-					"name": "getSubjectByCoeffBiggerThan",
+					"name": "getSubjectByCoeffBiggerThanAndTitleEqualChemistryAndModule",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/v1/subjects/coeff/166/subjectModule/MODULE_2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"v1",
+								"subjects",
+								"coeff",
+								"166",
+								"subjectModule",
+								"MODULE_2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSubjectByCoeffBiggerThanAndModule",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -638,12 +747,12 @@
 					"response": []
 				},
 				{
-					"name": "getSubjectByCoeffBiggerThanAndTitleEqualDataAndModule",
+					"name": "getSubjectTitleEqDataModuleEq2",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8090/v1/subjects/coeff/166/subjectModule/MODULE_2",
+							"raw": "http://localhost:8090/v1/subjects/coeff/100/subjectModule/MODULE_3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -653,9 +762,69 @@
 								"v1",
 								"subjects",
 								"coeff",
-								"166",
+								"100",
 								"subjectModule",
-								"MODULE_2"
+								"MODULE_3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSubjectByExample",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "getSubjectByTitleAndCoefficient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/v1/subjects/subjectByExpCoeffAndTitle?title=Chemistry&coefficient=165",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"v1",
+								"subjects",
+								"subjectByExpCoeffAndTitle"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "Chemistry"
+								},
+								{
+									"key": "coefficient",
+									"value": "165"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSubjectByTitleWithIgnoreCase",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/v1/subjects/subjectByExpIgnoreCase",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"v1",
+								"subjects",
+								"subjectByExpIgnoreCase"
 							]
 						}
 					},
