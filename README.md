@@ -17,3 +17,5 @@
  - docker pull marcelin8032/examination
 
 The OpenAPI URL is: http://localhost:8090/swagger-ui/index.html#/
+
+![alt text](http://url/to/img.png)
