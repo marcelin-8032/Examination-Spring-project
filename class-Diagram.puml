@@ -1,0 +1,12 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+Student "many" *--* "many" Exam
+
+Invigilator "1" *-- "many" Exam
+
+Room "1" *-- "many" Exam
+
+Subject "1" *-- "many" Exam
+
+@enduml
