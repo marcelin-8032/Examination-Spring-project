@@ -18,7 +18,5 @@ public class SpringSecurityAuditorAware implements AuditorAware<String> {
 		return Optional.ofNullable(SecurityContextHolder.getContext())
 				.map(SecurityContext::getAuthentication)
 				.map(Authentication::getName);
-
 	}
-
 }

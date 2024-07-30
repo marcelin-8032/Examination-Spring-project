@@ -13,10 +13,10 @@ import org.springframework.http.ResponseEntity;
 import java.util.Collection;
 import java.util.List;
 
+@Tag(name = " Rooms API", description = "Management APIs for Room")
 public interface RoomHandler {
 
-    @Tag(name = " Rooms API", description = "adding room")
-    @Operation(summary = "add room", description = "Returns a room")
+    @Operation(summary = "add room", description = "Return nothing")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation", content = {
                     @Content(mediaType = "application/json",
@@ -25,10 +25,7 @@ public interface RoomHandler {
     })
     ResponseEntity<Void> createARoom(Room room);
 
-    @Tag(name = " Rooms API", description = "update room with number")
-    @Operation(
-            summary = "Update rooms by salle Id",
-            description = "Update the room",
+    @Operation(summary = "Update room number by roomId ", description = "Return nothing",
             responses = {
                     @ApiResponse(responseCode = "200", description = "successful operation", content = {
                             @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Room.class)))
@@ -38,10 +35,7 @@ public interface RoomHandler {
     )
     ResponseEntity<Void> updateRoomNumber(Integer roomId, int number) throws Exception;
 
-    @Tag(name = " Rooms API", description = "add two rooms")
-    @Operation(
-            summary = "add two rooms",
-            description = "add two rooms",
+    @Operation(summary = "add two rooms", description = "Return nothing",
             responses = {
                     @ApiResponse(responseCode = "200", description = "successful operation", content = {
                             @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Room.class)))
@@ -50,11 +44,7 @@ public interface RoomHandler {
     )
     ResponseEntity<Void> addSeveralRooms(List<Room> rooms);
 
-
-    @Tag(name = " Rooms API", description = "delete all rooms")
-    @Operation(
-            summary = "Delete all rooms",
-            description = "Delete all rooms",
+    @Operation(summary = "Delete all rooms", description = "Return nothing",
             responses = {
                     @ApiResponse(responseCode = "200", description = "successful operation", content = {
                             @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Room.class)))
@@ -63,10 +53,7 @@ public interface RoomHandler {
     )
     ResponseEntity<Void> deleteAllRooms();
 
-    @Tag(name = " Rooms API", description = "fetch all rooms")
-    @Operation(
-            summary = "fetch all rooms",
-            description = "fetch all rooms",
+    @Operation(summary = "fetch all rooms", description = "Return list of rooms",
             responses = {
                     @ApiResponse(responseCode = "200", description = "successful operation", content = {
                             @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Room.class)))

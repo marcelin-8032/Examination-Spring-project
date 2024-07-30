@@ -42,5 +42,4 @@ public class OpenApiConfig {
                 .pathsToMatch("/v2/**")
                 .build();
     }
-
 }

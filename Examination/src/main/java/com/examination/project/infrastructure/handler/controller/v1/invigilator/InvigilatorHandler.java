@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.Collection;
 
 
+@Tag(name = " Invigilator API", description = "Management APIs for Invigilator")
 public interface InvigilatorHandler {
 
-    @Tag(name = " Invigilator API", description = "adding an Invigilator")
-    @Operation(summary = "add Invigilator", description = "Returns an Invigilator")
+    @Operation(summary = "add Invigilator", description = "Return nothing")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation", content = {
                     @Content(mediaType = "application/json",
@@ -27,9 +27,7 @@ public interface InvigilatorHandler {
     })
     ResponseEntity<Void> createAnInvigilator(@RequestBody Invigilator invigilator);
 
-
-    @Tag(name = " Invigilator API", description = "find all Invigilators")
-    @Operation(summary = "find all Invigilator", description = "Returns list of Invigilator")
+    @Operation(summary = "find all Invigilator", description = "Return list of Invigilator")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation", content = {
                     @Content(mediaType = "application/json",
@@ -39,26 +37,21 @@ public interface InvigilatorHandler {
     })
     ResponseEntity<Collection<Invigilator>> getAllInvigilators();
 
-    @Tag(name = " Invigilator API", description = "delete Invigilator by Id")
-    @Operation(summary = "delete Invigilator by Id", description = "delete Invigilator by Id")
+    @Operation(summary = "delete Invigilator by Id", description = "Return nothing")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation", content = {
                     @Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = Invigilator.class)))
             }),
-            @ApiResponse(responseCode = "404", description = "Not Found Invigilator")
     })
     ResponseEntity<Void> deleteInvigilatorById(Integer integer);
 
-
-    @Tag(name = " Invigilator API", description = "delete Invigilators")
-    @Operation(summary = "delete Invigilators", description = "delete Invigilators")
+    @Operation(summary = "delete Invigilators", description = "Return nothing")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation", content = {
                     @Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = Invigilator.class)))
             }),
-            @ApiResponse(responseCode = "404", description = "Not Found Invigilator")
     })
     ResponseEntity<Void> deleteAllInvigilators();
 }

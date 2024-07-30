@@ -1,7 +1,6 @@
 package com.examination.project.infrastructure.handler.controller.v1.student;
 
 import com.examination.project.domain.entities.Classe;
-import com.examination.project.domain.entities.Exam;
 import com.examination.project.domain.entities.Student;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -15,39 +14,28 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.Collection;
 
+@Tag(name = " Students API", description = "Management APIs for Student ")
 public interface StudentHandler {
 
-    @Tag(name = " Students API", description = "adding student ")
-    @Operation(summary = "add student", description = "Returns a student")
+    @Operation(summary = "add student", description = "Return student")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Student.class))
             }),
     })
-    ResponseEntity<Student> createStudent(
-            @Parameter(name = "student", description = "adding a student to DB")
-            Student student);
+    ResponseEntity<Student> createStudent(@Parameter(name = "student", description = "adding a student to DB") Student student);
 
-
-    @Tag(name = " Students API", description = "retrieves all students ")
-    @Operation(
-            summary = "Finds all students",
-            description = "All student can be found",
+    @Operation(summary = "find all students", description = "Return all students",
             responses = {
                     @ApiResponse(responseCode = "200", description = "successful operation", content = {
                             @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Student.class)))
                     }),
-                    @ApiResponse(responseCode = "400", description = "Invalid status value")
             }
     )
     ResponseEntity<Collection<Student>> getAllStudents();
 
-
-    @Tag(name = " Students API", description = "retrieves students by Classe ")
-    @Operation(
-            summary = "Finds Students by classe",
-            description = "All student can be retrieved by thier classe",
+    @Operation(summary = "finds Students by their Classe", description = "Return all students",
             responses = {
                     @ApiResponse(responseCode = "200", description = "successful operation", content = {
                             @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Student.class)))
@@ -57,18 +45,21 @@ public interface StudentHandler {
     )
     ResponseEntity<Collection<Student>> getStudentByClass(Classe classe);
 
-    @Tag(name = " Students API", description = "add or update a student to an exam")
-    @Operation(
-            summary = "add or update a student to an exam",
-            description = "add or update a student to an exam",
+    @Operation(summary = "add or update a student to an exam", description = "Return nothing",
             responses = {
                     @ApiResponse(responseCode = "200", description = "successful operation", content = {
                             @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Student.class)))
                     }),
-                    @ApiResponse(responseCode = "400", description = "Invalid class value")
             }
     )
     ResponseEntity<Void> addOrUpdateStudentToExam(Integer studentId, Integer examId);
 
+    @Operation(summary = "delete student assigned to exam", description = "Return nothing",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "successful operation", content = {
+                            @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Student.class)))
+                    }),
+            }
+    )
     ResponseEntity<Void> deleteStudentAssignedToExam(Integer studentId, Integer examId);
 }
