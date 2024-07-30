@@ -18,4 +18,6 @@
 
 The OpenAPI URL is: http://localhost:8090/swagger-ui/index.html#/
 
-![alt text](http://url/to/img.png)
+Here is the data model of the examination project: 
+
+![alt text](https://github.com/marcelin-8032/Examination-Spring-project/blob/master/class-Diagram.png)
