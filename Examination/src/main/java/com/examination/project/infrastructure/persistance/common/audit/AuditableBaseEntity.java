@@ -2,9 +2,7 @@ package com.examination.project.infrastructure.persistance.common.audit;
 
 import org.springframework.data.domain.Auditable;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Optional;
 

@@ -1,10 +1,11 @@
 package com.examination.project.domain.validation;
 
 import com.examination.project.domain.entities.Exam;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 import lombok.val;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

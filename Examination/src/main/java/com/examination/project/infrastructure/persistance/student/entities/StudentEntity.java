@@ -4,7 +4,7 @@ import com.examination.project.domain.entities.Classe;
 import com.examination.project.infrastructure.persistance.exam.entities.ExamEntity;
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;

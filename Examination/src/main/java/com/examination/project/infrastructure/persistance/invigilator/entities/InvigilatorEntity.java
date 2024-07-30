@@ -3,7 +3,7 @@ package com.examination.project.infrastructure.persistance.invigilator.entities;
 import com.examination.project.infrastructure.persistance.exam.entities.ExamEntity;
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
