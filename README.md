@@ -24,7 +24,7 @@
 
 ![alt text](https://github.com/marcelin-8032/Examination-Spring-project/blob/master/class-Diagram.png)
 
-* DB is available both for Postgresql and H2
+* Database is created both for Postgresql or H2
 * How to run
   * mvn clean install
   * mvn spring-boot:run
