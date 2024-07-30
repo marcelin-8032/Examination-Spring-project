@@ -2,22 +2,29 @@
 ## I use these libraries:
 
 - Java 21
-- Spring MVC
-- Spring Data (Querydsl, JpaSpecificationExecutor, QueryByExample, PagingAndSorting)
+- Spring boot 3.3.2
+   - Spring MVC
+   - Spring Data (Querydsl, JpaSpecificationExecutor, QueryByExample, PagingAndSorting)
+   - Spring Security for Audit
 - JPA/Hibernate
 - Lombok
-- VAVR
+- Vavr
 - DataFaker
 - Liquidbase
 - MapStruct
-- Audit
 - OpenAPI V.3
+- JUnit 5
+  - Mockito 
+* The CI/CD is being done by Github Actions, a docker image is sent to my docker hub public repository, you can pull the image by this command: 
+  * docker pull marcelin8032/examination
 
- The CI/CD is being done by Github Actions, a docker image is sent to my docker hub public repository, you can pull the image by this command: 
- - docker pull marcelin8032/examination
+* The OpenAPI URL is: http://localhost:8090/swagger-ui/index.html#/
 
-The OpenAPI URL is: http://localhost:8090/swagger-ui/index.html#/
-
-Here is the data model of the examination project: 
+* The data model of the examination project: 
 
 ![alt text](https://github.com/marcelin-8032/Examination-Spring-project/blob/master/class-Diagram.png)
+
+* DB is available both for Postgresql and H2
+* How to run
+  * mvn clean install
+  * mvn spring-boot:run
