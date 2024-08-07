@@ -1,6 +1,4 @@
-package com.examination.project.infrastructure.configuration;
-
-import java.util.Optional;
+package com.examination.project.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
@@ -9,14 +7,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.util.Optional;
+
 @Configuration
 @EnableJpaAuditing
-public class SpringSecurityAuditorAware implements AuditorAware<String> {
+public class SecurityAuditorAware implements AuditorAware<String> {
 
-	@Override
-	public Optional<String> getCurrentAuditor() {
-		return Optional.ofNullable(SecurityContextHolder.getContext())
-				.map(SecurityContext::getAuthentication)
-				.map(Authentication::getName);
-	}
+    @Override
+    public Optional<String> getCurrentAuditor() {
+        return Optional.ofNullable(SecurityContextHolder.getContext())
+                .map(SecurityContext::getAuthentication)
+                .map(Authentication::getName);
+    }
 }
